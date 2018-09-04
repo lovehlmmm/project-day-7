@@ -5,21 +5,17 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Entities;
+using Helpers;
 using Services;
 
 namespace WEB.Controllers
 {
     public class HomeController : Controller
     {
-        private IBaseService<User> _baseService;
-
-        public HomeController(IBaseService<User> baseService)
+        public ActionResult Index()
         {
-            _baseService = baseService;
-        }
-        public async Task<ActionResult> Index()
-        {
-            ViewBag.Title = "";
+            HashingData data = new HashingData(8);
+            ViewBag.Title = data.EncryptString("123456","team6").ToString();
             return View();
         }
     }

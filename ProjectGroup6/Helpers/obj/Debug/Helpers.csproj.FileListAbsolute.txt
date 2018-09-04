@@ -1,6 +1,0 @@
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Helpers\obj\Debug\Helpers.csprojAssemblyReference.cache
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Helpers\obj\Debug\Helpers.csproj.CoreCompileInputs.cache
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Helpers\bin\Debug\Helpers.dll
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Helpers\bin\Debug\Helpers.pdb
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Helpers\obj\Debug\Helpers.dll
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Helpers\obj\Debug\Helpers.pdb
