@@ -297,7 +297,7 @@ function toggle_slimscroll(item){
 // === following js will activate the menu in left side bar based on url ====
 $(document).ready(function() {
     $("#sidebar-menu a").each(function() {
-        if (this.href === window.location.href) {
+        if (this.href == window.location.href) {
             $(this).addClass("active");
             $(this).parent().addClass("active"); // add active to li of the current link
             $(this).parent().parent().prev().addClass("active"); // add active class to an anchor

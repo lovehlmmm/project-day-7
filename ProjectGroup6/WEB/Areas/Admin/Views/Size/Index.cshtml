@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section script{
+    <script src="~/Areas/Admin/Assets/js/Size.js"></script>
+    }
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="page-title-box">
+            <h4 class="page-title float-left">Sizes</h4>
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-12">
+        <div class="card-box">
+            <div class="row m-t-50">
+                <button class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="zmdi zmdi-plus-circle"></i>&nbsp; New Size</button>
+
+                <div class="col-12 m-t-20">
+                    <!-- End -->
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Id</th>
+                                <th>Size Name</th>
+                                <th>Size</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Modified</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input id="checkbox0" type="checkbox">
+                                </td>
+                                <th scope="row">1</th>
+                                <td>4x10 pix</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align:center">
+                                    <button id="edit_size" class="btn waves-effect waves-light btn-warning" style="padding:5px"> <i class="fa fa-edit"></i> </button>
+                                    <button id="delete_size" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+<!-- Modal Add -->
+<div class="modal fade bs-example-modal-sm" id="new-size-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mySmallModalLabel">New Size</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="example-text-input" name="size_name" class="col-2 col-form-label">SizeName</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" value="" id="example-text-input">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" name="size" class="col-2 col-form-label">Size</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" value="" id="example-text-input">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" name="size_price" class="col-2 col-form-label">Price</label>
+                        <div class="col-10">
+                            <input class="form-control" type="number" min="0" value="" id="example-text-input">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2">Active</label>
+                        <div class="col-sm-10">
+                            <div class="checkbox checkbox-primary">
+                                <input id="checkbox21" name="size_active" type="checkbox">
+                                <label for="checkbox21"> Active </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

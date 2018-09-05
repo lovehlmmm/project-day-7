@@ -1,5 +1,4 @@
-﻿
-$("#login_form").submit(function() {
+﻿$("#login_form").submit(function() {
         var username = $("input[name=username]").val().trim();
         var password = $("input[name=password]").val().trim();
         var remember = $("input[name=remember]:checked").length > 0;

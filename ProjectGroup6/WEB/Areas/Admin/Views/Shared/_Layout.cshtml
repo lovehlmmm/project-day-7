@@ -3,12 +3,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
 
     <title>@ViewBag.Title</title>
 
 
     <!-- App Favicon -->
-    <link rel="shortcut icon" href="~/Areas/Admin/Assets/images/favicon.ico">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- App title -->
     <title>Uplon - Responsive Admin Dashboard Template</title>
@@ -18,6 +22,11 @@
 
     <!-- Switchery css -->
     <link href="~/Areas/Admin/Assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
+    <!-- Custom box css -->
+    <link href="~/Areas/Admin/Assets/plugins/custombox/css/custombox.min.css" rel="stylesheet">
+
+    <!-- Modal css cdn -->
+    <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>cloud
 
     <!-- Bootstrap CSS -->
     <link href="~/Areas/Admin/Assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -31,16 +40,16 @@
 </head>
 <body class="fixed-left">
 
-    <!-- Begin page -->
+    !-- Begin page -->
     <div id="wrapper">
+
         <!-- Top Bar Start -->
         <div class="topbar">
-
             <!-- LOGO -->
             <div class="topbar-left">
-                <a href="index.html" class="logo">
+                <a href="index.cshtml" class="logo">
                     <i class="zmdi zmdi-group-work icon-c-logo"></i>
-                    <span>Uplon</span>
+                    <span>TEAM 6</span>
                 </a>
             </div>
 
@@ -139,12 +148,6 @@
                             </a>
 
                         </div>
-                    </li>
-
-                    <li class="list-inline-item dropdown notification-list">
-                        <a class="nav-link waves-effect waves-light right-bar-toggle" href="javascript:void(0);">
-                            <i class="zmdi zmdi-format-subject noti-icon"></i>
-                        </a>
                     </li>
 
                     <li class="list-inline-item dropdown notification-list">
@@ -356,137 +359,35 @@
 
         </div>
         <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container-fluid">
+
+                    <div>
+                        @RenderBody()
+                    </div>
+                </div> <!-- container -->
+
+            </div> <!-- content -->
+
+
+
+        </div>
+        <!-- End content-page -->
+        <!-- ============================================================== -->
+
+        <footer class="footer text-right">
+            2016 - 2017 © TEAM 6.
+        </footer>
     </div>
-
-    @*Main Body*@
-    <div>
-        @RenderBody()
-    </div>
-
-    <!-- Right Sidebar -->
-    <div class="side-bar right-bar">
-        <div class="nicescroll">
-            <ul class="nav nav-pills nav-justified text-xs-center">
-                <li class="nav-item">
-                    <a href="#home-2" class="nav-link active" data-toggle="tab" aria-expanded="false">
-                        Activity
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#messages-2" class="nav-link" data-toggle="tab" aria-expanded="true">
-                        Settings
-                    </a>
-                </li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane fade active show" id="home-2">
-                    <div class="timeline-2">
-                        <div class="time-item">
-                            <div class="item-info">
-                                <small class="text-muted">5 minutes ago</small>
-                                <p><strong><a href="#" class="text-info">John Doe</a></strong> Uploaded a photo <strong>"DSC000586.jpg"</strong></p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <small class="text-muted">30 minutes ago</small>
-                                <p><a href="" class="text-info">Lorem</a> commented your post.</p>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <small class="text-muted">59 minutes ago</small>
-                                <p><a href="" class="text-info">Jessi</a> attended a meeting with<a href="#" class="text-success">John Doe</a>.</p>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <small class="text-muted">1 hour ago</small>
-                                <p><strong><a href="#" class="text-info">John Doe</a></strong>Uploaded 2 new photos</p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <small class="text-muted">3 hours ago</small>
-                                <p><a href="" class="text-info">Lorem</a> commented your post.</p>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                            </div>
-                        </div>
-
-                        <div class="time-item">
-                            <div class="item-info">
-                                <small class="text-muted">5 hours ago</small>
-                                <p><a href="" class="text-info">Jessi</a> attended a meeting with<a href="#" class="text-success">John Doe</a>.</p>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet tellus ut tincidunt euismod. "</em></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="messages-2">
-
-                    <div class="row m-t-10">
-                        <div class="col-8">
-                            <h5 class="m-0">Notifications</h5>
-                            <p class="text-muted m-b-0"><small>Do you need them?</small></p>
-                        </div>
-                        <div class="col-4 text-right">
-                            <input type="checkbox" checked data-plugin="switchery" data-color="#1bb99a" data-size="small" />
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-8">
-                            <h5 class="m-0">API Access</h5>
-                            <p class="m-b-0 text-muted"><small>Enable/Disable access</small></p>
-                        </div>
-                        <div class="col-4 text-right">
-                            <input type="checkbox" checked data-plugin="switchery" data-color="#1bb99a" data-size="small" />
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-8">
-                            <h5 class="m-0">Auto Updates</h5>
-                            <p class="m-b-0 text-muted"><small>Keep up to date</small></p>
-                        </div>
-                        <div class="col-4 text-right">
-                            <input type="checkbox" checked data-plugin="switchery" data-color="#1bb99a" data-size="small" />
-                        </div>
-                    </div>
-
-                    <div class="row m-t-10">
-                        <div class="col-8">
-                            <h5 class="m-0">Online Status</h5>
-                            <p class="m-b-0 text-muted"><small>Show your status to all</small></p>
-                        </div>
-                        <div class="col-4 text-right">
-                            <input type="checkbox" checked data-plugin="switchery" data-color="#1bb99a" data-size="small" />
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div> <!-- end nicescroll -->
-    </div>
-    <!-- /Right-bar -->
-
-    <footer class="footer text-right">
-        2018 © TEAM 6 Project.
-    </footer>
-
     <!-- END wrapper -->
 
-
     <script>
-            var resizefunc = [];
+        var resizefunc = [];
     </script>
 
     <!-- jQuery  -->
@@ -509,13 +410,20 @@
     <!-- Counter Up  -->
     <script src="~/Areas/Admin/Assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/counterup/jquery.counterup.min.js"></script>
-
     <!-- App js -->
     <script src="~/Areas/Admin/Assets/js/jquery.core.js"></script>
     <script src="~/Areas/Admin/Assets/js/jquery.app.js"></script>
 
     <!-- Page specific js -->
     <script src="~/Areas/Admin/Assets/pages/jquery.dashboard.js"></script>
+
+    <!-- Modal-Effect -->
+    <script src="~/Areas/Admin/Assets/plugins/custombox/js/custombox.min.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/custombox/js/legacy.min.js"></script>
+
+    <!-- Modal JS CDN -->
+    <script src="~/Areas/Admin/Assets/js/sweetalert.min.js"></script>
+    @RenderSection("script", false)
 
 
 </body>
