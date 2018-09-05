@@ -1,0 +1,5 @@
+C:\Users\hoang\OneDrive\Documents\project-day-7\ProjectGroup6\Constants\bin\Debug\Constants.dll
+C:\Users\hoang\OneDrive\Documents\project-day-7\ProjectGroup6\Constants\bin\Debug\Constants.pdb
+C:\Users\hoang\OneDrive\Documents\project-day-7\ProjectGroup6\Constants\obj\Debug\Constants.csproj.CoreCompileInputs.cache
+C:\Users\hoang\OneDrive\Documents\project-day-7\ProjectGroup6\Constants\obj\Debug\Constants.dll
+C:\Users\hoang\OneDrive\Documents\project-day-7\ProjectGroup6\Constants\obj\Debug\Constants.pdb
