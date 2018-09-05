@@ -1,0 +1,5 @@
+C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\bin\Debug\Constants.dll
+C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\bin\Debug\Constants.pdb
+C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\obj\Debug\Constants.csproj.CoreCompileInputs.cache
+C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\obj\Debug\Constants.dll
+C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\obj\Debug\Constants.pdb
