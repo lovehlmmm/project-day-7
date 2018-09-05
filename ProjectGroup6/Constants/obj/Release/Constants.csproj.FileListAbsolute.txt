@@ -1,6 +1,0 @@
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\bin\Release\Constants.dll
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\bin\Release\Constants.pdb
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\obj\Release\Constants.csprojAssemblyReference.cache
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\obj\Release\Constants.csproj.CoreCompileInputs.cache
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\obj\Release\Constants.dll
-C:\Users\duong\Desktop\Team6\ProjectGroup6\Constants\obj\Release\Constants.pdb
