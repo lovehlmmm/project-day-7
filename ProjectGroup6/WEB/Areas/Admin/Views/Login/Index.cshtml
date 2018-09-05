@@ -3,33 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-    <meta name="author" content="Coderthemes">
-
-    <!-- App Favicon -->
+    <meta name="author" content="Team6">
     <link rel="shortcut icon" href="assets/images/favicon.ico">
-
-    <!-- App title -->
-    <title>Sign in - Print Photos</title>
-
-    <!-- Bootstrap CSS -->
+    <title>@ViewBag.Title</title>
     <link href="~/Areas/Admin/Assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- App CSS -->
     <link href="~/Areas/Admin/Assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>cloud
     <!-- Modernizr js -->
     <script src="~/Areas/Admin/Assets/js/modernizr.min.js"></script>
-
 </head>
-
 <body>
-
     <div class="account-pages">
         <img src="~/Areas/Admin/Assets/images/big/temp9.jpg" height="100%" width="100%">
     </div>
     <div class="clearfix"></div>
     <div class="wrapper-page">
-        <h2>@ViewBag.hash</h2>
         <div class="account-bg">
             <div class="card-box mb-0">
                 <div class="text-center m-t-20">
@@ -44,43 +32,37 @@
                             <h6 class="text-muted text-uppercase m-b-0 m-t-0">Sign In</h6>
                         </div>
                     </div>
-                    <form class="m-t-20" method="post" action="index.html">
-
+                    <form class="m-t-20" id="login_form">
                         <div class="form-group row">
                             <div class="col-12">
-                                <input class="form-control" name="username" type="text" required="" placeholder="Username">
+                                <input class="form-control" name="username" type="text" required placeholder="Username">
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <div class="col-12">
-                                <input class="form-control" name="password" type="password" required="" placeholder="Password">
+                                <input class="form-control" name="password" type="password" required placeholder="Password">
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <div class="col-12">
                                 <div class="checkbox checkbox-custom">
-                                    <input id="checkbox-signup" type="checkbox">
+                                    <input id="checkbox-signup" name="remember" type="checkbox">
                                     <label for="checkbox-signup">
                                         Remember me
                                     </label>
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group text-center row m-t-10">
                             <div class="col-12">
-                                <button class="btn btn-success btn-block waves-effect waves-light" id="btnLogin" type="button">Log In</button>
+                                <button class="btn btn-success btn-block waves-effect waves-light" id="s" type="submit">Log In</button>
                             </div>
                         </div>
-
                         <div class="form-group row m-t-30 mb-0">
                             <div class="col-12">
-                                <a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
+                                <a href="#" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
                             </div>
                         </div>
-
                         <!-- <div class="form-group row m-t-30 mb-0">
                             <div class="col-12 text-center">
                                 <h5 class="text-muted"><b>Sign in with</b></h5>
@@ -102,30 +84,18 @@
                                 </button>
                             </div>
                         </div> -->
-
                     </form>
-
                 </div>
-
                 <div class="clearfix"></div>
             </div>
         </div>
         <!-- end card-box-->
-
-        <div class="m-t-20">
-            <div class="text-center">
-                <p class="text-white">Don't have an account? <a href="pages-register.html" class="text-white m-l-5"><b>Sign Up</b></a></p>
-            </div>
-        </div>
-
     </div>
     <!-- end wrapper page -->
 
-
     <script>
-            var resizefunc = [];
+        var resizefunc = [];
     </script>
-
     <!-- jQuery  -->
     <script src="~/Areas/Admin/Assets/js/jquery.min.js"></script>
     <script src="~/Areas/Admin/Assets/js/popper.min.js"></script><!-- Tether for Bootstrap -->
@@ -138,10 +108,10 @@
     <script src="~/Areas/Admin/Assets/js/jquery.scrollTo.min.js"></script>
     <script src="~/Areas/Admin/Assets/js/jquery.slimscroll.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/switchery/switchery.min.js"></script>
-
     <!-- App js -->
     <script src="~/Areas/Admin/Assets/js/jquery.core.js"></script>
     <script src="~/Areas/Admin/Assets/js/jquery.app.js"></script>
+    <script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
     <script src="~/Areas/Admin/Assets/js/login.js"></script>
 </body>
 </html>

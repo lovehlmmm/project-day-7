@@ -36,6 +36,7 @@ namespace Entities
 
         [StringLength(50)]
         [Column("username")]
+        [ForeignKey("User")]
         public string Username { get; set; }
 
         public virtual ICollection<Address> Addresses { get; set; }

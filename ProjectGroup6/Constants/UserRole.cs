@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Constants
 {
-    public class SizeStatus
+    public class UserRole
     {
-        public static string Deleted = "deleted";
+        public static string Admin = "admin";
+        public static string Customer = "customer";
     }
 }

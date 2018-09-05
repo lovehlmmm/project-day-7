@@ -43,8 +43,8 @@
   <ItemGroup>
     <Compile Include="AppSettingConstant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SizeStatus.cs" />
-    <Compile Include="UserStatus.cs" />
+    <Compile Include="Status.cs" />
+    <Compile Include="UserRole.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,6 +8,7 @@ using Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Services;
+using Constants;
 using WEB.Areas.Admin.Models;
 
 namespace WEB.Areas.Admin.Controllers
@@ -32,16 +33,18 @@ namespace WEB.Areas.Admin.Controllers
             try
             {
                 LoginUser userLogin = JsonConvert.DeserializeObject<LoginUser>(user);
-               var checkUser= _userService.CheckLogin(userLogin.Username, userLogin.Password);
+                var checkUser= _userService.CheckLogin(userLogin.Username.Trim(), userLogin.Password.Trim());
                 if (checkUser!= null)
                 {
-                    return Json(new { status = true });
+                    if(!checkUser.Role.Equals(UserRole.Admin)) return Json(new { status = false });
+                    UserSession userSession = new UserSession(userLogin.Username, userLogin.Password);
+                    SessionHelper.SetSession(userSession, AppSettingConstant.LoginSessionAdmin);
+                    return Json(new { status = true,url = "/admin"}, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
             }
             return Json(new {status=false});
         }

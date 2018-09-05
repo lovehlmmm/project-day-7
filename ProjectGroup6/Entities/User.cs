@@ -23,6 +23,9 @@ namespace Entities
         [Column("password")]
         public string Password { get; set; }
 
+        [Column("email")]
+        public string Email { get; set; }
+
         [StringLength(10)]
         [Column("role")]
         public string Role { get; set; }
