@@ -46,7 +46,7 @@ namespace Repositories
         /// </summary>
         /// <remarks>Synchronous</remarks>
         /// <returns>An ICollection of every object in the database</returns>
-        public ICollection<TObject> GetAll()
+        public ICollection<TObject> GetAll(int num,int page,Func<TObject,object> orderBy, Expression<Func<TObject, bool>> match)
         {
             return _context.Set<TObject>().ToList();
         }
@@ -226,9 +226,9 @@ namespace Repositories
         /// </summary>
         /// <remarks>Asynchronous</remarks>
         /// <returns>The count of the number of objects</returns>
-        public async Task<int> CountAsync()
+        public async Task<int> CountAsync(Expression<Func<TObject, bool>> match)
         {
-            return await _context.Set<TObject>().CountAsync();
+            return await _context.Set<TObject>().Where(match).CountAsync();
         }
     }
 }

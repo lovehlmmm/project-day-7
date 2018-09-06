@@ -232,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Assets\css\bootstrap.min.css" />
+    <Content Include="Areas\Admin\Assets\css\pagination.css" />
     <Content Include="Areas\Admin\Assets\css\style.css" />
     <Content Include="Areas\Admin\Assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Areas\Admin\Assets\fonts\glyphicons-halflings-regular.svg" />
@@ -286,6 +287,7 @@
     <Content Include="Areas\Admin\Assets\js\jquery.slimscroll.js" />
     <Content Include="Areas\Admin\Assets\js\login.js" />
     <Content Include="Areas\Admin\Assets\js\modernizr.min.js" />
+    <Content Include="Areas\Admin\Assets\js\pagination.js" />
     <Content Include="Areas\Admin\Assets\js\pagination.min.js" />
     <Content Include="Areas\Admin\Assets\js\popper.min.js" />
     <Content Include="Areas\Admin\Assets\js\size.js" />
@@ -2718,7 +2720,6 @@
     <Content Include="Areas\Admin\Assets\plugins\fileuploads\fonts\dropify.eot" />
     <Content Include="Areas\Admin\Assets\plugins\fileuploads\fonts\dropify.ttf" />
     <Content Include="Areas\Admin\Assets\plugins\fileuploads\fonts\dropify.woff" />
-    <Content Include="Areas\Admin\Assets\plugins\jquery-ui\ui\.DS_Store" />
     <Content Include="Areas\Admin\Assets\plugins\jquery-ui\ui\.jshintrc" />
     <Content Include="Areas\Admin\Assets\plugins\jstree\ajax_children.json" />
     <Content Include="Areas\Admin\Assets\plugins\jstree\ajax_roots.json" />

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Helpers;
+using PagedList;
 using Repositories;
 using Services;
 namespace Services
@@ -51,6 +52,16 @@ namespace Services
         public async Task<TObject> GetAsync(object key)
         {
             return await GetAsync(key);
+        }
+
+        public async Task<int> CountAsync(Expression<Func<TObject, bool>> match)
+        {
+            return await _baseRepository.CountAsync(match);
+;        }
+
+        public ICollection<TObject> GetAll(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match)
+        {
+            return _baseRepository.GetAll(num, page, orderBy, match);
         }
     }
 }

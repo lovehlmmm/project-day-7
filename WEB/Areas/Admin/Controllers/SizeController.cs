@@ -34,7 +34,9 @@ namespace WEB.Areas.Admin.Controllers
                 var pageSize = int.Parse(Request.QueryString["pageSize"]);
                 var list = await _sizeService.GetAllAsync(pageNumber, pageSize, size => size.SizeId,
                     size => size.Status != Status.Deleted);
-                return Json(new {status = true, data = list}, JsonRequestBehavior.AllowGet);
+                var total = await _sizeService.CountAsync(size =>size.Status!=Status.Deleted);
+                var totalPage = (int)Math.Ceiling((double)(total / pageSize))+1;
+                return Json(new {status = true, data = list,totalPage= totalPage}, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -87,13 +89,14 @@ namespace WEB.Areas.Admin.Controllers
             try
             {
                 var checkSize = await _sizeService.FindAsync(s => s.SizeId == id);
-                if (checkSize!=null)
+                if (checkSize!=null &(size.Status.Equals(Status.Inactive) || size.Status.Equals(Status.Active)))
                 {
                     checkSize.SizeName = size.SizeName;
                     checkSize.SizePrice = size.SizePrice;
                     checkSize.SizeDetails = size.SizeDetails;
                     checkSize.ModifiedAt = DateTime.Now;
-                    var result = _sizeService.UpdateAsync(checkSize, id);
+                    checkSize.Status = size.Status;
+                    var result = await _sizeService.UpdateAsync(checkSize, id);
                     if (result!=null)
                     {
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);

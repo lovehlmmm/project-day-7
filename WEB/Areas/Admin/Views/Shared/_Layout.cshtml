@@ -35,6 +35,8 @@
     <!-- App CSS -->
     <link href="~/Areas/Admin/Assets/css/style.css" rel="stylesheet" type="text/css" />
 
+    <link href="~/Areas/Admin/Assets/css/pagination.css" rel="stylesheet" />
+
     <!-- Modernizr js -->
     <script src="~/Areas/Admin/Assets/js/modernizr.min.js"></script>
 
@@ -48,10 +50,8 @@
 
 </head>
 <body class="fixed-left">
-
     !-- Begin page -->
     <div id="wrapper">
-
         <!-- Top Bar Start -->
         <div class="topbar">
             <!-- LOGO -->
@@ -61,7 +61,6 @@
                     <span>TEAM 6</span>
                 </a>
             </div>
-
             <nav class="navbar-custom">
                 <ul class="list-inline float-right mb-0">
                     <li class="list-inline-item dropdown notification-list">
@@ -75,33 +74,27 @@
                             <div class="dropdown-item noti-title">
                                 <h5><small><span class="label label-danger pull-xs-right">7</span>Notification</small></h5>
                             </div>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-success"><i class="icon-bubble"></i></div>
                                 <p class="notify-details">Robert S. Taylor commented on Admin<small class="text-muted">1min ago</small></p>
                             </a>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-info"><i class="icon-user"></i></div>
                                 <p class="notify-details">New user registered.<small class="text-muted">1min ago</small></p>
                             </a>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-danger"><i class="icon-like"></i></div>
                                 <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">1min ago</small></p>
                             </a>
-
                             <!-- All-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
                                 View All
                             </a>
-
                         </div>
                     </li>
-
                     <li class="list-inline-item dropdown notification-list">
                         <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
                            aria-haspopup="false" aria-expanded="false">
@@ -113,7 +106,6 @@
                             <div class="dropdown-item noti-title bg-success">
                                 <h5><small><span class="label label-danger pull-xs-right">7</span>Messages</small></h5>
                             </div>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-faded">
@@ -125,7 +117,6 @@
                                     <small class="text-muted">1min ago</small>
                                 </p>
                             </a>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-faded">
@@ -137,7 +128,6 @@
                                     <small class="text-muted">1min ago</small>
                                 </p>
                             </a>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-faded">
@@ -149,15 +139,12 @@
                                     <small class="text-muted">1min ago</small>
                                 </p>
                             </a>
-
                             <!-- All-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
                                 View All
                             </a>
-
                         </div>
                     </li>
-
                     <li class="list-inline-item dropdown notification-list">
                         <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                            aria-haspopup="false" aria-expanded="false">
@@ -168,32 +155,25 @@
                             <div class="dropdown-item noti-title">
                                 <h5 class="text-overflow"><small>Welcome ! John</small> </h5>
                             </div>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <i class="zmdi zmdi-account-circle"></i> <span>Profile</span>
                             </a>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <i class="zmdi zmdi-settings"></i> <span>Settings</span>
                             </a>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <i class="zmdi zmdi-lock-open"></i> <span>Lock Screen</span>
                             </a>
-
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <i class="zmdi zmdi-power"></i> <span>Logout</span>
                             </a>
-
                         </div>
                     </li>
-
                 </ul>
-
                 <ul class="list-inline menu-left mb-0">
                     <li class="float-left">
                         <button class="button-menu-mobile open-left waves-light waves-effect">
@@ -207,47 +187,37 @@
                         </form>
                     </li>
                 </ul>
-
             </nav>
-
         </div>
         <!-- Top Bar End -->
         <!-- ========== Left Sidebar Start ========== -->
         <div class="left side-menu">
             <div class="sidebar-inner slimscrollleft">
-
                 <!--- Sidemenu -->
                 <div id="sidebar-menu">
                     <ul>
                         <li class="text-muted menu-title">Navigation</li>
-                       <li class="has_sub">
-                        <a href="#" class="waves-effect"><span class="label label-pill label-primary float-right">1</span><i class="zmdi zmdi-view-dashboard"></i><span> Dashboard </span> </a>
+                        <li class="has_sub">
+                            <a href="#" class="waves-effect"><span class="label label-pill label-primary float-right">1</span><i class="zmdi zmdi-view-dashboard"></i><span> Dashboard </span> </a>
                         </li>
-
                         <li class="has_sub">
                             <a href="#" class="waves-effect"><i class="ion-android-social-user"></i><span> Users </span> </a>
                         </li>
-
                         <li class="has_sub">
-                            <a href="/admin/size" class="waves-effect" ><i class="zmdi zmdi-photo-size-select-large"></i><span> Size </span> </a>
+                            <a href="/admin/size" class="waves-effect"><i class="zmdi zmdi-photo-size-select-large"></i><span> Size </span> </a>
                         </li>
-
                         <li class="has_sub">
                             <a href="/admin/material" class="waves-effect"> <i class="zmdi zmdi-flower"></i> <span> Material </span> </a>
                         </li>
-
                         <li class="has_sub">
                             <a href="#" class="waves-effect"><i class="zmdi zmdi-shopping-cart"></i> <span> Order </span> </a>
                         </li>
-
                     </ul>
                     <div class="clearfix"></div>
                 </div>
                 <!-- Sidebar -->
                 <div class="clearfix"></div>
-
             </div>
-
         </div>
         <!-- Left Sidebar End -->
         <!-- ============================================================== -->
@@ -257,28 +227,22 @@
             <!-- Start content -->
             <div class="content">
                 <div class="container-fluid">
-
                     <div>
                         @RenderBody()
                     </div>
                 </div> <!-- container -->
-
             </div> <!-- content -->
-
         </div>
         <!-- End content-page -->
         <!-- ============================================================== -->
-
         <footer class="footer text-right">
             2016 - 2017 © TEAM 6.
         </footer>
     </div>
     <!-- END wrapper -->
-
     <script>
         var resizefunc = [];
     </script>
-
     <!-- jQuery  -->
     <script src="~/Areas/Admin/Assets/js/jquery.min.js"></script>
     <script src="~/Areas/Admin/Assets/js/popper.min.js"></script><!-- Tether for Bootstrap -->
@@ -291,19 +255,15 @@
     <script src="~/Areas/Admin/Assets/js/jquery.scrollTo.min.js"></script>
     <script src="~/Areas/Admin/Assets/js/jquery.slimscroll.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/switchery/switchery.min.js"></script>
-
     <!--Morris Chart-->
     <script src="~/Areas/Admin/Assets/plugins/morris/morris.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/raphael/raphael-min.js"></script>
-
     <!-- Counter Up  -->
     <script src="~/Areas/Admin/Assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/counterup/jquery.counterup.min.js"></script>
-
     <!-- Required datatable js -->
     <script src="~/Areas/Admin/Assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-
     <!-- Buttons examples -->
     <script src="~/Areas/Admin/Assets/plugins/datatables/dataTables.buttons.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
@@ -312,27 +272,21 @@
     <script src="~/Areas/Admin/Assets/plugins/datatables/vfs_fonts.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.html5.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.print.min.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.colVis.min.js"></script
-
-    <!-- Responsive examples -->
+    <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.colVis.min.js"></script><!-- Responsive examples -->
     <script src="~/Areas/Admin/Assets/plugins/datatables/dataTables.responsive.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
-
     <!-- App js -->
     <script src="~/Areas/Admin/Assets/js/jquery.core.js"></script>
     <script src="~/Areas/Admin/Assets/js/jquery.app.js"></script>
-
     <!-- Page specific js -->
     <script src="~/Areas/Admin/Assets/pages/jquery.dashboard.js"></script>
-
     <!-- Modal-Effect -->
     <script src="~/Areas/Admin/Assets/plugins/custombox/js/custombox.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/custombox/js/legacy.min.js"></script>
-
     <!-- Modal JS CDN -->
     <script src="~/Areas/Admin/Assets/js/sweetalert.min.js"></script>
+    <script src="~/Areas/Admin/Assets/js/pagination.js"></script>
     @RenderSection("script", false)
-
 
 </body>
 </html>

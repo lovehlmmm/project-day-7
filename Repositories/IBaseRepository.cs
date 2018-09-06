@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using PagedList;
 
 namespace Repositories
 {
@@ -13,7 +14,7 @@ namespace Repositories
     {
         TObject Get(long id);
         Task<TObject> GetAsync(object key);
-        ICollection<TObject> GetAll();
+        ICollection<TObject> GetAll(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match);
         Task<IEnumerable<TObject>> GetAllAsync(int num,int page,Func<TObject,object> orderBy, Expression<Func<TObject, bool>> match);
         TObject Find(Expression<Func<TObject, bool>> match);
         Task<TObject> FindAsync(Expression<Func<TObject, bool>> match);
@@ -28,6 +29,6 @@ namespace Repositories
         int Delete(TObject t);
         Task<int> DeleteAsync(TObject t);
         int Count();
-        Task<int> CountAsync();
+        Task<int> CountAsync(Expression<Func<TObject, bool>> match);
     }
 }

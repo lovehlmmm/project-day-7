@@ -18,14 +18,27 @@ $('#btnOpenModalAdd').click(function () {
 //    return false;
 //});
 
+function paging(page, index) {
+    if (index === 'undefined') {
+        index = 1;
+    }
+    $('.cdp').attr('actpage', index);
+    var html = '<a href = "#!-1" onclick="pagingChoose(this)" class="cdp_i" > prev</a>';
+    for (var i = 1; i < page + 1; i++) {
+        html += '<a href="#!' + i + '" onclick="pagingChoose(this)" class="cdp_i">' + i + '</a>';
+    }
+    html += '<a href="#!+1" onclick="pagingChoose(this)" class="cdp_i">next</a>';
+    return html;
+}
+
 $('#form_size').submit(function () {
 
     var size_name = $('input[name=size_name]').val();
     var size_active = $('input[name=size_active]:checked').length > 0 ? 'active' : 'inactive';
-    var size = $('input[name=size]').val();
+    var size_details = $('input[name=size]').val();
     var size_price = $('input[name=size_price]').val();
     var id = $('input[name=size-id]').val();
-    var size = { SizeName: size_name, SizeDetails: size, SizePrice: size_price, Status: size_active }
+    var size = { SizeName: size_name, SizeDetails: size_details, SizePrice: size_price, Status: size_active }
     if ($('#form_size').data('type') === '1') {
         Add(size);
     } else {
@@ -88,8 +101,9 @@ function GetDataEdit(id) {
 }
 
 function GetData() {
+    var paginationPage = parseInt($('.cdp').attr('actpage'), 10);
     $.ajax({
-        url: '/Size/GetList?pageNumber=1&pageSize=15',
+        url: '/Size/GetList?pageNumber='+paginationPage+'&pageSize=10',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -99,10 +113,26 @@ function GetData() {
                     html += sizeRow(value);
                 });
                 $('#sizeData').html(html);
-            } else {
+                var html1 = paging(data.totalPage,paginationPage);
+                $('.content_detail__pagination').html(html1);
+
             }
         }
     });
+}
+
+function pagingChoose(a) {
+    var paginationPage = parseInt($('.cdp').attr('actpage'), 10);
+    var go = $(a).attr('href').replace('#!', '');
+    if (go === '+1') {
+        paginationPage++;
+    } else if (go === '-1') {
+        paginationPage--;
+    } else {
+        paginationPage = parseInt(go, 10);
+    }
+    $('.cdp').attr('actpage', paginationPage);
+    GetData();
 }
 
 function Add(size) {
@@ -185,3 +215,4 @@ function Delete(id) {
             }
         });
 }
+
