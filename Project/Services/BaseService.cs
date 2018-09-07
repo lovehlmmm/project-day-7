@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Helpers;
-using PagedList;
 using Repositories;
 using Services;
 namespace Services
