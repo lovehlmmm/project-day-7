@@ -13,5 +13,10 @@ namespace WEB.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult Details()
+        {
+            return View();
+        }
+
     }
 }

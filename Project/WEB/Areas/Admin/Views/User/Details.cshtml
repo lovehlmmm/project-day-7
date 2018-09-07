@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+}
+
+<!-- Title Row -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="page-title-box">
+            <h4 class="page-title float-left">User Management</h4>
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card-box">
+            @*<h4 class="header-title m-t-0 m-b-30">Textual inputs</h4>*@
+
+            <div class="form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">UserName</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" value="" id="example-text-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-password-input" class="col-2 col-form-label">Password</label>
+                <div class="col-10">
+                    <input class="form-control" type="password" value="" id="example-password-input" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-email-input" class="col-2 col-form-label">Email</label>
+                <div class="col-10">
+                    <input class="form-control" type="email" value="bootstrap@example.com" id="example-email-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">Adress</label>
+                <div class="col-10">
+                    <input class="form-control" type="text"  ">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">Role</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" value="" id="example-text-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-url-input" class="col-2 col-form-label">Status</label>
+                <div class="col-10">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-purple dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">----<span class="caret"></span></button>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                            <a class="dropdown-item" href="#">Active</a>
+                            <a class="dropdown-item" href="#">Not Active</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-tel-input" class="col-2 col-form-label">Phone Number</label>
+                <div class="col-10">
+                    <input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input">
+                </div>
+            </div>
+            
+
+            <div class="form-group row">
+                <label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
+                <div class="col-10">
+                    <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                <div class="col-10">
+                    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+                </div>
+            </div>
+
+        </div>
+          
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
