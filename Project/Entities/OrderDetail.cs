@@ -19,16 +19,12 @@ namespace Entities
         [Column("quantity")]
         public int? Quantity { get; set; }
 
-        [Column("size_id")]
-        public int? SizeId { get; set; }
-
-        [Column("material_id")]
-        public int? MaterialId { get; set; }
-
-        public virtual Material Material { get; set; }
+        [Column("product_id")]
+        [ForeignKey("Product")]
+        public int? ProductId { get; set; }
 
         public virtual Order Order { get; set; }
 
-        public virtual Size Size { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

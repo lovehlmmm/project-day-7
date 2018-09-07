@@ -4,16 +4,17 @@
 
 $('#btnOpenModalAdd').click(function () {
     ClearForm();
-    $('#form_size').data('type', '1');
-    $('#titleSizeModal').text('New Size')
-    $('#new-size-modal').modal();
+    $('#form-product').data('type', '1');
+    $('#titleModal').text('New Product');
+    $('#submit-form').text('Create');
+    $('#product-modal').modal();
 });
 //$('#form_size').submit(function () {
-//    var size_name = $('input[name=size_name]').val();
-//    var size_active = $('input[name=size_active]:checked').length > 0 ? 'active' : 'inactive';
+//    var product-name = $('input[name=product-name]').val();
+//    var product-active = $('input[name=product-active]:checked').length > 0 ? 'active' : 'inactive';
 //    var size = $('input[name=size]').val();
 //    var size_price = $('input[name=size_pricse]').val();
-//    var size = { SizeName: size_name, SizeDetails: size, SizePrice: size_price, Status: size_active }
+//    var size = { ProductName: product-name, ProductSize: size, ProductPrice: size_price, Status: product-active }
 
 //    return false;
 //});
@@ -31,32 +32,33 @@ function paging(page, index) {
     return html;
 }
 
-$('#form_size').submit(function () {
+$('#form-product').submit(function () {
 
-    var size_name = $('input[name=size_name]').val();
-    var size_active = $('input[name=size_active]:checked').length > 0 ? 'active' : 'inactive';
-    var size_details = $('input[name=size]').val();
-    var size_price = $('input[name=size_price]').val();
-    var id = $('input[name=size-id]').val();
-    var size = { SizeName: size_name, SizeDetails: size_details, SizePrice: size_price, Status: size_active }
-    if ($('#form_size').data('type') === '1') {
-        Add(size);
+    var productName = $('input[name=product-name]').val();
+    var productActive = $('input[name=product-active]:checked').length > 0 ? 'active' : 'inactive';
+    var productSize = $('input[name=product-size]').val();
+    var productPrice = $('input[name=product-price]').val();
+    var id = $('input[name=product-id]').val();
+    var productMaterial = $('input[name=product-material]').val();
+    var product = { ProductName: productName, ProductSize: productSize, ProductMaterial:productMaterial, ProductPrice: productPrice, Status: productActive };
+    if ($('#form-product').data('type') === '1') {
+        Add(product);
     } else {
-        Update(size, id);
+        Update(product, id);
     }
     return false;
 });
 
 function Update(data, id) {
     $.ajax({
-        url: '/Size/Update',
+        url: '/Product/Update',
         type: 'POST',
         dataType: 'json',
-        data: { size: data, id: id },
+        data: { product: data, id: id },
         success: function (response) {
             if (response.status) {
                 swal("Success", "You Update success!", "success");
-                $('#new-size-modal').modal('toggle');
+                $('#product-modal').modal('toggle');
                 GetData();
             } else {
                 alert('fail');
@@ -65,34 +67,37 @@ function Update(data, id) {
     });
 }
 function ClearForm() {
-    $('input[name=size_name]').val("");
-    $('input[name=size_active]').prop('checked', false);
-    $('input[name=size]').val("");
-    $('input[name=size_price]').val(0);
+    $('input[name=product-name]').val("");
+    $('input[name=product-active]').prop('checked', false);
+    $('input[name=product-size]').val("");
+    $('input[name=product-material]').val("");
+    $('input[name=product-price]').val(0);
 }
 function DataToForm(data) {
     var status = true;
     if (data.Status !== 'active') {
         status = false;
     }
-    $('input[name=size_name]').val(data.SizeName);
-    $('input[name=size_active]').prop('checked', status);
-    $('input[name=size]').val(data.SizeDetails);
-    $('input[name=size_price]').val(data.SizePrice);
-    $('input[name=size-id]').val(data.SizeId);
+    $('input[name=product-name]').val(data.ProductName);
+    $('input[name=product-active]').prop('checked', status);
+    $('input[name=product-size]').val(data.ProductSize);
+    $('input[name=product-material]').val(data.ProductMaterial);
+    $('input[name=product-price]').val(data.ProductPrice);
+    $('input[name=product-id]').val(data.ProductId);
 }
 
 function GetDataEdit(id) {
     $.ajax({
-        url: '/Size/Get/' + id,
+        url: '/Product/Get/' + id,
         type: 'GET',
         dataType: 'json',
         success: function (response) {
             if (response.status) {
-                $('#form_size').data('type', '2');
-                $('#titleSizeModal').text('Update Size');
+                $('#form-product').data('type', '2');
+                $('#titleModal').text('Update Product');
+                $('#submit-form').text('Save changes');
                 DataToForm(response.data);
-                $('#new-size-modal').modal();
+                $('#product-modal').modal();
             } else {
                 alert('fail');
             }
@@ -103,7 +108,7 @@ function GetDataEdit(id) {
 function GetData() {
     var paginationPage = parseInt($('.cdp').attr('actpage'), 10);
     $.ajax({
-        url: '/Size/GetList?pageNumber='+paginationPage+'&pageSize=10',
+        url: '/Product/GetList?pageNumber='+paginationPage+'&pageSize=10',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -112,7 +117,7 @@ function GetData() {
                 $.each(data.data, function (index, value) {
                     html += sizeRow(value);
                 });
-                $('#sizeData').html(html);
+                $('#product-data').html(html);
                 var html1 = paging(data.totalPage,paginationPage);
                 $('.content_detail__pagination').html(html1);
 
@@ -135,16 +140,16 @@ function pagingChoose(a) {
     GetData();
 }
 
-function Add(size) {
+function Add(product) {
     $.ajax({
-        url: '/Size/Create',
+        url: '/Product/Create',
         type: 'POST',
         dataType: 'json',
-        data: { size: size },
+        data: { product: product },
         success: function (response) {
             if (response.status) {
                 swal("Success", "You created success!", "success");
-                $('#new-size-modal').modal('toggle');
+                $('#product-modal').modal('toggle');
                 GetData();
             } else {
                 alert('fail');
@@ -156,33 +161,34 @@ function sizeRow(data) {
     var created = '';
     var modified = '';
     data.CreatedAt != null
-        ? created = new Date(parseInt(data.CreatedAt.replace("/Date(", "").replace(")/", ""), 10))
+        ? created = new Date(parseInt(data.CreatedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : created = '';
     data.ModifiedAt != null
-        ? modified = new Date(parseInt(data.ModifiedAt.replace("/Date(", "").replace(")/", ""), 10))
+        ? modified = new Date(parseInt(data.ModifiedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : modified = '';
     var html = '';
-    html += ('<tr>< td><input id="checkbox" data-id="' + data.SizeId + '" type="checkbox">');
-    html += ('</td><th scope = "row" > ' + data.SizeId + '</th>');
-    html += ('<td>' + data.SizeName + '</td>');
-    html += ('<td>' + data.SizeDetails + '</td>');
-    html += ('<td>' + data.SizePrice + '</td>');
+    html += ('<tr>< td><input id="checkbox" data-id="' + data.ProductId + '" type="checkbox">');
+    html += ('</td><th scope = "row" > ' + data.ProductId + '</th>');
+    html += ('<td>' + data.ProductName + '</td>');
+    html += ('<td>' + data.ProductSize + '</td>');
+    html += ('<td>' + data.ProductMaterial + '</td>');
+    html += ('<td>' + data.ProductPrice + '</td>');
     html += ('<td>' + data.Status + '</td>');
     console.log(data.ModifiedAt);
-    html += ('<td>' + + '</td>');
-    html += ('<td>' + + '</td>');
+    html += ('<td>' + created+ '</td>');
+    html += ('<td>' +modified + '</td>');
     html += ('<td style="text-align:center">');
     html += ('<button id="edit_size" data-id="' +
-        data.SizeId +
-        '" onclick="GetDataEdit(' + data.SizeId + ')" class="btn waves-effect waves-light btn-warning" style="padding:5px"> <i class="fa fa-edit"></i></button>');
-    html += ('<button  class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i  data-id = "' + data.SizeId + '" onclick="Delete(' + data.SizeId + ')" class="fa fa-remove delete_size"></i> </button>');
+        data.ProductId +
+        '" onclick="GetDataEdit(' + data.ProductId + ')" class="btn waves-effect waves-light btn-warning" style="padding:5px"> <i class="fa fa-edit"></i></button>');
+    html += ('<button  class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i  data-id = "' + data.ProductId + '" onclick="Delete(' + data.ProductId + ')" class="fa fa-remove delete_size"></i> </button>');
     html += ('</td></tr >');
     return html;
 }
 
 function DeleteItem(id) {
     $.ajax({
-        url: '/Size/Delete/' + id,
+        url: '/Product/Delete/' + id,
         type: 'GET',
         dataType: 'json',
         success: function (response) {

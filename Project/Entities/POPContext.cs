@@ -18,10 +18,9 @@ namespace Entities
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<CreditCard> CreditCards { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<Size> Sizes { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -58,14 +57,6 @@ namespace Entities
                 .Property(e => e.Username)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Material>()
-                .Property(e => e.MaterialPrice)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<Material>()
-                .Property(e => e.Status)
-                .IsUnicode(false);
-
             modelBuilder.Entity<Order>()
                 .Property(e => e.PhoneNumber)
                 .IsUnicode(false);
@@ -78,15 +69,15 @@ namespace Entities
                 .Property(e => e.FolderImage)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Size>()
-                .Property(e => e.SizeDetails)
+            modelBuilder.Entity<Product>()
+                .Property(e => e.ProductSize)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Size>()
-                .Property(e => e.SizePrice)
+            modelBuilder.Entity<Product>()
+                .Property(e => e.ProductPrice)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Size>()
+            modelBuilder.Entity<Product>()
                 .Property(e => e.Status)
                 .IsUnicode(false);
 

@@ -12,13 +12,13 @@ using Services;
 namespace WEB.Areas.Admin.Controllers
 {
     [LoginAdminRequired]
-    public class SizeController : Controller
+    public class ProductController : Controller
     {
-        private IBaseService<Size> _sizeService;
+        private IBaseService<Product> _productService;
 
-        public SizeController(IBaseService<Size> sizeService)
+        public ProductController(IBaseService<Product> productService)
         {
-            _sizeService = sizeService;
+            _productService = productService;
         }
         // GET: Admin/Size
         public ActionResult Index()
@@ -32,9 +32,9 @@ namespace WEB.Areas.Admin.Controllers
             {
                 var pageNumber = int.Parse(Request.QueryString["pageNumber"]);
                 var pageSize = int.Parse(Request.QueryString["pageSize"]);
-                var list = await _sizeService.GetAllAsync(pageNumber, pageSize, size => size.SizeId,
-                    size => size.Status != Status.Deleted);
-                var total = await _sizeService.CountAsync(size =>size.Status!=Status.Deleted);
+                var list = await _productService.GetAllAsync(pageNumber, pageSize, p => p.ProductId,
+                    s => s.Status != Status.Deleted);
+                var total = await _productService.CountAsync(size =>size.Status!=Status.Deleted);
                 var totalPage = (int)Math.Ceiling((double)(total / pageSize))+1;
                 return Json(new {status = true, data = list,totalPage= totalPage}, JsonRequestBehavior.AllowGet);
             }
@@ -45,14 +45,14 @@ namespace WEB.Areas.Admin.Controllers
             return Json(new { status = false}, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> Create(Size size)
+        public async Task<JsonResult> Create(Product product)
         {
             try
             {
-                if (size!=null)
+                if (product!=null)
                 {
-                    size.CreatedAt = DateTime.Now;
-                    var result = await _sizeService.AddAsync(size);
+                    product.CreatedAt = DateTime.Now;
+                    var result = await _productService.AddAsync(product);
                     if (result!=null)
                     {
                         return Json(new { status = true}, JsonRequestBehavior.AllowGet);
@@ -70,10 +70,10 @@ namespace WEB.Areas.Admin.Controllers
         {
             try
             {
-                var size = await _sizeService.FindAsync(s => s.SizeId==id);
-                if (size!=null)
+                var product = await _productService.FindAsync(p => p.ProductId==id);
+                if (product!=null)
                 {
-                    return Json(new { status = true,data=size }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = true,data=product }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception e)
@@ -83,20 +83,20 @@ namespace WEB.Areas.Admin.Controllers
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
             
-        public async Task<JsonResult> Update(Size size,int id)
+        public async Task<JsonResult> Update(Product product,int id)
         {
             
             try
             {
-                var checkSize = await _sizeService.FindAsync(s => s.SizeId == id);
-                if (checkSize!=null &(size.Status.Equals(Status.Inactive) || size.Status.Equals(Status.Active)))
+                var checkProduct = await _productService.FindAsync(p => p.ProductId == id);
+                if (checkProduct!=null &(product.Status.Equals(Status.Inactive) || product.Status.Equals(Status.Active)))
                 {
-                    checkSize.SizeName = size.SizeName;
-                    checkSize.SizePrice = size.SizePrice;
-                    checkSize.SizeDetails = size.SizeDetails;
-                    checkSize.ModifiedAt = DateTime.Now;
-                    checkSize.Status = size.Status;
-                    var result = await _sizeService.UpdateAsync(checkSize, id);
+                    checkProduct.ProductName = product.ProductName;
+                    checkProduct.ProductPrice = product.ProductPrice;
+                    checkProduct.ProductSize = product.ProductSize;
+                    checkProduct.ModifiedAt = DateTime.Now;
+                    checkProduct.Status = product.Status;
+                    var result = await _productService.UpdateAsync(checkProduct, id);
                     if (result!=null)
                     {
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
@@ -114,11 +114,11 @@ namespace WEB.Areas.Admin.Controllers
         {
             try
             {
-                var size = await _sizeService.FindAsync(s => s.SizeId == id);
-                if (size != null)
+                var product = await _productService.FindAsync(p => p.ProductId == id);
+                if (product != null)
                 {
-                    size.Status = Status.Deleted;
-                    var result = await _sizeService.UpdateAsync(size, id);
+                    product.Status = Status.Deleted;
+                    var result = await _productService.UpdateAsync(product, id);
                     if (result!=null)
                     {
                         return Json(new { status = true}, JsonRequestBehavior.AllowGet);
