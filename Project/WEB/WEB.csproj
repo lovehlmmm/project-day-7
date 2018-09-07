@@ -194,7 +194,9 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\MaterialController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
     <Compile Include="Areas\Admin\Controllers\SizeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\LoginUser.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -265,16 +267,7 @@
     <Content Include="Areas\Admin\Assets\images\gallery\7.jpg" />
     <Content Include="Areas\Admin\Assets\images\gallery\8.jpg" />
     <Content Include="Areas\Admin\Assets\images\gallery\9.jpg" />
-    <Content Include="Areas\Admin\Assets\images\users\avatar-1.jpg" />
-    <Content Include="Areas\Admin\Assets\images\users\avatar-10.jpg" />
-    <Content Include="Areas\Admin\Assets\images\users\avatar-2.jpg" />
     <Content Include="Areas\Admin\Assets\images\users\avatar-3.jpg" />
-    <Content Include="Areas\Admin\Assets\images\users\avatar-4.jpg" />
-    <Content Include="Areas\Admin\Assets\images\users\avatar-5.jpg" />
-    <Content Include="Areas\Admin\Assets\images\users\avatar-6.jpg" />
-    <Content Include="Areas\Admin\Assets\images\users\avatar-7.jpg" />
-    <Content Include="Areas\Admin\Assets\images\users\avatar-8.jpg" />
-    <Content Include="Areas\Admin\Assets\images\users\avatar-9.jpg" />
     <Content Include="Areas\Admin\Assets\js\bootstrap.min.js" />
     <Content Include="Areas\Admin\Assets\js\detect.js" />
     <Content Include="Areas\Admin\Assets\js\fastclick.js" />
@@ -287,6 +280,7 @@
     <Content Include="Areas\Admin\Assets\js\jquery.slimscroll.js" />
     <Content Include="Areas\Admin\Assets\js\login.js" />
     <Content Include="Areas\Admin\Assets\js\modernizr.min.js" />
+    <Content Include="Areas\Admin\Assets\js\OrderDetais.js" />
     <Content Include="Areas\Admin\Assets\js\pagination.js" />
     <Content Include="Areas\Admin\Assets\js\pagination.min.js" />
     <Content Include="Areas\Admin\Assets\js\popper.min.js" />
@@ -2739,6 +2733,8 @@
     <Content Include="Areas\Admin\Assets\plugins\toastr\toastr.js.map" />
     <Content Include="Areas\Admin\Views\Material\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
