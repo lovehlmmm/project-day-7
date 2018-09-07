@@ -1,0 +1,2 @@
+C:\Users\hoang\OneDrive\Documents\Project\Project\WEB\obj\Debug\WEB.csprojAssemblyReference.cache
+C:\Users\hoang\OneDrive\Documents\Project\Project\WEB\obj\Debug\WEB.csproj.CoreCompileInputs.cache

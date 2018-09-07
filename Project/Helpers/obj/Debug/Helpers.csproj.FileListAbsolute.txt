@@ -1,0 +1,2 @@
+C:\Users\hoang\OneDrive\Documents\Project\Project\Helpers\obj\Debug\Helpers.csprojAssemblyReference.cache
+C:\Users\hoang\OneDrive\Documents\Project\Project\Helpers\obj\Debug\Helpers.csproj.CoreCompileInputs.cache

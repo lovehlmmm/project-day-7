@@ -1,0 +1,2 @@
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\obj\Debug\Entities.csprojAssemblyReference.cache
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\obj\Debug\Entities.csproj.CoreCompileInputs.cache
