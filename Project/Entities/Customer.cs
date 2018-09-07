@@ -34,14 +34,9 @@ namespace Entities
         [Column("date_of_birth")]
         public DateTime? DateOfBirth { get; set; }
 
-        [StringLength(50)]
-        [Column("username")]
-        [ForeignKey("User")]
-        public string Username { get; set; }
 
         public virtual ICollection<Address> Addresses { get; set; }
 
-        public virtual User User { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 

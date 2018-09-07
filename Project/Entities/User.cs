@@ -10,7 +10,6 @@ namespace Entities
     {
         public User()
         {
-            Customers = new HashSet<Customer>();
         }
 
         [Key]
@@ -30,6 +29,8 @@ namespace Entities
         [Column("role")]
         public string Role { get; set; }
 
-        public virtual ICollection<Customer> Customers { get; set; }
+        [Column("customer_id")]
+        public long? CustomerId { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

@@ -49,14 +49,6 @@ namespace Entities
                 .Property(e => e.Status)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Customer>()
-                .HasIndex(e => e.Username)
-                .IsUnique();
-
-            modelBuilder.Entity<Customer>()
-                .Property(e => e.Username)
-                .IsUnicode(false);
-
             modelBuilder.Entity<Order>()
                 .Property(e => e.PhoneNumber)
                 .IsUnicode(false);
