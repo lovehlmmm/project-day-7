@@ -286,6 +286,7 @@
     <Content Include="Areas\Admin\Assets\js\jquery.scrollTo.min.js" />
     <Content Include="Areas\Admin\Assets\js\jquery.slimscroll.js" />
     <Content Include="Areas\Admin\Assets\js\login.js" />
+    <Content Include="Areas\Admin\Assets\js\material.js" />
     <Content Include="Areas\Admin\Assets\js\modernizr.min.js" />
     <Content Include="Areas\Admin\Assets\js\pagination.js" />
     <Content Include="Areas\Admin\Assets\js\pagination.min.js" />
