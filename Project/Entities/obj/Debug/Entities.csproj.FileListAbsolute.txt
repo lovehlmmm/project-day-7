@@ -9,3 +9,14 @@ C:\Users\duong\source\repos\ProjectGroup6\Entities\obj\Debug\Entities.csproj.Cor
 C:\Users\duong\source\repos\ProjectGroup6\Entities\obj\Debug\Entities.csproj.CopyComplete
 C:\Users\duong\source\repos\ProjectGroup6\Entities\obj\Debug\Entities.dll
 C:\Users\duong\source\repos\ProjectGroup6\Entities\obj\Debug\Entities.pdb
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\bin\Debug\Entities.dll.config
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\bin\Debug\Entities.dll
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\bin\Debug\Entities.pdb
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\bin\Debug\EntityFramework.dll
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\bin\Debug\EntityFramework.xml
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\obj\Debug\Entities.csproj.CoreCompileInputs.cache
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\obj\Debug\Entities.csproj.CopyComplete
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\obj\Debug\Entities.dll
+C:\Users\hoang\OneDrive\Documents\Project\Project\Entities\obj\Debug\Entities.pdb
