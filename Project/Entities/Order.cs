@@ -31,6 +31,9 @@ namespace Entities
         [Column("credit_card_id")]
         public long? CreditCardId { get; set; }
 
+        [Column("note",TypeName = "ntext")]
+        public string Note { get; set; }
+
         [Column("address_id")]
         public long? AddressId { get; set; }
 

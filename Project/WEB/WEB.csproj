@@ -261,6 +261,7 @@
     <Content Include="Areas\Admin\Assets\js\logout.js" />
     <Content Include="Areas\Admin\Assets\js\material.js" />
     <Content Include="Areas\Admin\Assets\js\modernizr.min.js" />
+    <Content Include="Areas\Admin\Assets\js\order.js" />
     <Content Include="Areas\Admin\Assets\js\OrderDetais.js" />
     <Content Include="Areas\Admin\Assets\js\pagination.js" />
     <Content Include="Areas\Admin\Assets\js\pagination.min.js" />

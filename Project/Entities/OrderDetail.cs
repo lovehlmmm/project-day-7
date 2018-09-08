@@ -19,6 +19,9 @@ namespace Entities
         [Column("quantity")]
         public int? Quantity { get; set; }
 
+        [Column("image")]
+        [StringLength(50)]
+        public string Image { get; set; }
         [Column("product_id")]
         [ForeignKey("Product")]
         public int? ProductId { get; set; }
