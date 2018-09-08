@@ -61,6 +61,29 @@ function sizeRow(data) {
         ? modified = new Date(parseInt(data.ModifiedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : modified = '';
     var html = '';
-
+    html += '<td>' + data.Username + '</td>';
+    html += '<td>' + data.Customer + '</td>';
+    html += '<td>' + data.Role + '</td>';
+    html += data.Status === 'active' ? '<option selected value="active">Active</option><option>Inactive</option>' : '<option value="inactive">Active</option><option  selected>Inactive</option>'
+        
+        
+        <td>
+        <select class="form-control" id="exampleFormControlSelect1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        </select>
+            </div>
+        </td>
+        <td></td>
+        <td></td>
+        <td style="text-align:center">
+            <a href="#" id="edit_material" class="btn waves-effect waves-light btn-warning" style="padding:5px">
+                <i class="ion-information-circled"></i>
+            </a>
+            <button id="delete_material" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>
+        </td>
     return html;
 }
