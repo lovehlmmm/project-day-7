@@ -61,7 +61,7 @@
     </style>
 
 </head>
-<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+<body id="" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
     @RenderBody()
 
@@ -102,7 +102,7 @@
     <script src="~/Assets/js/custom.js"></script>
 
     <!--===============================================================================================-->
-    <script src="~/Assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+    @*<script src="~/Assets/vendor/jquery/jquery-3.2.1.min.js"></script>*@
     <!--===============================================================================================-->
     <script src="~/Assets/vendor/bootstrap/js/popper.js"></script>
     <script src="~/Assets/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -117,6 +117,6 @@
     </script>
     <!--===============================================================================================-->
     <script src="~/Assets/js/main.js"></script>
-
+    @RenderSection("script", false)
 </body>
 </html>

@@ -437,20 +437,19 @@ iframe {
     visibility: visible;
     opacity: 1;
   }
-} 
+}
 
 .float-right {
     float: right !important
 }
 
-body {
+#login ,#register {
     background: #9053c7;
     background: -webkit-linear-gradient(-135deg, #e5deea, #4252af);
     background: -o-linear-gradient(-135deg, #e5deea, #4252af);
     background: -moz-linear-gradient(-135deg, #e5deea, #4252af);
     background: linear-gradient(-135deg, #e5deea, #4252af);
     color: #999;
-
 }
 
 .form-control, .form-control:focus, .input-group-addon {

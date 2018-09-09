@@ -230,7 +230,7 @@ a {text-decoration: none !important;}
 /* home section styles
 /* ========================================== */
 #home {
-  background: url('../images/home-bg.jpg') 50% 0 repeat-y fixed;
+  background: url('/Assets/images/bg11.jpg') 50% 0 repeat-y fixed;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;
