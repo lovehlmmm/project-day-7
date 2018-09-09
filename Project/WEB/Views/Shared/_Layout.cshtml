@@ -1,41 +1,122 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <!-- Site title
+    ================================================== -->
+    <link rel="icon" type="image/png" href="~/Assets/images/icons/favicon.ico" />
+
+    <!-- Bootstrap CSS
+    ================================================== -->
+    <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css">
+
+    <!-- Animate CSS
+    ================================================== -->
+    <link rel="stylesheet" href="~/Assets/css/animate.css">
+
+    <!-- Font Icons CSS
+    ================================================== -->
+    <link rel="stylesheet" href="~/Assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Assets/css/et-line-font.css">
+
+    <!-- Nivo Lightbox CSS
+    ================================================== -->
+    <link rel="stylesheet" href="~/Assets/css/nivo-lightbox.css">
+    <link rel="stylesheet" href="~/Assets/css/nivo_themes/default/default.css">
+
+    <!-- Owl Carousel CSS
+    ================================================== -->
+    <link rel="stylesheet" href="~/Assets/css/owl.theme.css">
+    <link rel="stylesheet" href="~/Assets/css/owl.carousel.css">
+
+    <!-- Main CSS
+    ================================================== -->
+    <link rel="stylesheet" href="~/Assets/css/style.css">
+
+    <!-- Google web font
+    ================================================== -->
+    <link href='https://fonts.googleapis.com/css?family=Oxygen:400,700' rel='stylesheet' type='text/css'>
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/css/main.css">
+
+    <style type="text/css">
+        .float-right {
+            float: right !important
+        }
+    </style>
+
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+    @RenderBody()
+
+    <!-- Footer section
+    ================================================== -->
+    <footer style="background-color:#fff ;">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
+            <div class="row">
+
+                <div class="col-md-12 col-sm-12 wow fadeInUp" data-wow-delay="1s">
+                    <p>Copyright © TEAM SiX | All Rights Reserved.</p>
+                    <ul class="social-icon">
+                        <li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.9s"></a></li>
+                        <li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.9s"></a></li>
+                        <li><a href="#" class="fa fa-dribbble wow fadeIn" data-wow-delay="0.9s"></a></li>
+                        <li><a href="#" class="fa fa-behance wow fadeIn" data-wow-delay="0.9s"></a></li>
+                        <li><a href="#" class="fa fa-github wow fadeIn" data-wow-delay="0.9s"></a></li>
+                        <li><a href="#" class="fa fa-google-plus wow fadeIn" data-wow-delay="0.9s"></a></li>
+                    </ul>
+                </div>
+
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+    <!-- Javascript
+    ================================================== -->
+    <script src="~/Assets/js/jquery.js"></script>
+    <script src="~/Assets/js/bootstrap.min.js"></script>
+    <script src="~/Assets/js/jquery.sticky.js"></script>
+    <script src="~/Assets/js/jquery.backstretch.min.js"></script>
+    <script src="~/Assets/js/jquery.parallax.js"></script>
+    <script src="~/Assets/js/nivo-lightbox.min.js"></script>
+    <script src="~/Assets/js/owl.carousel.min.js"></script>
+    <script src="~/Assets/js/smoothscroll.js"></script>
+    <script src="~/Assets/js/wow.min.js"></script>
+    <script src="~/Assets/js/custom.js"></script>
+
+    <!--===============================================================================================-->
+    <script src="~/Assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/js/main.js"></script>
+
 </body>
 </html>

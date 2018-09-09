@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Helpers;
 
-namespace WEB.Areas.Admin.Controllers
+namespace WEB.Controllers
 {
-    [LoginAdminRequired]
-    public class HomeController : Controller
+    public class LoginUserController : Controller
     {
-        // GET: Admin/Home        
+        // GET: LoginUser
         public ActionResult Index()
         {
             return View();

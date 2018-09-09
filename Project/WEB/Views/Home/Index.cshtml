@@ -1,24 +1,316 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+    <div class="sk-spinner sk-spinner-pulse"></div>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+
+
+
+
+<!-- Navigation section
+================================================== -->
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">TEAM SiX</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#home" class="smoothScroll">HOME</a></li>
+                <li><a href="#service" class="smoothScroll">SERVICES</a></li>
+                <li><a href="#about" class="smoothScroll">ABOUT</a></li>
+                <li><a href="#team" class="smoothScroll">TEAM</a></li>
+                <li><a class="smoothScroll" data-toggle="modal" role="button" href="#loginModal">LOGIN</a></li>
+
+            </ul>
+        </div>
+
     </div>
 </div>
+<!-- Login Model   -->
+<div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align: center;">
+                <h3>Member Login</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
+                    <div class="form-group">
+                        <a href="register.html" class="float-right">New user?</a>
+                        <label for="uname1">Username</label>
+                        <input type="text" class="form-control form-control-lg" name="uname1" id="uname1" required="">
+                        <div hidden="true" class="invalid-feedback">Oops, you missed this one.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control form-control-lg" id="pwd1" required="" autocomplete="new-password">
+                        <div hidden="true" class="invalid-feedback">Enter your password too!</div>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="rememberMe">
+                        <label class="custom-control-label" for="rememberMe">Remember me on this computer</label>
+                    </div>
+                    <br>
+                    <div class="form-group py-4">
+                        <button class="btn btn-outline-secondary btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                        <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Login Modal -->
+<!-- Home section
+================================================== -->
+<section id="home" class="parallax-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8 col-sm-12" style="color: white">
+                <h2 class="ont-weight-big wow bounceIn" style="text-transform: uppercase;">Online Order For Didgital Photo Printing</h2>
+                <h4 class="font-weight-normal font-color-gray wow fadeInUp" data-wow-delay="1s">Just drag and drop your photos here and you can upload and print them .</h4>
+                <a href="login.html" class="btn btn-outline-secondary section-btn smoothScroll wow fadeInUp" data-wow-delay="1.9s">START UPLOADING</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Service section
+================================================== -->
+<section id="service" class="parallax-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-10">
+                <div class="section-title">
+                    <h1>What do we have? !</h1>
+                    <p> Make love in your photos ♥</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="media">
+                    <div class="media-object pull-left">
+                        <i class="icon icon-laptop"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">High-quality </h3>
+                        <p>It's more than a print. It's a memory worth holding on to. Printed with archival-quality inks on professional-grade photo paper, these are real keepers, meant to be enjoyed for years to come.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 wow fadeInUp" data-wow-delay="1.3s">
+                <div class="media">
+                    <div class="media-object pull-left">
+                        <i class="icon icon-focus"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">The Difference</h3>
+                        <p>You love your photos. So do we. That’s why we’re dedicated to offering quality products for an amazing value and guaranteeing your satisfaction.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 wow fadeInUp" data-wow-delay="1.6s">
+                <div class="media">
+                    <div class="media-object pull-left">
+                        <i class="icon icon-cloud"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">Processing </h3>
+                        <p>Once we receive your order, it takes us a few days to make it just right for you. Because every order is custom, it can take up to 3 business days to process your order. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 wow fadeInUp" data-wow-delay="1.9s">
+                <div class="media">
+                    <div class="media-object pull-left">
+                        <i class="icon icon-heart"></i>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">You may also love</h3>
+                        <p>Create a collection of your favorite photos with cards, books, décor, and more!</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- about section
+================================================== -->
+<section id="about" class="parallax-section">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-sm-10 wow fadeInUp" data-wow-delay="1.3s">
+                <h1>TeamSiX Studio</h1>
+                <p>Whether you’re keen to create an album of your favourite memories or you want to showcase your most treasured moments in frames around your home, We is here to help.</p>
+                <p>Bring precious memories to life with our fantastic photo printing service.</p>
+            </div>
+            <div class="col-md-6 col-sm-10 wow fadeInUp" data-wow-delay="1.6s">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="965" height="543" src="https://www.youtube.com/embed/4qbm-mAZcDQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- team section
+================================================== -->
+<section id="team" class="paralla-section">
+    <div class="container">
+        <div class="row">
+
+            <!-- Section title
+            ================================================== -->
+            <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 wow bounceIn">
+                <div class="section-title">
+                    <h1>Team Member</h1>
+                    <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="team-wrapper">
+                    <img src="~/Assets/images/team_1.jpg" class="img-responsive" alt="about">
+                    <div class="team-wrapper-social">
+                        <ul class="social-icon">
+                            <li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-dribbble wow fadeIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-behance wow fadeIn" data-wow-delay="0.9s"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="team-description">
+                    <h3>Johnathan Doe</h3>
+                    <h5>Designer</h5>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="1.3s">
+                <div class="team-wrapper">
+                    <img src="~/Assets/images/team_2.jpg" class="img-responsive" alt="about">
+                    <div class="team-wrapper-social">
+                        <ul class="social-icon">
+                            <li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-dribbble wow fadeIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-behance wow fadeIn" data-wow-delay="0.9s"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="team-description">
+                    <h3>Jenny L Martian</h3>
+                    <h5>UX Designer</h5>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="1.6s">
+                <div class="team-wrapper">
+                    <img src="~/Assets/images/team_3.jpg" class="img-responsive" alt="about">
+                    <div class="team-wrapper-social">
+                        <ul class="social-icon">
+                            <li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-dribbble wow fadeIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-behance wow fadeIn" data-wow-delay="0.9s"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="team-description">
+                    <h3>James David Doe</h3>
+                    <h5>Creative Director</h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- portfolio section
+================================================== -->
+<section id="portfolio" class="parallax-section">
+    <div class="container">
+        <div class="row">
+
+            <!-- Section title
+            ================================================== -->
+            <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 wow bounceIn text-center">
+                <div class="section-title">
+                    <h1>Lastest Work</h1>
+                    <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="portfolio-thumb">
+                    <a href="~/Assets/images/portfolio-img1.jpg" data-lightbox-gallery="portfolio-gallery">
+                        <img src="~/Assets/images/portfolio-img1.jpg" class="fluid-img" alt="portfolio img">
+
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="portfolio-thumb">
+                    <a href="~/Assets/images/portfolio-img2.jpg" data-lightbox-gallery="portfolio-gallery">
+                        <img src="~/Assets/images/portfolio-img2.jpg" class="fluid-img" alt="portfolio img">
+
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="portfolio-thumb">
+                    <a href="~/Assets/images/portfolio-img3.jpg" data-lightbox-gallery="portfolio-gallery">
+                        <img src="~/Assets/images/portfolio-img3.jpg" class="fluid-img" alt="portfolio img">
+
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="portfolio-thumb">
+                    <a href="~/Assets/images/portfolio-img4.jpg" data-lightbox-gallery="portfolio-gallery">
+                        <img src="~/Assets/images/portfolio-img4.jpg" class="fluid-img" alt="portfolio img">
+
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="portfolio-thumb">
+                    <a href="~/Assets/images/portfolio-img5.jpg" data-lightbox-gallery="portfolio-gallery">
+                        <img src="~/Assets/images/portfolio-img5.jpg" class="fluid-img" alt="portfolio img">
+
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
+                <div class="portfolio-thumb">
+                    <a href="~/Assets/images/portfolio-img6.jpg" data-lightbox-gallery="portfolio-gallery">
+                        <img src="~/Assets/images/portfolio-img6.jpg" class="fluid-img" alt="portfolio img">
+
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
