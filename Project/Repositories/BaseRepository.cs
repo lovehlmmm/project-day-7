@@ -48,7 +48,7 @@ namespace Repositories
         /// <returns>An ICollection of every object in the database</returns>
         public ICollection<TObject> GetAll(int num,int page,Func<TObject,object> orderBy, Expression<Func<TObject, bool>> match)
         {
-            return _context.Set<TObject>().ToList();
+            return _context.Set<TObject>().Where(match).AsEnumerable().OrderBy(orderBy).ToPagedList(num, page).ToList();
         }
         /// <summary>
         /// Gets a collection of all objects in the database

@@ -61,6 +61,7 @@ function sizeRow(data) {
         ? modified = new Date(parseInt(data.ModifiedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : modified = '';
     var html = '';
+    html += '<tr>';
     html += '<td>' + data.Username + '</td>';
     html += '<td>' + data.CustomerName + '</td>';
     html += '<td>' + data.Role + '</td>';
@@ -74,6 +75,7 @@ function sizeRow(data) {
         '<i class="ion-information-circled"></i>' +
         '</a>' +
         '<button id="delete_user" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>' +
-        '</td>';    
+        '</td>';
+    html += '</tr>';
     return html;
 }

@@ -62,5 +62,10 @@ namespace Services
         {
             return _baseRepository.GetAll(num, page, orderBy, match);
         }
+
+        public TObject Find(Expression<Func<TObject, bool>> match)
+        {
+            return _baseRepository.Find(match);
+        }
     }
 }

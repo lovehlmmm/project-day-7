@@ -1,0 +1,106 @@
+﻿@using System.Collections
+@using Entities
+@{
+    var order = (Order)ViewBag.Data;
+}
+<style>
+    th {
+        text-align: center;
+    }
+</style>
+<div class="row">
+    <div class="col-12">
+        <div class="card-box">
+            <!-- <div class="panel-heading">
+                <h4>Invoice</h4>
+            </div> -->
+            <div class="panel-body">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <h3 class="logo">Photos Printing</h3>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="float-left m-t-30">
+                            <address>
+                                @(order.Address != null ? order.Address.AddressDetails : string.Empty)
+                            </address>
+                        </div>
+                        <div class="float-right m-t-30">
+                            <p><strong>Order Date: </strong>@order.CreatedAt</p>
+                            <p class="m-t-10"><strong>Order Status: </strong> <span class="label label-danger">@order.Status</span></p>
+                            <p class="m-t-10"><strong>Order ID: </strong> #@order.OrderId</p>
+                        </div>
+                    </div><!-- end col -->
+                </div>
+                <!-- end row -->
+
+                <div class="m-h-50"></div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table m-t-30">
+                                <thead class="bg-faded">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Item Name</th>
+                                        <th>Quantity</th>
+                                        <th>Image</th>
+                                        <th>Unit Cost</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        if (order != null)
+                                        {
+                                            var result = new
+                                            {
+
+                                                OrderDetails = order.OrderDetails.Select(od => new { od.Product.ProductName, od.OrderDetailsId, od.Quantity, od.Product.ProductPrice, od.Image, Total = od.Quantity * od.Product.ProductPrice }).ToList()
+                                            };
+                                            foreach (var item in result.OrderDetails)
+                                            {
+                                                <tr>
+                                                    <td>@item.OrderDetailsId</td>
+                                                    <td>@item.ProductName</td>
+                                                    <td>@item.Quantity</td>
+                                                    <td>@item.Image</td>
+                                                    <td>@item.ProductPrice</td>
+                                                    <td>@item.Total</td>
+                                                </tr>
+                                            }
+
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6 ">
+                        <h3 class="text-right">@order.OrderDetails.Sum(o => o.Quantity * o.Product.ProductPrice)</h3>
+                    </div>
+                </div>
+                <hr>
+                <div class="hidden-print">
+                    <div class="float-right">
+                        <a href="javascript:window.print()" class="btn btn-dark waves-effect waves-light"><i class="fa fa-print"></i></a>
+                        @*<a href="#" class="btn btn-primary waves-effect waves-light">Submit</a>*@
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

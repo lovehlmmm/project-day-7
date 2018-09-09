@@ -52,32 +52,23 @@ namespace WEB.Areas.Admin.Controllers
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
-
-        public async Task<JsonResult> Get(long id)
+        public  ActionResult Get(long id)
         {
             try
             {
-                Order order = await _orderService.FindAsync(o => o.OrderId == id && o.Status != Status.Deleted);
+                Order order =  _orderService.Find(o => o.OrderId == id && o.Status != Status.Deleted);
                 if (order!=null)
                 {
-                    var result = new
-                    {
-                        order.OrderId,
-                        order.Address?.AddressDetails,
-                        order.Status,
-                        order.CreatedAt,
-                        OrderDetails = order.OrderDetails.Select(od=> new {od.Quantity,od.Product.ProductPrice,od.Image,Total= od.Quantity*od.Product.ProductPrice}),
-                        Total = order.OrderDetails.Sum(o => o.Quantity * o.Product.ProductPrice),
-                        order.Note
-                    };
-                    return Json(new { status = true,data=result }, JsonRequestBehavior.AllowGet);
+                    
+                    ViewBag.Data = order;
                 }
+             
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            return Json(new { status = false}, JsonRequestBehavior.AllowGet);
+            return  PartialView("~/Areas/Admin/Views/Order/OrderDetailsPartial.cshtml");
         }
     }
 }

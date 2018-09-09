@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
     GetData();
+    $('#datatable').DataTable();
+
+    //Buttons examples
+    var table = $('#datatable-buttons').DataTable({
+        lengthChange: false,
+        buttons: ['copy', 'excel', 'pdf']
+    });
+
+    table.buttons().container()
+        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
 });
 
 $('#btnOpenModalAdd').click(function () {
@@ -26,20 +36,24 @@ function GetData() {
     });
 }
 function GetDataEdit(id) {
+    
     $.ajax({
         url: '/Order/Get/' + id,
         type: 'GET',
-        dataType: 'json',
         success: function (response) {
-            if (response.status) {
-                $('#modal-order-details').modal();
-            } else {
-                alert('fail');
-            }
+            $('#body-modal-order-details').html(response);
+            $('#modal-order-details').modal();
         }
     });
 }
+//function GetDataEdit(id) {
+//    var url = '/Order/Get/' + id;
 
+//    $('#body-modal-order-details').load(url, function () {
+//        $('#modal-order-details').modal('show');
+//    })
+
+//}
 function paging(page, index) {
     if (index === 'undefined') {
         index = 1;
@@ -77,21 +91,25 @@ function sizeRow(data) {
         ? modified = new Date(parseInt(data.ModifiedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : modified = '';
     var html = '';
-    html+='<tr>'
+    html += '<tr>'
     html += '<td>' + data.OrderId + '</td>';
     html += '<td>' + data.CustomerName + '</td>';
     html += '<td>' + data.PhoneNumber + '</td>';
     html += '<td>' + data.AddressDetails + '</td>';
-    html += '<td>' + data.Total + '</td>';   
+    html += '<td>' + data.Total + '</td>';
     html += '<td>' + data.Status + '</td>';
     html += '<td>' + created + '</td>';
     html += '<td>' + modified + '</td>';
     html += '<td style="text-align:center">' +
-        '<a href = "#" id = "edit-user" onclick="GetDataEdit('+data.OrderId+')" class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
+        '<a href = "#" id = "edit-user" onclick="GetDataEdit(' + data.OrderId + ')" class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
         '<i class="ion-information-circled"></i>' +
         '</a>' +
         '<button id="delete_user" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>' +
         '</td>';
-    html += '</tr>';    
+    html += '</tr>';
     return html;
+}
+
+function DetailsData(data) {
+
 }
