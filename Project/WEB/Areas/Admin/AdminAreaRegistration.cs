@@ -11,7 +11,7 @@ namespace WEB.Areas.Admin
             context.MapRoute(
                 "Admin_Home",
                 "Admin/home",
-                new { area="admin", controller = "home", action = "Index"}
+                new { area="admin", controller = "dashbroad", action = "Index"}
             );
             context.MapRoute(
                 "Admin_Login",
