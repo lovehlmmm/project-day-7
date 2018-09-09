@@ -1,6 +1,7 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Login";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
@@ -26,17 +27,19 @@
     <!--===============================================================================================-->
     <script src="~/Assets/vendor/tilt/tilt.jquery.min.js"></script>
     <script>
-            $('.js-tilt').tilt({
-                scale: 1.1
-            })
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
     </script>
+
     <!--===============================================================================================-->
     <script src="~/Assets/js/main.js"></script>
     <script>
-        $(document).ready(function(){
-    $('body').attr('id','login');
-    });
+        $(document).ready(function () {
+            $('body').attr('id', 'login');
+        });
     </script>
+    <script src="~/Scripts/login.js"></script>
 }
 <!-- Preloader section ================================================== -->
 <div class="preloader">
@@ -86,21 +89,21 @@
                 <img src="~/Assets/images/img-01.png" alt="IMG">
             </div>
 
-            <form class="login100-form validate-form">
+            <form class="login100-form validate-form" id="formLogin">
                 <span class="login100-form-title">
                     Member Login
                 </span>
 
-                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="email" placeholder="Email">
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="text" name="username" placeholder="Username">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <i class="fa fa-user" aria-hidden="true"></i>
                     </span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="pass" placeholder="Password">
+                    <input class="input100" type="password" name="password" placeholder="Password">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>

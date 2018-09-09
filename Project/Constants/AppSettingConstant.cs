@@ -11,5 +11,6 @@ namespace Constants
         public static string PasswordHash = "team6";
         public static int SaltLength = 8;
         public static string LoginSessionAdmin = "loggedAdmin";
+        public static string LoginSessionCustomer = "loggedCustomer";
     }
 }
