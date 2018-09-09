@@ -3,9 +3,35 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section css{
+    <link rel="stylesheet" type="text/css" href="~/Assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/css/main.css">
+}
 
 @section script{
+    <script src="~/Assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+            $('.js-tilt').tilt({
+                scale: 1.1
+            })
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/js/main.js"></script>
     <script>
         $(document).ready(function(){
     $('body').attr('id','login');
