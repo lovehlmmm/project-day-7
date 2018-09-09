@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+
+  <!-- Site title
+   ================================================== -->
+  <title>TEAM 6</title>
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+
+  <!-- Bootstrap CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <!-- Animate CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/animate.css">
+
+  <!-- Font Icons CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/et-line-font.css">
+
+  <!-- Nivo Lightbox CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/nivo-lightbox.css">
+  <link rel="stylesheet" href="css/nivo_themes/default/default.css">
+
+  <!-- Owl Carousel CSS
+   ================================================== -->
+    <link rel="stylesheet" href="css/owl.theme.css">
+  <link rel="stylesheet" href="css/owl.carousel.css">
+
+  <!-- Main CSS
+   ================================================== -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Google web font 
+   ================================================== --> 
+   <link href='https://fonts.googleapis.com/css?family=Oxygen:400,700' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+    .float-right{
+      float: right!important
+    }
+
+  </style>
+</head>
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+
+<!-- Preloader section
+================================================== -->
+<div  class="preloader">
+  <div class="sk-spinner sk-spinner-pulse"></div>
+</div>
+
+
+
+<!-- Navigation section
+================================================== -->
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+
+    <div class="navbar-header">
+      <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon icon-bar"></span>
+        <span class="icon icon-bar"></span>
+        <span class="icon icon-bar"></span>
+      </button>
+      <a href="#" class="navbar-brand">TEAM SiX</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#home" class="smoothScroll">HOME</a></li>
+        <li><a href="#service" class="smoothScroll">SERVICES</a></li>
+        <li><a href="#about" class="smoothScroll">ABOUT</a></li>
+        <li><a href="#team" class="smoothScroll">TEAM</a></li>
+        <li><a class="smoothScroll" data-toggle="modal" role="button" href="#loginModal">LOGIN</a></li>
+
+      </ul>
+    </div>
+
+  </div>
+</div>
+<!-- Login Model   --> 
+<div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align: center;">
+                <h3>Member Login</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
+                    <div class="form-group">
+                      <a href="" class="float-right">New user?</a>
+                        <label for="uname1">Username</label>
+                        <input type="text" class="form-control form-control-lg" name="uname1" id="uname1" required="">
+                        <div hidden="true" class="invalid-feedback">Oops, you missed this one.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control form-control-lg" id="pwd1" required="" autocomplete="new-password">
+                        <div hidden="true" class="invalid-feedback">Enter your password too!</div>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="rememberMe">
+                      <label class="custom-control-label" for="rememberMe">Remember me on this computer</label>
+                    </div>
+                   <br>
+                    <div class="form-group py-4">
+                        <button class="btn btn-outline-secondary btn-lg" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                        <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Login Modal -->
+<!-- Home section
+================================================== -->
+
+
+<!-- Footer section
+================================================== -->
+<footer>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12 col-sm-12 wow fadeInUp" data-wow-delay="1s">
+        <p>Copyright © TEAM SiX| All Rights Reserved.</p>
+        <ul class="social-icon">
+          <li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.9s"></a></li>
+          <li><a href="#" class="fa fa-twitter wow fadeIn" data-wow-delay="0.9s"></a></li>
+          <li><a href="#" class="fa fa-dribbble wow fadeIn" data-wow-delay="0.9s"></a></li>
+          <li><a href="#" class="fa fa-behance wow fadeIn" data-wow-delay="0.9s"></a></li>
+          <li><a href="#" class="fa fa-github wow fadeIn" data-wow-delay="0.9s"></a></li>
+          <li><a href="#" class="fa fa-google-plus wow fadeIn" data-wow-delay="0.9s"></a></li>
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+<!-- Javascript 
+================================================== -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.sticky.js"></script>
+<script src="js/jquery.backstretch.min.js"></script>
+<script src="js/jquery.parallax.js"></script>
+<script src="js/nivo-lightbox.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+
+
+</body>
+</html>
