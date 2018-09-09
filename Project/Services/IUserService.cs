@@ -9,6 +9,6 @@ namespace Services
 {
     public interface IUserService:IBaseService<User>
     {
-        User CheckLogin(string username, string password);
+        User CheckLogin(string username, string password,string role);
     }
 }
