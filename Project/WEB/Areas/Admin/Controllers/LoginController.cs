@@ -33,7 +33,7 @@ namespace WEB.Areas.Admin.Controllers
             try
             {
                 LoginUser userLogin = JsonConvert.DeserializeObject<LoginUser>(user);
-                var checkUser = _userService.CheckLogin(userLogin.Username.Trim(), userLogin.Password.Trim());
+                var checkUser = _userService.CheckLogin(userLogin.Username.Trim(), userLogin.Password.Trim(),UserRole.Admin);
                 if (checkUser != null)
                 {
                     if (!checkUser.Role.Equals(UserRole.Admin)) return Json(new { status = false });

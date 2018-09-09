@@ -20,10 +20,10 @@ namespace Services
             _repositoryUser = repositoryUser;
             _hashingData = new HashingData(AppSettingConstant.SaltLength);
         }
-        public User CheckLogin(string username, string password)
+        public User CheckLogin(string username, string password,string role)
         {
             User user = _repositoryUser.Find(u =>
-                u.Username == username && u.Status.Equals(Status.Active));
+                u.Username == username && u.Status.Equals(Status.Active)& u.Role==role);
             if(user!=null)
             {
                 if (password.Equals(_hashingData.DecryptString(user.Password, AppSettingConstant.PasswordHash)))
