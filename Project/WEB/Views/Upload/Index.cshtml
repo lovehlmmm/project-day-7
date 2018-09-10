@@ -1,62 +1,18 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Full Plugin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link href="./css/bootstrap.css" rel="stylesheet" />
-<!--     <link href="./css/flat-ui.css" rel="stylesheet" />
- -->    <link href="./css/jquery.gritter.css" rel="stylesheet" />
-    <link href="./css/app.css" rel="stylesheet" />
-    <style>
-        input[type="file"]{
-            display:inline-block;
-        }
-    </style>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-                  <script src="js/html5shiv.js"></script>
-                <![endif]-->
-</head>
-<body>
-    <div class="container">
-    <div class="row-fluid">
-     <div id="thumbnail" class="well" style="text-align: center;">
-       <h3> Upload & Image Preview</h3>
-        <p class="shim">Choose your images <b>& start printing</b></p>       
-        <form class="row" id="dropper1">
-
-            <div style="padding-bottom: 20px">
-            </div>
-
-            <div class="row" style="margin:0;">
-                <div class="col-md-12 drop-zone" id="dropPlace1" style="padding:0 !important;">
-                </div>
-            </div>
-            <div class="row images" id="imageHolder1">
-            </div>
-            <div class="text-center">
-                <input id="fileInput1" name="fileInput" type="file" class="btn btn-file" multiple />
-            </div>
-            <br>
-            <div class="text-center">
-                <input type="submit" class="btn btn-block btn-lg btn-primary" value="Confirm Checkout" />
-            </div>
-        </form>
-    </div>
-</div>
-          <hr />
- 
-    </div>
-    <script type="text/javascript" src="./js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="./js/bootstrap.js"></script>
-    <script type="text/javascript" src="./js/flat-ui.js"></script>
-    <script src="./js/jquery.gritter.min.js"></script>
-    <script src="./Scripts/Pure.Uploader.js"></script>
-    
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    <link href="~/Assets/css/app.css" rel="stylesheet" />
+    <link href="~/Assets/css/jquery.gritter.css" rel="stylesheet" />
+}
+@section script{
+    @*<script src="~/Assets/js/jquery-1.9.1.min.js"></script>*@
+    @*<script src="~/Assets/js/bootstrap.js"></script>*@
+    <script src="~/Assets/js/flat-ui.js"></script>
+    <script src="~/Assets/js/jquery.gritter.min.js"></script>
+    <script src="~/Assets/Scripts/Pure.Uploader.js"></script>
     <script>
         // Custom Selects
         if ($('[data-toggle="select"]').length) {
@@ -84,17 +40,17 @@
                 file_size: 3000 * 1024 * 1024,
                 template:
                     '<div class="form-group text-center">' +
-                        '<a href="javascript:void(0)" class="btn btn-danger close" onclick="{uploader}.remove(\'{id}\')">x</a>' +
-                        '{image}' +
+                    '<a href="javascript:void(0)" class="btn btn-danger close" onclick="{uploader}.remove(\'{id}\')">x</a>' +
+                    '{image}' +
                     '</div>' +
                     '<div class="form-group text-center">' +
-                        '<div class="form-group col-md-6">' +
-                            '<a href="javascript:void(0)" class="btn btn-info" onclick="{uploader}.start(\'{id}\')">Start</a>' +
-                        '</div>' +
-                        '<div class="form-group col-md-6">' +
-                            '<a href="javascript:void(0)" class="btn btn-info" onclick="{uploader}.pause(\'{id}\')">Pause</a>' +
-                        '</div>' +
-                        '<p>{file.name} - {file.size}</p>' +
+                    '<div class="form-group col-md-6">' +
+                    '<a href="javascript:void(0)" class="btn btn-info" onclick="{uploader}.start(\'{id}\')">Start</a>' +
+                    '</div>' +
+                    '<div class="form-group col-md-6">' +
+                    '<a href="javascript:void(0)" class="btn btn-info" onclick="{uploader}.pause(\'{id}\')">Pause</a>' +
+                    '</div>' +
+                    '<p>{file.name} - {file.size}</p>' +
                     '</div>',
                 image: {
                     thumb: true,
@@ -111,13 +67,11 @@
                     _default: "/images/icons/_blank.png",
                     width: 128,
                     height: 128,
-                    extension:'.png'
+                    extension: '.png'
                 },
                 ajax: {
                     url: '/Home/Receive',
-                    //url: 'http://lyzerk.koding.io/handler.php',
 
-                    ///url:'https://demo-project-lyzerk.c9.io/handler.php',
                     clearAfterUpload: true,
                     beforeSend: function (xhr) {
 
@@ -132,8 +86,8 @@
                 },
 
             });
- 
- 
+
+
 
         $(function () {
 
@@ -146,7 +100,7 @@
                 e_thumbnail.settings.icon.icon = $(this).is(":checked");
             });
 
- 
+
 
             $('#watermarkText').change(function () {
                 e_watermark1.settings.watermark.text = $(this).val();
@@ -207,7 +161,7 @@
         }
 
         function uploaderSuccess(event) {
-            
+
             $.gritter.add({
                 title: 'File Uploaded!',
             });
@@ -266,5 +220,59 @@
         window.onbeforeunload = confirmOnPageExit;
     </script>
 
-</body>
-</html>
+}
+<!-- Navigation section
+================================================== -->
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">TEAM SiX</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#home" class="smoothScroll">HOME</a></li>
+                <li><a href="#service" class="smoothScroll">SERVICES</a></li>
+                <li><a href="#about" class="smoothScroll">ABOUT</a></li>
+                <li><a href="#team" class="smoothScroll">TEAM</a></li>
+ 
+            </ul>
+        </div>
+
+    </div>
+</div>
+<!-- Home section
+================================================== -->
+<div class="row-fluid">
+    <div id="thumbnail" class="well" style="text-align: center;">
+        <h2> Upload & Image Preview</h2>
+        <p class="shim">Choose your images <b>& start printing</b></p>
+        <form class="row" id="dropper1">
+
+            <div style="padding-bottom: 20px">
+            </div>
+
+            <div class="row" style="margin:0;">
+                <div class="col-md-12 drop-zone" id="dropPlace1" style="padding:0 !important;">
+                </div>
+            </div>
+            <div class="row images" id="imageHolder1">
+            </div>
+            <div class="text-center">
+                <input id="fileInput1" name="fileInput" type="file" class="btn btn-file" multiple />
+            </div>
+            <br>
+            <div class="text-center">
+                <input type="submit" class="btn btn-block btn-lg btn-primary" value="Confirm Checkout" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

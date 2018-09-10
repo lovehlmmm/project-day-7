@@ -207,6 +207,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\ResgisterUserController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2315,9 +2316,12 @@
     <Content Include="Areas\Admin\Assets\scss\icons\weather-icons\less\css\variables-wind-names.css" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Assets\css\animate.css" />
+    <Content Include="Assets\css\app.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\et-line-font.css" />
+    <Content Include="Assets\css\flat-ui.css" />
     <Content Include="Assets\css\font-awesome.min.css" />
+    <Content Include="Assets\css\jquery.gritter.css" />
     <Content Include="Assets\css\main.css" />
     <Content Include="Assets\css\nivo-lightbox.css" />
     <Content Include="Assets\css\nivo_themes\default\close%402x.png" />
@@ -2355,6 +2359,7 @@
     <Content Include="Assets\images\comment2.jpg" />
     <Content Include="Assets\images\home-bg-slider-img1.jpg" />
     <Content Include="Assets\images\home-bg-slider-img2.jpg" />
+    <Content Include="Assets\images\2.png" />
     <Content Include="Assets\images\icons\favicon.ico" />
     <Content Include="Assets\images\img-01.png" />
     <Content Include="Assets\images\portfolio-img1.jpg" />
@@ -2369,10 +2374,14 @@
     <Content Include="Assets\images\testimonial-img1.jpg" />
     <Content Include="Assets\images\testimonial-img2.jpg" />
     <Content Include="Assets\images\testimonial-img3.jpg" />
+    <Content Include="Assets\js\bootstrap.js" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\custom.js" />
     <Content Include="Assets\js\custom1.js" />
+    <Content Include="Assets\js\flat-ui.js" />
+    <Content Include="Assets\js\jquery-1.9.1.min.js" />
     <Content Include="Assets\js\jquery.backstretch.min.js" />
+    <Content Include="Assets\js\jquery.gritter.min.js" />
     <Content Include="Assets\js\jquery.js" />
     <Content Include="Assets\js\jquery.parallax.js" />
     <Content Include="Assets\js\jquery.sticky.js" />
@@ -2382,6 +2391,7 @@
     <Content Include="Assets\js\smoothscroll.js" />
     <Content Include="Assets\js\webscript.js" />
     <Content Include="Assets\js\wow.min.js" />
+    <Content Include="Assets\Scripts\Pure.Uploader.js" />
     <Content Include="Assets\vendor\animate\animate.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.min.css" />
@@ -2854,6 +2864,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\LoginUser\Index.cshtml" />
     <Content Include="Views\ResgisterUser\Index.cshtml" />
+    <Content Include="Views\Upload\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
