@@ -208,6 +208,7 @@
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\ResgisterUserController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2865,6 +2866,7 @@
     <Content Include="Views\LoginUser\Index.cshtml" />
     <Content Include="Views\ResgisterUser\Index.cshtml" />
     <Content Include="Views\Upload\Index.cshtml" />
+    <Content Include="Views\UserInfo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

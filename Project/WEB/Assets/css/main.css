@@ -443,12 +443,12 @@ iframe {
     float: right !important
 }
 
-#login ,#register {
-    background: #9053c7;
-    background: -webkit-linear-gradient(-135deg, #e5deea, #4252af);
-    background: -o-linear-gradient(-135deg, #e5deea, #4252af);
-    background: -moz-linear-gradient(-135deg, #e5deea, #4252af);
-    background: linear-gradient(-135deg, #e5deea, #4252af);
+#login, #register {
+    background: #FFFFFF;
+    background: -webkit-linear-gradient(-135deg, #FFFFFF, #FFFFFF);
+    background: -o-linear-gradient(-135deg, #FFFFFF, #FFFFFF);
+    background: -moz-linear-gradient(-135deg, #FFFFFF, #FFFFFF);
+    background: linear-gradient(-135deg, #FFFFFF, #FFFFFF);
     color: #999;
 }
 

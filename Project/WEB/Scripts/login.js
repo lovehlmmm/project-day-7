@@ -4,6 +4,10 @@ $("#formLogin").submit(function () {
     var username = $("input[name=username]").val().trim();
     var password = $("input[name=password]").val().trim();
     var remember = $("input[name=remember]:checked").length > 0;
+    if (username === '' || password === '') {
+        alert('fail')
+        return false;
+    }
     var user = { Username: username, Password: password, Remember: remember };
     $.ajax({
         url: '/LoginUser/CheckLogin',
