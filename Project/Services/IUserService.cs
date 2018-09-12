@@ -10,5 +10,6 @@ namespace Services
     public interface IUserService:IBaseService<User>
     {
         User CheckLogin(string username, string password,string role);
+        bool Register(User user);
     }
 }

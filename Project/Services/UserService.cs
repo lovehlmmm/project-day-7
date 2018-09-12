@@ -33,5 +33,20 @@ namespace Services
             return null;
         }
 
+        public bool Register(User user)
+        {
+            user.Password = _hashingData.EncryptString(user.Password, AppSettingConstant.PasswordHash);
+            var resultUser =
+                TransactionRepository.GenericSafeTransaction<POPContext>(context =>
+                {
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                });
+                if (resultUser)
+                {
+                    return true;
+                }
+            return false;
+        }
     }
 }
