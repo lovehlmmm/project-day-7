@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "UserInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
@@ -101,94 +101,151 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-1">
-        <form id="payment-form" class="reg-page" method="post">
-            <div class="row">
-                <div class="col-md-5">
-                    <label class="control-labelrequiredField">Account Details<span class="asteriskField">*</span></label>
-                    <div class="margin-bottom-20">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
-                            <input id="id_name" maxlength="254" name="name" type="text" placeholder="Name" tabindex="1" class="form-control required">
+<div class="container" style="margin-top: 25px;">
+
+    <div class="row">
+
+        <!-- *** LEFT COLUMN ***__ -->
+        <div class="col-md-9">
+            <form id="payment-form" class="reg-page" method="post" "><input type="hidden" name="" value="">
+                <div class="reg-header">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label class="control-labelrequiredField">Account Details<span class="asteriskField">*</span></label>
+                            <div class="margin-bottom-20">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
+                                    <input id="id_name" maxlength="254" name="name" type="text" placeholder="Name" tabindex="1" class="form-control required">
+                                </div>
+                                <p class="reg_error"></p>
+                            </div>
+                            <div class="margin-bottom-20">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input id="id_username" maxlength="254" name="username" type="text" placeholder="Username" tabindex="1" class="form-control required">
+                                </div>
+                                <p class="reg_error"></p>
+                            </div>
+
+                            <div class="margin-bottom-20">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                    <input id="id_email" maxlength="254" name="email" type="text" placeholder="Email" tabindex="2" class="form-control required">
+                                </div>
+                                <p class="reg_error"></p>
+                            </div>
+
+                            <div class="margin-bottom-20">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="icon-lock"></i></span>
+                                    <input id="id_password1" name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
+                                </div>
+                                <p class="reg_error"></p>
+                            </div>
+
                         </div>
-                        <p class="reg_error"></p>
+                        <div class="col-md-7">
+                            <div id="div_id_plan" class="form-group">
+                                <label for="id_plan" class="control-labelrequiredField">Gender<span class="asteriskField">*</span></label>
+                                <div class="controls">
+                                    <select class="select form-control" id="id_plan" name="plan" tabindex="5">
+                                        <option value="standard">Male</option>
+                                        <option value="business">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <span id="paid_options" class="">
+
+                                <div id="div_id_interval" class="form-group">
+                                    <label for="id_interval" class="control-label requiredField">Address<span class="asteriskField">*</span></label>
+                                    <div class="controls">
+                                        <input id="id_address" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control required">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Payment -->
+                                <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
+                                <div class="margin-bottom-20">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input id="id_creditcard" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="margin-bottom-20">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                        <input style="width: 50%" type="text" size="2" placeholder="MM" class="form-control required" data-stripe="exp-month" tabindex="8">
+                                        <input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control required" data-stripe="exp-year" tabindex="9">
+                                    </div>
+                                </div>
+                                <div class="margin-bottom-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-key"></i></span>
+                                        <input id="id_cvc" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control required" data-stripe="cvc" tabindex="10">
+                                    </div>
+                                </div>
+                                <div class="margin-bottom-10">
+                                    <span class="payment-errors reg_error"></span><br>
+                                </div>
+                            </span> <!--end paid_options -->
+                        </div>
                     </div>
-                    <div class="margin-bottom-20">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input id="id_username" maxlength="254" name="username" type="text" placeholder="Username" tabindex="1" class="form-control required">
+                    <div class="row">
+                        <div class="col-md-6">
+
                         </div>
-                        <p class="reg_error"></p>
                     </div>
 
-                    <div class="margin-bottom-20">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            <input id="id_email" maxlength="254" name="email" type="text" placeholder="Email" tabindex="2" class="form-control required">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-success btn-block" type="submit" tabindex="11">Save and Change!</button>
                         </div>
-                        <p class="reg_error"></p>
                     </div>
+                    <hr>
+            </form>
 
-                    <div class="margin-bottom-20">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="icon-lock"></i></span>
-                            <input id="id_password1" name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
-                        </div>
-                        <p class="reg_error"></p>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div id="div_id_plan" class="form-group">
-                        <label for="id_plan" class="control-labelrequiredField">Gender<span class="asteriskField">*</span></label>
-                        <div class="controls">
-                            <select class="select form-control" id="id_plan" name="plan" tabindex="5">
-                                <option value="standard">Male</option>
-                                <option value="business">Female</option>
-                            </select>
-                        </div>
-                    </div>
-                    <span id="paid_options" >
-                        <div id="" class="form-group">
-                            <label for="id_interval" class="control-label requiredField">Address<span class="asteriskField">*</span></label>
-                            <div class="controls">
-                                <input id="id_address" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control required">
-                            </div>
-                        </div>
 
-                        <!-- Payment -->
-                        <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
-                        <div class="margin-bottom-20">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                <input id="id_creditcard" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control required">
-                            </div>
-                        </div>
-                        <div class="margin-bottom-20">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                                <input style="width: 50%" type="text" size="2" placeholder="MM" class="form-control required" data-stripe="exp-month" tabindex="8">
-                                <input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control required" data-stripe="exp-year" tabindex="9">
-                            </div>
-                        </div>
-                        <div class="margin-bottom-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="icon-key"></i></span>
-                                <input id="id_cvc" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control required" data-stripe="cvc" tabindex="10">
-                            </div>
-                        </div>
-                        <div class="margin-bottom-10">
-                            <span class="payment-errors reg_error"></span><br>
-                        </div>
-                    </span> <!--end paid_options -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn btn-success btn-block" type="submit" tabindex="11">Save and Change!</button>
-                </div>
-            </div>
-        </form>
+        </div>
+        <!-- /.box -->
+
     </div>
+    <!-- /.col-md-9 -->
+    <!-- *** LEFT COLUMN END *** -->
+    <!-- *** RIGHT COLUMN ***
+    _________________________________________________________ -->
+
+    <div class="col-md-3">
+        <!-- *** CUSTOMER MENU ***
+        _________________________________________________________ -->
+        <div class="panel panel-default sidebar-menu">
+            <div class="panel-heading">
+                <h3 class="panel-title">Customer section</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="myorder.html"><i class="fa fa-list"></i> My orders</a>
+                    </li>
+                    <li class="active">
+                        <a href="userinfo.html"><i class="fa fa-user"></i> My account</a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fa fa-sign-out"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.col-md-3 -->
+        <!-- *** CUSTOMER MENU END *** -->
+    </div>
+
+    <!-- *** RIGHT COLUMN END *** -->
+
 </div>
-<hr>
+
+
+  
