@@ -1,50 +1,61 @@
-﻿$("#form-register").submit(function () {
-
-    var username = $("input[name=username]").val().trim();
-    var password = $("input[name=password]").val().trim();
-    var email = $("input[name=email]").val().trim();
-    var name = $("input[name=name]").val().trim();
-    var gender = $('input[name=gender]:checked', '#form-register').val();
-     if (username === '' || password === '') {
-        alert('fail');
-        return false;
-    }
-    var user = { Username: username, Password: password, Email: email };
-    var cus = { CustomerName: name, Gender: gender };
-    $.ajax({
-        url: '/RegisterUser/Register',
-        type: 'POST',
-        dataType: 'json',
-        data: { user: user, customer: cus },
-        async: true,
-        success: function (data) {
-            if (data.status === true) {
-                swal("Success", "Register Success", "success");
-            } else {
-                swal({
-                    type: 'error',
-                    title: 'Register Fail',
-                    text: 'Something Wrong !'
-                });
-            }
-        }
-    });
-    return false;
-});
+﻿
 
 $.validator.setDefaults({
     submitHandler: function () {
-        alert("submitted!");
+        var username = $("input[name=username]").val().trim();
+        var password = $("input[name=password]").val().trim();
+        var email = $("input[name=email]").val().trim();
+        var name = $("input[name=name]").val().trim();
+        var gender = $('input[name=gender]:checked', '#form-register').val();
+        var user = { Username: username, Password: password, Email: email };
+        var cus = { CustomerName: name, Gender: gender };
+        $.ajax({
+            url: '/RegisterUser/Register',
+            type: 'POST',
+            dataType: 'json',
+            data: { user: user, customer: cus },
+            async: true,
+            success: function (data) {
+                if (data.status === true) {
+                    swal("Success", "Register Success", "success");
+                } else {
+                    swal({
+                        type: 'error',
+                        title: 'Register Fail',
+                        text: 'Something Wrong !'
+                    });
+                }
+            }
+        });
     }
 });
 
 $(document).ready(function () {
+    //$("input[name=username]").on('input', function () {
+
+    //    $.ajax({
+    //        url: '/RegisterUser/CheckExist?username=' + $(this).val(),
+    //        type: 'GET',
+    //        async: true,
+    //        success: function (data) {
+    //            if (data.status === true) {
+    //                swal("Success", "Account Not Exist", "success");
+    //            } else {
+    //                swal({
+    //                    type: 'error',
+    //                    title: 'Register Fail',
+    //                    text: 'Something Wrong !'
+    //                });
+    //            }
+    //        }
+    //    });
+    //});
     $("#form-register").validate({
         rules: {
             name: "required",
             username: {
                 required: true,
-                minlength: 2
+                minlength: 5
             },
             password: {
                 required: true,
@@ -65,7 +76,7 @@ $(document).ready(function () {
             name: "Please enter your name",
             username: {
                 required: "Please enter a username",
-                minlength: "Your username must consist of at least 2 characters"
+                minlength: "Your username must consist of at least 5 characters"
             },
             password: {
                 required: "Please provide a password",
@@ -90,12 +101,12 @@ $(document).ready(function () {
         errorPlacement: function (error, element) {
             if (element.parent('.input-group').length) {
                 error.insertAfter(element.parent());
- 
-        } else if(element.prop('type') === 'radio') {
+
+            } else if (element.prop('type') === 'radio') {
                 error.appendTo(element.parent().parent().parent());
             } else {
                 error.insertAfter(element);
             }
-        },
+        }
     });
-});
+});

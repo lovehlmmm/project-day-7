@@ -39,6 +39,26 @@ $("#formLogin").submit(function () {
 }); 
 
 $(document).ready(function () {
+
+    $.ajax({
+        url: '/LoginUser/ConfirmSuccess',
+        type: 'GET',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            if (data.status === true) {
+
+                $("#activeModal").modal();
+            } else {
+                return false;
+
+            }
+        }
+    });
+
+
+
+
     $("#formLogin").validate({
         rules: {
  
@@ -62,7 +82,8 @@ $(document).ready(function () {
             password: {
                 required: "Please provide a password",
                 minlength: "Your password must be at least 5 characters long"
-            },
+            },
+
         },
         highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');
@@ -80,4 +101,7 @@ $(document).ready(function () {
             }
         },
     });
- });
+});
+
+
+

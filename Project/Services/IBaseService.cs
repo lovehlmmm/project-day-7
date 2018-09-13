@@ -13,7 +13,7 @@ namespace Services
         Task<TObject> FindAsync(Expression<Func<TObject, bool>> match);
         Task<IEnumerable<TObject>> FindAllAsync(Expression<Func<TObject, bool>> match); 
         Task<TObject> AddAsync(TObject t);
-        Task<TObject> UpdateAsync(TObject updated, long key);
+        Task<TObject> UpdateAsync(TObject updated, object key);
         Task<bool> DeleteAsync(TObject t,string property);
         Task<TObject> GetAsync(object key);
         Task<int> CountAsync(Expression<Func<TObject, bool>> match);

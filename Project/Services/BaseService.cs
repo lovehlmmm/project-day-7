@@ -37,7 +37,7 @@ namespace Services
             return await _baseRepository.AddAsync(t);
         }
 
-        public async Task<TObject> UpdateAsync(TObject updated, long key)
+        public async Task<TObject> UpdateAsync(TObject updated, object key)
         {
             return await _baseRepository.UpdateAsync(updated, key);
         }

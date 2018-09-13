@@ -29,6 +29,10 @@ namespace Entities
         [Column("role")]
         public string Role { get; set; }
 
+        [Column("active_mail", TypeName = "varchar")]
+        [StringLength(100)]
+        public string ActiveMail { get; set; }
+
         [Column("customer_id")]
         public long? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }

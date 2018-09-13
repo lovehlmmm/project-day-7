@@ -45,5 +45,23 @@ namespace WEB.Controllers
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ConfirmSuccess()
+        {
+            try
+            {
+                var temp = TempData["status"];
+                if ((bool)temp == true)
+                {
+                    return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

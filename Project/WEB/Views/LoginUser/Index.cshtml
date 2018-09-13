@@ -7,8 +7,26 @@
 @section css{
 
     <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style type="text/css">
+                .material-icons {
+                    font-family: 'Material Icons';
+                    font-weight: normal;
+                    font-style: normal;
+                    font-size: 24px;
+                    line-height: 1;
+                    letter-spacing: normal;
+                    text-transform: none;
+                    display: inline-block;
+                    white-space: nowrap;
+                    word-wrap: normal;
+                    direction: ltr;
+                    -webkit-font-feature-settings: 'liga';
+                    -webkit-font-smoothing: antialiased;
+                }
+
                 .margin-bottom-20 {
                     margin-bottom: 20px;
                 }
@@ -24,9 +42,9 @@
 
                 /*Reg Header*/
                 .reg-header {
-                    color: #555;
-                    text-align: center;
-                    margin-bottom: 35px;
+                    / color: #555;
+                    / / text-align: center;
+                    / margin-bottom: 35px;
                     border-bottom: solid 1px #eee;
                 }
 
@@ -39,23 +57,6 @@
                 .reg-page label {
                     color: #777;
                 }
-
-                h1, h2, h3, h4, h5 {
-                    margin-top: 5px;
-                    text-shadow: none;
-                    font-weight: normal;
-                    font-family: 'Open Sans', sans-serif;
-                }
-
-                    h1 i, h2 i, h3 i, h4 i, h5 i {
-                        margin-right: 7px;
-                    }
-                /* Typography
-        ------------------------------------- */
-                h1, h2, h3, h4, h5, span {
-                    font-weight: bold;
-                }
-
                 /*Breadcrumbs*/
                 .breadcrumbs {
                     padding: 10px 0 6px;
@@ -86,9 +87,100 @@
                         text-decoration: none;
                     }
 
-        .help-block {
-            color: #a94442;
-        }
+                .margin-bottom-30 {
+                    margin-bottom: 30px;
+                }
+
+                .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+                    border: 1px solid #a94442;
+                }
+
+
+                .modal-confirm {
+                    color: #636363;
+                    width: 325px;
+                }
+
+                    .modal-confirm .modal-content {
+                        padding: 20px;
+                        border-radius: 5px;
+                        border: none;
+                    }
+
+                    .modal-confirm .modal-header {
+                        border-bottom: none;
+                        position: relative;
+                    }
+
+                    .modal-confirm h4 {
+                        text-align: center;
+                        font-size: 26px;
+                        margin: 30px 0 -15px;
+                    }
+
+                    .modal-confirm .form-control, .modal-confirm .btn {
+                        min-height: 40px;
+                        border-radius: 3px;
+                    }
+
+                    .modal-confirm .close {
+                        position: absolute;
+                        top: -5px;
+                        right: -5px;
+                    }
+
+                    .modal-confirm .modal-footer {
+                        border: none;
+                        text-align: center;
+                        border-radius: 5px;
+                        font-size: 13px;
+                    }
+
+                    .modal-confirm .icon-box {
+                        color: #fff;
+                        position: absolute;
+                        margin: 0 auto;
+                        left: 0;
+                        right: 0;
+                        top: -70px;
+                        width: 95px;
+                        height: 95px;
+                        border-radius: 50%;
+                        z-index: 9;
+                        background: #82ce34;
+                        padding: 15px;
+                        text-align: center;
+                        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+                    }
+
+                        .modal-confirm .icon-box i {
+                            font-size: 58px;
+                            position: relative;
+                            top: 3px;
+                        }
+
+                    .modal-confirm.modal-dialog {
+                        margin-top: 80px;
+                    }
+
+                    .modal-confirm .btn {
+                        color: #fff;
+                        border-radius: 4px;
+                        background: #82ce34;
+                        text-decoration: none;
+                        transition: all 0.4s;
+                        line-height: normal;
+                        border: none;
+                    }
+
+                        .modal-confirm .btn:hover, .modal-confirm .btn:focus {
+                            background: #6fb32b;
+                            outline: none;
+                        }
+
+                .trigger-btn {
+                    display: inline-block;
+                }
     </style>
 }
 
@@ -129,6 +221,7 @@
 
     </div>
 </div>
+
 <!-- Home section
 ================================================== -->
 <div class="breadcrumbs margin-bottom-30">
@@ -142,7 +235,28 @@
         </ul>
     </div>
 </div>
-
+<!-- Active Email 
+================================================== -->
+<!-- Button HTML (to Trigger Modal) -->
+<!-- Modal HTML -->
+<div id="activeModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>        
+                <h4 class="modal-title">Email Success!</h4> 
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Your account has been confirmed. Please login to user services !</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>   
 
 <div class="container" id="body">
     <!--=== Content Part ===-->
