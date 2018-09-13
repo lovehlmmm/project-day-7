@@ -27,11 +27,7 @@ $("#formLogin").submit(function () {
             if (data.status === true) {
                 swal("Success", "Login Success", "success");
             } else {
-                swal({
-                    type: 'error',
-                    title: 'Login Fail',
-                    text: 'Username password incorrect!'
-                });
+                swal("Error", data.message, "error");
             }
         }
     });

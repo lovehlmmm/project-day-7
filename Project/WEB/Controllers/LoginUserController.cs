@@ -28,6 +28,8 @@ namespace WEB.Controllers
         [HttpPost]
         public JsonResult CheckLogin(LoginUser loginUser)
         {
+            var message = "";
+            var status = false;
             try
             {
                 var checkUser = _userService.CheckLogin(loginUser.Username.Trim(), loginUser.Password.Trim(), UserRole.Customer);
@@ -35,15 +37,26 @@ namespace WEB.Controllers
                 {
                     if (!checkUser.Role.Equals(UserRole.Customer)) return Json(new { status = false });
                     UserSession userSession = new UserSession(checkUser.Username, checkUser.Role);
-                    SessionHelper.SetSession(userSession, AppSettingConstant.LoginSessionCustomer);
-                    return Json(new { status = true}, JsonRequestBehavior.AllowGet);
+                    if (checkUser.Status==Status.Inactive)
+                    {
+                        message = "Account is not verify email!";
+                    }
+                    else {
+                        SessionHelper.SetSession(userSession, AppSettingConstant.LoginSessionCustomer);
+                        status = true;
+                    }
+                    
+                }
+                else
+                {
+                    message = "Username password incorrect!";
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            return Json(new { status = status,message}, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ConfirmSuccess()

@@ -23,7 +23,7 @@ namespace Services
         public User CheckLogin(string username, string password,string role)
         {
             User user = _repositoryUser.Find(u =>
-                u.Username == username && u.Status.Equals(Status.Active)& u.Role==role);
+                u.Username == username & u.Status!=Status.Deleted & u.Role==role);
             if(user!=null)
             {
                 if (password.Equals(_hashingData.DecryptString(user.Password, AppSettingConstant.PasswordHash)))
