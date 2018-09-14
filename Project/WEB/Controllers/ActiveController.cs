@@ -38,7 +38,7 @@ namespace WEB.Controllers
                             user.Status = Status.Active;
                             await _userService.UpdateAsync(user, user.Username);
                             TempData["status"] = true;
-                            return Redirect("/LoginUser/Index");
+                            return Redirect("/login");
                         }
                         
                     }

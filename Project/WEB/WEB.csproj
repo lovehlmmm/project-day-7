@@ -223,6 +223,7 @@
     <Compile Include="Helpers\SendEmail.cs" />
     <Compile Include="Helpers\ViewToString.cs" />
     <Compile Include="Models\UserEmailConfirm.cs" />
+    <Compile Include="Models\UserLoginCookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

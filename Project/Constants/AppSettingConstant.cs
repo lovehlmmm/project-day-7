@@ -12,5 +12,6 @@ namespace Constants
         public static int SaltLength = 2;
         public static string LoginSessionAdmin = "loggedAdmin";
         public static string LoginSessionCustomer = "loggedCustomer";
+        public static string LoginCookieCustomer = "loggedCustomer";
     }
 }

@@ -8,6 +8,7 @@ using Constants;
 using Helpers;
 using Services;
 using WEB.Areas.Admin.Models;
+using WEB.Models;
 
 namespace WEB.Controllers
 {
@@ -42,7 +43,11 @@ namespace WEB.Controllers
                         message = "Account is not verify email!";
                     }
                     else {
-                        SessionHelper.SetSession(userSession, AppSettingConstant.LoginSessionCustomer);
+                        UserLoginCookie loginCookie = new UserLoginCookie();
+                        loginCookie.Username = checkUser.Username;
+                        loginCookie.CustomerName = checkUser.Customer.CustomerName;
+                        var cookie = CookieHelper.Create(AppSettingConstant.LoginCookieCustomer,Server.UrlEncode(JsonConvert.SerializeObject(loginCookie, Formatting.Indented)),DateTime.Now.AddDays(1));
+                        Response.Cookies.Add(cookie);
                         status = true;
                     }
                     

@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
+    <Compile Include="CookieHelper.cs" />
     <Compile Include="HashingData.cs" />
     <Compile Include="LoginAdminRequiredAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
