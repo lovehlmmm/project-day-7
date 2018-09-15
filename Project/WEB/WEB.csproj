@@ -2329,6 +2329,8 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Assets\css\animate.css" />
     <Content Include="Assets\css\app.css" />
+    <Content Include="Assets\css\bootstrap-select.css" />
+    <Content Include="Assets\css\bootstrap-select.min.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\et-line-font.css" />
     <Content Include="Assets\css\flat-ui.css" />
@@ -2386,6 +2388,7 @@
     <Content Include="Assets\images\testimonial-img1.jpg" />
     <Content Include="Assets\images\testimonial-img2.jpg" />
     <Content Include="Assets\images\testimonial-img3.jpg" />
+    <Content Include="Assets\js\bootstrap-select.js" />
     <Content Include="Assets\js\bootstrap.js" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\custom.js" />
@@ -2886,6 +2889,7 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\RegisterUser\ConfirmAccount.cshtml" />
     <Content Include="Views\Active\Index.cshtml" />
+    <Content Include="Views\Upload\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

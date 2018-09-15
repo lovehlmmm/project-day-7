@@ -7,6 +7,7 @@ $(window).load(function(){
 
 
 $(document).ready(function() {
+ 
 
   /* Hide mobile menu after clicking on a link
     -----------------------------------------------*/
@@ -20,13 +21,11 @@ $(document).ready(function() {
   $(function(){
     jQuery(document).ready(function() {
     $('#home').backstretch([
-       "/Assets/images/bg11.jpg", 
-       "/Assets/images/bg2.jpg",
+       "images/bg11.jpg", 
+       "images/bg2.jpg",
         ],  {duration: 2000, fade: 750});
     });
   })
-
-
 
   /* Owl Carousel
     -----------------------------------------------*/
@@ -69,4 +68,90 @@ $(document).ready(function() {
   new WOW({ mobile: false }).init();
 
   });
+
+// image gallery
+// init the state from the input
+$(".image-checkbox").each(function () {
+  if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
+    $(this).addClass('image-checkbox-checked');
+  }
+  else {
+    $(this).removeClass('image-checkbox-checked');
+  }
+});
+
+// sync the state to the input
+$(".image-checkbox").on("click", function (e) {
+  $(this).toggleClass('image-checkbox-checked');
+  var $checkbox = $(this).find('input[type="checkbox"]');
+  $checkbox.prop("checked",!$checkbox.prop("checked"))
+
+  e.preventDefault();
+});
+
+
+//Upload preview image
+function previewImages() {
+
+  var preview = document.querySelector('#preview');
+  
+  if (this.files) {
+    [].forEach.call(this.files, readAndPreview);
+  }
+
+  function readAndPreview(file) {
+
+    // Make sure `file.name` matches our extensions criteria
+    if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+      return alert(file.name + " is not an image");
+    } // else...
+    
+    var reader = new FileReader();
+    
+    reader.addEventListener("load", function() {
+       var div1 = document.createElement("div");
+       div1.style = "position:relative;display: inline-block";
+      var image = new Image();
+      image.height = 100;
+      image.title  = file.name; 
+      image.src    = this.result;
+      image.className = "imgChoiced";
+      image.onclick= function clickImg(){
+  $(this).toggleClass("image-checkbox-checked");
+}
+      image.style = "margin:10px;box-shadow: 1px 1px 5px 0 #a2958a;max-width:150px;";
+      div1.append(image);
+      preview.append(div1);
+    }, false);
+    
+
+    reader.readAsDataURL(file);
+    
+  }
+
+}
+
+document.querySelector('#file-input').addEventListener("change", previewImages, false);
+
+function toggle(data) {
+  var mode= $(data).attr("data-mode")
+  if (mode==='check') {
+    $( ".imgChoiced" ).each(function( index ) {
+    if (!$(this).hasClass("image-checkbox-checked")) {
+       $(this).toggleClass("image-checkbox-checked"); 
+    }
+    $(data).attr("data-mode","uncheck");
+    $(data).text("Deselect All")
+  });
+  }
+  else if(mode ==='uncheck'){
+    $( ".imgChoiced" ).each(function( index ) {
+    if ($(this).hasClass("image-checkbox-checked")) {
+       $(this).toggleClass("image-checkbox-checked"); 
+    }
+    $(data).attr("data-mode","check")
+    $(data).text("Select All")
+  })
+ }
+}
 

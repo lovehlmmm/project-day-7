@@ -8,6 +8,6 @@ namespace WEB.Models
     public class UserLoginCookie
     {
         public string Username { get; set; }
-        public string CustomerName { get;set}
+        public string CustomerName { get; set; }
     }
 }

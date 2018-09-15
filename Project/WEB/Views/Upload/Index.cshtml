@@ -1,230 +1,92 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Upload Images";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
-    <link href="~/Assets/css/app.css" rel="stylesheet" />
-    <link href="~/Assets/css/jquery.gritter.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+
+    <link href="~/Assets/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="~/Assets/css/bootstrap-select.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .nopad {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+        /*image gallery*/
+        .image-checkbox {
+            cursor: pointer;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            border: 4px solid transparent;
+            margin-bottom: 0;
+            outline: 0;
+        }
+
+            .image-checkbox input[type="checkbox"] {
+                display: none;
+            }
+
+        .image-checkbox-checked {
+            border: 4px solid #4a8cbd;
+        }
+
+        .image-checkbox .fa {
+            position: absolute;
+            color: #4A79A3;
+            background-color: #fff;
+            padding: 10px;
+            top: 0;
+            right: 0;
+        }
+
+        .image-checkbox-checked .fa {
+            display: block !important;
+        }
+
+        .file-preview {
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 8px;
+            width: 560px;
+            margin-bottom: 5px;
+        }
+
+        .file-drop-zone {
+            border: 1px dashed #aaa;
+            border-radius: 4px;
+            height: 100%;
+            text-align: center;
+            vertical-align: middle;
+            padding: 25px;
+        }
+
+        .wrapper-scroll-y {
+            display: block;
+            max-height: 250px;
+            overflow-y: auto;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+    </style>
+
 }
 @section script{
-    @*<script src="~/Assets/js/jquery-1.9.1.min.js"></script>*@
-    @*<script src="~/Assets/js/bootstrap.js"></script>*@
-    <script src="~/Assets/js/flat-ui.js"></script>
-    <script src="~/Assets/js/jquery.gritter.min.js"></script>
-    <script src="~/Assets/Scripts/Pure.Uploader.js"></script>
-    <script>
-        // Custom Selects
-        if ($('[data-toggle="select"]').length) {
-            $('[data-toggle="select"]').select2();
-        }
-        $('[data-toggle="checkbox"]').radiocheck();
-
-        var e_thumbnail = new PureUploader(
-            {
-                //Events
-                html5Error: html5ErrorFunc,
-                progress: uploaderProgress,
-                success: uploaderSuccess,
-                error: uploaderError,
-                //Properties
-                name: "e_thumbnail",
-                drop: true,
-                imageHolder: document.getElementById("imageHolder1"),
-                dragHoverClass: "drop_hover",
-                dropPlace: document.getElementById("dropPlace1"),
-                form: document.getElementById("dropper1"),
-                file_input: document.getElementById("fileInput1"),
-                file_class: "col-md-3 list-i",
-                file_filter: "",
-                file_size: 3000 * 1024 * 1024,
-                template:
-                    '<div class="form-group text-center">' +
-                    '<a href="javascript:void(0)" class="btn btn-danger close" onclick="{uploader}.remove(\'{id}\')">x</a>' +
-                    '{image}' +
-                    '</div>' +
-                    '<div class="form-group text-center">' +
-                    '<div class="form-group col-md-6">' +
-                    '<a href="javascript:void(0)" class="btn btn-info" onclick="{uploader}.start(\'{id}\')">Start</a>' +
-                    '</div>' +
-                    '<div class="form-group col-md-6">' +
-                    '<a href="javascript:void(0)" class="btn btn-info" onclick="{uploader}.pause(\'{id}\')">Pause</a>' +
-                    '</div>' +
-                    '<p>{file.name} - {file.size}</p>' +
-                    '</div>',
-                image: {
-                    thumb: true,
-                    thumb_width: 200,
-                    thumb_height: 200,
-                    resize_width: 0,
-                    resize_height: 0,
-                    keep_aspect_ratio: true,
-                    preparing: '/Scripts/build/preparing.png'
-                },
-                icon: {
-                    icon: true,
-                    path: "/images/icons",
-                    _default: "/images/icons/_blank.png",
-                    width: 128,
-                    height: 128,
-                    extension: '.png'
-                },
-                ajax: {
-                    url: '/Home/Receive',
-
-                    clearAfterUpload: true,
-                    beforeSend: function (xhr) {
-
-                    }
-                },
-                chunk: {
-                    active: true,
-                    size: 1 * 1024 * 1024
-                },
-                watermark: {
-                    watermark: false
-                },
-
-            });
-
-
-
-        $(function () {
-
-            //e_thumbnail
-            $('#g-Thumb').change(function () {
-                e_thumbnail.settings.image.thumb = $(this).is(":checked");
-            });
-
-            $('#g-Icon').change(function () {
-                e_thumbnail.settings.icon.icon = $(this).is(":checked");
-            });
-
-
-
-            $('#watermarkText').change(function () {
-                e_watermark1.settings.watermark.text = $(this).val();
-            });
-            $('#watermarkColor').change(function () {
-                e_watermark1.settings.watermark.color = $(this).val();
-            });
-            $('#watermarkFont').change(function () {
-                e_watermark1.settings.watermark.font = $(this).val();
-            });
-            $('#watermarkFontSize').change(function () {
-                e_watermark1.settings.watermark.font_size = $(this).val();
-            });
-            $('#watermarkTextAlpha').change(function () {
-                e_watermark1.settings.watermark.alpha = $(this).val();
-            });
-            $('#watermarkTextPosition').change(function () {
-                e_watermark1.settings.watermark.position = $(this).val();
-            });
-
-            $('#watermarkImageAlpha').change(function () {
-                e_watermark2.settings.watermark.alpha = $(this).val();
-            });
-            $('#watermarkImagePosition').change(function () {
-                e_watermark2.settings.watermark.position = $(this).val();
-            });
-            $('#g-Image-Aspect').change(function () {
-                e_watermark2.settings.watermark.image_aspect_ratio = $(this).is(":checked");
-            });
-
-
-        });
-
-
-        function uploaderProgress(data) {
-            var template = document.getElementById(data.template);
-
-            if (template) {
-                var progress = document.getElementById("progress_" + data.template);
-
-                if (progress) {
-                    progress.style.width = data.percent + "%";
-                }
-                else {
-                    var div = document.createElement("div");
-                    div.className = "progress";
-
-                    progress = document.createElement("div");
-                    progress.id = "progress_" + data.template;
-                    progress.className = "progress-bar";
-                    progress.style.width = data.percent + "%";
-                    div.appendChild(progress);
-
-                    template.appendChild(div);
-                }
-            }
-
-        }
-
-        function uploaderSuccess(event) {
-
-            $.gritter.add({
-                title: 'File Uploaded!',
-            });
-        }
-
-        function uploaderError(uploader, message, event) {
-            if (message == uploader.settings.errors.NETWORK) {
-                if (event.target.upload.template_id) {
-                    var temp = document.getElementById(event.target.upload.template_id);
-                    if (temp != null) {
-                        var p = temp.getElementsByTagName("p")[0];
-                        p.className = p.className + "file_error";
-                    }
-                }
-            }
-            else {
-                $.gritter.add({
-                    title: uploader.name,
-                    text: message
-                });
-            }
-        }
-
-        function html5ErrorFunc(uploader) {
-            uploader.settings.imageHolder.style.display = "none";
-            //document.getElementById("dropper").removeChild(imageholder);
-
-            uploader.settings.dropPlace.style.display = "none";
-            var error = document.createElement("p");
-            error.className = "text-center";
-            error.appendChild(document.createTextNode("Your browser doesn't support HTML5, we can offer you a new browser from here !"));
-            uploader.settings.form.appendChild(error);
-        }
-
-        var confirmOnPageExit = function (e) {
-            // If we haven't been passed the event get the window.event
-            e = e || window.event;
-            var uploading = e_thumbnail.isworking() | e_resize.isworking() | e_watermark1.isworking() | e_watermark2.isworking() | autoUp.isworking();
-
-            if (uploading == 1) {
-                var message = 'Any text will block the navigation and display a prompt';
-
-                // For IE6-8 and Firefox prior to version 4
-                if (e) {
-                    e.returnValue = message;
-                }
-
-                // For Chrome, Safari, IE8+ and Opera 12+
-                return message;
-            }
-            else {
-                return null;
-            }
-        };
-
-        window.onbeforeunload = confirmOnPageExit;
-    </script>
-
+    <script src="~/Assets/js/bootstrap-select.js"></script>
 }
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+    <div class="sk-spinner sk-spinner-pulse"></div>
+</div>
+
+
+
 <!-- Navigation section
 ================================================== -->
 <div class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
+
         <div class="navbar-header">
             <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon icon-bar"></span>
@@ -239,40 +101,85 @@
                 <li><a href="#service" class="smoothScroll">SERVICES</a></li>
                 <li><a href="#about" class="smoothScroll">ABOUT</a></li>
                 <li><a href="#team" class="smoothScroll">TEAM</a></li>
- 
+
             </ul>
         </div>
 
     </div>
 </div>
+
 <!-- Home section
 ================================================== -->
-<div class="row-fluid">
-    <div id="thumbnail" class="well" style="text-align: center;">
-        <h2> Upload & Image Preview</h2>
-        <p class="shim">Choose your images <b>& start printing</b></p>
-        <form class="row" id="dropper1">
-
-            <div style="padding-bottom: 20px">
+<div class="container" style="margin-top: 15px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn btn-primary" style="position: relative;overflow: hidden;margin-bottom: 10px;">
+                <i class="fa fa-folder-open"></i>
+                <span class="hidden-xs">Browse …</span>
+                <input id="file-input" type="file" accept="image/x-png,image/gif,image/jpeg" style="position: absolute;font-size: 15px;opacity: 0;right: 0;top: 0;" multiple />
             </div>
+            <div class="btn btn-danger" style="float: right;overflow: hidden;margin-bottom: 10px;" id="selectall">
+                <span data-mode="check" class="hidden-xs" onclick="toggle(this);">Select All</span>
 
-            <div class="row" style="margin:0;">
-                <div class="col-md-12 drop-zone" id="dropPlace1" style="padding:0 !important;">
+            </div>
+            <div class=".file-preview">
+                <div class=" file-drop-zone">
+                    <div class="file-drop-zone-title">Choose &amp; Upload Your Images …</div>
+                    <div class="file-preview-thumbnails">
+                        <div class="wrapper-scroll-y">
+                            <div id="preview"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
-            <div class="row images" id="imageHolder1">
+            <div class="class=" col-md-12">
+
+                <table id="cart" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width:45%"></th>
+                            <th style="width:15%">Size & Material</th>
+                            <th style="width:15%">Options</th>
+                            <th style="width:5%">Quantity</th>
+                             <th style="width:10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> </td>
+                            <td data-th="">
+                                <select class="selectpicker" data-style="btn-primary">
+                                    <option>Select...</option>
+                                    <option>4x4</option>
+                                    <option>6x6</option>
+                                    <option>8x8</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="selectpicker" data-style="btn-success">
+                                    <option>Select...</option>
+                                    <option>One</option>
+                                    <option>Two</option>
+                                    <option>Three</option>
+                                </select>
+                            </td>
+                            <td><input type="number" class="form-control text-center" value="0"></td>
+                            <td></td>
+                            <td></td>
+
+                            <td class="actions" data-th="">
+                                <button class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i>&nbsp Add To Cart</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="text-center">
-                <input id="fileInput1" name="fileInput" style="display: none" type="file" class="btn btn-file" multiple />
-            </div>
-            <br>
-            <div class="text-center">
-                <input type="submit" class="btn btn-block btn-lg btn-primary" value="Confirm Checkout" />
-            </div>
-        </form>
+            <hr>
+
+            <h2 style="text-align: center;">My Cart</h2>
+
+        </div>
+
     </div>
 </div>
-
-
-
-
