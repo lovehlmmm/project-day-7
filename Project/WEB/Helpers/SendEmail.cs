@@ -17,7 +17,8 @@ namespace WEB.Helpers
             string mail = ConfigurationManager.AppSettings["mail"];
             string password = ConfigurationManager.AppSettings["password"];
             int port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
-            MailMessage message = new MailMessage(mail, to)
+            string from = ConfigurationManager.AppSettings["from"];
+            MailMessage message = new MailMessage(from, to)
             {
                 Subject = subject,
                 Body = mailbody,
@@ -30,9 +31,11 @@ namespace WEB.Helpers
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
             try
             {
-                client.SendMailAsync(message);
+                client.Send(message);
+                client.Dispose();
             }
             catch (Exception ex)
             {

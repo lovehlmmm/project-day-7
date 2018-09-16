@@ -43,7 +43,7 @@ namespace WEB.Controllers
                 {
 
                     
-                    UserEmailConfirm model = new UserEmailConfirm(user.Email, key);
+                    UserEmailConfirm model = new UserEmailConfirm(user.Email, key,user.Username);
                     var body = ViewToString.RenderRazorViewToString(this, "ConfirmAccount", model);
                     Task.Factory.StartNew((() =>
                     {

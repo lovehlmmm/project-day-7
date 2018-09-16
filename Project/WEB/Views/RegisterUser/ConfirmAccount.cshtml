@@ -157,7 +157,7 @@
                                         <tr>
                                             <td style="word-break:break-word;font-size:0px;padding:0px 0px 10px;" align="left">
                                                 <div style="cursor:auto;color:#222228;font-family:'Avenir Next', Avenir, sans-serif;font-size:16px;line-height:30px;">
-                                                    hello@SmilesDavis.yeah
+                                                    @Model.Username
                                                 </div>
                                             </td>
                                         </tr>
@@ -189,7 +189,7 @@
                                         <tr>
                                             <td style="word-break:break-word;font-size:0px;padding:0px 0px 25px;" align="left">
                                                 <div style="cursor:auto;color:#222228;font-family:'Avenir Next', Avenir, sans-serif;font-size:16px;line-height:30px;">
-                                                    <a href="#" style="color:#0a84ae; text-decoration:none" target="_blank">@Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "/active/index?key=" + @Model.Key)</a>
+                                                    <a href="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)/active?key=@Model.Key" style="color:#0a84ae; text-decoration:none" target="_blank">@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)/active?key=@Model.Key</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -238,7 +238,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="border-radius:3px;color:white;cursor:auto;" align="center" valign="middle" bgcolor="#EB5424">
-                                                                <a href="@Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery,"/active/index?key="+@Model.Key)" style="display:inline-block;text-decoration:none;background:#EB5424;border-radius:3px;color:white;font-family:'Avenir Next', Avenir, sans-serif;font-size:14px;font-weight:500;line-height:35px;padding:10px 25px;margin:0px;" target="_blank">
+                                                                <a href="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)/active?key=@Model.Key" style="display:inline-block;text-decoration:none;background:#EB5424;border-radius:3px;color:white;font-family:'Avenir Next', Avenir, sans-serif;font-size:14px;font-weight:500;line-height:35px;padding:10px 25px;margin:0px;" target="_blank">
                                                                     VERIFY YOUR ACCOUNT
                                                                 </a>
                                                             </td>

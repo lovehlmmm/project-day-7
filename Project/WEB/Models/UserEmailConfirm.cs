@@ -7,13 +7,15 @@ namespace WEB.Models
 {
     public class UserEmailConfirm
     {
-        public UserEmailConfirm(string email,string key)
+        public UserEmailConfirm(string email,string key,string username)
         {
             Email = email;
             Key = key;
+            Username = username;
         }
         public string Email { get; set; }
         public string Key { get; set; }
+        public string Username { get; set; }
 
     }
 }
