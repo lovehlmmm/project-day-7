@@ -17,6 +17,8 @@ $("#formLogin").submit(function () {
     //    $("input[name=password]").removeClass("border border-danger");
     //}
     var user = { Username: username, Password: password, Remember: remember };
+    $('#loading').show();
+
     $.ajax({
         url: '/LoginUser/CheckLogin',
         type: 'POST',   
@@ -25,8 +27,10 @@ $("#formLogin").submit(function () {
         async: true,
         success: function (data) {
             if (data.status === true) {
+                $('#loading').hide();
                 swal("Success", "Login Success", "success");
             } else {
+                $('#loading').hide();
                 swal("Error", data.message, "error");
             }
         }

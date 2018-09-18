@@ -744,4 +744,25 @@ footer {
     margin-top: 20px;
   }
 }
- 
+
+#loading {
+    background-color: gray;
+    position: fixed;
+    display: block;
+    top: 0;
+    bottom: 0;
+    z-index: 1000000;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#loading img {
+        margin: auto;
+        display: block;
+        top: calc(50% - 100px);
+        left: calc(50% - 10px);
+        position: absolute;
+        z-index: 999999;
+    }

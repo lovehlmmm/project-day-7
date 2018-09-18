@@ -2378,6 +2378,8 @@
     <Content Include="Assets\images\home-bg-slider-img2.jpg" />
     <Content Include="Assets\images\2.png" />
     <Content Include="Assets\images\icons\favicon.ico" />
+    <Content Include="Assets\images\icons\Spinner-0.2s-42px.gif" />
+    <Content Include="Assets\images\icons\Spinner-0.5s-75px.gif" />
     <Content Include="Assets\images\img-01.png" />
     <Content Include="Assets\images\portfolio-img1.jpg" />
     <Content Include="Assets\images\portfolio-img2.jpg" />
@@ -2385,6 +2387,7 @@
     <Content Include="Assets\images\portfolio-img4.jpg" />
     <Content Include="Assets\images\portfolio-img5.jpg" />
     <Content Include="Assets\images\portfolio-img6.jpg" />
+    <Content Include="Assets\images\Rolling-1s-200px.gif" />
     <Content Include="Assets\images\team_1.jpg" />
     <Content Include="Assets\images\team_2.jpg" />
     <Content Include="Assets\images\team_3.jpg" />

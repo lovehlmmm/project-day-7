@@ -9,6 +9,8 @@ $.validator.setDefaults({
         var gender = $('input[name=gender]:checked', '#form-register').val();
         var user = { Username: username, Password: password, Email: email };
         var cus = { CustomerName: name, Gender: gender };
+        $('#loading').show();
+
         $.ajax({
             url: '/RegisterUser/Register',
             type: 'POST',
@@ -17,8 +19,10 @@ $.validator.setDefaults({
             async: true,
             success: function (data) {
                 if (data.status === true) {
+                    $('#loading').hide();
                     swal("Success", "Register Success", "success");
                 } else {
+                    $('#loading').hide();
                     swal({
                         type: 'error',
                         title: 'Register Fail',
