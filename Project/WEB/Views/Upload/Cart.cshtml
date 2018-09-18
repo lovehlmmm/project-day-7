@@ -1,5 +1,12 @@
-﻿
+﻿@using Constants
+@using Helpers
+@using WEB.Models
+@{
+    var cart = ViewBag.Cart as List<CartItem>;
+}
 <div class="col-md-12 col-sm-4" style="margin-top: 5px;">
+    @if (cart != null)
+    {
     <table id="cart" class="table table-hover table-condensed">
         <thead>
             <tr>
@@ -17,9 +24,9 @@
                     <div class="row">
                         <div class="col-sm-6 hidden-xs"><img src="https://placehold.it/200x200" alt="..." class="img-responsive" /></div>
                         <!-- <div class="col-sm-10">
-                          <h4 class="nomargin">Product 1</h4>
-                          <p> Lorem ipsum dolor sit amet.</p>
-                        </div> -->
+                      <h4 class="nomargin">Product 1</h4>
+                      <p> Lorem ipsum dolor sit amet.</p>
+                    </div> -->
                     </div>
                 </td>
                 <td>
@@ -36,7 +43,6 @@
                         </ul>
                     </div>
                 </td>
-
                 <td data-th="Price">$1.99</td>
                 <td data-th="Quantity">
                     <input type="number" class="form-control text-center" value="1">
@@ -61,4 +67,9 @@
             </tr>
         </tfoot>
     </table>
+    }
+    else
+    {
+        <h2>Cart have not item</h2>
+    }
 </div>

@@ -222,6 +222,7 @@
     </Compile>
     <Compile Include="Helpers\SendEmail.cs" />
     <Compile Include="Helpers\ViewToString.cs" />
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\UserEmailConfirm.cs" />
     <Compile Include="Models\UserLoginCookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2860,6 +2861,7 @@
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\cart.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
