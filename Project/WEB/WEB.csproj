@@ -2355,6 +2355,7 @@
     <Content Include="Assets\fonts\et-line.svg" />
     <Content Include="Assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\images\about.jpg" />
+    <Content Include="Assets\images\ajax-loader.gif" />
     <Content Include="Assets\images\bg1.jpg" />
     <Content Include="Assets\images\bg10.jpg" />
     <Content Include="Assets\images\bg11.jpg" />
@@ -2849,7 +2850,6 @@
     <Content Include="Assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="Assets\fonts\FontAwesome.otf" />
     <Content Include="Assets\images\.DS_Store" />
-    <Content Include="Assets\images\Lab 1 - CSDL nang cao.pdf" />
     <Content Include="Assets\js\.DS_Store" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.css.map" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
