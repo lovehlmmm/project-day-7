@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Constants;
 using Helpers;
+using Newtonsoft.Json;
 using WEB.Models;
 
 namespace WEB.Controllers
@@ -23,10 +24,26 @@ namespace WEB.Controllers
             return PartialView("~/Views/Upload/Cart.cshtml");
         }
 
-        public JsonResult AddCart(int id, string image, int quantity)
+        public JsonResult AddCart(string image)
         {
-            var cart = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
-            return Json(new {status = false});
+            //byte[] imageByte = Convert.FromBase64String(image);
+            var t = image.Substring(23);
+            CartItem cartItem = new CartItem();
+            cartItem.Image = t;
+            cartItem.Quantity = 1;
+            var session = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
+            if (session == null)
+            {
+                session = new List<CartItem>();
+                session.Add(cartItem);
+            }
+            else
+            {
+                session.Add(cartItem);
+                
+            }
+            SessionHelper.SetSession(session, AppSettingConstant.CartSession);
+            return Json(new {status = false},JsonRequestBehavior.AllowGet);
         }
 
     }

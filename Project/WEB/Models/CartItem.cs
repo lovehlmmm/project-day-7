@@ -11,6 +11,6 @@ namespace WEB.Models
         public string Name { get; set; }
         public int Quantity { get; set; }
         public Product Product { get; set; }
-        public Byte[] Image { get; set; }
+        public string Image { get; set; }
     }
 }
