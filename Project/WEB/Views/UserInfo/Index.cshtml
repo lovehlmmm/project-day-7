@@ -1,8 +1,9 @@
-﻿
+﻿@using Entities
 @{
     ViewBag.Title = "UserInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    var showUser  = ViewBag.ShowUser as User;
+ }
 @section css{
     <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
     <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
@@ -115,22 +116,28 @@
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
-                                    <input id="id_name" maxlength="254" name="name" type="text" placeholder="Name" tabindex="1" class="form-control required">
+                                    <input id="id_name" value="@showUser.Customer.CustomerName?" maxlength="254" name="name" type="text" placeholder="Name" tabindex="1" class="form-control required">
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input id="id_username" maxlength="254" name="username" type="text" placeholder="Username" tabindex="1" class="form-control required">
+                                    <input id="id_username" value="@showUser.Username" maxlength="254" name="username" type="text" placeholder="Username" tabindex="1" class="form-control required">
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
-
+                            <div class="margin-bottom-20">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input id="id_phone" value="@showUser.Customer.PhoneNumber?" maxlength="254" name="Phone Number" type="text" placeholder="Phone Number" tabindex="1" class="form-control required">
+                                </div>
+                                <p class="reg_error"></p>
+                            </div>
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input id="id_email" maxlength="254" name="email" type="text" placeholder="Email" tabindex="2" class="form-control required">
+                                    <input id="id_email" value="@showUser.Email?" maxlength="254" name="email" type="text" placeholder="Email" tabindex="2" class="form-control required">
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
@@ -138,7 +145,7 @@
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="icon-lock"></i></span>
-                                    <input id="id_password1" name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
+                                    <input id="id_password1" value="@showUser.Password?"name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
@@ -154,42 +161,43 @@
                                     </select>
                                 </div>
                             </div>
-                            <span id="paid_options" class="">
-
-                                <div id="div_id_interval" class="form-group">
-                                    <label for="id_interval" class="control-label requiredField">Address<span class="asteriskField">*</span></label>
-                                    <div class="controls">
-                                        <input id="id_address" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control required">
-                                        </select>
-                                    </div>
+                            <div id="div_id_interval" class="form-group">
+                                <label for="id_interval" value="@showUser.Customer.Addresses?" class="control-label requiredField">Address<span class="asteriskField">*</span></label>
+                                <div class="controls">
+                                    <input id="id_address" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control required">
                                 </div>
-
-                                <!-- Payment -->
-                                <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
-                                <div class="margin-bottom-20">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                        <input id="id_creditcard" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control required">
-                                    </div>
+                            </div>
+                            <div id="div_id_interval" class="form-group">
+                                <label for="id_interval" class="control-label requiredField">Address</label>
+                                <div class="controls">
+                                    <input id="id_address2" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control ">
                                 </div>
-                                <div class="margin-bottom-20">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                                        <input style="width: 50%" type="text" size="2" placeholder="MM" class="form-control required" data-stripe="exp-month" tabindex="8">
-                                        <input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control required" data-stripe="exp-year" tabindex="9">
-                                    </div>
+                            </div>
+                            <!-- Payment -->
+                            <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
+                            <div class="margin-bottom-20">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    <input id="id_creditcard" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control required">
                                 </div>
-                                <div class="margin-bottom-10">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="icon-key"></i></span>
-                                        <input id="id_cvc" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control required" data-stripe="cvc" tabindex="10">
-                                    </div>
+                            </div>
+                            <div class="margin-bottom-20">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                    <input style="width: 50%" type="text" size="2" placeholder="MM" class="form-control required" data-stripe="exp-month" tabindex="8">
+                                    <input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control required" data-stripe="exp-year" tabindex="9">
                                 </div>
-                                <div class="margin-bottom-10">
-                                    <span class="payment-errors reg_error"></span><br>
+                            </div>
+                            <div class="margin-bottom-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="icon-key"></i></span>
+                                    <input id="id_cvc" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control required" data-stripe="cvc" tabindex="10">
                                 </div>
-                            </span> <!--end paid_options -->
-                        </div>
+                            </div>
+                            <div class="margin-bottom-10">
+                                <span class="payment-errors reg_error"></span><br>
+                            </div>
+                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
