@@ -30,13 +30,13 @@ namespace WEB.Controllers
                     ViewBag.ShowUser = user;
                     return View();
                 }
+
             }
             return Redirect("/home");
         }
+
         public async System.Threading.Tasks.Task<JsonResult> UpdateUser(User userUpdate)
         {
-
-            return View();
             var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
             if (userSession != null)
             {
@@ -50,12 +50,13 @@ namespace WEB.Controllers
                     user.Customer = userUpdate.Customer;
                     user.ModifiedAt = DateTime.Now;
                     var result = await _userService.UpdateAsync(user, user.Username);
-                    if (result != null)
+                    if (result!=null)
                     {
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
-
+                    
                 }
+
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
