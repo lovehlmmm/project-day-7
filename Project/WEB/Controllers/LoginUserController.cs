@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using  System.Web.Routing;
 using System.Web.Mvc;
 using Constants;
 using Helpers;
@@ -23,11 +24,12 @@ namespace WEB.Controllers
         // GET: LoginUser
         public ActionResult Index()
         {
+
+            ViewBag.Url = Request.QueryString["url"];
             return View();
         }
 
-        [HttpPost]
-        public JsonResult CheckLogin(LoginUser loginUser)
+        public JsonResult CheckLogin(LoginUser loginUser, string url)
         {
             var message = "";
             var status = false;
@@ -62,7 +64,7 @@ namespace WEB.Controllers
             {
                 Console.WriteLine(e);
             }
-            return Json(new { status = status,message}, JsonRequestBehavior.AllowGet);
+            return Json(new { status = status,message,url = url}, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ConfirmSuccess()

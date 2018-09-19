@@ -23,6 +23,11 @@ namespace WEB
                 defaults: new { controller = "RegisterUser", action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(
+                name: "Info",
+                url: "info",
+                defaults: new { controller = "UserInfo", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
                 name: "Active",
                 url: "active",
                 defaults: new { controller = "Active", action = "Index"}

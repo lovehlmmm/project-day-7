@@ -223,6 +223,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\SendEmail.cs" />
+    <Compile Include="Helpers\Validate.cs" />
     <Compile Include="Helpers\ViewToString.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\UserEmailConfirm.cs" />

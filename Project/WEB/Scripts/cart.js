@@ -3,11 +3,13 @@
 $(document).ready(function () {
     GetCartItem();
     $('#add-cart').click(function () {
+        var product=$('select[name=select-product]').val();
         var list = $('.imgChoiced');
         $.each(list, function (key, val) {
             if ($(val).hasClass('image-checkbox-checked')) {
                 var formData = new FormData();
                 formData.append("image", $(val).attr('src'));
+                formData.append("product",product);
                 AddToCart(formData);
             }
         });

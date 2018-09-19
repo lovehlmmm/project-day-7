@@ -5,6 +5,7 @@ $.validator.setDefaults({
         var username = $("input[name=username]").val().trim();
         var password = $("input[name=password]").val().trim();
         var remember = $("input[name=remember]:checked").length > 0;
+        var url = $('#urlRedirect').val();
         //if (username === '') {
         //    $("input[name=username]").addClass("border border-danger");
         //    return false;
@@ -24,12 +25,16 @@ $.validator.setDefaults({
             url: '/LoginUser/CheckLogin',
             type: 'POST',
             dataType: 'json',
-            data: { loginUser: user },
+            data: { loginUser: user,url:url},
             async: true,
             success: function (data) {
                 if (data.status === true) {
                     $('#loading').hide();
-                    swal("Success", "Login Success", "success");    
+                    swal("Success", "Login Success", "success");
+                    if (data.url!==null) {
+                        window.location.replace(data.url);
+                    }
+                    
                 } else {
                     $('#loading').hide();
                     swal("Error", data.message, "error");
