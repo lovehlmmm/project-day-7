@@ -4,6 +4,7 @@
 @{
     var cart = ViewBag.Cart;
 }
+
 <div class="col-md-12 col-sm-4" style="margin-top: 5px;">
     @if (cart != null)
     {
@@ -12,7 +13,8 @@
             <thead>
                 <tr>
                     <th style="width:15%">Product</th>
-                    <th style="width:10%">Options</th>
+                    <th style="width:10%">Size & Material</th>
+                    <th style="width:15%">Options</th>
                     <th style="width:10%">Price</th>
                     <th style="width:8%">Quantity</th>
                     <th style="width:10%" class="text-center">Subtotal</th>
@@ -25,7 +27,7 @@
                         <tr>
                             <td data-th="Product">
                                 <div class="row">
-                                    <div class="col-sm-6 hidden-xs"><img src="data:image/jpeg;base64,@item.Image" alt="..." class="img-responsive" /></div>
+                                    <div class="col-sm-6 hidden-xs"><img src="data:image/jpeg;base64,@item.Image" alt="..." class="img-responsive"/></div>
                                     <!-- <div class="col-sm-10">
                           <h4 class="nomargin">Product 1</h4>
                           <p> Lorem ipsum dolor sit amet.</p>
@@ -33,18 +35,28 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger">-----</button>
-                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">4x4</a></li>
-                                        <li><a href="#">4x6</a></li>
-                                        <li><a href="#">9x12</a></li>
-                                    </ul>
-                                </div>
+                                <select class="" >
+                                    <option>Select...</option>
+                                    <option>
+                                       3x4
+                                    </option>
+                                    <option>4x6</option>
+                                    <option>
+                                       8x8
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="" data-style="btn-success">
+                                    <option>Select...</option>
+                                    <option>
+                                        Delete Background
+                                    </option>
+                                    <option>Increase Quality</option>
+                                    <option>
+                                        Blur The Background
+                                    </option>
+                                </select>
                             </td>
                             <td data-th="Price">$1.99</td>
                             <td data-th="Quantity">
@@ -75,6 +87,6 @@
     }
     else
     {
-        <h2>Cart have not item</h2>
+        <h2 style="text-align:center">Cart have not item</h2>
     }
 </div>

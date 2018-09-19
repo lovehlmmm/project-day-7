@@ -20,13 +20,7 @@ namespace WEB.Controllers
         // GET: UserInfo
         public ActionResult Index()
         {
-            return View();
-        }
-        [HttpGet]
-
-        public ActionResult GetUser()
-        {
-            var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as User;
+            var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
             if (userSession != null)
             {
                 var user = _userService.Find(u => u.Username == userSession.Username);
@@ -41,10 +35,30 @@ namespace WEB.Controllers
             return Redirect("/home");
         }
 
-        public ActionResult UpdateUser(Customer customer )
+        public async System.Threading.Tasks.Task<JsonResult> UpdateUser(User userUpdate)
         {
- 
-            return View();
+            var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+            if (userSession != null)
+            {
+                var user = _userService.Find(u => u.Username == userSession.Username);
+                if (user != null)
+                {
+                    if (!userUpdate.Password.Equals(""))
+                    {
+                        user.Password = userUpdate.Password;
+                    }
+                    user.Customer = userUpdate.Customer;
+                    user.ModifiedAt = DateTime.Now;
+                    var result = await _userService.UpdateAsync(user, user.Username);
+                    if (result!=null)
+                    {
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    }
+                    
+                }
+
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }
