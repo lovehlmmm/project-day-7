@@ -1,5 +1,7 @@
-﻿
+﻿@using Entities
+
 @{
+    var products = ViewBag.Product as List<Product>;
     ViewBag.Title = "Upload Images";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -143,7 +145,7 @@
                             <th style="width:15%">Size & Material</th>
                             <th style="width:15%">Options</th>
                             <th style="width:5%">Quantity</th>
-                             <th style="width:10%"></th>
+                            <th style="width:10%"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -152,9 +154,14 @@
                             <td data-th="">
                                 <select class="selectpicker" data-style="btn-primary">
                                     <option>Select...</option>
-                                    <option>4x4</option>
-                                    <option>6x6</option>
-                                    <option>8x8</option>
+                                    @if (products != null)
+                                    {
+                                        
+                                        foreach (var item in products)
+                                        {
+                                            <option value="@item.ProductId">@item.ProductSize & @item.ProductMaterial</option>
+                                        }
+                                    }
                                 </select>
                             </td>
                             <td>

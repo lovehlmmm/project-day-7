@@ -1,42 +1,43 @@
 ﻿
-$("#formLogin").submit(function () {
-    
-    var username = $("input[name=username]").val().trim();
-    var password = $("input[name=password]").val().trim();
-    var remember = $("input[name=remember]:checked").length > 0;
-    //if (username === '') {
-    //    $("input[name=username]").addClass("border border-danger");
-    //    return false;
-    //} else {
-    //    $("input[name=username]").removeClass("border border-danger");
-    //}
-    //if (password === '') {
-    //    $("input[name=password]").addClass("border border-danger");
-    //    return false;
-    //} else {
-    //    $("input[name=password]").removeClass("border border-danger");
-    //}
-    var user = { Username: username, Password: password, Remember: remember };
-    $('#loading').show();
 
-    $.ajax({
-        url: '/LoginUser/CheckLogin',
-        type: 'POST',   
-        dataType: 'json',
-        data: {loginUser:user},
-        async: true,
-        success: function (data) {
-            if (data.status === true) {
-                $('#loading').hide();
-                swal("Success", "Login Success", "success");
-            } else {
-                $('#loading').hide();
-                swal("Error", data.message, "error");
+$.validator.setDefaults({
+    submitHandler: function () {
+        var username = $("input[name=username]").val().trim();
+        var password = $("input[name=password]").val().trim();
+        var remember = $("input[name=remember]:checked").length > 0;
+        //if (username === '') {
+        //    $("input[name=username]").addClass("border border-danger");
+        //    return false;
+        //} else {
+        //    $("input[name=username]").removeClass("border border-danger");
+        //}
+        //if (password === '') {
+        //    $("input[name=password]").addClass("border border-danger");
+        //    return false;
+        //} else {
+        //    $("input[name=password]").removeClass("border border-danger");
+        //}
+        var user = { Username: username, Password: password, Remember: remember };
+        $('#loading').show();
+
+        $.ajax({
+            url: '/LoginUser/CheckLogin',
+            type: 'POST',
+            dataType: 'json',
+            data: { loginUser: user },
+            async: true,
+            success: function (data) {
+                if (data.status === true) {
+                    $('#loading').hide();
+                    swal("Success", "Login Success", "success");    
+                } else {
+                    $('#loading').hide();
+                    swal("Error", data.message, "error");
+                }
             }
-        }
-    });
-    return false;
-}); 
+        });
+    }
+});
 
 $(document).ready(function () {
 

@@ -4,21 +4,37 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Constants;
+using Entities;
 using Helpers;
 using Newtonsoft.Json;
+using Repositories;
+using Services;
 using WEB.Models;
 
 namespace WEB.Controllers
 {
     public class UploadController : Controller
     {
+        private readonly IBaseService<Product> _productRepository;
+        public UploadController(IBaseService<Product> productRepository)
+        {
+            _productRepository = productRepository;
+        }
         // GET: Upload
         public ActionResult Index()
         {
+            UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as  UserSession;
+            if (userSession==null)
+            {
+                return Redirect("register");
+            }
+            var product = _productRepository.FindAll(p => p.Status.Equals(Status.Active));
+            ViewBag.Product = product;
             return View();
         }
         public ActionResult GetCartUpload()
         {
+
             var cart = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
             ViewBag.Cart = cart;
             return PartialView("~/Views/Upload/Cart.cshtml");

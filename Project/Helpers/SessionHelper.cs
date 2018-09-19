@@ -23,7 +23,7 @@ namespace Helpers
         public static object GetSession(string sessionName)
         {
             var session = HttpContext.Current.Session[sessionName];
-            return session as object;
+            return session;
         }
         public static void Delete(string sessionName)
         {
