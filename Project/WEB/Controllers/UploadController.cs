@@ -26,7 +26,8 @@ namespace WEB.Controllers
             UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as  UserSession;
             if (userSession==null)
             {
-                return Redirect("register");
+
+                return RedirectToAction("Index","LoginUser",new {url = Request.Url.ToString()});
             }
             var product = _productRepository.FindAll(p => p.Status.Equals(Status.Active));
             ViewBag.Product = product;

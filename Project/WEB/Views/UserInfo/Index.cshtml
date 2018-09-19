@@ -1,9 +1,10 @@
 ﻿@using Entities
+@using Constants
 @{
     ViewBag.Title = "UserInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var showUser  = ViewBag.ShowUser as User;
- }
+    var showUser = ViewBag.ShowUser as User;
+}
 @section css{
     <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
     <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
@@ -94,7 +95,7 @@
 <!-- Home section -->
 <div class="breadcrumbs margin-bottom-30">
     <div class="container">
-        <h1 class="pull-left">Your Info</h1>
+        <h1 class="pull-left">My Information</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="/">Home</a></li>
             <li class="active">Your Info</li>
@@ -116,7 +117,7 @@
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
-                                    <input id="id_name" value="@showUser.Customer.CustomerName?" maxlength="254" name="name" type="text" placeholder="Name" tabindex="1" class="form-control required">
+                                    <input id="id_name" value="@(showUser.Customer.CustomerName != null ? showUser.Customer.CustomerName : string.Empty)" maxlength="254" name="name" type="text" placeholder="Name" tabindex="1" class="form-control required">
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
@@ -129,50 +130,84 @@
                             </div>
                             <div class="margin-bottom-20">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input id="id_phone" value="@showUser.Customer.PhoneNumber?" maxlength="254" name="Phone Number" type="text" placeholder="Phone Number" tabindex="1" class="form-control required">
+                                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                    <input id="id_phone" value="@showUser.Customer.PhoneNumber" maxlength="254" name="Phone Number" type="text" placeholder="Phone Number" tabindex="1" class="form-control required">
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input id="id_email" value="@showUser.Email?" maxlength="254" name="email" type="text" placeholder="Email" tabindex="2" class="form-control required">
+                                    <input id="id_email" value="@showUser.Email" maxlength="254" name="email" type="text" placeholder="Email" tabindex="2" class="form-control required">
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
 
-                            <div class="margin-bottom-20">
+                            @*<div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="icon-lock"></i></span>
-                                    <input id="id_password1" value="@showUser.Password?"name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
+                                    <input id="id_password1" value="@showUser.Password" name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
                                 </div>
                                 <p class="reg_error"></p>
+                            </div>*@
+                            <div class="">
+                                <label data-toggle="collapse" data-target="#changepasswd">
+                                    <a href="#">Change Password</a>
+                                </label>
+                            </div>
+                            <div class="collapse" id="changepasswd">
+                                <div class="form-group">
+                                    @*<label for="inputpromo" class="control-label">New Password</label>*@
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control" id="inputchangepasswd" placeholder="New password">
+                                        <br />
+                                        <input type="text" class="form-control" id="inputchangepasswd" placeholder="Confirm password">
+                                        <button class="btn btn-primary">Apply</button>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
                         <div class="col-md-7">
-                            <div id="div_id_plan" class="form-group">
+                            <div id="" class="form-group">
                                 <label for="id_plan" class="control-labelrequiredField">Gender<span class="asteriskField">*</span></label>
                                 <div class="controls">
-                                    <select class="select form-control" id="id_plan" name="plan" tabindex="5">
-                                        <option value="standard">Male</option>
-                                        <option value="business">Female</option>
-                                    </select>
+                                    <div class=" form-check-inline">
+                                        <label class="form-check-label" for="radio1">
+                                            <input type="radio" class="form-check-input" id="radio1" name="optradio" @(showUser.Customer.Gender.Equals(Gender.Male) ? "checked" : string.Empty)>Male
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label" for="radio2">
+                                            <input type="radio" class="form-check-input" id="radio2" name="optradio" @(showUser.Customer.Gender.Equals(Gender.Female) ? "checked" : string.Empty)>Female
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="div_id_interval" class="form-group">
-                                <label for="id_interval" value="@showUser.Customer.Addresses?" class="control-label requiredField">Address<span class="asteriskField">*</span></label>
-                                <div class="controls">
-                                    <input id="id_address" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control required">
+                            <div class="margin-bottom-20">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-birthday-cake"> </i></span>
+                                    <input id="id_dateofbirth" value="@showUser.Customer.DateOfBirth" maxlength="254" name="" type="text" placeholder="Date Of Birth" tabindex="2" class="form-control required">
                                 </div>
+                                <p class="reg_error"></p>
                             </div>
-                            <div id="div_id_interval" class="form-group">
-                                <label for="id_interval" class="control-label requiredField">Address</label>
-                                <div class="controls">
-                                    <input id="id_address2" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control ">
-                                </div>
-                            </div>
+                            @{var addresses = @showUser.Customer.Addresses;}
+                                @{ if (addresses != null)
+                                    {
+                                        foreach (var item in addresses)
+                                        {
+                                        <div id="div_id_interval" class="form-group">
+
+                                            <label for="id_interval" value="" class="control-label requiredField">Address<span class="asteriskField">*</span></label>
+                                            <div class="controls">
+                                                <input id="id_address" data-id="@item.AddressId" value="@item.AddressDetails" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control addressmuti required">
+                                            </div>
+                                        </div>
+                                            }
+                                        }
+                                    }
+
+
                             <!-- Payment -->
                             <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
                             <div class="margin-bottom-20">
@@ -197,7 +232,35 @@
                             <div class="margin-bottom-10">
                                 <span class="payment-errors reg_error"></span><br>
                             </div>
-                         </div>
+
+                            <div class="">
+                                <label data-toggle="collapse" data-target="#credit">
+                                    <a href="#">Change Credit Card</a>
+                                </label>
+                            </div>
+                            <div class="collapse" id="credit">
+                                <div class="form-group">
+                                    @*<label for="inputpromo" class="control-label">New Password</label>*@
+                                    <div class="form-inline">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                            <input id="credit" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control required">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                            <input style="width: 50%" type="text" size="2" placeholder="MM" class="form-control required" data-stripe="exp-month" tabindex="8">
+                                            <input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control required" data-stripe="exp-year" tabindex="9">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icon-key"></i></span>
+                                            <input id="credit" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control required" data-stripe="cvc" tabindex="10">
+                                        </div>
+                                        <button class="btn btn-primary">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -235,7 +298,7 @@
 
                 <ul class="nav nav-pills nav-stacked">
                     <li>
-                        <a href="myorder.html"><i class="fa fa-list"></i> My orders</a>
+                        <a href="/upload"><i class="fa fa-list"></i> My orders</a>
                     </li>
                     <li class="active">
                         <a href="userinfo.html"><i class="fa fa-user"></i> My account</a>
@@ -256,4 +319,3 @@
 </div>
 
 
-  
