@@ -30,7 +30,8 @@ namespace Entities
         [StringLength(6)]
         [Column("gender")]
         public string Gender { get; set; }
-
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Column("date_of_birth")]
         public DateTime? DateOfBirth { get; set; }
 

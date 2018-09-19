@@ -31,12 +31,7 @@ namespace WEB.Controllers
         [HttpPost]
         public JsonResult Register(User user, Customer customer)
         {
-            var regexUsername = new Regex("[A-Za-z][A-Za-z0-9._]{5,10}");
-
-            if (!regexUsername.IsMatch(user.Username)| !Validate.ValidPassword(user.Password))
-            {
-                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
-            }
+           
             HashingData hashingData = new HashingData(AppSettingConstant.SaltLength);
             try
             {

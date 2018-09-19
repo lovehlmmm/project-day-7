@@ -62,6 +62,11 @@
     </style>
 
 }
+
+@section script{
+ 
+    <script src="~/Scripts/updateUserInfo.js"></script>
+}
 <!-- Preloader section
 ================================================== -->
 <div class="preloader">
@@ -109,11 +114,12 @@
 
         <!-- *** LEFT COLUMN ***__ -->
         <div class="col-md-9">
-            <form id="payment-form" class="reg-page" method="post" "><input type="hidden" name="" value="">
+            <form id="form-user" class="reg-page" method="post">
                 <div class="reg-header">
                     <div class="row">
                         <div class="col-md-5">
                             <label class="control-labelrequiredField">Account Details<span class="asteriskField">*</span></label>
+
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
@@ -124,7 +130,7 @@
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input id="id_username" value="@showUser.Username" maxlength="254" name="username" type="text" placeholder="Username" tabindex="1" class="form-control required">
+                                    <input id="id_username" value="@showUser.Username" maxlength="254" name="username" type="text" placeholder="Username" tabindex="1" class="form-control required" readonly>
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
@@ -138,18 +144,18 @@
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input id="id_email" value="@showUser.Email" maxlength="254" name="email" type="text" placeholder="Email" tabindex="2" class="form-control required">
+                                    <input id="id_email" value="@showUser.Email" maxlength="254" name="email" type="text"   tabindex="2" class="form-control required" readonly>
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
 
                             @*<div class="margin-bottom-20">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="icon-lock"></i></span>
-                                    <input id="id_password1" value="@showUser.Password" name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
-                                </div>
-                                <p class="reg_error"></p>
-                            </div>*@
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-lock"></i></span>
+                                        <input id="id_password1" value="@showUser.Password" name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
+                                    </div>
+                                    <p class="reg_error"></p>
+                                </div>*@
                             <div class="">
                                 <label data-toggle="collapse" data-target="#changepasswd">
                                     <a href="#">Change Password</a>
@@ -158,12 +164,11 @@
                             <div class="collapse" id="changepasswd">
                                 <div class="form-group">
                                     @*<label for="inputpromo" class="control-label">New Password</label>*@
-                                    <div class="form-inline">
+                                    <div class="form">
                                         <input type="text" class="form-control" id="inputchangepasswd" placeholder="New password">
                                         <br />
                                         <input type="text" class="form-control" id="inputchangepasswd" placeholder="Confirm password">
-                                        <button class="btn btn-primary">Apply</button>
-                                    </div>
+                                     </div>
                                 </div>
                             </div>
 
@@ -172,14 +177,14 @@
                             <div id="" class="form-group">
                                 <label for="id_plan" class="control-labelrequiredField">Gender<span class="asteriskField">*</span></label>
                                 <div class="controls">
-                                    <div class=" form-check-inline">
+                                    <div class="form-check-inline checkgender">
                                         <label class="form-check-label" for="radio1">
-                                            <input type="radio" class="form-check-input" id="radio1" name="optradio" @(showUser.Customer.Gender.Equals(Gender.Male) ? "checked" : string.Empty)>Male
+                                            <input type="radio" value="Male" class="form-check-input" id="radio1" name="checkgender" @(showUser.Customer.Gender.Equals(Gender.Male) ? "checked" : string.Empty)>Male
                                         </label>
                                     </div>
                                     <div class="form-check-inline">
                                         <label class="form-check-label" for="radio2">
-                                            <input type="radio" class="form-check-input" id="radio2" name="optradio" @(showUser.Customer.Gender.Equals(Gender.Female) ? "checked" : string.Empty)>Female
+                                            <input type="radio" value="Female" class="form-check-input" id="radio2" name="checkgender" @(showUser.Customer.Gender.Equals(Gender.Female) ? "checked" : string.Empty)>Female
                                         </label>
                                     </div>
                                 </div>
@@ -187,15 +192,15 @@
                             <div class="margin-bottom-20">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-birthday-cake"> </i></span>
-                                    <input id="id_dateofbirth" value="@showUser.Customer.DateOfBirth" maxlength="254" name="" type="text" placeholder="Date Of Birth" tabindex="2" class="form-control required">
+                                    <input id="id_dateofbirth" value="@showUser.Customer.DateOfBirth.Value.ToShortDateString()"  name="" type="date" placeholder="Date Of Birth" tabindex="2" class="form-control required">
                                 </div>
                                 <p class="reg_error"></p>
                             </div>
                             @{var addresses = @showUser.Customer.Addresses;}
-                                @{ if (addresses != null)
+                            @{ if (addresses != null)
+                                {
+                                    foreach (var item in addresses)
                                     {
-                                        foreach (var item in addresses)
-                                        {
                                         <div id="div_id_interval" class="form-group">
 
                                             <label for="id_interval" value="" class="control-label requiredField">Address<span class="asteriskField">*</span></label>
@@ -203,9 +208,9 @@
                                                 <input id="id_address" data-id="@item.AddressId" value="@item.AddressDetails" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control addressmuti required">
                                             </div>
                                         </div>
-                                            }
-                                        }
                                     }
+                                }
+                            }
 
 
                             <!-- Payment -->
@@ -255,7 +260,6 @@
                                             <span class="input-group-addon"><i class="icon-key"></i></span>
                                             <input id="credit" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control required" data-stripe="cvc" tabindex="10">
                                         </div>
-                                        <button class="btn btn-primary">Apply</button>
                                     </div>
                                 </div>
                             </div>
@@ -270,7 +274,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-success btn-block" type="submit" tabindex="11">Save and Change!</button>
+                            <button class="btn btn-success btn-block" id="saveinfo" type="button" tabindex="11">Save and Change!</button>
                         </div>
                     </div>
                     <hr>

@@ -37,17 +37,20 @@ namespace WEB.Controllers
 
         public async System.Threading.Tasks.Task<JsonResult> UpdateUser(User userUpdate)
         {
+            HashingData hashingData = new HashingData(AppSettingConstant.SaltLength);
             var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
             if (userSession != null)
             {
                 var user = _userService.Find(u => u.Username == userSession.Username);
                 if (user != null)
                 {
-                    if (!userUpdate.Password.Equals(""))
+                    if (userUpdate.Password!=null)
                     {
-                        user.Password = userUpdate.Password;
+                        user.Password = hashingData.EncryptString(userUpdate.Password,AppSettingConstant.PasswordHash);
                     }
-                    user.Customer = userUpdate.Customer;
+                    user.Customer.DateOfBirth = userUpdate.Customer.DateOfBirth;
+                    user.Customer.Gender = userUpdate.Customer.Gender;
+                    user.Customer.PhoneNumber = userUpdate.Customer.PhoneNumber;
                     user.ModifiedAt = DateTime.Now;
                     var result = await _userService.UpdateAsync(user, user.Username);
                     if (result!=null)
