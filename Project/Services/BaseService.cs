@@ -67,5 +67,10 @@ namespace Services
         {
             return _baseRepository.Find(match);
         }
+
+        public ICollection<TObject> FindAll(Expression<Func<TObject, bool>> match)
+        {
+            return _baseRepository.FindAll(match);
+        }
     }
 }

@@ -37,7 +37,6 @@ namespace WEB.Controllers
                 if (checkUser != null)
                 {
                     if (!checkUser.Role.Equals(UserRole.Customer)) return Json(new { status = false });
-                    UserSession userSession = new UserSession(checkUser.Username, checkUser.Role);
                     if (checkUser.Status==Status.Inactive)
                     {
                         message = "Account is not verify email!";
@@ -48,6 +47,8 @@ namespace WEB.Controllers
                         loginCookie.CustomerName = checkUser.Customer.CustomerName;
                         var cookie = CookieHelper.Create(AppSettingConstant.LoginCookieCustomer,Server.UrlEncode(JsonConvert.SerializeObject(loginCookie, Formatting.Indented)),DateTime.Now.AddDays(1));
                         Response.Cookies.Add(cookie);
+                        UserSession userSession = new UserSession(checkUser.Username,checkUser.Role);
+                        SessionHelper.SetSession(userSession,AppSettingConstant.LoginSessionCustomer);
                         status = true;
                     }
                     
