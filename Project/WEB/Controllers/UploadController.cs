@@ -41,13 +41,18 @@ namespace WEB.Controllers
             return PartialView("~/Views/Upload/Cart.cshtml");
         }
 
-        public JsonResult AddCart(string image)
+        public JsonResult AddCart(string image,int id, int quantity)
         {
             //byte[] imageByte = Convert.FromBase64String(image);
+            var product=_productRepository.Find(p => p.ProductId == id);
+            if (product==null)
+            {
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            }
             var t = image.Substring(23);
             CartItem cartItem = new CartItem();
             cartItem.Image = t;
-            cartItem.Quantity = 1;
+            cartItem.Quantity = quantity;
             var session = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
             if (session == null)
             {
@@ -60,7 +65,7 @@ namespace WEB.Controllers
                 
             }
             SessionHelper.SetSession(session, AppSettingConstant.CartSession);
-            return Json(new {status = false},JsonRequestBehavior.AllowGet);
+            return Json(new {status = true},JsonRequestBehavior.AllowGet);
         }
 
     }

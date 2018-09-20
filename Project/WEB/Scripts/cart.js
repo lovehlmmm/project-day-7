@@ -3,7 +3,8 @@
 $(document).ready(function () {
     GetCartItem();
     $('#add-cart').click(function () {
-        var product=$('select[name=select-product]').val();
+        var product = $('select[name=select-product]').val();
+
         var list = $('.imgChoiced');
         $.each(list, function (key, val) {
             if ($(val).hasClass('image-checkbox-checked')) {
@@ -26,6 +27,7 @@ function AddToCart(data) {
         processData: false,
         contentType: false
     }).success(function (result) {
+
     }).error(function (xhr, status) {
     });
 }
