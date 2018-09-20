@@ -64,7 +64,7 @@
 }
 
 @section script{
- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
     <script src="~/Scripts/updateUserInfo.js"></script>
 }
 <!-- Preloader section
@@ -115,171 +115,184 @@
         <!-- *** LEFT COLUMN ***__ -->
         <div class="col-md-9">
             <form id="form-user" class="reg-page" method="post">
-                <div class="reg-header">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label class="control-labelrequiredField">Account Details<span class="asteriskField">*</span></label>
-
-                            <div class="margin-bottom-20">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
-                                    <input id="id_name" value="@(showUser.Customer.CustomerName != null ? showUser.Customer.CustomerName : string.Empty)" maxlength="254" name="name" type="text" placeholder="Name" tabindex="1" class="form-control required">
-                                </div>
-                                <p class="reg_error"></p>
-                            </div>
-                            <div class="margin-bottom-20">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input id="id_username" value="@showUser.Username" maxlength="254" name="username" type="text" placeholder="Username" tabindex="1" class="form-control required" readonly>
-                                </div>
-                                <p class="reg_error"></p>
-                            </div>
-                            <div class="margin-bottom-20">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                    <input id="id_phone" value="@showUser.Customer.PhoneNumber" maxlength="254" name="Phone Number" type="text" placeholder="Phone Number" tabindex="1" class="form-control required">
-                                </div>
-                                <p class="reg_error"></p>
-                            </div>
-                            <div class="margin-bottom-20">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <input id="id_email" value="@showUser.Email" maxlength="254" name="email" type="text"   tabindex="2" class="form-control required" readonly>
-                                </div>
-                                <p class="reg_error"></p>
-                            </div>
-
-                            @*<div class="margin-bottom-20">
+                <div class="form-group">
+                    <div class="reg-header">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label class="control-labelrequiredField">Account Details<span class="asteriskField">*</span></label>
+                                <div class="margin-bottom-20">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="icon-lock"></i></span>
-                                        <input id="id_password1" value="@showUser.Password" name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
+                                        <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
+                                        <input id="id_name" value="@(showUser.Customer.CustomerName != null ? showUser.Customer.CustomerName : string.Empty)" maxlength="254" name="name" type="text" placeholder="Name" tabindex="1" class="form-control required">
                                     </div>
                                     <p class="reg_error"></p>
-                                </div>*@
-                            <div class="">
-                                <label data-toggle="collapse" data-target="#changepasswd">
-                                    <a href="#">Change Password</a>
-                                </label>
-                            </div>
-                            <div class="collapse" id="changepasswd">
-                                <div class="form-group">
-                                    @*<label for="inputpromo" class="control-label">New Password</label>*@
-                                    <div class="form">
-                                        <input type="text" class="form-control" id="inputchangepasswd" placeholder="New password">
-                                        <br />
-                                        <input type="text" class="form-control" id="inputchangepasswd" placeholder="Confirm password">
-                                     </div>
                                 </div>
-                            </div>
-
-                        </div>
-                        <div class="col-md-7">
-                            <div id="" class="form-group">
-                                <label for="id_plan" class="control-labelrequiredField">Gender<span class="asteriskField">*</span></label>
-                                <div class="controls">
-                                    <div class="form-check-inline checkgender">
-                                        <label class="form-check-label" for="radio1">
-                                            <input type="radio" value="Male" class="form-check-input" id="radio1" name="checkgender" @(showUser.Customer.Gender.Equals(Gender.Male) ? "checked" : string.Empty)>Male
-                                        </label>
+                                <div class="margin-bottom-20">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input id="id_username" value="@(showUser.Username != null ? showUser.Username :  string.Empty)" maxlength="254" name="username" type="text" placeholder="Username" tabindex="1" class="form-control required" readonly>
                                     </div>
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label" for="radio2">
-                                            <input type="radio" value="Female" class="form-check-input" id="radio2" name="checkgender" @(showUser.Customer.Gender.Equals(Gender.Female) ? "checked" : string.Empty)>Female
-                                        </label>
+                                    <p class="reg_error"></p>
+                                </div>
+                                <div class="margin-bottom-20">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                        <input id="id_phone" value="@(showUser.Customer.PhoneNumber  != null ? showUser.Customer.PhoneNumber : string.Empty )" maxlength="254" name="PhoneNumber" type="text" placeholder="Phone Number" tabindex="1" class="form-control required">
                                     </div>
+                                    <p class="reg_error"></p>
                                 </div>
-                            </div>
-                            <div class="margin-bottom-20">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-birthday-cake"> </i></span>
-                                    <input id="id_dateofbirth" value="@showUser.Customer.DateOfBirth.Value.ToShortDateString()"  name="" type="date" placeholder="Date Of Birth" tabindex="2" class="form-control required">
+                                <div class="margin-bottom-20">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        <input id="id_email" value="@(showUser.Email  != null ? showUser.Email : string.Empty)" maxlength="254" name="email" type="text" tabindex="2" class="form-control required" readonly>
+                                    </div>
+                                    <p class="reg_error"></p>
                                 </div>
-                                <p class="reg_error"></p>
-                            </div>
-                            @{var addresses = @showUser.Customer.Addresses;}
-                            @{ if (addresses != null)
-                                {
-                                    foreach (var item in addresses)
-                                    {
-                                        <div id="div_id_interval" class="form-group">
 
-                                            <label for="id_interval" value="" class="control-label requiredField">Address<span class="asteriskField">*</span></label>
-                                            <div class="controls">
-                                                <input id="id_address" data-id="@item.AddressId" value="@item.AddressDetails" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control addressmuti required">
-                                            </div>
+                                @*<div class="margin-bottom-20">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-lock"></i></span>
+                        <input id="id_password1" value="@showUser.Password" name="password1" type="password" placeholder="Password" tabindex="3" class="form-control required">
+                    </div>
+                    <p class="reg_error"></p>
+                </div>*@
+                                <div class="">
+                                    <label data-toggle="collapse" data-target="#changepasswd">
+                                        <a href="#">Change Password</a>
+                                    </label>
+                                </div>
+                                <div class="collapse" id="changepasswd">
+                                    <div class="form-group">
+                                        @*<label for="inputpromo" class="control-label">New Password</label>*@
+                                        <div class="form">
+                                            <input type="text" class="form-control" id="newpassword" name="newpassword" placeholder="New password">
+                                            <br />
+                                            <input type="text" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password">
                                         </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-7">
+                                <div id="" class="form-group">
+                                    <label for="id_plan" class="control-labelrequiredField">Gender<span class="asteriskField">*</span></label>
+                                    <div class="controls">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label" for="radio1">
+                                                <input type="radio" value="Male" class="form-check-input" id="radio1" name="checkgender" @(showUser.Customer.Gender != null ? (showUser.Customer.Gender.Equals(Gender.Male) ? "checked" : string.Empty) : string.Empty)>Male
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label" for="radio2">
+                                                <input type="radio" value="Female" class="form-check-input" id="radio2" name="checkgender" @(showUser.Customer.Gender != null ? (showUser.Customer.Gender.Equals(Gender.Female) ? "checked" : string.Empty) : string.Empty)>Female
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="margin-bottom-20">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-birthday-cake"> </i></span>
+                                        <input id="id_dateofbirth" value="@(showUser.Customer.DateOfBirth !=null ? showUser.Customer.DateOfBirth.Value.ToShortDateString() : string.Empty)" name="birthday" type="text" placeholder="Date Of Birth" tabindex="2" class="form-control required">
+                                    </div>
+                                    <p class="reg_error"></p>
+                                </div>
+                                @{var addresses = @showUser.Customer.Addresses.Where(a=>a.Status.Equals(Status.Active));}
+                                @{ if (addresses != null)
+                                    {
+                                        <label for="id_interval" value="" class="control-label requiredField">Address<span class="asteriskField">*</span></label>
+
+                                        foreach (var item in addresses)
+                                        {
+                                            <div id="div_id_interval" class="form-group div_id_interval">
+                                                <div class="controls">
+                                                    <button type="button" data-id="@item.AddressId" class="close deleteaddr" id="deleteaddr"  aria-hidden="true">×</button>
+                                                    <input id="id_address" data-id="@item.AddressId" value="@item.AddressDetails" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control addressmuti required">
+                                                </div>
+                                            </div>
+                                        }
                                     }
                                 }
-                            }
-
-
-                            <!-- Payment -->
-                            <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
-                            <div class="margin-bottom-20">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                    <input id="id_creditcard" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control required">
+                                <div class="">
+                                    <label data-toggle="collapse" data-target="#addaddress">
+                                        <a href="#">Add Address</a>
+                                    </label>
                                 </div>
-                            </div>
-                            <div class="margin-bottom-20">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                                    <input style="width: 50%" type="text" size="2" placeholder="MM" class="form-control required" data-stripe="exp-month" tabindex="8">
-                                    <input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control required" data-stripe="exp-year" tabindex="9">
-                                </div>
-                            </div>
-                            <div class="margin-bottom-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="icon-key"></i></span>
-                                    <input id="id_cvc" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control required" data-stripe="cvc" tabindex="10">
-                                </div>
-                            </div>
-                            <div class="margin-bottom-10">
-                                <span class="payment-errors reg_error"></span><br>
-                            </div>
-
-                            <div class="">
-                                <label data-toggle="collapse" data-target="#credit">
-                                    <a href="#">Change Credit Card</a>
-                                </label>
-                            </div>
-                            <div class="collapse" id="credit">
-                                <div class="form-group">
-                                    @*<label for="inputpromo" class="control-label">New Password</label>*@
-                                    <div class="form-inline">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                            <input id="credit" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control required">
-                                        </div>
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                                            <input style="width: 50%" type="text" size="2" placeholder="MM" class="form-control required" data-stripe="exp-month" tabindex="8">
-                                            <input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control required" data-stripe="exp-year" tabindex="9">
-                                        </div>
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="icon-key"></i></span>
-                                            <input id="credit" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control required" data-stripe="cvc" tabindex="10">
+                                <div class="collapse" id="addaddress">
+                                    <div class="form-group">
+                                        @*<label for="addaddress" class="control-label">New Password</label>*@
+                                        <div class="form">
+                                            <input type="text" class="form-control addressmuti" id="addaddress" name="addaddress" placeholder="New Address">
+                                            <br />
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Payment -->
+                                <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
+                                <div class="margin-bottom-20">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        <input id="id_creditcard" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="margin-bottom-20">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                        <input style="width: 50%" type="text" size="2" placeholder="MM" class="form-control" data-stripe="exp-month" tabindex="8">
+                                        <input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control" data-stripe="exp-year" tabindex="9">
+                                    </div>
+                                </div>
+                                <div class="margin-bottom-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="icon-key"></i></span>
+                                        <input id="id_cvc" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control" data-stripe="cvc" tabindex="10">
+                                    </div>
+                                </div>
+                                <div class="margin-bottom-10">
+                                    <span class="payment-errors reg_error"></span><br>
+                                </div>
+
+                                <div class="">
+                                    <label data-toggle="collapse" data-target="#credit">
+                                        <a href="#">Change Credit Card</a>
+                                    </label>
+                                </div>
+                                <div class="collapse" id="credit">
+                                    <div class="form-group">
+                                        @*<label for="inputpromo" class="control-label">New Password</label>*@
+                                        <div class="form-inline">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                <input id="credit" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control ">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                                <input style="width: 50%" type="text" size="2" placeholder="MM" class="form-control" data-stripe="exp-month" tabindex="8">
+                                                <input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control" data-stripe="exp-year" tabindex="9">
+                                            </div>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="icon-key"></i></span>
+                                                <input id="credit" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control" data-stripe="cvc" tabindex="10">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
 
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button class="btn btn-success btn-block" id="saveinfo" type="button" tabindex="11">Save and Change!</button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-success btn-block" id="saveinfo" name="submit" type="submit" tabindex="11">Save and Change!</button>
+                            </div>
                         </div>
+                        <hr>
                     </div>
-                    <hr>
             </form>
-
+  
 
         </div>
         <!-- /.box -->

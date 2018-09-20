@@ -17,8 +17,7 @@ namespace WEB.Helpers
             string mail = ConfigurationManager.AppSettings["mail"];
             string password = ConfigurationManager.AppSettings["password"];
             int port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
-            string from = ConfigurationManager.AppSettings["from"];
-            MailMessage message = new MailMessage(from, to)
+            MailMessage message = new MailMessage(mail, to)
             {
                 Subject = subject,
                 Body = mailbody,

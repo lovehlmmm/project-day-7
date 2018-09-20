@@ -31,8 +31,10 @@ $.validator.setDefaults({
                 if (data.status === true) {
                     $('#loading').hide();
                     swal("Success", "Login Success", "success");
-                    if (data.url!==null) {
+                    if (data.url !== null & data.url !== "") {
                         window.location.replace(data.url);
+                    } else {
+                        window.location.replace("/home");
                     }
                     
                 } else {
