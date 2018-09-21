@@ -12,7 +12,19 @@
             var Address = { AddressId: $(val).data('id'), AddressDetails: $(val).val()}
             address.push(Address);
         });
-        var customer = { CustomerName: customerName, Addresses: address, PhoneNumber: phonenumber, Gender: gender, DateOfBirth: dateofbirth }
+        var cvc = $('.id_cvc').val();
+        var creditexpire = $('.id_creditexpire').val();
+        var creditnumber = $('.id_creditcard').val();
+
+        var addcre = $('.addcredit');
+        var addcredit = [];
+
+        $.each(addcre, function (key, val) {
+            var CreditCard = { CreditCardId: $(val).data('id'), CreditNumber: $(val).val(), Expire: $(val).val(), CVC: $(val).val()}
+            addcredit.push(CreditCard);
+        });
+        var creditcard = { CreditNumber: creditnumber, Expire: creditexpire, CVC: cvc }
+        var customer = { CustomerName: customerName, Addresses: address, PhoneNumber: phonenumber, Gender: gender, DateOfBirth: dateofbirth, CreditCard: creditcard }
         var user = { Username: username, Password: password, Customer: customer }
         $('#loading').show();
         $.ajax({
@@ -56,7 +68,10 @@ $(document).ready(function () {
 
     $("#form-user").validate({
         rules: {
-            name: "required",
+            name: {
+                required: true,
+                maxlength : 5
+            },
             PhoneNumber: {
                 required: true,
                 maxlength: 10

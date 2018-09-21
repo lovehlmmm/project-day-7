@@ -13,6 +13,7 @@ namespace WEB.Controllers
 
         private readonly IUserService _userService;
         private readonly IBaseService<Address> _addressService;
+        private readonly IBaseService<CreditCard> _creditcardService;
 
         public UserInfoController(IUserService userService,IBaseService<Address> addressService)
         {
@@ -72,7 +73,8 @@ namespace WEB.Controllers
                     user.Customer.Gender = userUpdate.Customer.Gender;
                     user.Customer.PhoneNumber = userUpdate.Customer.PhoneNumber;
                     user.Customer.CustomerName = userUpdate.Customer.CustomerName;
-                    user.ModifiedAt = DateTime.Now;
+
+                     user.ModifiedAt = DateTime.Now;
                     foreach (var item in userUpdate.Customer.Addresses)
                     {
                         var checkAddr = _addressService.Find(a => a.AddressId == item.AddressId);
@@ -95,6 +97,35 @@ namespace WEB.Controllers
                             }
                         }
 
+                    }
+                    foreach (var item in userUpdate.Customer.CreditCards)
+                    {
+                        var checkaddcre = _creditcardService.Find(c => c.CreditCardId == item.CreditCardId);
+                        if (checkaddcre != null)
+                        {
+                            checkaddcre.CreditNumber = item.CreditNumber;
+                            checkaddcre.Expire = item.Expire;
+                            checkaddcre.CVC = item.CVC;
+                            checkaddcre.ModifiedAt = DateTime.Now;
+                            await _creditcardService.UpdateAsync(checkaddcre, checkaddcre.CreditCardId);
+                        }
+                        else
+                        {
+                            if (item.CreditNumber != null)
+                            {
+                                checkaddcre = new CreditCard();
+                                checkaddcre.CreditNumber = item.CreditNumber;
+                                checkaddcre.CreatedAt = DateTime.Now;
+                                checkaddcre.Expire = item.Expire;
+                                checkaddcre.CVC = item.CVC;
+
+                                checkaddcre.CustomerId = user.CustomerId.Value;
+
+                                checkaddcre.Status = Status.Active;
+                                await _creditcardService.AddAsync(checkaddcre);
+                             }
+                        }
+                           
                     }
                     var result = await _userService.UpdateAsync(user, user.Username);
                     if (result!=null)

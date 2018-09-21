@@ -21,7 +21,7 @@ $(document).ready(function() {
   $(function(){
     jQuery(document).ready(function() {
     $('#home').backstretch([
-       "../Assets/images/bg11.jpg", 
+       "../Assets/images/bgxx.jpg", 
        "../Assets/images/bg2.jpg",
         ],  {duration: 2000, fade: 750});
     });

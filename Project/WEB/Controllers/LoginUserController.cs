@@ -84,5 +84,21 @@ namespace WEB.Controllers
             
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Logout()
+        {
+            try
+                {
+                    var checkSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer);
+                    if (checkSession != null)
+                    {
+                        SessionHelper.Delete(AppSettingConstant.LoginSessionCustomer);
+                    }
+                }
+                catch (Exception)
+                {
+                }
+                return RedirectToAction("index", "home");
+        }
+
     }
 }

@@ -18,10 +18,17 @@ namespace Entities
         [Column("credit_card_id")]
         public long CreditCardId { get; set; }
         
-        [Column("customer_id)")]
+        [Column("customer_id")]
         public long CustomerId { get; set; }
         [StringLength(20)]
         [Column("credit_number")]
         public string CreditNumber { get; set; }
+        [StringLength(5)]
+        [Column("credit_expire")]
+        public string Expire { get; set; }
+
+        [StringLength(3)]
+        [Column("cvc")]
+        public string CVC { get; set; }
     }
 }
