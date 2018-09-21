@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Constants;
@@ -38,21 +39,32 @@ namespace WEB.Controllers
 
             var cart = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
             ViewBag.Cart = cart;
+            var products = _productRepository.FindAll(p => p.Status.Equals(Status.Active));
+            ViewBag.Products = products;
             return PartialView("~/Views/Upload/Cart.cshtml");
         }
 
-        public JsonResult AddCart(string image,int id, int quantity)
+        public JsonResult AddCart(string item,int id)
         {
             //byte[] imageByte = Convert.FromBase64String(image);
+
+            if (item==null)
+            {
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            }
+            var cartItem = JsonConvert.DeserializeObject<CartItem>(item);
             var product=_productRepository.Find(p => p.ProductId == id);
             if (product==null)
             {
                 return Json(new { status = false }, JsonRequestBehavior.AllowGet);
             }
-            var t = image.Substring(23);
-            CartItem cartItem = new CartItem();
-            cartItem.Image = t;
-            cartItem.Quantity = quantity;
+            var match = Regex.Match(cartItem.Image, @"data:(?<type>.+?);base64,(?<data>.+)");
+            var base64Data = match.Groups["data"].Value;
+            var contentType = match.Groups["type"].Value;
+            cartItem.Product = product;
+            cartItem.ImageType = contentType;
+            cartItem.Image = base64Data;
+
             var session = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
             if (session == null)
             {
@@ -61,8 +73,16 @@ namespace WEB.Controllers
             }
             else
             {
-                session.Add(cartItem);
-                
+                var check = session.FirstOrDefault(c => c.ImageTitle.Equals(cartItem.ImageTitle) & c.Product.ProductId == id);
+                if (check != null)
+                {
+                    check.Quantity += cartItem.Quantity;
+                }
+                else
+                {
+                    session.Add(cartItem);
+                }
+
             }
             SessionHelper.SetSession(session, AppSettingConstant.CartSession);
             return Json(new {status = true},JsonRequestBehavior.AllowGet);

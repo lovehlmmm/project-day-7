@@ -1,18 +1,30 @@
 ﻿
 
+
 $(document).ready(function () {
     GetCartItem();
     $('#add-cart').click(function () {
         var product = $('select[name=select-product]').val();
-
-        var list = $('.imgChoiced');
+        var list = $('.image-checkbox-checked');
+        if (list.length === 0) {
+            swal("Warning", "Please choose your images", "error");
+            return;
+        }
+        if (product === '0') {
+            swal("Warning", "Please choose size & material", "error");
+            return;
+        }
+        var quantity = $('#quantity').val();
+        if (quantity < 1) {
+            swal("Warning", "Please enter a number greater than 0", "error");
+            return;
+        }
         $.each(list, function (key, val) {
-            if ($(val).hasClass('image-checkbox-checked')) {
-                var formData = new FormData();
-                formData.append("image", $(val).attr('src'));
-                formData.append("product",product);
-                AddToCart(formData);
-            }
+            var cartItem = { Image: $(val).attr('src'),ImageTitle: $(val).attr('title'), Quantity: quantity};
+            var formData = new FormData();
+            formData.append('item', JSON.stringify(cartItem));
+            formData.append("id", product);
+            AddToCart(formData);
         });
         GetCartItem();
     });

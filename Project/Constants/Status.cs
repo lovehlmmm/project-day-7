@@ -8,8 +8,8 @@ namespace Constants
 {
     public class Status
     {
-        public static string Active = "active";
-        public static string Inactive = "inactive";
-        public static string Deleted = "deleted";
+        public const string Active = "active";
+        public const string Inactive = "inactive";
+        public const string Deleted = "deleted";
     }
 }
