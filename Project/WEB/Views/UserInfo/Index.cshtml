@@ -228,61 +228,46 @@
                                 @{var creditcards = @showUser.Customer.CreditCards.Where(c => c.Status.Equals(Status.Active));}
                                 @{if (creditcards != null)
                                     {
+                                        <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
                                         foreach (var item in creditcards)
                                         {
+
                                             <!-- Payment View -->
-                                            <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
-                                            <div class="margin-bottom-20">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                            <div id="removeview">
 
-                                                    <input id="" value="@item.CreditNumber" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control id_creditnumber" readonly>
+                                                <div class="margin-bottom-30">
+                                                    <button type="button" data-id="@item.CreditCardId" class="close deleteCre" id="deleteCre" aria-hidden="true">×</button>
 
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                        <input id="" data-id="@item.CreditCardId" value="@item.CreditNumber" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control showcredit" readonly>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="margin-bottom-20">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                                                    <input style="width: 30%" type="text" id="" value="@item.Expire" size="2" placeholder="MM/YY" class="form-control id_creditexpire"  tabindex="8" readonly>
-                                                    @*<input style="width: 50%" type="text" size="4" placeholder="YYYY" class="form-control" data-stripe="exp-year" tabindex="9" readonly>*@
-                                                </div>
-                                            </div>
-                                            <div class="margin-bottom-10">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="icon-key"></i></span>
-                                                    <input id="id_cvc" type="text" value="@item.CVC" size="4" placeholder="CVC Code (3-4 digits)" class="form-control id_cvc" data-stripe="cvc" tabindex="10" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="margin-bottom-10">
-                                                <span class="payment-errors reg_error"></span><br>
-                                            </div>
-
                                         }
                                     }
                                 }
 
                                 <!--Add Credit Card-->
                                 <div class="">
-                                    <label data-toggle="collapse" data-target="#credit">
+                                    <label data-toggle="collapse" data-target="#addcredit">
                                         <a href="#">Add Credit Card</a>
                                     </label>
                                 </div>
-                                <div class="collapse" id="">
+                                <div class="collapse addcredit" id="addcredit">
                                     <div class="form-group">
                                         @*<label for="inputpromo" class="control-label">New Password</label>*@
-                                        <div class="form-inline">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                                <input id="addcredit" maxlength="20" type="text" placeholder="Credit Card #" data-stripe="number" tabindex="7" class="form-control addcredit">
-                                            </div>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                                                <input style="width: 50%" type="text" size="2" placeholder="MM/YY" class="form-control addcredit" data-stripe="exp-month" tabindex="8">
-                                             </div>
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="icon-key"></i></span>
-                                                <input id="credit" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control addcredit" data-stripe="cvc" tabindex="10">
-                                            </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                            <input id="" maxlength="20" type="text" placeholder="Credit Number" data-stripe="number" tabindex="7" class="form-control id_creditnumber">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                            <input style="width: 50%" type="text" size="2" placeholder="MM/YY" class="form-control id_creditexpire" data-stripe="exp-month" tabindex="8">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icon-key"></i></span>
+                                            <input style="width: 50%" id="credit" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control id_cvc" data-stripe="cvc" tabindex="10">
                                         </div>
                                     </div>
                                 </div>
@@ -343,6 +328,48 @@
 
     <!-- *** RIGHT COLUMN END *** -->
 
+</div>
+<div class="modal fade" id="creditModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="margin-bottom-20">
+                    <label class="control-label requiredField">Credit Card Number<span class="asteriskField">*</span></label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        <input id="showCardNum" style="width: 50%" value="" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="margin-bottom-20">
+                    <label class="control-label requiredField">Expire<span class="asteriskField">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                        <input style="width: 20%" type="text" id="showCardExpire" value="" size="2" placeholder="MM/YY" class="form-control" tabindex="8" readonly>
+                    </div>
+                </div>
+                <div class="margin-bottom-10">
+                    <label class="control-label requiredField">CVC<span class="asteriskField">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-key"></i></span>
+                        <input id="showCardCVC" style="width: 20%" type="text" value="" size="4" placeholder="CVC Code (3-4 digits)" class="form-control" data-stripe="cvc" tabindex="10" readonly>
+                    </div>
+                </div>
+                <div class="margin-bottom-10">
+                    <span class="payment-errors reg_error"></span><br>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 

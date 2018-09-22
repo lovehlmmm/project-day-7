@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="AppSettingConstant.cs" />
     <Compile Include="Gender.cs" />
-    <Compile Include="OptionImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="UserRole.cs" />

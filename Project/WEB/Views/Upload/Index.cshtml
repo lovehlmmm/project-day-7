@@ -142,7 +142,8 @@
                     <thead>
                         <tr>
                             <th style="width:45%"></th>
-                            <th style="width:15%">Size & Material</th>
+                            <th style="width:15%">Size</th>                            
+                            <th style="width:15%">Material</th>
                             <th style="width:15%">Options</th>
                             <th style="width:5%">Quantity</th>
                             <th style="width:10%"></th>
@@ -152,7 +153,7 @@
                         <tr>
                             <td> </td>
                             <td data-th="">
-                                <select name="select-product" class="form-control" data-style="btn-primary">
+                                <select name="select-product" class="selectpicker" data-style="btn-danger">
                                     <option name="select-product" value="0">Select...</option>
                                     @if (products != null)
                                     {
@@ -165,7 +166,15 @@
                                 </select>
                             </td>
                             <td>
-                                <select class="" data-style="btn-success">
+                                <select class="selectpicker" data-style="btn-info">
+                                    <option value="0"> Select...</option>
+                                    <option> Silk </option>
+                                    <option>Paper</option>
+                                    <option>Plastic</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="selectpicker" data-style="btn-success">
                                     <option value="0"> Select...</option>
                                     <option>
                                         Delete Background

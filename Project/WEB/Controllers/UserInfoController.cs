@@ -15,10 +15,11 @@ namespace WEB.Controllers
         private readonly IBaseService<Address> _addressService;
         private readonly IBaseService<CreditCard> _creditcardService;
 
-        public UserInfoController(IUserService userService,IBaseService<Address> addressService)
+        public UserInfoController(IUserService userService,IBaseService<Address> addressService,IBaseService<CreditCard> creditService)
         {
             _userService = userService;
             _addressService = addressService;
+            _creditcardService = creditService;
         }
 
         // GET: UserInfo
@@ -52,7 +53,7 @@ namespace WEB.Controllers
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
-        public async System.Threading.Tasks.Task<JsonResult> UpdateUser(User userUpdate)
+        public async System.Threading.Tasks.Task<JsonResult> UpdateUser(User userUpdate,CreditCard creditCard)
         {
             HashingData hashingData = new HashingData(AppSettingConstant.SaltLength);
             var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
@@ -98,34 +99,12 @@ namespace WEB.Controllers
                         }
 
                     }
-                    foreach (var item in userUpdate.Customer.CreditCards)
+                    if (creditCard.CreditNumber!=null|creditCard.CVC!=null|creditCard.Expire!=null)
                     {
-                        var checkaddcre = _creditcardService.Find(c => c.CreditCardId == item.CreditCardId);
-                        if (checkaddcre != null)
-                        {
-                            checkaddcre.CreditNumber = item.CreditNumber;
-                            checkaddcre.Expire = item.Expire;
-                            checkaddcre.CVC = item.CVC;
-                            checkaddcre.ModifiedAt = DateTime.Now;
-                            await _creditcardService.UpdateAsync(checkaddcre, checkaddcre.CreditCardId);
-                        }
-                        else
-                        {
-                            if (item.CreditNumber != null)
-                            {
-                                checkaddcre = new CreditCard();
-                                checkaddcre.CreditNumber = item.CreditNumber;
-                                checkaddcre.CreatedAt = DateTime.Now;
-                                checkaddcre.Expire = item.Expire;
-                                checkaddcre.CVC = item.CVC;
-
-                                checkaddcre.CustomerId = user.CustomerId.Value;
-
-                                checkaddcre.Status = Status.Active;
-                                await _creditcardService.AddAsync(checkaddcre);
-                             }
-                        }
-                           
+                        creditCard.CustomerId = user.CustomerId.Value;
+                        creditCard.CreatedAt = DateTime.Now;
+                        creditCard.Status = Status.Active;
+                        user.Customer.CreditCards.Add(creditCard);
                     }
                     var result = await _userService.UpdateAsync(user, user.Username);
                     if (result!=null)
@@ -137,6 +116,47 @@ namespace WEB.Controllers
 
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetCreditCard(long id)
+        {
+            try
+            {
+                var credit = _creditcardService.Find(c => c.CreditCardId == id);
+                if (credit!=null)
+                {
+                    return Json(new { status = true,data = credit}, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteCredit (int id)
+        {
+            try
+            {
+                var deleteCre = _creditcardService.Find(c => c.CreditCardId == id);
+                if (deleteCre!=null)
+                {
+                    deleteCre.Status = Status.Deleted;
+                    var deleted = _creditcardService.UpdateAsync(deleteCre, id);
+                    if (deleted!=null)
+                    {
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

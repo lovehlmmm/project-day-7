@@ -5,7 +5,7 @@
         var gender = $('input[name=checkgender]:checked').val();
         var dateofbirth = $('#id_dateofbirth').val();
         var customerName = $('#id_name').val();
-        var password = $('#inputchangepasswd').val();
+        var password = $('input[name=newpassword]').val();
         var username = $('#id_username').val();
         var address = [];
         $.each(addr, function (key, val) {
@@ -14,24 +14,17 @@
         });
         var cvc = $('.id_cvc').val();
         var creditexpire = $('.id_creditexpire').val();
-        var creditnumber = $('.id_creditcard').val();
-
-        var addcre = $('.addcredit');
-        var addcredit = [];
-
-        $.each(addcre, function (key, val) {
-            var CreditCard = { CreditCardId: $(val).data('id'), CreditNumber: $(val).val(), Expire: $(val).val(), CVC: $(val).val()}
-            addcredit.push(CreditCard);
-        });
-        var creditcard = { CreditNumber: creditnumber, Expire: creditexpire, CVC: cvc }
-        var customer = { CustomerName: customerName, Addresses: address, PhoneNumber: phonenumber, Gender: gender, DateOfBirth: dateofbirth, CreditCard: creditcard }
+        var creditnumber = $('.id_creditnumber').val();
+        var credit = { CreditNumber: creditnumber, Expire: creditexpire, CVC: cvc };
+        
+        var customer = { CustomerName: customerName, Addresses: address, PhoneNumber: phonenumber, Gender: gender, DateOfBirth: dateofbirth}
         var user = { Username: username, Password: password, Customer: customer }
         $('#loading').show();
         $.ajax({
             url: '/UserInfo/UpdateUser',
             type: 'POST',
             dataType: 'json',
-            data: { userUpdate: user },
+            data: { userUpdate: user, creditCard: credit },
             success: function (response) {
                 if (response.status) {
                     $('#loading').hide();
@@ -48,6 +41,44 @@
 
 
 $(document).ready(function () {
+    $('.showcredit').click(function () {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/UserInfo/GetCreditCard?id=' + id,
+            type: 'GET',
+            success: function (response) {
+                if (response.status) {
+                    $('#showCardNum').val(response.data.CreditNumber);
+                    $('#showCardExpire').val(response.data.Expire);
+                    $('#showCardCVC').val(response.data.CVC);
+                    $('#creditModal').modal();
+                } else {
+                    alert('faill');
+                }
+            }
+        });
+    });
+    $('.deleteCre').click(function () {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/UserInfo/DeleteCredit?id=' + id,
+            type: 'GET',
+            success: function (response) {
+                if (response.status) {
+                    $('#loading').hide();
+                    swal("Success", "Delete success!", "success");
+                    $(this).parent('#removeview').remove();
+
+                 } else {
+                    $('#loading').hide();
+                    alert('faill');
+                }
+            }
+        });
+    });
+
+
+
     $('.deleteaddr').click(function () {
         var id = $(this).data('id');
         $.ajax({
@@ -56,7 +87,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status) {
                     $('#loading').hide();
-                    swal("Success", "You Update success!", "success");
+                    swal("Success", "Delete success!", "success");
                     $(this).parent('.div_id_interval').remove();
                 } else {
                     $('#loading').hide();
@@ -70,7 +101,7 @@ $(document).ready(function () {
         rules: {
             name: {
                 required: true,
-                maxlength : 5
+                minlength : 5
             },
             PhoneNumber: {
                 required: true,

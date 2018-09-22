@@ -9,10 +9,6 @@ namespace Entities
     [Table("CreditCard")]
     public partial class CreditCard:ModelExtension
     {
-        public CreditCard()
-        {
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("credit_card_id")]
@@ -26,9 +22,9 @@ namespace Entities
         [StringLength(5)]
         [Column("credit_expire")]
         public string Expire { get; set; }
-
         [StringLength(3)]
         [Column("cvc")]
         public string CVC { get; set; }
+        public Customer Customer { get; set; }
     }
 }
