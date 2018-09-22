@@ -19,16 +19,10 @@ namespace Entities
         [Column("product_name")]
         [Required]
         public string ProductName { get; set; }
-
         [Column("product_size")]
         [StringLength(20)]
         [Required]
         public string ProductSize { get; set; }
-
-        [Column("product_material")]
-        [StringLength(50)]
-        public string ProductMaterial { get; set; }
-
         [Column("product_price",TypeName = "money")]
         public decimal ProductPrice { get; set; }
 

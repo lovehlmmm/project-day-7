@@ -25,7 +25,12 @@ namespace Entities
         [Column("product_id")]
         [ForeignKey("Product")]
         public int? ProductId { get; set; }
-
+        [Column("option")]
+        public int? Option { get; set; }
+        [Column("material_id")]
+        [ForeignKey("Material")]
+        public int MaterialId { get; set; }
+        public virtual Material Material { get; set; }
         public virtual Order Order { get; set; }
 
         public virtual Product Product { get; set; }

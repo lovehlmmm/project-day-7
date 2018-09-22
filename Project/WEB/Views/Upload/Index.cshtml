@@ -1,7 +1,8 @@
 ﻿@using Entities
 
 @{
-    var products = ViewBag.Product as List<Product>;
+    var products = ViewBag.Product;
+    var materials = ViewBag.Materials; ;
     ViewBag.Title = "Upload Images";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -158,29 +159,33 @@
                                     @if (products != null)
                                     {
 
-                                        foreach (var item in products)
+                                        foreach (var item in products as List<Product>)
                                         {
-                                            <option value="@item.ProductId">@item.ProductSize & @item.ProductMaterial</option>
+                                            <option value="@item.ProductId">@item.ProductSize</option>
                                         }
                                     }
                                 </select>
                             </td>
                             <td>
-                                <select class="selectpicker" data-style="btn-info">
+                                <select name="select-material" class="selectpicker" data-style="btn-info">
                                     <option value="0"> Select...</option>
-                                    <option> Silk </option>
-                                    <option>Paper</option>
-                                    <option>Plastic</option>
+                                    @if (materials != null)
+                                    {
+                                        foreach (var item in materials as List<Material>)
+                                        {
+                                            <option value="@item.Id"> @item.Details</option>
+                                        }
+                                    }
                                 </select>
                             </td>
                             <td>
-                                <select class="selectpicker" data-style="btn-success">
+                                <select name="select-option" class="selectpicker" data-style="btn-success">
                                     <option value="0"> Select...</option>
-                                    <option>
+                                    <option value="1">
                                         Delete Background
                                     </option>
-                                    <option>Increase Quality</option>
-                                    <option>
+                                    <option value="2">Increase Quality</option>
+                                    <option value="3">
                                         Blur The Background
                                     </option>
                                 </select>

@@ -51,6 +51,7 @@
     <Compile Include="Address.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="Material.cs" />
     <Compile Include="ModelExtension.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetail.cs" />

@@ -5,6 +5,8 @@ $(document).ready(function () {
     GetCartItem();
     $('#add-cart').click(function () {
         var product = $('select[name=select-product]').val();
+        var material = $('select[name=select-material]').val();
+        var option = $('select[name=select-option]').val();
         var list = $('.image-checkbox-checked');
         if (list.length === 0) {
             swal("Warning", "Please choose your images", "error");
@@ -12,6 +14,10 @@ $(document).ready(function () {
         }
         if (product === '0') {
             swal("Warning", "Please choose size & material", "error");
+            return;
+        }
+        if (material === '0') {
+            swal("Warning", "Please choose material", "error");
             return;
         }
         var quantity = $('#quantity').val();
@@ -23,9 +29,12 @@ $(document).ready(function () {
             var cartItem = { Image: $(val).attr('src'),ImageTitle: $(val).attr('title'), Quantity: quantity};
             var formData = new FormData();
             formData.append('item', JSON.stringify(cartItem));
-            formData.append("id", product);
+            formData.append("productId", product);
+            formData.append("materialId", material);
+            formData.append("option", option);
             AddToCart(formData);
         });
+        swal("Success", "Add Success", "success");
         GetCartItem();
     });
 });
