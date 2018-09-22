@@ -1,5 +1,6 @@
 ﻿@using Entities
 @using Constants
+@using Helpers
 @{
     ViewBag.Title = "UserInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -88,8 +89,20 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/home" class="smoothScroll">HOME</a></li>
-                <li><a href="/upload" class="smoothScroll">UPLOAD</a></li>
+                @{
+                    if (SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) != null)
+                    {
+                        UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+                        <li>
+                            <label style="font-style:italic">Hello , <a style="color:#337AB7;font-size:15px;font-style:normal;text-transform: uppercase;" class="smoothScroll" role="button" href="/info">@userSession.Username</a> </label>
+                            
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a class="smoothScroll" data-toggle="modal" role="button" href="#loginModal">{username}</a></li>
+                    }
+                }
             </ul>
         </div>
 
@@ -101,7 +114,7 @@
         <h1 class="pull-left">My Information</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="/">Home</a></li>
-            <li class="active">Your Info</li>
+            <li class="active">My Information</li>
         </ul>
     </div>
 </div>
@@ -156,16 +169,15 @@
                                     </div>*@
                                 <div class="">
                                     <label data-toggle="collapse" data-target="#changepasswd">
-                                        <a href="#">Change Password</a>
+                                        <a>Change Password</a>
                                     </label>
                                 </div>
                                 <div class="collapse" id="changepasswd">
-                                    <div class="form-group">
-                                        @*<label for="inputpromo" class="control-label">New Password</label>*@
-                                        <div class="form">
-                                            <input type="text" class="form-control" id="newpassword" name="newpassword" placeholder="New password">
+                                    <div class="form-group"  style="margin-bottom:1px;">
+                                         <div class="form">
+                                            <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="New password" >
                                             <br />
-                                            <input type="text" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password">
+                                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password">
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +202,7 @@
                                 <div class="margin-bottom-20">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-birthday-cake"> </i></span>
-                                        <input id="id_dateofbirth" value="@(showUser.Customer.DateOfBirth != null ? showUser.Customer.DateOfBirth.Value.ToShortDateString() : string.Empty)" name="birthday" type="text" placeholder="Date Of Birth" tabindex="2" class="form-control required">
+                                        <input id="id_dateofbirth" style="width:97%" value="@(showUser.Customer.DateOfBirth != null ? showUser.Customer.DateOfBirth.Value.ToShortDateString() : string.Empty)" name="birthday" type="text" placeholder="Please enter your birth day!" tabindex="2" class="form-control required">
                                     </div>
                                     <p class="reg_error"></p>
                                 </div>
@@ -201,79 +213,77 @@
 
                                         foreach (var item in addresses)
                                         {
-                                            <div id="div_id_interval" class="form-group div_id_interval">
+
+                                        <div id="div_id_interval" class="form-group div_id_interval"  style="margin-bottom:5px;">
                                                 <div class="controls">
-                                                    <button type="button" data-id="@item.AddressId" class="close deleteaddr" id="deleteaddr" aria-hidden="true">×</button>
-                                                    <input id="id_address" data-id="@item.AddressId" value="@item.AddressDetails" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control addressmuti required">
+                                                     <button type="button" data-id="@item.AddressId" class="close deleteaddr" id="deleteaddr" aria-hidden="true">×</button>
+                                                    <input id="id_address" style="width:97%"  data-id="@item.AddressId" value="@item.AddressDetails" maxlength="500" name="address" type="text" placeholder="Address" tabindex="1" class="form-control addressmuti required">
                                                 </div>
                                             </div>
-                                        }
-                                    }
-                                }
-                                <div class="">
-                                    <label data-toggle="collapse" data-target="#addaddress">
-                                        <a href="#">Add Address</a>
-                                    </label>
-                                </div>
-                                <div class="collapse" id="addaddress">
-                                    <div class="form-group">
-                                        @*<label for="addaddress" class="control-label">New Password</label>*@
-                                        <div class="form">
-                                            <input type="text" class="form-control addressmuti" id="addaddress" name="addaddress" placeholder="New Address">
-                                            <br />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                @{var creditcards = @showUser.Customer.CreditCards.Where(c => c.Status.Equals(Status.Active));}
-                                @{if (creditcards != null)
-                                    {
-                                        <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
-                                        foreach (var item in creditcards)
-                                        {
-
-                                            <!-- Payment View -->
-                                            <div id="removeview">
-
-                                                <div class="margin-bottom-30">
-                                                    <button type="button" data-id="@item.CreditCardId" class="close deleteCre" id="deleteCre" aria-hidden="true">×</button>
-
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                                        <input id="" data-id="@item.CreditCardId" value="@item.CreditNumber" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control showcredit" readonly>
+                                       
+                                                }
+                                                }
+                                                }
+                                                <div class="">
+                                                    <label data-toggle="collapse" data-target="#addaddress">
+                                                        <a href="#">Add Address</a>
+                                                    </label>
+                                                </div>
+                                                <div class="collapse" id="addaddress">
+                                                    <div class="form-group">
+                                                         <div class="form">
+                                                            <input type="text" style="width:97%" class="form-control addressmuti" id="addaddress" name="addaddress" placeholder="New Address">
+                                                            <br />
+                                                        </div>
                                                     </div>
                                                 </div>
+
+                                                @{var creditcards = @showUser.Customer.CreditCards.Where(c => c.Status.Equals(Status.Active));}
+                                                @{if (creditcards != null)
+                                                    {
+                                                        <label class="control-label requiredField">Payment Info<span class="asteriskField">*</span></label>
+                                                        foreach (var item in creditcards)
+                                                        {
+
+                                                            <!-- Payment View -->
+                                                            <div id="removeview" style="margin-bottom:10px;">
+
+                                                                    <button type="button" data-id="@item.CreditCardId" class="close deleteCre" id="deleteCre" aria-hidden="true">×</button>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                                        <input id="" data-id="@item.CreditCardId" value="@item.CreditNumber" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control showcredit" readonly>
+                                                                    </div>
+                                                                </div>
+                                                        }
+                                                    }
+                                                }
+
+                                                <!--Add Credit Card-->
+                                                <div class="" style="margin-top:5px">
+                                                    <label data-toggle="collapse" data-target="#addcredit">
+                                                        <a href="#">Add Credit Card</a>
+                                                    </label>
+                                                </div>
+                                                <div class="collapse addcredit" id="addcredit">
+                                                    <div class="form-group">
+                                                        @*<label for="inputpromo" class="control-label">New Password</label>*@
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                            <input id="" maxlength="13" style="width: 97%" type="text" placeholder="Credit Number" data-stripe="number" tabindex="7" class="form-control id_creditnumber">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                                                            <input style="width: 50%" type="text" size="2" placeholder="MM/YY" class="form-control id_creditexpire" data-stripe="exp-month" tabindex="8">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="icon-key"></i></span>
+                                                            <input style="width: 50%" id="credit" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control id_cvc" data-stripe="cvc" tabindex="10">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
-                                        }
-                                    }
-                                }
-
-                                <!--Add Credit Card-->
-                                <div class="">
-                                    <label data-toggle="collapse" data-target="#addcredit">
-                                        <a href="#">Add Credit Card</a>
-                                    </label>
-                                </div>
-                                <div class="collapse addcredit" id="addcredit">
-                                    <div class="form-group">
-                                        @*<label for="inputpromo" class="control-label">New Password</label>*@
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                            <input id="" maxlength="20" type="text" placeholder="Credit Number" data-stripe="number" tabindex="7" class="form-control id_creditnumber">
                                         </div>
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                                            <input style="width: 50%" type="text" size="2" placeholder="MM/YY" class="form-control id_creditexpire" data-stripe="exp-month" tabindex="8">
-                                        </div>
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="icon-key"></i></span>
-                                            <input style="width: 50%" id="credit" type="text" size="4" placeholder="CVC Code (3-4 digits)" class="form-control id_cvc" data-stripe="cvc" tabindex="10">
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
 
@@ -310,7 +320,10 @@
 
                 <ul class="nav nav-pills nav-stacked">
                     <li>
-                        <a href="/upload"><i class="fa fa-list"></i> My orders</a>
+                        <a href="/upload"><i class="fa fa-upload"></i> Upload</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-list"></i> My orders</a>
                     </li>
                     <li class="active">
                         <a href="#"><i class="fa fa-user"></i> My account</a>
