@@ -22,7 +22,7 @@ $(document).ready(function() {
     jQuery(document).ready(function() {
     $('#home').backstretch([
        "../Assets/images/bgxx.jpg", 
-       "../Assets/images/bg2.jpg",
+       "../Assets/images/bgxx.jpg",
         ],  {duration: 2000, fade: 750});
     });
   })
