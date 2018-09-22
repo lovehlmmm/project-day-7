@@ -34,6 +34,28 @@ $.validator.setDefaults({
     }
 });
 
+jQuery.validator.addMethod("checkexist", function (value, element) {   
+    var checkAcc;
+    $.ajax({
+        url: '/RegisterUser/CheckExistAccount?username=' + value,
+        type: 'GET',
+        async: false,
+        success: function (data) {
+            if (data.status === true) {
+                checkAcc = true;
+            } else {
+                checkAcc = false;
+            }
+        }
+    });
+    if (!checkAcc) {
+        return false;  // FAIL validation when REGEX matches
+    } else {
+        return true;   // PASS validation otherwise
+    }
+});
+    
+
 $(document).ready(function () {
     //$("input[name=username]").on('input', function () {
 
@@ -59,7 +81,8 @@ $(document).ready(function () {
             name: "required",
             username: {
                 required: true,
-                minlength: 5
+                minlength: 5,
+                checkexist: true
             },
             password: {
                 required: true,
@@ -80,7 +103,8 @@ $(document).ready(function () {
             name: "Please enter your name",
             username: {
                 required: "Please enter a username",
-                minlength: "Your username must consist of at least 5 characters"
+                minlength: "Your username must consist of at least 5 characters",
+                checkexist: "Account already exists"
             },
             password: {
                 required: "Please provide a password",

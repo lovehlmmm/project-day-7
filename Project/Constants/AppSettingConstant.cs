@@ -9,7 +9,7 @@ namespace Constants
     public class AppSettingConstant
     {
         public static string PasswordHash = "team6";
-        public static int SaltLength = 256;
+        public static int SaltLength = 8;
         public const string initVector = "team123456789987";
         public static string LoginSessionAdmin = "loggedAdmin";
         public static string LoginSessionCustomer = "loggedCustomer";

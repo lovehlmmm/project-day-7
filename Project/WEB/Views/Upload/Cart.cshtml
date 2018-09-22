@@ -104,7 +104,7 @@
                     @{ var cart1 = ViewBag.Cart as List<CartItem>;
                         var total = cart1.Sum(c => c.Quantity * (c.Product.ProductPrice + c.Material.Price));}
                     <td class="hidden-xs text-center"><strong>Total @(total != null ? total.Value.ToString("0,0") : string.Empty) VND</strong></td>
-                    <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+                    <td><a href="/CheckOut/ConfirmTest" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
                 </tr>
             </tfoot>
         </table>

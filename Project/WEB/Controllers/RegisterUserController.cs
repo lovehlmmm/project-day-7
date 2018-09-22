@@ -31,7 +31,12 @@ namespace WEB.Controllers
         [HttpPost]
         public JsonResult Register(User user, Customer customer)
         {
-           
+
+            var userCheck = _userService.Find(u => u.Username.Equals(user.Username));
+            if (userCheck!=null)
+            {
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            }
             HashingData hashingData = new HashingData();
             try
             {
@@ -61,6 +66,18 @@ namespace WEB.Controllers
                
             }
             return Json(new {status = false},JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult CheckExistAccount(string username)
+        {
+            if (username!=null)
+            {
+                var userCheck = _userService.Find(u => u.Username.Equals(username) & u.Status!=Status.Deleted & u.Role!=UserRole.Admin);
+                if (userCheck==null)
+                {
+                    return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }
