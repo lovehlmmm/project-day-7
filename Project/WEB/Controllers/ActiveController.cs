@@ -24,6 +24,7 @@ namespace WEB.Controllers
             HashingData hashingData = new HashingData();
             try
             {
+                key = hashingData.Decode(key);
                 key = hashingData.DecryptString(key, AppSettingConstant.PasswordHash);
                 var user = _userService.Find(u => u.Username.Equals(key) & u.Status.Equals(Status.Inactive));
                 if (user != null)

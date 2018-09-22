@@ -46,7 +46,7 @@ namespace WEB.Controllers
                 var result = _userService.Register(user);              
                 if (result)
                 {
-                    UserEmailConfirm model = new UserEmailConfirm(user.Email, key,user.Username);
+                    UserEmailConfirm model = new UserEmailConfirm(user.Email, hashingData.Encode(key),user.Username);
                     var body = ViewToString.RenderRazorViewToString(this, "ConfirmAccount", model);
                     Task.Factory.StartNew((() =>
                     {

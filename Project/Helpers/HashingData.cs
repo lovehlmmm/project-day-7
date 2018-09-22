@@ -12,6 +12,19 @@ namespace Helpers
     public  class HashingData
 
     {
+        public  string Encode(string text)
+        {
+            byte[] mybyte = System.Text.Encoding.UTF8.GetBytes(text);
+            string returntext = System.Convert.ToBase64String(mybyte);
+            return returntext;
+        }
+
+        public  string Decode(string text)
+        {
+            byte[] mybyte = System.Convert.FromBase64String(text);
+            string returntext = System.Text.Encoding.UTF8.GetString(mybyte);
+            return returntext;
+        }
         public  string EncryptString(string text, string passPhrase)
         {
             byte[] initVectorBytes = Encoding.UTF8.GetBytes(AppSettingConstant.initVector);
