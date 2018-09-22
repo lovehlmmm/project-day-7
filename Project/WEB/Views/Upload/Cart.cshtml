@@ -14,7 +14,8 @@
             <thead>
                 <tr>
                     <th style="width:15%">Product</th>
-                    <th style="width:10%">Size & Material</th>
+                    <th style="width:10%">Size</th>
+                    <th style="width:10%">Material</th>
                     <th style="width:14%">Options</th>
                     <th style="width:10%" class="text-center">Price</th>
                     <th style="width:8%">Quantity</th>
@@ -25,55 +26,68 @@
             <tbody>
                 @{ foreach (var item in cart as List<CartItem>)
                     {
-                        <tr>
-                            <td data-th="Product">
-                                <div class="row">
-                                    <div class="col-sm-6 hidden-xs"><img src="data:@item.ImageType;base64,@item.Image" alt="..." class="img-responsive" /></div>
-                                    <!-- <div class="col-sm-10">
-                                      <h4 class="nomargin">Product 1</h4>
-                                      <p> Lorem ipsum dolor sit amet.</p>
-                                    </div> -->
-                                </div>
-                            </td>
-                            <td>
-                                <select class="form-control btn-primary">
-                                    @if (ViewBag.Products != null)
-                                    {
-                                        <option value="0">Select...</option>
-                                        foreach (var product in ViewBag.Products as List<Product>)
-                                        {
-                                            <option @(item.Product.ProductId==product.ProductId?"selected":string.Empty) value="@product.ProductId">@product.ProductSize</option>
-                                        }
-                                    }
-                                </select>
-                            </td>
-                            <td>
-                                
-                                <select class="form-control btn-success">
-                                    <option value="0">Select...</option>
-                                    @{ List<string> options = new List<string>{ "Delete Background", "Increase Quality", "Blur The Background" };
-                                        for (int i = 1; i < options.Count+1; i++)
-                                        {
-                                            <option @(item.Option==i?"selected":string.Empty) value="@i">
-                                                @options[i-1]
-                                            </option>
-                                        }
+                <tr>
+                    <td data-th="Product">
+                        <div class="row">
+                            <div class="col-sm-6 hidden-xs"><img src="data:@item.ImageType;base64,@item.Image" alt="..." class="img-responsive" /></div>
+                            <!-- <div class="col-sm-10">
+              <h4 class="nomargin">Product 1</h4>
+              <p> Lorem ipsum dolor sit amet.</p>
+            </div> -->
+                        </div>
+                    </td>
+                    <td>
+                        <select class="form-control btn-danger">
+                            @if (ViewBag.Products != null)
+                            {
+                                <option value="0">Select...</option>
+                                foreach (var product in ViewBag.Products as List<Product>)
+                                {
+                                    <option @(item.Product.ProductId == product.ProductId ? "selected" : string.Empty) value="@product.ProductId">@product.ProductSize</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control btn-info">
+                            @if (ViewBag.Materials != null)
+                            {
+                                <option value="0">Select...</option>
+                                foreach (var material in ViewBag.Materials as List<Material>)
+                                {
+                                    <option @(item.Material.Id == material.Id ? "selected" : string.Empty) value="@material.Id">@material.Details</option>
+                                }
+                            }
+                        </select>
+                    </td>
 
-                                    }
-                                </select>
-                            </td>
-                            @{ var productMaterial = item.Product.ProductPrice + item.Material.Price;}
-                            <td data-th="Price" class="text-center">@productMaterial.Value.ToString("0,0") VND</td>
-                            <td data-th="Quantity">
-                                <input type="number" class="form-control text-center" value="@item.Quantity" min="1">
-                            </td>
-                            @{ var subTotal = (item.Quantity * (item.Product.ProductPrice+item.Material.Price));}
-                            <td data-th="Subtotal" class="text-center">@(subTotal!=null?subTotal.Value.ToString("0,0"):string.Empty) VND</td>
-                            <td class="actions" data-th="">
-                                <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-                            </td>
-                        </tr>
+                    <td>
+
+                        <select class="form-control btn-success">
+                            <option value="0">Select...</option>
+                            @{ List<string> options = new List<string> { "Delete Background", "Increase Quality", "Blur The Background" };
+                                for (int i = 1; i < options.Count + 1; i++)
+                                {
+                                    <option @(item.Option == i ? "selected" : string.Empty) value="@i">
+                                        @options[i - 1]
+                                    </option>
+                                }
+
+                            }
+                        </select>
+                    </td>
+                    @{ var productMaterial = item.Product.ProductPrice + item.Material.Price;}
+                    <td data-th="Price" class="text-center">@productMaterial.Value.ToString("0,0") VND</td>
+                    <td data-th="Quantity">
+                        <input type="number" class="form-control text-center" value="@item.Quantity" min="1">
+                    </td>
+                    @{ var subTotal = (item.Quantity * (item.Product.ProductPrice + item.Material.Price));}
+                    <td data-th="Subtotal" class="text-center">@(subTotal != null ? subTotal.Value.ToString("0,0") : string.Empty) VND</td>
+                    <td class="actions" data-th="">
+                        <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                    </td>
+                </tr>
                     }}
 
             </tbody>
@@ -85,10 +99,11 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td colspan="2" class="hidden-xs"></td>
                     @{ var cart1 = ViewBag.Cart as List<CartItem>;
-                        var total = cart1.Sum(c => c.Quantity * (c.Product.ProductPrice+c.Material.Price));}
-                    <td class="hidden-xs text-center"><strong>Total @(total!=null? total.Value.ToString("0,0"):string.Empty) VND</strong></td>
+                        var total = cart1.Sum(c => c.Quantity * (c.Product.ProductPrice + c.Material.Price));}
+                    <td class="hidden-xs text-center"><strong>Total @(total != null ? total.Value.ToString("0,0") : string.Empty) VND</strong></td>
                     <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
                 </tr>
             </tfoot>

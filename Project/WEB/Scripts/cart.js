@@ -13,7 +13,7 @@ $(document).ready(function () {
             return;
         }
         if (product === '0') {
-            swal("Warning", "Please choose size & material", "error");
+            swal("Warning", "Please choose size", "error");
             return;
         }
         if (material === '0') {
