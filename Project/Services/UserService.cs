@@ -18,7 +18,7 @@ namespace Services
         public UserService(IBaseRepository<User> repositoryUser) : base(repositoryUser)
         {
             _repositoryUser = repositoryUser;
-            _hashingData = new HashingData(AppSettingConstant.SaltLength);
+            _hashingData = new HashingData();
         }
         public User CheckLogin(string username, string password,string role)
         {

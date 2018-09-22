@@ -21,7 +21,7 @@ namespace WEB.Controllers
         // GET: Active
         public async Task<ActionResult> Index(string key)
         {
-            HashingData hashingData = new HashingData(AppSettingConstant.SaltLength);
+            HashingData hashingData = new HashingData();
             try
             {
                 key = hashingData.DecryptString(key, AppSettingConstant.PasswordHash);

@@ -55,7 +55,7 @@ namespace WEB.Controllers
         }
         public async System.Threading.Tasks.Task<JsonResult> UpdateUser(User userUpdate,CreditCard creditCard)
         {
-            HashingData hashingData = new HashingData(AppSettingConstant.SaltLength);
+            HashingData hashingData = new HashingData();
             var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
             if (userSession != null)
             {

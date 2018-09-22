@@ -32,7 +32,7 @@ namespace WEB.Controllers
         public JsonResult Register(User user, Customer customer)
         {
            
-            HashingData hashingData = new HashingData(AppSettingConstant.SaltLength);
+            HashingData hashingData = new HashingData();
             try
             {
                 user.Role = UserRole.Customer;
