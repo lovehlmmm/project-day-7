@@ -77,6 +77,14 @@
 @section script{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
     <script src="~/Scripts/checkOut.js"></script>
+    <script>
+       $(document).ready(function () {
+           $('#paymentcheckout').click(function () {
+    var phone = $('.showPhone').text();
+    @TempData["phone"] = phone;
+       })
+       })
+    </script>
 }
 <!-- Preloader section
 ================================================== -->
@@ -131,7 +139,7 @@
         <div class="col-md-8">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Your cart</span>
-                <span class="badge badge-secondary badge-pill count_cart">@(showCart!=null?showCart.Count.ToString():string.Empty)</span>
+                <span class="badge badge-secondary badge-pill count_cart">@(showCart != null ? showCart.Count.ToString() : string.Empty)</span>
             </h4>
             <table id="cart" class="table table-hover table-condensed">
                 <thead>
@@ -148,7 +156,7 @@
                     {
                         foreach (var item in showCart)
                         {
-                            <tr >
+                            <tr>
                                 <td data-th="Product">
                                     <div class="row">
                                         <div class="col-sm-6 hidden-xs"><img src="data:@item.ImageType;base64,@item.Image" alt="..." class="img-responsive" /></div>
@@ -170,9 +178,10 @@
                                 </td>
                                 @{ var subTotal = (item.Quantity * (item.Product.ProductPrice + item.Material.Price));
                                     total = showCart.Sum(c => c.Quantity * (c.Product.ProductPrice + c.Material.Price)).Value;
+                                    TempData["total"] = total.ToString("0,0");
                                 }
                                 <td data-th="Price" class="text-center">@(subTotal != null ? subTotal.Value.ToString("0,0") : string.Empty) VND</td>
-                                <td data-th="Quantity"  >
+                                <td data-th="Quantity">
                                     <input style="width:100%;" type="number" class="form-control text-center" value="@item.Quantity" min="1" readonly>
                                 </td>
 
@@ -255,7 +264,7 @@
                     <h4> <strong>@total.ToString("0,0")</strong>  </h4>
                 </li>
             </ul>
-            <button class="btn btn-success btn-lg" style="float:right" data-dismiss="modal" aria-hidden="true">Confirm Checkout</button>
+            <a href="/paymentcheckout" id="paymentcheckout" class="btn btn-success btn-lg" style="float:right">Confirm Checkout <i class="fa fa-angle-right"></i></a>
         </div>
     </div>
 </div>

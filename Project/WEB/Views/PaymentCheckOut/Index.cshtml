@@ -1,0 +1,278 @@
+﻿@using Constants
+@using Helpers
+@using WEB.Models
+@using Entities
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var showCart = ViewBag.Cart as List<CartItem>;
+    var user = ViewBag.User;
+    decimal total = 0;
+
+}
+
+
+@section css{
+    <style type="text/css">
+
+        /*Breadcrumbs*/
+        .breadcrumbs {
+            padding: 10px 0 6px;
+            box-shadow: inset 0 0 4px #eee;
+            background: url("https://formden.com/static/assets/img/breadcrumbs.png") repeat;
+        }
+
+            .breadcrumbs h1 {
+                color: #686868;
+                font-size: 26px;
+                margin-top: 12px;
+            }
+
+        .breadcrumb {
+            top: 9px;
+            padding-right: 0;
+            background: none;
+            position: relative;
+        }
+
+            .breadcrumb a {
+                color: #777;
+            }
+
+            .breadcrumb li.active,
+            .breadcrumb li a:hover {
+                color: #72c02c;
+                text-decoration: none;
+            }
+
+        .margin-bottom-30 {
+            margin-bottom: 30px;
+        }
+
+        .btn-template-main {
+            color: #38a7bb;
+            background-color: #fff;
+            border-color: #38a7bb;
+        }
+
+        .dl-small {
+            margin-bottom: 4px;
+        }
+
+
+        .form-control {
+            width: auto;
+        }
+
+        .form-control-small {
+            width: 100px;
+        }
+
+        .form-control-large {
+            width: 310px;
+        }
+    </style>
+
+}
+
+@section script{
+    <script src="~/Scripts/payment.js"></script>
+
+}
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+    <div class="sk-spinner sk-spinner-pulse"></div>
+</div>
+<!-- Navigation section
+================================================== -->
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">TEAM SiX</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/upload" class="smoothScroll">UPLOAD</a></li>
+                <li><a href="#" class="smoothScroll">MY ORDERS</a></li>
+                <li><a href="/info" class="smoothScroll">ACCOUNT</a></li>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<!-- Home section
+================================================== -->
+<!--  <div class="breadcrumbs margin-bottom-30">
+    <div class="container">
+        <h1 class="pull-left">Checkout Order</h1>
+        <ul class="pull-right breadcrumb">
+
+            <li><a href="/">Home</a></li>
+            <li class="active">Checkout Order</li>
+        </ul>
+    </div>
+</div> -->
+
+<div class="container" style="margin-top: 25px;">
+    <div class="row">
+
+
+        <div style="text-align: center;">
+            <i class="fa fa-credit-card fa-3x text-primary"></i>
+            <h2 class="text-center">Payment</h2>
+        </div>
+        <h4> Ship my order to&hellip;</h4>
+        <div class="list-group">
+            <div class="list-group-item">
+                <div class="list-group-item-heading">
+                    <div class="row radio">
+                        @if (user != null)
+                        {
+                            var userC = user as User;
+                            var addre = userC.Customer.Addresses.First();
+
+                            <div class="col-sm-8" style="text-align: center;">
+                                <h3 class="text-danger">@addre.Customer.CustomerName</h3>
+                                <h4 class="text-decoration">@addre.AddressDetails  </h4>
+                                <h5 class="text-primary">@(addre.Customer.PhoneNumber != null ? (!addre.Customer.PhoneNumber.Equals(TempData["phone"]) ? TempData["phone"]: addre.Customer.PhoneNumber) : string.Empty)</h5>
+                            </div>
+                            <div class="col-xs-3 text-success">
+                                <h4>Payment amount : </h4>
+                                <h3><strong>@(showCart!=null?showCart.Sum(c=>c.Quantity*(c.Product.ProductPrice+c.Material.Price)).Value.ToString("0,0"):string.Empty)VND</strong>  </h3>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <h4>I'll pay with&hellip;</h4>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div class="list-group-item-heading">
+                        <div class="row radio">
+                            <div class="col-xs-3">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" checked>
+                                    My Visa Card
+                                </label>
+                            </div>
+
+                            <div class="col-xs-9">
+                                <div class="row">
+                                    @if (user != null)
+                                    {
+                                        var userC = user as User;
+                                        var showCre = userC.Customer.CreditCards.FirstOrDefault(c=>c.Status.Equals(Status.Active));
+                                        if (showCre==null)
+                                        {
+                                            showCre = new CreditCard();
+                                        }
+                                        <div class="col-xs-4">
+                                            <dl class="dl-small creditDetails">
+                                                <dt>Credit Card Number</dt>
+                                                <dd data-id="@(showCre.CreditCardId)">@(showCre.CreditNumber!=null?showCre.CreditNumber:string.Empty)</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <dl class="dl-small creditEx">
+                                                <dt>Expiration</dt>
+                                                <dd>@showCre.Expire</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <dl class="dl-small">
+                                                <dt>Billing Address</dt>
+                                                <dd>1509 Latona St, Philadelphia, PA 19146 </dd>
+                                            </dl>
+                                        </div>
+                                    }
+                                </div>
+                                <button id="showCredit" class="btn btn-sm btn-link">Choose another</button>
+                                <!--                   <button class="btn btn-sm btn-link">Delete this card</button>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Credit modal -->
+                <div id="modalCredit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="text-align: left;">
+                                <h5>
+                                    Credit Card
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End modal -->
+
+                <div class="list-group-item">
+                    <div class="list-group-item-heading">
+                        <div class="row radio">
+                            <div class="col-xs-3">
+                                <label data-toggl-e="collapse" data-target="#newcard">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    A New Credit Card
+                                </label>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <img src="https://lovewithfood.com/assets/credit_cards/cards-b3a7c7b8345355bf110ebedfd6401312.png" height="25" alt="" />
+                                    </a>
+                                    <div class="media-body" id="newcard">
+                                        We accept these credit cards.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="list-group-item-heading">
+                        <div class="row radio">
+                            <div class="col-xs-3">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    PayPal
+                                </label>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_76x48.png" height="25" alt="" />
+                                    </a>
+                                    <div class="media-body">
+                                        When you click "Place Order", you will be taken to the PayPal website.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <button type="button" class="btn btn-success btn-lg btn-block">Place Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+
