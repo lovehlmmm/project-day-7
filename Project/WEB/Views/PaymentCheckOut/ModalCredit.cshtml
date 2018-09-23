@@ -1,0 +1,41 @@
+﻿@using Entities
+@using Constants
+@{
+    var user = ViewBag.User as User;
+}
+
+
+<table class="table table table-striped">
+    <thead>
+        <tr>
+            <th>Credit Number</th>
+            <th>Expire</th>
+            <th>CVC</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (user != null)
+        {
+            if (user.Customer.CreditCards != null)
+            {
+                foreach (var item in user.Customer.CreditCards.Where(c => c.Status.Equals(Status.Active)))
+                {
+                    <tr>
+                        <td>@item.CreditNumber</td>
+                        <td>@item.Expire</td>
+                        <td>@item.CVC</td>
+                        <td>
+                            <input data-id="@item.CreditCardId" type="radio" name="chooseCredit">
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+<div class="form-group py-4">
+    <button class="btn btn-success btn-lg" id="saveChooseCredit">Save</button>
+</div>
+

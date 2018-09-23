@@ -214,6 +214,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
+    <Compile Include="Controllers\PaymentCheckOutController.cs" />
     <Compile Include="Controllers\RegisterUserController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
@@ -2866,6 +2867,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\payment.js" />
     <Content Include="Scripts\register.js" />
     <Content Include="Scripts\updateUserInfo.js" />
     <Content Include="Web.config" />
@@ -2896,6 +2898,9 @@
     <Content Include="Views\Upload\Cart.cshtml" />
     <Content Include="Views\CheckOut\ModalAddress.cshtml" />
     <Content Include="Views\CheckOut\ModalAddAddressPartial.cshtml" />
+    <Content Include="Views\PaymentCheckOut\Index.cshtml" />
+    <Content Include="Views\PaymentCheckOut\ModalCredit.cshtml" />
+    <Content Include="Views\PaymentCheckOut\ModalAddCredit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
