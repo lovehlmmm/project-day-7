@@ -17,3 +17,6 @@ Project/.vs/ProjectGroup6/v15/Server/sqlite3/storage.ide-wal
 Project/.vs/ProjectGroup6/v15/Server/sqlite3/storage.ide
 Project/.vs/ProjectGroup6/v15/Server/sqlite3/db.lock
 Project/.vs/ProjectGroup6/v15/.suo
+/Project/WEB/obj
+/Project/WEB/bin
+/Project/.vs
