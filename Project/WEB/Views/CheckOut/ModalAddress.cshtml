@@ -1,4 +1,5 @@
 ﻿@using Entities
+@using Constants
 @{
     var user = ViewBag.User as User;
 }
@@ -20,14 +21,14 @@
                     {
                         if (user.Customer.Addresses != null)
                         {
-                            foreach (var item in user.Customer.Addresses)
+                            foreach (var item in user.Customer.Addresses.Where(a => a.Status.Equals(Status.Active)))
                             {
                                 <tr>
                                     <td>@item.Customer.CustomerName</td>
                                     <td>@item.AddressDetails</td>
                                     <td>@(item.Customer.PhoneNumber != null ? item.Customer.PhoneNumber : string.Empty)</td>
                                     <td>
-                                        <input type="radio" name="optradio">
+                                        <input data-id="@item.AddressId"  type="radio" name="chooseAddress">
                                     </td>
                                 </tr>
                             }
@@ -36,6 +37,6 @@
                 </tbody>
             </table>
             <div class="form-group py-4">
-                <button class="btn btn-success btn-lg" data-dismiss="modal" aria-hidden="true">Save</button>
+                <button class="btn btn-success btn-lg"  id="saveChooseAddress">Save</button>
             </div>
   

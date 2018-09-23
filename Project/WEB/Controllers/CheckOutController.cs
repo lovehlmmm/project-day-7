@@ -140,8 +140,52 @@ namespace WEB.Controllers
             }
             return Redirect("/home");
         }
-        public JsonResult AddAddress(string address)
+        public async System.Threading.Tasks.Task<JsonResult> AddAddress(string address)
         {
+            UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+            if (userSession != null)
+            {
+                var user = _userRepository.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username));
+                if (user != null)
+                {
+                    Address obj = new Address();
+                    obj.CustomerId = user.CustomerId;
+                    obj.AddressDetails = address;
+                    obj.CreatedAt = DateTime.Now;
+                    obj.Status = Status.Active;
+                    var result = await _addressRepository.AddAsync(obj);
+                    if (result!=null)
+                    {
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetAddress(long id)
+        {
+            try
+            {
+                UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+                if (userSession != null)
+                {
+                    var user = _userRepository.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username));
+                    if (user != null)
+                    {
+                        var address = user.Customer.Addresses.SingleOrDefault(a => a.CustomerId == user.CustomerId & a.AddressId==id);
+                        if (address != null)
+                        {
+                            return Json(new { status = true, address=new {address.AddressDetails,address.AddressId}}, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
     }

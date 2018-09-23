@@ -133,7 +133,7 @@ namespace WEB.Controllers
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult DeleteCredit (int id)
+        public async System.Threading.Tasks.Task<JsonResult> DeleteCredit (int id)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace WEB.Controllers
                 if (deleteCre!=null)
                 {
                     deleteCre.Status = Status.Deleted;
-                    var deleted = _creditcardService.UpdateAsync(deleteCre, id);
+                    var deleted =await _creditcardService.UpdateAsync(deleteCre, id);
                     if (deleted!=null)
                     {
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);

@@ -1,8 +1,7 @@
-﻿
-
-
+﻿ 
 $(document).ready(function () {
     GetCartItem();
+
     $('#add-cart').click(function () {
         var product = $('select[name=select-product]').val();
         var material = $('select[name=select-material]').val();
@@ -25,6 +24,7 @@ $(document).ready(function () {
             swal("Warning", "Please enter a number greater than 0", "error");
             return;
         }
+        $('#loading').show();
         $.each(list, function (key, val) {
             var cartItem = { Image: $(val).attr('src'),ImageTitle: $(val).attr('title'), Quantity: quantity};
             var formData = new FormData();
@@ -34,11 +34,12 @@ $(document).ready(function () {
             formData.append("option", option);
             AddToCart(formData);
         });
+        $('#loading').hide();
         swal("Success", "Add Success", "success");
         GetCartItem();
     });
 });
-
+ 
 function AddToCart(data) {
     $.ajax({
         url: '/Upload/AddCart',
@@ -62,6 +63,70 @@ function GetCartItem() {
         dataType: 'html'
     }).success(function (result) {
         $('#list-cart').html(result);
+        UpdateItem();
+        $('.deleteitem').click(function () {
+            var deleteId = $(this).data('id');
+            $('#loading').show();
+            $.ajax({
+                url: '/Upload/DeleteItem?id=' + deleteId,
+                type: 'GET',
+                async: false,
+                processData: false,
+                contentType: false
+            }).success(function (result) {
+                if (result.status) {
+                    $('#loading').hide();
+                    GetCartItem();
+                    swal("Success", "Delete item success!", "success");
+                }
+            }).error(function (xhr, status) {
+            });
+
+        })
     }).error(function (xhr, status) {
     });
+}
+
+function UpdateItem() {
+    $('.updateitem').click(function () {
+        var index = $(this).closest('tr').index();
+        var cartItem = $('.cart-item')[index];
+        var productitem = $(cartItem).find('.productitem').val();
+        var materialitem = $(cartItem).find('.materialitem').val();
+        var optionsitem = $(cartItem).find('.optionsitem').val();
+        var quantityitem = $(cartItem).find('.quantityitem').val();
+        var cartId = $(this).data('id');
+        if (productitem === '0') {
+            swal("Warning", "Please choose size", "error");
+            return;
+        }
+        if (materialitem === '0') {
+            swal("Warning", "Please choose material", "error");
+            return;
+        }
+        if (quantityitem < 1) {
+            swal("Warning", "Please enter a number greater than 0", "error");
+            return;
+        }
+        var product = { ProductId: productitem };
+        var material = { Id: materialitem };
+        var cart = { Product: product, Material: material, Quantity: quantityitem, Option: optionsitem, Id: cartId }
+        var data = new FormData();
+        data.append('cartItem', cart);
+        $('#loading').show();
+        $.ajax({
+            url: '/Upload/UpdateItem',
+            type: 'POST',
+            data: { cartItem: cart },
+            async: false,
+            dataType:'json'
+        }).success(function (result) {
+            if (result.status) {
+                $('#loading').hide();
+                GetCartItem();
+                swal("Success", "Update item success!", "success");
+            }
+        }).error(function (xhr, status) {
+        });
+    }) 
 }

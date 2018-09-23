@@ -18,6 +18,7 @@ namespace WEB.Controllers
     {
         private readonly IBaseService<Product> _productRepository;
         private readonly IBaseService<Material> _materialRepository;
+
         public UploadController(IBaseService<Product> productRepository, IBaseService<Material> materialRepository)
         {
             _productRepository = productRepository;
@@ -81,6 +82,7 @@ namespace WEB.Controllers
             if (session == null)
             {
                 session = new List<CartItem>();
+                cartItem.Id = 1;
                 session.Add(cartItem);
             }
             else
@@ -92,6 +94,7 @@ namespace WEB.Controllers
                 }
                 else
                 {
+                    cartItem.Id = session.Count + 1;
                     session.Add(cartItem);
                 }
 
@@ -99,6 +102,65 @@ namespace WEB.Controllers
             SessionHelper.SetSession(session, AppSettingConstant.CartSession);
             return Json(new {status = true},JsonRequestBehavior.AllowGet);
         }
+        public JsonResult DeleteItem (int id)
+        {
+            UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+            var session = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
+            if (userSession != null)
+            {
+                if (session!=null)
+                {
+                    var deleleItem = session.SingleOrDefault(s => s.Id == id);
+                    if (deleleItem!=null)
+                    {
+                        session.Remove(deleleItem);
+                        SessionHelper.SetSession(session, AppSettingConstant.CartSession);
 
+                        return Json(new { status = true,count= session.Count}, JsonRequestBehavior.AllowGet);
+                    } 
+                }
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UpdateItem(CartItem cartItem)
+        {
+            try
+            {
+                var product = _productRepository.Find(p => p.ProductId == cartItem.Product.ProductId && p.Status.Equals(Status.Active));
+                if (product == null)
+                {
+                    return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                }
+                var material = _materialRepository.Find(m => m.Id == cartItem.Material.Id && m.Status.Equals(Status.Active));
+                if (material == null)
+                {
+                    return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                }
+                UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+                var session = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
+                if (userSession != null)
+                {
+                    if (session != null)
+                    {
+                        var updateItem = session.SingleOrDefault(s => s.Id == cartItem.Id);
+                        if (updateItem != null)
+                        {
+                            updateItem.Product = product;
+                            updateItem.Material = material;
+                            updateItem.Option = cartItem.Option;
+                            updateItem.Quantity = cartItem.Quantity;
+                            SessionHelper.SetSession(session, AppSettingConstant.CartSession);
+                            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+           
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
