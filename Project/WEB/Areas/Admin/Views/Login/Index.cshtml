@@ -11,87 +11,113 @@
     <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
     <!-- Modernizr js -->
     <script src="~/Areas/Admin/Assets/js/modernizr.min.js"></script>
+    <style>
+        #loading {
+            background-color: gray;
+            position: fixed;
+            display: block;
+            top: 0;
+            bottom: 0;
+            z-index: 1000000;
+            opacity: 0.5;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+            #loading img {
+                margin: auto;
+                display: block;
+                top: calc(50% - 100px);
+                left: calc(50% - 10px);
+                position: absolute;
+                z-index: 999999;
+            }
+    </style>
 </head>
 <body>
-    <div class="account-pages">
-        <img src="~/Areas/Admin/Assets/images/big/bg-2.jpg" height="100%" width="100%">
-    </div>
-    <div class="clearfix"></div>
-    <div class="wrapper-page">
-        <div class="account-bg">
-            <div class="card-box mb-0">
-                <div class="text-center m-t-20">
-                    <a href="index.cshtml" class="logo">
-                        <i class="zmdi zmdi-book-image"></i>
-                        <span>Photos Printing </span>
-                    </a>
+<div id="loading" style="display:none">
+    <img src="~/Assets/images/icons/Spinner-0.5s-75px.gif" alt="Loading..."  />
+</div>
+<div class="account-pages">
+    <img src="~/Areas/Admin/Assets/images/big/bg-2.jpg" height="100%" width="100%">
+</div>
+<div class="clearfix"></div>
+<div class="wrapper-page">
+    <div class="account-bg">
+        <div class="card-box mb-0">
+            <div class="text-center m-t-20">
+                <a href="index.cshtml" class="logo">
+                    <i class="zmdi zmdi-book-image"></i>
+                    <span>Photos Printing </span>
+                </a>
+            </div>
+            <div class="m-t-10 p-20">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h6 class="text-muted text-uppercase m-b-0 m-t-0">Sign In</h6>
+                    </div>
                 </div>
-                <div class="m-t-10 p-20">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <h6 class="text-muted text-uppercase m-b-0 m-t-0">Sign In</h6>
+                <form class="m-t-20" id="login_form">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <input class="form-control" name="username" type="text" required placeholder="Username">
                         </div>
                     </div>
-                    <form class="m-t-20" id="login_form">
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <input class="form-control" name="username" type="text" required placeholder="Username">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <input class="form-control" name="password" type="password" required placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <div class="checkbox checkbox-custom">
+                                <input id="checkbox-signup" name="remember" type="checkbox">
+                                <label for="checkbox-signup">
+                                    Remember me
+                                </label>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <input class="form-control" name="password" type="password" required placeholder="Password">
-                            </div>
+                    </div>
+                    <div class="form-group text-center row m-t-10">
+                        <div class="col-12">
+                            <button class="btn btn-success btn-block waves-effect waves-light" id="s" type="submit">Log In</button>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <div class="checkbox checkbox-custom">
-                                    <input id="checkbox-signup" name="remember" type="checkbox">
-                                    <label for="checkbox-signup">
-                                        Remember me
-                                    </label>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group row m-t-30 mb-0">
+                        <div class="col-12">
+                            <a href="#" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
                         </div>
-                        <div class="form-group text-center row m-t-10">
-                            <div class="col-12">
-                                <button class="btn btn-success btn-block waves-effect waves-light" id="s" type="submit">Log In</button>
-                            </div>
-                        </div>
-                        <div class="form-group row m-t-30 mb-0">
-                            <div class="col-12">
-                                <a href="#" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
-                            </div>
-                        </div>
-                     
-                    </form>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-        <!-- end card-box-->
-    </div>
-    <!-- end wrapper page -->
+                    </div>
 
-    <script>
-        var resizefunc = [];
-    </script>
-    <!-- jQuery  -->
-    <script src="~/Areas/Admin/Assets/js/jquery.min.js"></script>
-    <script src="~/Areas/Admin/Assets/js/popper.min.js"></script><!-- Tether for Bootstrap -->
-    <script src="~/Areas/Admin/Assets/js/bootstrap.min.js"></script>
-    <script src="~/Areas/Admin/Assets/js/detect.js"></script>
-    <script src="~/Areas/Admin/Assets/js/fastclick.js"></script>
-    <script src="~/Areas/Admin/Assets/js/jquery.blockUI.js"></script>
-    <script src="~/Areas/Admin/Assets/js/waves.js"></script>
-    <script src="~/Areas/Admin/Assets/js/jquery.nicescroll.js"></script>
-    <script src="~/Areas/Admin/Assets/js/jquery.scrollTo.min.js"></script>
-    <script src="~/Areas/Admin/Assets/js/jquery.slimscroll.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/switchery/switchery.min.js"></script>
-    <!-- App js -->
-    <script src="~/Areas/Admin/Assets/js/jquery.core.js"></script>
-    <script src="~/Areas/Admin/Assets/js/jquery.app.js"></script>
-    <script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
-    <script src="~/Areas/Admin/Assets/js/login.js"></script>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- end card-box-->
+</div>
+<!-- end wrapper page -->
+
+<script>
+    var resizefunc = [];
+</script>
+<!-- jQuery  -->
+<script src="~/Areas/Admin/Assets/js/jquery.min.js"></script>
+<script src="~/Areas/Admin/Assets/js/popper.min.js"></script><!-- Tether for Bootstrap -->
+<script src="~/Areas/Admin/Assets/js/bootstrap.min.js"></script>
+<script src="~/Areas/Admin/Assets/js/detect.js"></script>
+<script src="~/Areas/Admin/Assets/js/fastclick.js"></script>
+<script src="~/Areas/Admin/Assets/js/jquery.blockUI.js"></script>
+<script src="~/Areas/Admin/Assets/js/waves.js"></script>
+<script src="~/Areas/Admin/Assets/js/jquery.nicescroll.js"></script>
+<script src="~/Areas/Admin/Assets/js/jquery.scrollTo.min.js"></script>
+<script src="~/Areas/Admin/Assets/js/jquery.slimscroll.js"></script>
+<script src="~/Areas/Admin/Assets/plugins/switchery/switchery.min.js"></script>
+<!-- App js -->
+<script src="~/Areas/Admin/Assets/js/jquery.core.js"></script>
+<script src="~/Areas/Admin/Assets/js/jquery.app.js"></script>
+<script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>
+<script src="~/Areas/Admin/Assets/js/login.js"></script>
 </body>
 </html>

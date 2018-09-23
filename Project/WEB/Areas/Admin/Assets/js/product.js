@@ -70,7 +70,6 @@ function ClearForm() {
     $('input[name=product-name]').val("");
     $('input[name=product-active]').prop('checked', false);
     $('input[name=product-size]').val("");
-    $('input[name=product-material]').val("");
     $('input[name=product-price]').val(0);
 }
 function DataToForm(data) {
@@ -81,7 +80,6 @@ function DataToForm(data) {
     $('input[name=product-name]').val(data.ProductName);
     $('input[name=product-active]').prop('checked', status);
     $('input[name=product-size]').val(data.ProductSize);
-    $('input[name=product-material]').val(data.ProductMaterial);
     $('input[name=product-price]').val(data.ProductPrice);
     $('input[name=product-id]').val(data.ProductId);
 }
@@ -171,7 +169,6 @@ function sizeRow(data) {
     html += ('</td><th scope = "row" > ' + data.ProductId + '</th>');
     html += ('<td>' + data.ProductName + '</td>');
     html += ('<td>' + data.ProductSize + '</td>');
-    html += ('<td>' + data.ProductMaterial + '</td>');
     html += ('<td>' + data.ProductPrice + '</td>');
     html += ('<td>' + data.Status + '</td>');
     console.log(data.ModifiedAt);
