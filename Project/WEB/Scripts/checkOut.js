@@ -1,8 +1,32 @@
 ﻿ $('#showAddress').click(function () {
       GetModalAddress();
     });
- 
-
+ $('#newAddress').on('click',function(){
+   $('#addaddress').val();
+})
+$('#form-new-address').validate({
+rules:{
+newaddress{
+    required: true
+}
+},submitHandler: function(form) {
+var address = $('input[name=newaddress]').val();
+            $.ajax({
+        url: '/CheckOut/AddAddress',
+        contentType: 'application/json,
+        data: {address:address},
+        type: 'POST',
+        async: false,
+        dataType: 'json'
+    }).success(function (result) {
+        if(result.status){
+        GetModalAddress();
+}
+    }).error(function (xhr, status) {
+    });
+            return false;  // blocks regular submit since you have ajax
+        }
+})
 function GetModalAddress() {
     $.ajax({
         url: '/CheckOut/GetModalAddress',
@@ -11,7 +35,7 @@ function GetModalAddress() {
         async: false,
         dataType: 'html'
     }).success(function (result) {
-        $('#modalAddress').html(result);
+        $('#modalAddress .modal-body').html(result);
 $('#modalAddress').modal();
     }).error(function (xhr, status) {
     });

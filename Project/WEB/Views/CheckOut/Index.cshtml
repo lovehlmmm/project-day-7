@@ -5,10 +5,11 @@
 @{
     ViewBag.Title = "Check Out - Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var showCart = ViewBag.Cart;
-    var showAddress = ViewBag.Customer.Addresses;
+    var showCart = ViewBag.Cart as List<CartItem>;
+    var user = ViewBag.User;
+    decimal total = 0;
 
- 
+
 }
 @section css{
     <style type="text/css">
@@ -144,7 +145,7 @@
                 <tbody>
                     @if (showCart != null)
                     {
-                        foreach (var item in showCart as List<CartItem>)
+                        foreach (var item in showCart)
                         {
                             <tr>
                                 <td data-th="Product">
@@ -160,12 +161,15 @@
                                         {
                                             if (i == item.Option)
                                             {
-                                                <span>@options[i]</span>
+
+                                                <span>@options[i - 1]</span>
                                             }
                                         }
                                     }
                                 </td>
-                                @{ var subTotal = (item.Quantity * (item.Product.ProductPrice + item.Material.Price));}
+                                @{ var subTotal = (item.Quantity * (item.Product.ProductPrice + item.Material.Price));
+                                    total = showCart.Sum(c => c.Quantity * (c.Product.ProductPrice + c.Material.Price)).Value;
+                                }
                                 <td data-th="Price" class="text-center">@(subTotal != null ? subTotal.Value.ToString("0,0") : string.Empty) VND</td>
                                 <td data-th="Quantity">
                                     <input type="number" class="form-control text-center" value="@item.Quantity" min="1">
@@ -196,6 +200,19 @@
 
         <!-- Address modal -->
         <div id="modalAddress" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align: left;">
+                        <h5>
+                            Shipping Address
+                        </h5>
+                        <a href="#" id="addAddress" onclick="GetModalAddAddress()">Add Address</a>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!--Info Payment-->
@@ -204,14 +221,15 @@
                 <span class="text-muted">Info Payment : </span>
             </h4>
             <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed" >
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h4 class="my-0">
                             Payment Shipping
                         </h4>
-                        @if (showAddress != null)
+                        @if (user != null)
                         {
-                            var addre = showAddress.First();
+                            var userC = user as User;
+                            var addre = userC.Customer.Addresses.First();
                             <h5 class="text-danger">@addre.Customer.CustomerName</h5>
                             <h6 class="text-muted">@addre.AddressDetails</h6>
                             <span class="text-muted">@(addre.Customer.PhoneNumber != null ? addre.Customer.PhoneNumber : string.Empty) </span>
@@ -220,16 +238,16 @@
                     </div>
                     <a href="#" id="showAddress"> <h5 class="text-primary">Chỉnh Sửa</h5> </a>
                 </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed" >
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h5 class="my-0">Phone Number</h5>
                         <input maxlength="10" type="text" style="width:97%" class="form-control" id="" name="" placeholder="Enter Phone">
                     </div>
                 </li>
 
-                <li class="list-group-item d-flex justify-content-between" >
+                <li class="list-group-item d-flex justify-content-between">
                     <h3>Total (VND)</h3>
-                    <h4> <strong>$20</strong>  </h4>
+                    <h4> <strong>@total.ToString("0,0")</strong>  </h4>
                 </li>
             </ul>
             <button class="btn btn-success btn-lg" style="float:right" data-dismiss="modal" aria-hidden="true">Confirm Checkout</button>

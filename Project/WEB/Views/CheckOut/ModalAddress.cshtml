@@ -1,61 +1,41 @@
-﻿ 
+﻿@using Entities
+@{
+    var user = ViewBag.User as User;
+}
 
 
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="text-align: left;">
-                <h5>
-                    Shipping Address
-                </h5>
-                <a href="#" id="addAddress" onclick="GetModalAddAddress()">Add Address</a>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+            <table class="table table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (user != null)
+                    {
+                        if (user.Customer.Addresses != null)
+                        {
+                            foreach (var item in user.Customer.Addresses)
+                            {
+                                <tr>
+                                    <td>@item.Customer.CustomerName</td>
+                                    <td>@item.AddressDetails</td>
+                                    <td>@(item.Customer.PhoneNumber != null ? item.Customer.PhoneNumber : string.Empty)</td>
+                                    <td>
+                                        <input type="radio" name="optradio">
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="form-group py-4">
+                <button class="btn btn-success btn-lg" data-dismiss="modal" aria-hidden="true">Save</button>
             </div>
-            <div class="modal-body">
-                <table class="table table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Phone Number</th>
-                            <th></th>
- 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Nguyễn Anh Tuấn</td>
-                            <td>Ngõ 58 Trần Bình Mai Dịch Cầu Giấy Hà Nội</td>
-                            <td>0981769974</td>
-                            <td>
-                                <input type="radio" name="optradio">
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>Nguyễn Anh Tuấn</td>
-                            <td>Ngõ 58 Trần Bình Mai Dịch Cầu Giấy Hà Nội</td>
-                            <td>0981769974</td>
- 
-                            <td>
-                                <input type="radio" name="optradio">
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>Nguyễn Anh Tuấn</td>
-                            <td>Ngõ 58 Trần Bình Mai Dịch Cầu Giấy Hà Nội</td>
-                            <td>0981769974</td>
-                            <td>
-                                <input type="radio" name="optradio">
-                            </td>
-
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="form-group py-4">
-                     <button class="btn btn-success btn-lg" data-dismiss="modal" aria-hidden="true">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
- 
+  

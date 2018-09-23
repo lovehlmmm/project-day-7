@@ -40,7 +40,7 @@ namespace WEB.Controllers
                 {
                     var cart = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
                     ViewBag.Cart = cart;
-                    ViewBag.Address = user.Customer.Addresses;
+                    ViewBag.User = user;
                     return View();
                 }
                
@@ -50,7 +50,18 @@ namespace WEB.Controllers
 
         public ActionResult GetModalAddress()
         {
-             return PartialView("~/Views/CheckOut/ModalAddress.cshtml");
+            UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+
+            if (userSession != null)
+            {
+                var user = _userRepository.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username));
+                if (user != null)
+                {
+                    ViewBag.User = user;
+                }
+
+            }
+            return PartialView("~/Views/CheckOut/ModalAddress.cshtml");
         }
         public ActionResult GetModalAddAddress()
         {
@@ -128,6 +139,10 @@ namespace WEB.Controllers
             {
             }
             return Redirect("/home");
+        }
+        public JsonResult AddAddress(string address)
+        {
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }
