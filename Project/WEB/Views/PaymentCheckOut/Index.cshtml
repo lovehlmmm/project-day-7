@@ -6,8 +6,9 @@
     ViewBag.Title = "Payment";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var showCart = ViewBag.Cart as List<CartItem>;
-    var user = ViewBag.User;
+    var user = ViewBag.User as User;
     decimal total = 0;
+    var checkOut = ViewBag.CheckOut as CheckOut;
 
 }
 
@@ -135,15 +136,13 @@
             <div class="list-group-item">
                 <div class="list-group-item-heading">
                     <div class="row radio">
-                        @if (user != null)
+                        @if (checkOut != null)
                         {
-                            var userC = user as User;
-                            var addre = userC.Customer.Addresses.First();
 
                             <div class="col-sm-8" style="text-align: center;">
-                                <h3 class="text-danger">@addre.Customer.CustomerName</h3>
-                                <h4 class="text-decoration">@addre.AddressDetails  </h4>
-                                <h5 class="text-primary">@(addre.Customer.PhoneNumber != null ? (!addre.Customer.PhoneNumber.Equals(TempData["phone"]) ? TempData["phone"]: addre.Customer.PhoneNumber) : string.Empty)</h5>
+                                <h3 class="text-danger">@user.Customer.CustomerName</h3>
+                                <h4 class="text-decoration">@checkOut.Address.AddressDetails</h4>
+                                <h5 class="text-primary">@checkOut.PhoneNumber</h5>
                             </div>
                             <div class="col-xs-3 text-success">
                                 <h4>Payment amount : </h4>

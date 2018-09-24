@@ -33,10 +33,16 @@ namespace WEB.Controllers
                 var user = _userRepository.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username));
                 if (user != null)
                 {
-                    var cart = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
-                    ViewBag.Cart = cart;
-                    ViewBag.User = user;
-                    return View();
+                    var checkOut = TempData["checkout"] as CheckOut;
+                    if (checkOut != null)
+                    {
+                        var cart = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
+                        ViewBag.Cart = cart;
+                        ViewBag.User = user;
+                        ViewBag.CheckOut = checkOut;
+                        return View();
+                    }
+                   
                 }
 
             }

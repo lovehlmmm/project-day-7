@@ -8,13 +8,14 @@ namespace Constants
 {
     public class AppSettingConstant
     {
-        public static string PasswordHash = "team6";
-        public static int SaltLength = 256;
+        public const string PasswordHash = "team6";
+        public const int SaltLength = 256;
         public const string initVector = "team123456789987";
-        public static string LoginSessionAdmin = "loggedAdmin";
-        public static string LoginSessionCustomer = "loggedCustomer";
-        public static string CartSession = "cartSession";
-        public static string LoginCookieCustomer = "loggedCustomer";
+        public const string LoginSessionAdmin = "loggedAdmin";
+        public const string LoginSessionCustomer = "loggedCustomer";
+        public const string CartSession = "cartSession";
+        public const string CheckOutSession = "checkOutSession";
+        public const string LoginCookieCustomer = "loggedCustomer";
 
     }
 }

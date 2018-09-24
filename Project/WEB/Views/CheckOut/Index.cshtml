@@ -6,9 +6,9 @@
     ViewBag.Title = "Check Out - Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var showCart = ViewBag.Cart as List<CartItem>;
-    var user = ViewBag.User;
+    var user = ViewBag.User as User;
     decimal total = 0;
-
+    var addre = new Address();
 
 }
 @section css{
@@ -223,7 +223,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
 
         <!--Info Payment-->
         <div class="col-md-4">
@@ -236,14 +236,21 @@
                         <h4 class="my-0">
                             Payment Shipping
                         </h4>
+                        
                         @if (user != null)
                         {
-                            var userC = user as User;
-                            var addre = userC.Customer.Addresses.First();
-                            <h5 class="text-danger">@addre.Customer.CustomerName</h5>
-                            <h6 data-id="@addre.AddressId" class="text-muted addressDetails">@addre.AddressDetails</h6>
-                            <span class="text-muted showPhone">@(addre.Customer.PhoneNumber != null ? addre.Customer.PhoneNumber : string.Empty) </span>
+                            if (user.Customer.Addresses!=null)
+                            {
+                                if (user.Customer.Addresses.Where(a=>a.Status.Equals(Status.Active)).ToList().Count>0)
+                                {
+                                    addre = user.Customer.Addresses.First();
+                                }
+
+                            }
                         }
+                        <h5 class="text-danger">@user.Customer.CustomerName</h5>
+                        <h6 data-id="@addre.AddressId" class="text-muted addressDetails">@(addre.AddressDetails!=null?addre.AddressDetails:string.Empty)</h6>
+                        <span class="text-muted showPhone">@(user.Customer.PhoneNumber != null ? user.Customer.PhoneNumber : string.Empty) </span>
 
                     </div>
                     <a href="#" id="showAddress"> <h5 class="text-primary">Chỉnh Sửa</h5> </a>
@@ -264,7 +271,7 @@
                     <h4> <strong>@total.ToString("0,0")</strong>  </h4>
                 </li>
             </ul>
-            <a href="/paymentcheckout" id="paymentcheckout" class="btn btn-success btn-lg" style="float:right">Confirm Checkout <i class="fa fa-angle-right"></i></a>
+            <a href="#" id="paymentcheckout" class="btn btn-success btn-lg" style="float:right">Confirm Checkout <i class="fa fa-angle-right"></i></a>
         </div>
     </div>
 </div>
