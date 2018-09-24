@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="BankContext.cs" />
+    <Compile Include="BankCreditCard.cs" />
     <Compile Include="CreditCard.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Material.cs" />
