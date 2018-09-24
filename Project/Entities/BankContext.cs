@@ -10,7 +10,7 @@ namespace Entities
     public class BankContext: DbContext
     {
         public BankContext()
-            : base("name=BankConnectionStringServer")
+            : base("name=BankDBConnectionStringServer")
         {
 
         }

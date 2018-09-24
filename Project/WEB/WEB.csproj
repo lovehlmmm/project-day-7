@@ -2904,6 +2904,7 @@
     <Content Include="Views\PaymentCheckOut\Index.cshtml" />
     <Content Include="Views\PaymentCheckOut\ModalCredit.cshtml" />
     <Content Include="Views\PaymentCheckOut\ModalAddCredit.cshtml" />
+    <Content Include="Views\PaymentCheckOut\CardPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

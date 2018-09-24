@@ -21,7 +21,7 @@ namespace WEB.Areas.Admin.Controllers
         // GET: Admin/Home        
         public ActionResult Index()
         {
-            ViewBag.Orders = _orderService.FindAll(o => o.Status.Equals(OrderStatus.Paid));
+            ViewBag.Orders = _orderService.FindAll(o => o.Status.Equals(OrderStatus.Received));
             return View();
         }
     }

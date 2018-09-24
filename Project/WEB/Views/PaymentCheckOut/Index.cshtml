@@ -128,7 +128,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
- 
+
+
     <script src="~/Scripts/payment.js"></script>
     <script js>
         $(function () {
@@ -211,51 +212,8 @@
             </div>
             <h4>I'll pay with&hellip;</h4>
             <div class="list-group">
-                <div class="list-group-item">
-                    <div class="list-group-item-heading">
-                        <div class="row radio">
-                            <div class="col-xs-3">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" checked>
-                                    My Visa Card
-                                </label>
-                            </div>
+                <div id="show-credit">
 
-                            <div class="col-xs-9">
-                                <div class="row">
-                                    @if (user != null)
-                                    {
-                                        var userC = user as User;
-                                        var showCre = userC.Customer.CreditCards.FirstOrDefault(c => c.Status.Equals(Status.Active));
-                                        if (showCre == null)
-                                        {
-                                            showCre = new CreditCard();
-                                        }
-                                        <div class="col-xs-4">
-                                            <dl class="dl-small">
-                                                <dt>Credit Card Number</dt>
-                                                <dd class="creditDetails" data-id="@(showCre.CreditCardId)">@(showCre.CreditNumber != null ? showCre.CreditNumber : string.Empty)</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="col-xs-2">
-                                            <dl class="dl-small">
-                                                <dt>Expiration</dt>
-                                                <dd class="creditEx">@showCre.Expire</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <dl class="dl-small">
-                                                <dt>Billing Address</dt>
-                                                <dd>1509 Latona St, Philadelphia, PA 19146 </dd>
-                                            </dl>
-                                        </div>
-                                    }
-                                </div>
-                                <button id="showCredit" class="btn btn-sm btn-link">Choose another</button>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!--  Show credit modal  -->
@@ -339,7 +297,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                         
                                             <div class="row">
                                                 <div class="col-xs-12">
                                                     <button class="subscribe btn btn-success btn-lg btn-block" type="button">Start Subscription</button>
@@ -350,7 +307,6 @@
                                                     <p class="payment-errors"></p>
                                                 </div>
                                             </div>
-
                                         </form>
                                     </div>
                                 </div>
