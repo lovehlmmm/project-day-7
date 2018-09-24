@@ -176,15 +176,15 @@
                                             showCre = new CreditCard();
                                         }
                                         <div class="col-xs-4">
-                                            <dl class="dl-small creditDetails">
+                                            <dl class="dl-small">
                                                 <dt>Credit Card Number</dt>
-                                                <dd data-id="@(showCre.CreditCardId)">@(showCre.CreditNumber!=null?showCre.CreditNumber:string.Empty)</dd>
+                                                <dd class="creditDetails" data-id="@(showCre.CreditCardId)">@(showCre.CreditNumber!=null?showCre.CreditNumber:string.Empty)</dd>
                                             </dl>
                                         </div>
                                         <div class="col-xs-2">
-                                            <dl class="dl-small creditEx">
+                                            <dl class="dl-small">
                                                 <dt>Expiration</dt>
-                                                <dd>@showCre.Expire</dd>
+                                                <dd class="creditEx">@showCre.Expire</dd>
                                             </dl>
                                         </div>
                                         <div class="col-xs-6">
@@ -196,8 +196,7 @@
                                     }
                                 </div>
                                 <button id="showCredit" class="btn btn-sm btn-link">Choose another</button>
-                                <!--                   <button class="btn btn-sm btn-link">Delete this card</button>
-                                -->
+                             
                             </div>
                         </div>
                     </div>
