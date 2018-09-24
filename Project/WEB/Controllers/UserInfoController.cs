@@ -1,6 +1,7 @@
 ﻿using Constants;
 using Entities;
 using Helpers;
+using Newtonsoft.Json;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -157,6 +158,43 @@ namespace WEB.Controllers
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
 
+        }
+        public async System.Threading.Tasks.Task<JsonResult> AddCreditCard (string creditCard)
+        {
+            var message = "";
+            var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+            if (userSession != null)
+            {
+                var user = _userService.Find(u => u.Username == userSession.Username);
+                if (user != null)
+                {
+                    if (creditCard!=null)
+                    {
+                        var card = JsonConvert.DeserializeObject<CreditCard>(creditCard);
+                        var checkExist = _creditcardService.Find(c => c.CreditNumber==card.CreditNumber.Trim() & c.Status!=Status.Deleted);
+                        if (checkExist==null)
+                        {
+                            card.CreatedAt = DateTime.Now;
+                            card.Status = Status.Active;
+                            card.Expire = card.Expire.Remove(3, 2);
+                            card.CustomerId = user.CustomerId.Value;
+                            var added = await _creditcardService.AddAsync(card);
+                            if (added != null)
+                            {
+                                return Json(new { status = true,card = new { added.CreditNumber,added.CreditCardId,added.Expire}}, JsonRequestBehavior.AllowGet);
+                            }
+                        }
+                        else
+                        {
+                            message = "Credit Card already exist";
+                        }
+                        
+                    }
+                    
+                }
+
+            }
+            return Json(new { status = false,message}, JsonRequestBehavior.AllowGet);
         }
     }
 }

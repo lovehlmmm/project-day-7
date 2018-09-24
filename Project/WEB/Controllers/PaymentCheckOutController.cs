@@ -113,5 +113,20 @@ namespace WEB.Controllers
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetCard()
+        {
+            UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+            if (userSession != null)
+            {
+                var user = _userRepository.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username));
+                if (user != null)
+                {
+                    var cards = user.Customer.CreditCards.Where(c => c.Status == Status.Active).ToList();
+                    ViewBag.Credits = cards;
+                }
+
+            }
+            return PartialView("~/Views/PaymentCheckOut/CardPartial.cshtml");
+        }
     }
 } 

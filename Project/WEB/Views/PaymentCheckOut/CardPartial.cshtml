@@ -1,0 +1,53 @@
+﻿@using Entities
+@{
+    var credits = ViewBag.Credits as List<CreditCard>;
+}
+@if (credits.Count > 0)
+{
+    var showCre = new CreditCard();
+    var check = credits.FirstOrDefault();
+    if (check != null)
+    {
+        showCre = check;
+        <div class="list-group-item">
+            <div class="list-group-item-heading">
+                <div class="row radio">
+                    <div class="col-xs-3">
+                        <label>
+                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" checked>
+                            My Visa Card
+                        </label>
+                    </div>
+
+                    <div class="col-xs-9">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <dl class="dl-small">
+                                    <dt>Credit Card Number</dt>
+                                    <dd class="creditDetails" data-id="@(showCre.CreditCardId)">@(showCre.CreditNumber != null ? showCre.CreditNumber : string.Empty)</dd>
+                                </dl>
+                            </div>
+                            <div class="col-xs-2">
+                                <dl class="dl-small">
+                                    <dt>Expiration</dt>
+                                    <dd class="creditEx">@showCre.Expire</dd>
+                                </dl>
+                            </div>
+                            <div class="col-xs-6">
+                                <dl class="dl-small">
+                                    <dt>Billing Address</dt>
+                                    <dd>1509 Latona St, Philadelphia, PA 19146 </dd>
+                                </dl>
+                            </div>
+
+                        </div>
+                        <button id="showCredit" class="btn btn-sm btn-link">Choose another</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}
+

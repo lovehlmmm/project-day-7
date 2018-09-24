@@ -1,6 +1,11 @@
-﻿$('#showCredit').click(function () {
+﻿
+$(document).ready(function () {
+    GetCredit();
+});
+
+$('#showCredit').click(function () {
     //$('#modalCredit').modal();
-     GetModalCredit();
+    GetModalCredit();
 });
 
 
@@ -25,7 +30,7 @@ function GetModalCredit() {
                 return;
             }
             $.ajax({
-                url: '/PaymentCheckOut/GetCredit?id='+checkId,
+                url: '/PaymentCheckOut/GetCredit?id=' + checkId,
                 type: 'GET',
                 dataType: 'json',
                 async: false,
@@ -41,7 +46,7 @@ function GetModalCredit() {
                     }
                 }
             });
-        })
+        });
     }).error(function (xhr, status) {
     });
 }
@@ -67,45 +72,13 @@ function payWithStripe(e) {
     /* Create token */
     var expiry = $form.find('[name=cardExpiry]').payment('cardExpiryVal');
     var ccData = {
-        number: $form.find('[name=cardNumber]').val().replace(/\s/g, ''),
-        cvc: $form.find('[name=cardCVC]').val(),
-        exp_month: expiry.month,
-        exp_year: expiry.year
+        CreditNumber: $form.find('[name=cardNumber]').val().replace(/\s/g, ''),
+        CVC: $form.find('[name=cardCVC]').val(),
+        Expire: expiry.month + '/' + expiry.year
     };
-
-    Stripe.card.createToken(ccData, function stripeResponseHandler(status, response) {
-        if (response.error) {
-            /* Visual feedback */
-            $form.find('.subscribe').html('Try again').prop('disabled', false);
-            /* Show Stripe errors on the form */
-            $form.find('.payment-errors').text(response.error.message);
-            $form.find('.payment-errors').closest('.row').show();
-        } else {
-            /* Visual feedback */
-            $form.find('.subscribe').html('Processing <i class="fa fa-spinner fa-pulse"></i>');
-            /* Hide Stripe errors on the form */
-            $form.find('.payment-errors').closest('.row').hide();
-            $form.find('.payment-errors').text("");
-            // response contains id and card, which contains additional card details            
-            console.log(response.id);
-            console.log(response.card);
-            var token = response.id;
-            // AJAX - you would send 'token' to your server here.
-            $.post('/account/stripe_card_token', {
-                token: token
-            })
-                // Assign handlers immediately after making the request,
-                .done(function (data, textStatus, jqXHR) {
-                    $form.find('.subscribe').html('Payment successful <i class="fa fa-check"></i>');
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    $form.find('.subscribe').html('There was a problem').removeClass('success').addClass('error');
-                    /* Show Stripe errors on the form */
-                    $form.find('.payment-errors').text('Try refreshing the page and trying again.');
-                    $form.find('.payment-errors').closest('.row').show();
-                });
-        }
-    });
+    var data = new FormData();
+    data.append("creditCard", JSON.stringify(ccData));
+    AddCreditCard(data);
 }
 /* Fancy restrictive input formatting via jQuery.payment library*/
 $('input[name=cardNumber]').payment('formatCardNumber');
@@ -170,3 +143,42 @@ var readyInterval = setInterval(function () {
         clearInterval(readyInterval);
     }
 }, 250);
+
+function AddCreditCard(data) {
+    $.ajax({
+        url: '/UserInfo/AddCreditCard',
+        type: 'POST',
+        async: false,
+        data: data,
+        processData: false,
+        contentType: false
+    }).success(function (result) {
+        if (result.status) {
+            $('#modaladdcredit').modal('hide');
+            GetCredit(result.card);
+            
+        } else {
+            swal("Error", result.message, "error");
+        }
+    }).error(function (xhr, status) {
+    });
+}
+function GetCredit(data) {
+    $.ajax({
+        url: '/PaymentCheckOut/GetCard',
+        contentType: 'application/html;charset=utf-8',
+        type: 'get',
+        async: false,
+        dataType: 'html'
+    }).success(function (result) {
+        $('#show-credit').html(result);
+        $('#showCredit').click(function () {
+            GetModalCredit();
+        });
+        $('.creditDetails').text(data.CreditNumber);
+        $('.creditDetails').data('id', data.CreditCardId);
+        $('.creditEx').text(data.Expire);
+    }).error(function (xhr, status) {
+
+    });
+}

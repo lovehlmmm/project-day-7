@@ -117,4 +117,23 @@ $(document).ready(function () {
     });
 });
 
-jQuery.validator.addMethod("checkexist", function (value, element) {    var checkAcc;    $.ajax({        url: '/RegisterUser/CheckExistAccount?username=' + value,        type: 'GET',        async: false,        success: function (data) {            if (data.status === true) {                checkAcc = true;            } else {                checkAcc = false;            }        }    });    if (!checkAcc) {        return false;  // FAIL validation when REGEX matches    } else {        return true;   // PASS validation otherwise    }});
+jQuery.validator.addMethod("checkexist", function (value, element) {
+    var checkAcc;
+    $.ajax({
+        url: '/RegisterUser/CheckExistAccount?username=' + value,
+        type: 'GET',
+        async: false,
+        success: function (data) {
+            if (data.status === true) {
+                checkAcc = true;
+            } else {
+                checkAcc = false;
+            }
+        }
+    });
+    if (!checkAcc) {
+        return false;  // FAIL validation when REGEX matches
+    } else {
+        return true;   // PASS validation otherwise
+    }
+});

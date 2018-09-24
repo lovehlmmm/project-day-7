@@ -9,7 +9,8 @@ namespace Constants
     public class OrderStatus
     {
         public const string Pending = "Pending";
-        public const string Paid = "Paid";
-        public const string Cancel = "Cancel";
+        public const string Confirmed = "Confirmed";
+        public const string Cancelled = "Cancelled";
+        public const string Received = "Received";
     }
 }
