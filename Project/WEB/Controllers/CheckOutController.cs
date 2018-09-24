@@ -69,77 +69,103 @@ namespace WEB.Controllers
 
         }
 
-        public JsonResult Confirm()
+        public JsonResult Confirm(long addressId, string phone)
         {
-            try
+            if (addressId==0|phone==null)
             {
-                var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer);
-                if (userSession == null)
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            }
+            UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+            if (userSession != null)
+            {
+                var user = _userRepository.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username));
+                if (user != null)
                 {
-                    return Json(new { status = false });
-                }
-                var cartSession = SessionHelper.GetSession(AppSettingConstant.CartSession);
-                if (cartSession != null)
-                {
-                    var user = userSession as UserSession;
-                    String path = Server.MapPath(string.Format("~/Images/Upload/{0}/{1}", user.Username, DateTime.Now.ToString())); //Path
-
-                    //Check if directory exist
-                    if (!System.IO.Directory.Exists(path))
+                    var address = _addressRepository.Find(a => a.AddressId.Equals(addressId));
+                    if (address!=null)
                     {
-                        System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
-                    }
-                    foreach (var item in cartSession as List<CartItem>)
-                    {
-                        string imgPath = Path.Combine(path, item.ImageTitle);
-                        byte[] imageBytes = Convert.FromBase64String(item.Image);
-                        System.IO.File.WriteAllBytes(imgPath, imageBytes);
+                        CheckOut checkOut = new CheckOut();
+                        checkOut.Address = address;
+                        checkOut.PhoneNumber = phone;
+                        TempData["checkout"] = checkOut;
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
                 }
 
             }
-            catch (Exception e)
-            {
-            }
-            return Json(new { status = false });
+            return Json(new { status=false},JsonRequestBehavior.AllowGet);
         }
-        public ActionResult ConfirmTest()
-        {
-            try
-            {
-                var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer);
-                if (userSession == null)
-                {
-                    return Redirect("/home");
-                }
-                var cartSession = SessionHelper.GetSession(AppSettingConstant.CartSession);
-                if (cartSession != null)
-                {
-                    var user = userSession as UserSession;
-                    string folderPath = string.Format("~/Images/Upload/{0}/{1}_{2}", user.Username, DateTime.Now.Second, DateTime.Now.Millisecond);
+        //public JsonResult Confirm()
+        //{
+        //    try
+        //    {
+        //        var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer);
+        //        if (userSession == null)
+        //        {
+        //            return Json(new { status = false });
+        //        }
+        //        var cartSession = SessionHelper.GetSession(AppSettingConstant.CartSession);
+        //        if (cartSession != null)
+        //        {
+        //            var user = userSession as UserSession;
+        //            String path = Server.MapPath(string.Format("~/Images/Upload/{0}/{1}", user.Username, DateTime.Now.ToString())); //Path
 
-                    String path = Server.MapPath(folderPath); //Path
+        //            //Check if directory exist
+        //            if (!System.IO.Directory.Exists(path))
+        //            {
+        //                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+        //            }
+        //            foreach (var item in cartSession as List<CartItem>)
+        //            {
+        //                string imgPath = Path.Combine(path, item.ImageTitle);
+        //                byte[] imageBytes = Convert.FromBase64String(item.Image);
+        //                System.IO.File.WriteAllBytes(imgPath, imageBytes);
+        //            }
+        //        }
 
-                    //Check if directory exist
-                    if (!System.IO.Directory.Exists(path))
-                    {
-                        System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
-                    }
-                    foreach (var item in cartSession as List<CartItem>)
-                    {
-                        string imgPath = Path.Combine(path, item.ImageTitle);
-                        byte[] imageBytes = Convert.FromBase64String(item.Image);
-                        System.IO.File.WriteAllBytes(imgPath, imageBytes);
-                    }
-                    return Redirect("/upload");
-                }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //    }
+        //    return Json(new { status = false });
+        //}
+        //public ActionResult ConfirmTest()
+        //{
+        //    try
+        //    {
+        //        var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer);
+        //        if (userSession == null)
+        //        {
+        //            return Redirect("/home");
+        //        }
+        //        var cartSession = SessionHelper.GetSession(AppSettingConstant.CartSession);
+        //        if (cartSession != null)
+        //        {
+        //            var user = userSession as UserSession;
+        //            string folderPath = string.Format("~/Images/Upload/{0}/{1}_{2}", user.Username, DateTime.Now.Second, DateTime.Now.Millisecond);
 
-            }
-            catch (Exception e)
-            {
-            }
-            return Redirect("/home");
-        }
+        //            String path = Server.MapPath(folderPath); //Path
+
+        //            //Check if directory exist
+        //            if (!System.IO.Directory.Exists(path))
+        //            {
+        //                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+        //            }
+        //            foreach (var item in cartSession as List<CartItem>)
+        //            {
+        //                string imgPath = Path.Combine(path, item.ImageTitle);
+        //                byte[] imageBytes = Convert.FromBase64String(item.Image);
+        //                System.IO.File.WriteAllBytes(imgPath, imageBytes);
+        //            }
+        //            return Redirect("/upload");
+        //        }
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //    }
+        //    return Redirect("/home");
+        //}
         public async System.Threading.Tasks.Task<JsonResult> AddAddress(string address)
         {
             UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;

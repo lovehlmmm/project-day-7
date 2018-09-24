@@ -1,7 +1,24 @@
-﻿
+﻿@using Entities
 @{
     ViewBag.Title = "Home";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var orders = ViewBag.Orders as List<Order>;
+    float orderCount = 0;
+    float previousOrder = 0;
+    var dateNow = DateTime.Now;
+    if (orders.Count>0)
+    {
+        var orderMonth = orders.Where(o => o.ModifiedAt.Value.Month.Equals(dateNow.Month) & o.ModifiedAt.Value.Year.Equals(dateNow.Year)).ToList();
+        var orderPrevious = orders.Where(o => o.ModifiedAt.Value.Month.Equals(dateNow.AddMonths(-1).Month) & o.ModifiedAt.Value.Year.Equals(dateNow.AddMonths(-1).Year)).ToList();
+        if (orderMonth.Count>0)
+        {
+            orderCount = orderMonth.Count;
+        }
+        if (orderPrevious.Count>0)
+        {
+            previousOrder = (orderCount - orderPrevious.Count) / orderPrevious.Count * 100;
+        }
+    }
 }
 
 <div class="row">
@@ -27,8 +44,8 @@
         <div class="card-box tilebox-one">
             <i class="icon-layers float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Orders</h6>
-            <h2 class="m-b-20" data-plugin="counterup">1,587</h2>
-            <span class="label label-success"> +11% </span> <span class="text-muted">From previous period</span>
+            <h2 class="m-b-20" data-plugin="counterup">@orderCount</h2>
+            <span class="label label-success"> @previousOrder % </span> <span class="text-muted">From previous period</span>
         </div>
     </div>
 

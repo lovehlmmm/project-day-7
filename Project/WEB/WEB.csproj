@@ -228,6 +228,7 @@
     <Compile Include="Helpers\Validate.cs" />
     <Compile Include="Helpers\ViewToString.cs" />
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\CheckOut.cs" />
     <Compile Include="Models\UserEmailConfirm.cs" />
     <Compile Include="Models\UserLoginCookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,23 +5,44 @@ $('#showAddress').click(function () {
 });
 $('#newAddress').on('click', function () {
     $('#form-new-address').submit();
-    
-})
+
+});
 
 $('#saveChooseAddress').click(function () {
     $('input[name=chooseAddress]:checked').data('id');
 
-})
+});
 
 $('#addphone').click(function () {
     var addphone = $('input[name=txtaddphone]').val();
     $('.showPhone').text(addphone);
 
-})
+});
 $(document).ready(function () {
-    
-})
-
+    $('#paymentcheckout').click(function () {
+        var addressId = $('.addressDetails').data('id');
+        var phone = $('.showPhone').text();
+        var data = new FormData();
+        data.append("addressId", addressId);
+        data.append("phone", phone);
+        CheckOut(data);
+    });
+});
+function CheckOut(data) {
+    $.ajax({
+        url: '/CheckOut/Confirm',
+        type: 'POST',
+        async: false,
+        data: data,
+        processData: false,
+        contentType: false
+    }).success(function (result) {
+        if (result.status) {
+            window.location.replace('/paymentcheckout');
+        }
+    }).error(function (xhr, status) {
+    });
+}
 $('.deleteitem').click(function () {
     var deleteId = $(this).data('id');
     var item = $(this);
@@ -61,7 +82,7 @@ function GetModalAddress() {
                 return;
             }
             $.ajax({
-                url: '/CheckOut/GetAddress?id='+checkId,
+                url: '/CheckOut/GetAddress?id=' + checkId,
                 type: 'GET',
                 dataType: 'json',
                 async: false,
