@@ -127,6 +127,8 @@
 @section script{
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
 
     <script src="~/Scripts/payment.js"></script>
     <script js>
@@ -285,140 +287,140 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div class="modal-body">
- 
-                                    <!-- CREDIT CARD FORM STARTS HERE -->
-                                    <div class="panel panel-default credit-card-box">
-                                        <div class="panel-heading display-table">
-                                            <div class="row display-tr">
-                                                <h3 class="panel-title display-td">Payment Details</h3>
-                                                <div class="display-td">
-                                                    <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
-                                                </div>
+
+                                <!-- CREDIT CARD FORM STARTS HERE -->
+                                <div class="panel panel-default credit-card-box">
+                                    <div class="panel-heading display-table">
+                                        <div class="row display-tr">
+                                            <h3 class="panel-title display-td">Payment Details</h3>
+                                            <div class="display-td">
+                                                <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
                                             </div>
                                         </div>
-                                        <div class="panel-body">
-                                            <form role="form" id="payment-form" method="POST" action="javascript:void(0);">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="cardNumber">CARD NUMBER</label>
-                                                            <div class="input-group">
-                                                                <input type="tel"
-                                                                       class="form-control"
-                                                                       name="cardNumber"
-                                                                       placeholder="Valid Card Number"
-                                                                       autocomplete="cc-number"
-                                                                       required autofocus />
-                                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-7 col-md-7">
-                                                        <div class="form-group">
-                                                            <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
-                                                            <input type="tel"
-                                                                   class="form-control"
-                                                                   name="cardExpiry"
-                                                                   placeholder="MM / YY"
-                                                                   autocomplete="cc-exp"
-                                                                   required />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-5 col-md-5 pull-right">
-                                                        <div class="form-group">
-                                                            <label for="cardCVC">CV CODE</label>
-                                                            <input type="tel"
-                                                                   class="form-control"
-                                                                   name="cardCVC"
-                                                                   placeholder="CVC"
-                                                                   autocomplete="cc-csc"
-                                                                   required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            <label for="couponCode">COUPON CODE</label>
-                                                            <input type="text" class="form-control" name="couponCode" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <button class="subscribe btn btn-success btn-lg btn-block" type="button">Start Subscription</button>
-                                                    </div>
-                                                </div>
-                                                <div class="row" style="display:none;">
-                                                    <div class="col-xs-12">
-                                                        <p class="payment-errors"></p>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
                                     </div>
-                                    <!-- CREDIT CARD FORM ENDS HERE -->
+                                    <div class="panel-body">
+                                        <form role="form" id="payment-form" method="POST" action="javascript:void(0);">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="cardNumber">CARD NUMBER</label>
+                                                        <div class="input-group">
+                                                            <input type="tel"
+                                                                   class="form-control"
+                                                                   name="cardNumber"
+                                                                   placeholder="Valid Card Number"
+                                                                   autocomplete="cc-number"
+                                                                   required autofocus />
+                                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-7 col-md-7">
+                                                    <div class="form-group">
+                                                        <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                                        <input type="tel"
+                                                               class="form-control"
+                                                               name="cardExpiry"
+                                                               placeholder="MM / YY"
+                                                               autocomplete="cc-exp"
+                                                               required />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5 col-md-5 pull-right">
+                                                    <div class="form-group">
+                                                        <label for="cardCVC">CV CODE</label>
+                                                        <input type="tel"
+                                                               class="form-control"
+                                                               name="cardCVC"
+                                                               placeholder="CVC"
+                                                               autocomplete="cc-csc"
+                                                               required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="form-group">
+                                                        <label for="couponCode">COUPON CODE</label>
+                                                        <input type="text" class="form-control" name="couponCode" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <button class="subscribe btn btn-success btn-lg btn-block" type="button">Start Subscription</button>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="display:none;">
+                                                <div class="col-xs-12">
+                                                    <p class="payment-errors"></p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
+                                <!-- CREDIT CARD FORM ENDS HERE -->
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- End modal -->
+                <!-- End modal -->
 
-                    <div class="list-group-item">
-                        <div class="list-group-item-heading">
-                            <div class="row radio">
-                                <div class="col-xs-3">
-                                    <label data-toggl-e="collapse" data-target="#newcard">
-                                        <input class="showAddCredit" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                        A New Credit Card
-                                    </label>
-                                </div>
-                                <div class="col-xs-9">
-                                    <div class="media">
-                                        <a class="media-left" href="#">
-                                            <img src="https://lovewithfood.com/assets/credit_cards/cards-b3a7c7b8345355bf110ebedfd6401312.png" height="25" alt="" />
-                                        </a>
-                                        <div class="media-body" id="newcard">
-                                            We accept these credit cards.
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="list-group-item">
+                    <div class="list-group-item-heading">
+                        <div class="row radio">
+                            <div class="col-xs-3">
+                                <label data-toggl-e="collapse" data-target="#newcard">
+                                    <input class="showAddCredit" type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    A New Credit Card
+                                </label>
                             </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item">
-                        <div class="list-group-item-heading">
-                            <div class="row radio">
-                                <div class="col-xs-3">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                        PayPal
-                                    </label>
-                                </div>
-                                <div class="col-xs-9">
-                                    <div class="media">
-                                        <a class="media-left" href="#">
-                                            <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_76x48.png" height="25" alt="" />
-                                        </a>
-                                        <div class="media-body">
-                                            When you click "Place Order", you will be taken to the PayPal website.
-                                        </div>
+                            <div class="col-xs-9">
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <img src="https://lovewithfood.com/assets/credit_cards/cards-b3a7c7b8345355bf110ebedfd6401312.png" height="25" alt="" />
+                                    </a>
+                                    <div class="media-body" id="newcard">
+                                        We accept these credit cards.
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="well">
-                    <button type="button" class="btn btn-success btn-lg btn-block">Place Order</button>
+                <div class="list-group-item">
+                    <div class="list-group-item-heading">
+                        <div class="row radio">
+                            <div class="col-xs-3">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    PayPal
+                                </label>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_76x48.png" height="25" alt="" />
+                                    </a>
+                                    <div class="media-body">
+                                        When you click "Place Order", you will be taken to the PayPal website.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="well">
+                <button type="button" class="btn btn-success btn-lg btn-block">Place Order</button>
             </div>
         </div>
     </div>
+</div>
 
-    <hr>
+<hr>
 
 
