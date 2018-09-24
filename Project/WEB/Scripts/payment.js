@@ -182,3 +182,20 @@ function GetCredit(data) {
 
     });
 }
+
+$('#checkout').click(function () {
+    swal({
+        title: "Are you sure?",
+        text: "Make sure your shipping address and payment method are secure.!",
+        icon: "success",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willCheckout) => {
+            if (willCheckout) {
+                swal("OK! Checkout success  !", {
+                    icon: "success",
+                });
+            } 
+        });
+})
