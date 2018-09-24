@@ -78,7 +78,6 @@ $(document).ready(function () {
     });
 
 
-
     $('.deleteaddr').click(function () {
         var id = $(this).data('id');
         $.ajax({
@@ -101,11 +100,12 @@ $(document).ready(function () {
         rules: {
             name: {
                 required: true,
-                minlength : 5
+                minlength: 5
+
             },
             PhoneNumber: {
                 required: true,
-                maxlength: 10
+                minlength: 10
             },
             newpassword: {
                 required: false,
@@ -119,6 +119,18 @@ $(document).ready(function () {
             birthday: {
                 required: false
             },
+            cardNumber: {
+                required: true,
+                cardNumber: true
+            },
+            cardExpiry: {
+                required: true,
+                cardExpiry: true
+            },
+            cardCVC: {
+                required: true,
+                cardCVC: true
+            }
         },
         messages: {
             name: "Please enter your name",
@@ -155,4 +167,16 @@ $(document).ready(function () {
     })
 });
 
+jQuery.validator.addMethod("cardNumber", function (value, element) {
+    return this.optional(element) || Stripe.card.validateCardNumber(value);
+}, "Please specify a valid credit card number.");
 
+jQuery.validator.addMethod("cardExpiry", function (value, element) {
+    /* Parsing month/year uses jQuery.payment library */
+    value = $.payment.cardExpiryVal(value);
+    return this.optional(element) || Stripe.card.validateExpiry(value.month, value.year);
+}, "Invalid expiration date.");
+
+jQuery.validator.addMethod("cardCVC", function (value, element) {
+    return this.optional(element) || Stripe.card.validateCVC(value);
+}, "Invalid CVC.");

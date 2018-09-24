@@ -14,5 +14,6 @@ namespace Entities
         {
 
         }
+        public DbSet<BankCreditCard> BankCreditCards { get; set; }
     }
 }
