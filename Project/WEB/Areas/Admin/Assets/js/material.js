@@ -31,22 +31,48 @@ function paging(page, index) {
     return html;
 }
 
-$('#form_new_update').submit(function () {
-
-    var name = $('input[name=name]').val();
-    var active = $('input[name=active]:checked').length > 0 ? 'active' : 'inactive';
-    var price = $('input[name=price]').val();
-    var id = $('input[name=id]').val();
-    var a = $('#form_new_update').data('type');
-    var size = { MaterialName: name, MaterialPrice: price, Status: active };
-    if ($('#form_new_update').data('type') === '1') {
-        Add(size);
-    } else {
-        Update(size, id);
+$('#form_new_update').validate({
+    rules: {
+        name: {
+            required: true,
+            minlength: 5,
+            maxlength:20
+        },
+        material: {
+            required: true,
+            minlength: 5,
+            maxlength: 20
+        },
+        price: {
+            required: true,
+            number: true,
+            min:1
+        }
+    },
+    submitHandler: function (form) { // for demo
+        var name = $('input[name=name]').val();
+        var active = $('input[name=active]:checked').length > 0 ? 'active' : 'inactive';
+        var price = $('input[name=price]').val();
+        var id = $('input[name=id]').val();
+        var material = $('input[name=material]').val();
+        var a = $('#form_new_update').data('type');
+        var size = { Name: name, Price: price, Status: active, Details: material };
+        if ($('#form_new_update').data('type') === '1') {
+            Add(size);
+        } else {
+            Update(size, id);
+        }
+        return false; // for demo
+    },
+    messages: {
+        name: {
+            required:"Please enter material name"
+        },
+        material: {
+            required: "Please enter material"
+        }
     }
-    return false;
 });
-
 function Update(data, id) {
     $.ajax({
         url: '/Material/Update',
@@ -66,6 +92,7 @@ function Update(data, id) {
 }
 function ClearForm() {
     $('input[name=name]').val("");
+    $('input[name=material]').val("");
     $('input[name=active]').prop('checked', false);
     $('input[name=price]').val(0);
 }
@@ -74,10 +101,11 @@ function DataToForm(data) {
     if (data.Status !== 'active') {
         status = false;
     }
-    $('input[name=name]').val(data.MaterialName);
+    $('input[name=name]').val(data.Name);
     $('input[name=active]').prop('checked', status);
-    $('input[name=price]').val(data.MaterialPrice);
-    $('input[name=id]').val(data.MaterialId);
+    $('input[name=price]').val(data.Price);
+    $('input[name=material]').val(data.Details);
+    $('input[name=id]').val(data.Id);
 }
 
 function GetDataEdit(id) {
@@ -161,18 +189,19 @@ function sizeRow(data) {
         ? modified = new Date(parseInt(data.ModifiedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : modified = '';
     var html = '';
-    html += ('<tr>< td><input id="checkbox" data-id="' + data.MaterialId + '" type="checkbox">');
-    html += ('</td><th scope = "row" > ' + data.MaterialId + '</th>');
-    html += ('<td>' + data.MaterialName + '</td>');
-    html += ('<td>' + data.MaterialPrice + '</td>');
+    html += ('<tr>< td><input id="checkbox" data-id="' + data.Id + '" type="checkbox">');
+    html += ('</td><th scope = "row" > ' + data.Id + '</th>');
+    html += ('<td>' + data.Name + '</td>');
+    html += ('<td>' + data.Details + '</td>');
+    html += ('<td>' + data.Price + '</td>');
     html += ('<td>' + data.Status + '</td>');
     html += ('<td>' +created + '</td>');
     html += ('<td>' + modified+ '</td>');
     html += ('<td style="text-align:center">');
     html += ('<button id="edit_size" data-id="' +
-        data.MaterialId +
-        '" onclick="GetDataEdit(' + data.MaterialId + ')" class="btn waves-effect waves-light btn-warning" style="padding:5px"> <i class="fa fa-edit"></i></button>');
-    html += ('<button  class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i  data-id = "' + data.MaterialId + '" onclick="Delete(' + data.MaterialId + ')" class="fa fa-remove delete_size"></i> </button>');
+        data.Id +
+        '" onclick="GetDataEdit(' + data.Id + ')" class="btn waves-effect waves-light btn-warning" style="padding:5px"> <i class="fa fa-edit"></i></button>');
+    html += ('<button  class="btn waves-effect waves-light btn-danger disabled" style="padding:5px" data-id = "' + data.Id + '" onclick="Delete(' + data.Id + ')"><i class="fa fa-remove delete_size"></i> </button>');
     html += ('</td></tr >');
     return html;
 }
