@@ -7,832 +7,228 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Mailback</title>
-
-    <style>
-        .backdrop {
-            width: 100%;
-            height: 100%;
-            background-color: transparent;
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1051;
-            background-color: transparent;
-            -moz-opacity: .5;
-            opacity: .5;
-            filter: alpha(opacity=50);
-            display: none;
-        }
-
-        #Loading {
-            position: fixed;
-            width: 70px;
-            height: 70px;
-            top: 66px;
-            left: 48%;
-            display: none;
-            z-index: 1;
-        }
-
-        .Loading {
-            position: absolute;
-            background-color: #1EB4FA;
-            width: 16px;
-            height: 16px;
-            -moz-border-radius: 11px;
-            -moz-animation-name: bounce_Loading;
-            -moz-animation-duration: 1.04s;
-            -moz-animation-iteration-count: infinite;
-            -moz-animation-direction: linear;
-            -webkit-border-radius: 11px;
-            -webkit-animation-name: bounce_Loading;
-            -webkit-animation-duration: 1.04s;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-direction: linear;
-            -ms-border-radius: 11px;
-            -ms-animation-name: bounce_Loading;
-            -ms-animation-duration: 1.04s;
-            -ms-animation-iteration-count: infinite;
-            -ms-animation-direction: linear;
-            -o-border-radius: 11px;
-            -o-animation-name: bounce_Loading;
-            -o-animation-duration: 1.04s;
-            -o-animation-iteration-count: infinite;
-            -o-animation-direction: linear;
-            border-radius: 11px;
-            animation-name: bounce_Loading;
-            animation-duration: 1.04s;
-            animation-iteration-count: infinite;
-            animation-direction: linear;
-        }
-
-        #Loading_1 {
-            left: 0;
-            top: 28px;
-            -moz-animation-delay: 0.39s;
-            -webkit-animation-delay: 0.39s;
-            -ms-animation-delay: 0.39s;
-            -o-animation-delay: 0.39s;
-            animation-delay: 0.39s;
-        }
-
-        #Loading_2 {
-            left: 7px;
-            top: 7px;
-            -moz-animation-delay: 0.52s;
-            -webkit-animation-delay: 0.52s;
-            -ms-animation-delay: 0.52s;
-            -o-animation-delay: 0.52s;
-            animation-delay: 0.52s;
-        }
-
-        #Loading_3 {
-            top: 0;
-            left: 28px;
-            -moz-animation-delay: 0.65s;
-            -webkit-animation-delay: 0.65s;
-            -ms-animation-delay: 0.65s;
-            -o-animation-delay: 0.65s;
-            animation-delay: 0.65s;
-        }
-
-        #Loading_4 {
-            right: 7px;
-            top: 7px;
-            -moz-animation-delay: 0.78s;
-            -webkit-animation-delay: 0.78s;
-            -ms-animation-delay: 0.78s;
-            -o-animation-delay: 0.78s;
-            animation-delay: 0.78s;
-        }
-
-        #Loading_5 {
-            right: 0;
-            top: 28px;
-            -moz-animation-delay: 0.91s;
-            -webkit-animation-delay: 0.91s;
-            -ms-animation-delay: 0.91s;
-            -o-animation-delay: 0.91s;
-            animation-delay: 0.91s;
-        }
-
-        #Loading_6 {
-            right: 7px;
-            bottom: 7px;
-            -moz-animation-delay: 1.04s;
-            -webkit-animation-delay: 1.04s;
-            -ms-animation-delay: 1.04s;
-            -o-animation-delay: 1.04s;
-            animation-delay: 1.04s;
-        }
-
-        #Loading_7 {
-            left: 28px;
-            bottom: 0;
-            -moz-animation-delay: 1.17s;
-            -webkit-animation-delay: 1.17s;
-            -ms-animation-delay: 1.17s;
-            -o-animation-delay: 1.17s;
-            animation-delay: 1.17s;
-        }
-
-        #Loading_8 {
-            left: 7px;
-            bottom: 7px;
-            -moz-animation-delay: 1.3s;
-            -webkit-animation-delay: 1.3s;
-            -ms-animation-delay: 1.3s;
-            -o-animation-delay: 1.3s;
-            animation-delay: 1.3s;
-        }
-
-        .color-blue {
-            color: #0082dd;
-        }
-
-        .color-red {
-            color: #ea5449;
-        }
-
-        body {
-            color: #666666;
-            font-family: 'Open Sans',Helvetica, Arial, sans-serif;
-            background: #ecf0f1;
-        }
-
-        a, .user-login {
-            color: #0082dd;
-            text-decoration: none;
-        }
-
-        .container {
-            width: 1152px;
-            padding-bottom: 30px;
-            margin: auto;
-            font-size: 14px;
-            background: #fff;
-            background: #fff;
-            border-radius: 3px;
-            -moz-box-shadow: #ced7dc 0 4px, #eee 0 0px 5px;
-            -webkit-box-shadow: #ced7dc 0 4px, #eee 0 0px 5px;
-            box-shadow: #ced7dc 0 4px, #eee 0 0px 5px;
-            -moz-transform: translateY(-6px);
-            -ms-transform: translateY(-6px);
-        }
-
-        .col-4 {
-            width: 354px;
-            float: left;
-            padding: 15px;
-        }
-
-        .mt-20 {
-            margin-top: 20px;
-            display: block;
-        }
-
-        h1 {
-            text-align: center;
-            text-transform: uppercase;
-            position: relative;
-            color: #2c3e50;
-            font-size: 38px;
-            margin-top: 30px;
-            font-style: normal;
-            font-weight: 600;
-            font-family: 'Open Sans',Helvetica, Arial, sans-serif;
-            max-width: 1152px;
-            margin: auto;
-        }
-
-        h2, h3 {
-            color: #2c3e50;
-            font-size: 18px;
-            font-weight: normal;
-            text-transform: uppercase;
-        }
-
-        h3 {
-            font-size: 15px;
-            color: #2c3e50;
-        }
-
-        .social-login {
-            vertical-align: middle;
-            margin-top: 18px;
-        }
-
-        .line {
-            border-bottom: 1px solid #0082dd;
-            padding-bottom: 17px;
-            width: 320px;
-        }
-
-        .social-login a {
-            display: inline-block;
-            margin-left: 5px;
-            height: 50px;
-            width: 50px;
-            background: url(//hstatic.net/0/global/design/imgs/loginicon.png) no-repeat;
-            vertical-align: middle;
-        }
-
-            .social-login a.facebook-ico {
-                background-position: left;
+    <!--[if gte mso 9]><xml>
+     <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+     </o:OfficeDocumentSettings>
+    </xml><![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--[if !mso]><!-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<![endif]-->
+    <title>Mail Back </title>
+    <style type="text/css">
+    body {
+      -webkit-text-size-adjust: 100% !important;
+      -ms-text-size-adjust: 100% !important;
+      -webkit-font-smoothing: antialiased !important;
+      }
+      img {
+      border: 0 !important;
+      outline: none !important;
+      }
+      p {
+      Margin: 0px !important;
+      padding: 0px !important;
+      }
+      table {
+      border-collapse: collapse;
+      mso-table-lspace: 0px;
+      mso-table-rspace: 0px;
+      }
+      td {
+      border-collapse: collapse;
+      mso-line-height-rule: exactly;
+      }
+      a {
+      border-collapse: collapse;
+      mso-line-height-rule: exactly;
+      }
+      span {
+      border-collapse: collapse;
+      mso-line-height-rule: exactly;
+      }
+      .ExternalClass * {
+      line-height: 100%;
+      }
+      span.MsoHyperlink {
+      mso-style-priority: 99;
+      color: inherit;
+      }
+      span.MsoHyperlinkFollowed {
+      mso-style-priority: 99;
+      color: inherit;
+      }
+        @@media and screen{
+            td{
+                font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
             }
-
-            .social-login a.twitter-ico {
-                background-position: -57px 0;
+            a{
+                font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
             }
-
-            .social-login a.google-ico {
-                background-position: -114px 0;
-            }
-
-            .social-login a.yahoo-ico {
-                background-position: right;
-            }
-
-        .form-info {
-            margin-top: 20px;
-        }
-
-        .form-group {
-            position: relative;
-            margin-top: 15px;
-        }
-
-            .form-group p {
-                color: #3498DB;
-                margin-bottom: 0;
-                display: none;
-                -webkit-transition: all 0.3s ease;
-                -moz-transition: all 0.3s ease;
-                -o-transition: all 0.3s ease;
-                -ms-transition: all 0.3s ease;
-                transition: all 0.3s ease;
-            }
-
-            .form-group input, .form-group select, .form-group textarea {
-                width: 320px;
-                border-radius: 5px;
-                border: 1px solid #cccccc;
-                height: 37px;
-                padding-left: 5px;
-                outline: 0;
-            }
-
-        .ctrl_customer_pick_at_location.form-group {
-            margin-top: 8px;
-        }
-
-            .ctrl_customer_pick_at_location.form-group label {
-                display: inline-block;
-            }
-
-                .ctrl_customer_pick_at_location.form-group label input[type=radio] {
-                    height: 20px;
-                }
-
-        .listerror {
-            width: 320px;
-        }
-
-        .new_order input, .new_order select {
-            text-indent: 20px;
-        }
-
-            .new_order input[required], .new_order select[required] {
-                background: url(//hstatic.net/0/0/global/design/imgs/checkout_require.gif) no-repeat 10px 13px;
-            }
-
-        .form-group label.error {
-            display: none !important;
-        }
-
-        .form-group textarea {
-            height: 70px;
-        }
-
-        input[type=radio] {
-            width: 1px;
-            opacity: 0;
-            margin: 0;
-        }
-
-        .label-radio {
-            font-weight: bold;
-            background-image: url(//hstatic.net/0/global/design/imgs/radio.png);
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            padding-left: 28px;
-            height: 20px;
-            display: inline-block;
-            line-height: 20px;
-            background-repeat: no-repeat;
-            background-position: 0 0;
-            font-size: 14px;
-            vertical-align: middle;
-            cursor: pointer;
-        }
-
-        input[type=radio]:checked + .label-radio {
-            background-position: 0 -20px;
-        }
-
-        .lb-method {
-            display: block;
-            width: 100%;
-            line-height: 35px;
-        }
-
-        .desc {
-            padding-left: 30px;
-            display: none;
-            white-space: pre-line;
-        }
-
-        .box-cart {
-            border-radius: 5px;
-            border: 1px solid #eee;
-            padding: 10px;
-        }
-
-            .box-cart h2 {
-                margin: 0;
-                display: inline;
-                vertical-align: middle;
-            }
-
-        .cart-items {
-            margin-top: 10px;
-        }
-
-        .cart-items, .total-price, .promotion-name {
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            padding-top: 10px;
-        }
-
-        .promotion-name {
-            border-top: 0;
-        }
-
-        .cart-item {
-            border-top: 1px dashed #eee;
-            padding: 10px 0;
-            text-align: left;
-        }
-
-            .cart-item:first-child {
-                border-top: 0;
-            }
-
-            .cart-item .price, .total-price label, .shiping-price label, .total-checkout span, .promotion-name label {
-                float: right;
-            }
-
-        .variant-title {
-            margin-top: 4px;
-            margin-bottom: 0px;
-            padding-left: 20px;
-        }
-
-        .total-price, .promotion_saving {
-            border-top: 0;
-            font-weight: bold;
-        }
-
-        .shiping-price {
-            padding-bottom: 10px;
-            padding-top: 10px;
-        }
-
-        .btn-coupon {
-            display: block;
-            margin-bottom: 0;
-            padding-top: 11px;
-            padding: 5px 10px 0 0;
-            color: #0685DE;
-            text-align: left;
-            border-radius: 3px;
-        }
-
-            .btn-coupon span {
-                height: 29px;
-                display: inline-block;
-                vertical-align: middle;
-            }
-
-        .btn-arrow {
-            background: url('data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAALCAYAAABcUvyWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDOTBCRkQxRUQxNDkxMUU0QTczOUIyMkZFMzUzOTM4RiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDOTBCRkQxRkQxNDkxMUU0QTczOUIyMkZFMzUzOTM4RiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkM5MEJGRDFDRDE0OTExRTRBNzM5QjIyRkUzNTM5MzhGIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkM5MEJGRDFERDE0OTExRTRBNzM5QjIyRkUzNTM5MzhGIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Gt0nMwAAANNJREFUeNpiNGw/8P//p9er/v/5Fc7w7w8Dw98/DP///WVg+vv6QQaLnF4YAwNDBwMSYBa3DDj77+OLr6xKZo3/3j35ClR+jOH/fwYmqIKe3w8v9LOqWnYD2QkgARYk3UV/nlwVYVWznv/rxqFPTIzMbAyMnHwMjCCp3z/j/n1+y8Aiq7eWiQEV7GTiFmD4c++UF7LEchZFI7df1/YHAdnbYRITWeQNIn5dO5AMZK8HCYAkWllktPN+3z5aDmTPg2lnYuIVqvpz9/Q0ILsL2TKAAAMAHnVNPyeKq8wAAAAASUVORK5CYII=') no-repeat right;
-            background-position: 44% 46%;
-            -webkit-transition: all 0.1s ease;
-            -moz-transition: all 0.1s ease;
-            -o-transition: all 0.1s ease;
-            -ms-transition: all 0.1s ease;
-            transition: all 0.1s ease;
-            border: 1px solid #eee;
-            border-radius: 0;
-            border-left: 0;
-            border-right: 0;
-            border-bottom: 0;
-            padding: 10px 0;
-        }
-
-        .btn-coupon:hover {
-            color: #ef8742;
-            background: url('data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAALCAYAAABcUvyWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5QTlENEMyQ0QxNEExMUU0QjZBMThFMzM0NjEyNzExRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5QTlENEMyREQxNEExMUU0QjZBMThFMzM0NjEyNzExRCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjlBOUQ0QzJBRDE0QTExRTRCNkExOEUzMzQ2MTI3MTFEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjlBOUQ0QzJCRDE0QTExRTRCNkExOEUzMzQ2MTI3MTFEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5TDPzAAAAMFJREFUeNpifN/u9P/CH6nHBizP5BiQANOOH8pLgYKyh3/JH0eR8OC4G7Pnl/IWW7aHFnt+Km2GS4AIF7a7vkd/K5xzYb/ns+278hyQGAtMhTXrA+Ozf2XvenHeTd70TeUdI9ByBjTwH24UDFz/K/YGRG/4olgHN+r8H+mHhixPhTd9UewM4LnfDNZx7K/SBaCg3PZvivP9eO5XgI069EvxqBXzPf29PxW2eXLdT4KZALL8/4nfclcsWB/pItsHEGAA+i1MJofp7ZYAAAAASUVORK5CYII=') no-repeat right;
-            background-position: 45% 46%;
-            display: block;
-            -webkit-transition: all 0.1s ease;
-            -moz-transition: all 0.1s ease;
-            -o-transition: all 0.1s ease;
-            -ms-transition: all 0.1s ease;
-            transition: all 0.1s ease;
-        }
-
-        .total-checkout {
-            background: #f0f0f0;
-            padding: 10px;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            font-size: 16px;
-            text-transform: uppercase;
-            margin-left: -10px;
-            margin-right: -10px;
-            margin-bottom: -10px;
-            font-weight: 600;
-        }
-
-        .btn-checkout, .btn-submit-coupon, .continue-coupon, .cancel-coupon {
-            position: relative;
-            display: inline-block;
-            height: 45px;
-            line-height: 45px;
-            width: 354px;
-            text-transform: uppercase;
-            text-align: center;
-            margin: 20px 0;
-            border-radius: 3px;
-            font-family: sans-serif;
-            font-size: 22px;
-            /* line-height: 1.2em; */
-            font-weight: 400;
-            letter-spacing: 1px;
-            text-decoration: none;
-            background: #3498db;
-            color: white;
-            cursor: pointer;
-            border: 0;
-            outline: 0;
-            white-space: nowrap;
-        }
-
-            .btn-checkout:hover, .btn-submit-coupon:hover, .continue-coupon:hover {
-                background-color: #3498db;
-                color: #fff;
-                opacity: 0.8;
-            }
-
-        .error {
-            border: 1px dashed #f88d81 !important;
-            color: #F06455 !important;
-            display: block;
-            padding: 5px 7px;
-        }
-
-        .coupon-error {
-            margin-top: 10px;
-            padding: 5px;
-        }
-
-        .error.summary {
-            margin-top: 10px;
-            padding: 10px;
-            width: 300px;
-            display: none;
-        }
-
-        [aria-invalid="true"] {
-            border: 1px dashed #f88d81 !important;
-        }
-
-        input.error, select.error {
-            color: #000 !important;
-        }
-
-        .ctrl-city label {
-            background: #fff;
-            width: 50%;
-        }
-
-        .clearfix:after {
-            clear: both;
-            display: table;
-            content: '';
-        }
-
-        .h-shipping {
-            display: none;
-        }
-
-        .drop_shipping {
-            display: none;
-        }
-
-        .col-12 {
-            width: 100%;
-        }
-
-        .checkout-complete {
-            text-align: center;
-        }
-
-        .use-coupon {
-            display: none;
-        }
-
-        .couponcode {
-            width: auto;
-        }
-
-        .use-coupon .form-group {
-            display: table;
-            width: 100%;
-        }
-
-            .use-coupon .form-group input {
-                display: table-cell;
-                width: 100%;
-            }
-
-            .use-coupon .form-group:after {
-                clear: both;
-            }
-
-        .btn-submit-coupon, .continue-coupon, .cancel-coupon {
-            width: auto;
-            height: 32px;
-            float: right;
-            font-size: 13px;
-            padding: 0 7px;
-            line-height: 36px;
-        }
-
-        .cancel-coupon {
-            background: #ced7dc;
-            color: #666666;
-            margin-right: 10px;
-        }
-
-        .coupon {
-            display: none;
-            height: 35px;
-            line-height: 35px;
-            background: #F0F0F0;
-            margin-bottom: 11px;
-            text-align: center;
-            color: #4AB4F0;
-            font-weight: bold;
-        }
-
-            .coupon:after {
-                clear: both;
-            }
-
-        .remove-coupon {
-            background: #F06455;
-            display: inline-block;
-            padding: 0 10px;
-            color: #fff;
-            cursor: pointer;
-            float: left;
-        }
-
-        .coupon label {
-            float: right;
-            padding-right: 10px;
-        }
-
-        .step3 {
-            background: #ecf0f1;
-        }
-
-            .step3 h1 {
-                width: 660px;
-                font-size: 33px;
-            }
-
-        .checkout-complete .box-complete {
-            width: 660px;
-            background: #fff;
-            -moz-box-shadow: #ced7dc 0 4px, #eee 0 0px 5px;
-            -webkit-box-shadow: #ced7dc 0 4px, #eee 0 0px 5px;
-            box-shadow: #ced7dc 0 4px, #eee 0 0px 5px;
-            -moz-transform: translateY(-6px);
-            -ms-transform: translateY(-6px);
-            border-radius: 3px;
-            padding: 35px;
-            margin: auto;
-            text-align: left;
-            margin-top: 20px;
-        }
-
-        .box-complete .image_thumb {
-            width: 50px;
-            height: auto;
-            vertical-align: top;
-            display: inline-block;
-        }
-
-        .box-complete .cart-item {
-            padding-left: 20px;
-            border-top: 0;
-        }
-
-        .linkshopname {
-            color: #F06455;
-            font-size: 15px;
-        }
-
-        .box-complete .cart-items {
-            border: 0px;
-            margin-top: 0px;
-        }
-
-        .box-complete .payment_methol {
-            padding: 20px;
-            border-top: 1px dashed #7d8087;
-            border-bottom: 1px dashed #7d8087;
-        }
-
-            .box-complete .payment_methol span {
-                float: right;
-            }
-
-            .box-complete .payment_methol p:after {
-                clear: both;
-            }
-
-        .totalpayment {
-            color: #F06455;
-            font-size: 15px;
-        }
-
-        input[readonly] {
-            background: #FCFCFC;
-        }
-
-        .customSelect {
-            font-size: inherit;
-            margin: 0;
-            padding: 0.5em;
-            background-color: transparent;
-            color: #393939;
-            opacity: 1;
-            -moz-appearance: none;
-            border: 0 none;
-            border-radius: 0px;
-            border: 1px solid #B1B2B3;
-            padding-right: 2.5em;
-        }
-
-        .custom-dropdown {
-            display: inline-block;
-            position: relative;
-            vertical-align: middle;
-        }
-
-            .custom-dropdown:before, .custom-dropdown:after {
-                content: "";
-                pointer-events: none;
-                position: absolute;
-            }
-
-            .custom-dropdown select {
-                -webkit-appearance: none;
-            }
-
-            .custom-dropdown:after {
-                content: "▼";
-                font-size: 11px;
-                line-height: 1;
-                margin-top: -0.5em;
-                right: 8px;
-                top: 50%;
-                color: #FFFFFF;
-            }
-
-            .custom-dropdown:before {
-                bottom: 1px;
-                right: 1px;
-                border-radius: 0px 4px 4px 0px;
-                top: 1px;
-                width: 2em;
-                background-color: #BDC3C7;
-            }
-
-        .continue-coupon, .cancel-coupon {
-            display: none;
-        }
-
-        .btn-back {
-            color: #0082dd;
-            position: absolute;
-            left: 0;
-            font-size: 14px;
-            text-transform: capitalize;
-            height: 30px;
-            font-weight: 400;
-            line-height: 30px;
-            background: url(//hstatic.net/0/0/global/design/imgs/back-checkout.png) no-repeat center left;
-            vertical-align: bottom;
-            padding-left: 22px;
-            top: 16px;
-        }
-
-        .hide-shipping {
-            height: 0;
-            overflow: hidden;
         }
     </style>
 </head>
-<body>
 
-    <div class=" clearfix">
-        <span class="fbtracker-checkout-complete"></span>
-        <div class="checkout-complete col-12 ">
-            <div class="box-complete">
-                <h3>Oder Id: <strong>#@Model.OrderId</strong></h3>
-                <label>Product:</label>
-                <div class="cart-items">
-                    @if (list != null)
-                    {
-                        foreach (var item in list)
-                        {
-                    <div class="cart-item">
-                        <img class="image_thumb" src="~/Images/Upload/@Model.Folder/@item.ImageTitle">
-                        <b> X @item.Quantity </b>
-                        <span> @item.Product.ProductSize </span>
-                        <span> @item.Material.Details</span>  
-                          @{var options = AppSettingConstant.Options;}
+<body>
+    <table style="width: 600px; margin: 0 auto; font-family: Arial, sans-serif; font-size: 13px; color: #323232; background: #ffffff;" width="600" cellspacing="0" cellpadding="0" align="center">
+        <tbody>
+            <!-- ========== HEADER -start ========== -->
+            <!--Super Header -start-->
+            <!--Super Header -end-->
+            <!-- ========== HEADER -end ========== -->
+            <!-- ========== CONTENT -start ========== -->
+            <tr>
+                <td style="padding-top: 24px;" align="center">
+                    <h1>NEW ORDER</h1>
+                    <span style="display: block; width: 210px; text-align: center; font-family: Arial, sans-serif; font-size: 32px; font-size: 32px !important; font-weight: bold; color: #323232; padding: 9px 0px; border: 5px solid #00b1bb;">#@Model.OrderId</span>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="text-align: center;"><span style="display: block; font-family: Arial, sans-serif; font-size: 26px; font-size: 26px !important; color: #323232; text-align: center; padding: 30px 0 14px;">Order Details</span> <span style="display: inline-block; width: 70px; height: 1px; background: #d7d7d7; font-family: Arial, sans-serif; font-size: 1px; color: #323232; text-align: center; line-height: 1px; vertical-align: top;">&nbsp;</span></td>
+            </tr>
+
+            @if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    <tr>
+                        <td>
+                            <table width="560" cellpadding="0" cellspacing="0" align="center" style="width:560px; margin:0 auto; font-family:Open Sans, Arial, Helvetica, sans-serif;">
+                                <tbody>
+                                    <tr>
+                                        @{ var price = item.Product.ProductPrice + item.Material.Price;}
+
+                                        <td></td>
+                                        <td align="right" width="190" style="padding:12px 0;"><span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:18px; line-height:22px; color:#323232; font-weight:bold;">@price.Value.ToString("0,0") VNĐ</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" valign="top" style="padding:0 0 12px;"><img src="~/Images/Upload/@Model.Folder/@item.ImageTitle" alt="Product Image" style="display:block; width:280px; height:170px;"></td>
+                                        <td width="190" align="right" valign="top" style="padding:12px 0; line-height:24px;">
+                                            <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; text-align:right; color:#6f6f6f;">Size :</span> <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:14px; font-weight:100; color:#323232;"> @item.Product.ProductSize</span><br>
+
+                                            <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; text-align:right; color:#6f6f6f;">Material:</span> <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:14px; font-weight:100; color:#323232;">@item.Material.Details</span><br>
+
+                                            @{var options = AppSettingConstant.Options;}
                                             @for (int i = 1; i < options.Count + 1; i++)
                                             {
                                                 if (i == item.Option)
                                                 {
-                                                    <span  >@options[i - 1]</span><br>
+                                                    <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; text-align:right; color:#6f6f6f;">Options:</span> <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:14px; font-weight:100; color:#323232;">@options[i - 1]</span><br>
                                                 }
-                                            }  
-                        <span> @item.Quantity </span>
-                    </div>
-                        }
-                    }
-                        <div class="payment_methol">
-                            <p>
-                                <b>TOTAL:</b>
-                                <span class="totalpayment"> @Model.Total.ToString("0,0") VND</span>
-                            </p>
-                            <p>
-                                <b>Customer Name :
-                                </b>
-                                <span>  @(Model.Name != null ? Model.Name : string.Empty) </span>
-                            </p>
-                            <p>
-                                <b>Address :</b>
-                                <span>  @(Model.Address != null ? Model.Address : string.Empty) </span>
-                            </p>
-                          Phone Number                           <b>Phone Number:</b>
-                                <span> @(Model.Phone != null ? Model.Phone : string.Empty)</span>
-                            </p>
-                            <p>
-                                <b>Email:</b>
-                                <span> @Model.Mail </span>
-                            </p>
-                           
+                                            }
+                                            <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; text-align:right; color:#6f6f6f;">Quantity:</span> <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:14px; font-weight:100; color:#323232;">@item.Quantity</span><br>
+                                        </td>
+                                    </tr>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /end step3 -->
-        </div>
-    </body>
+                                    <tr>
+                                        <td colspan="2" style="font-size:1px; line-height:1px; border-top:1px solid #d7d7d7; padding:0 0 24px;">&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            }
+ 
+            <tr>
+                <td style="padding: 10px 0 0;">
+                    <table style="width: 560px; margin: 0 auto;" width="560px" cellspacing="0" cellpadding="0" align="center">
+                        <tbody>
+                            <tr>
+                                <td style="padding: 0 50px 20px 20px; font-family: Arial, sans-serif; font-size: 14px; font-size: 14px !important; color: #6f6f6f; line-height: 21px;">
+                                    <div style="font-family: Arial, sans-serif; font-size: 16px; font-size: 16px !important; color: #323232; font-weight: 600; padding-bottom: 4px; margin: 0;">Shipping Address</div>
+                                    @(Model.Name != null ? Model.Name : string.Empty)<br>
+                                    @(Model.Phone != null ? Model.Phone : string.Empty)
+                                    <br>@Model.Mail<br>@(Model.Address != null ? Model.Address : string.Empty)<br><br>
+
+                                    <div style="font-family: Arial, sans-serif; font-size: 16px; font-size: 16px !important; color: #323232; font-weight: 600; padding-bottom: 4px; margin: 0;">Payment Info</div>
+                                    @Model.CreditCard<br>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top;" width="280">
+                    <table style="border:5px solid #00b1bb;" width="100%" cellspacing="0" cellpadding="0" align="center">
+                        <tbody>
+                            <tr>
+                                <td style="padding:15px 20px 0">
+                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:left; padding:0 0 10px;">Items </td>
+                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:right; padding:0 0 10px;">@Model.Total.ToString("0,0") VNĐ</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:left; padding:0 0 10px;">Shipping</td>
+                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:right; padding:0 0 10px;">Free</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:0 20px 30px;">
+                                    <table width="100%" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-family: Arial, sans-serif; font-size: 18px; font-size: 18px !important; color: #323232; text-align: left; padding: 15px 0; font-weight: 600; border-top: 1px solid #d7d7d7; border-bottom: 1px solid #d7d7d7;">Order Total:</td>
+                                                <td style="font-family: Arial, sans-serif; font-size: 18px; font-size: 18px !important; color: #323232; text-align: right; padding: 15px 0; font-weight: 600; border-top: 1px solid #d7d7d7; border-bottom: 1px solid #d7d7d7;">@Model.Total.ToString("0,0") .VND</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+    <br>
+    <center>
+        <button type="button" class="btn btn-info btn-lg">View Order In Dashbroad.</button>
+    </center>
+    <center>
+        <br>
+        <br>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" id="canspamBarWrapper" style="background-color:#FFFFFF; border-top:1px solid #E5E5E5;">
+            <tbody>
+                <tr>
+                    <td align="center" valign="top" style="padding-top:20px; padding-bottom:20px;">
+                        <table border="0" cellpadding="0" cellspacing="0" id="canspamBar">
+                            <tbody>
+                                <tr>
+                                    <td align="center" valign="top" style="color:#606060; font-family:Helvetica, Arial, sans-serif; font-size:11px; line-height:150%; padding-right:20px; padding-bottom:5px; padding-left:20px; text-align:center;">
+                                        This email was sent to <a href="mailto:" target="_blank" style="color:#404040 !important;">XXXXX@XXXXX.XXX</a>
+                                        <br> Joybird | 6055 E. Washington Blvd. #490 | Commerce, CA 90040 | United States
+                                        <br>
+                                        <br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+</body>
 </html>

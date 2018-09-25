@@ -15,67 +15,54 @@
     <!--<![endif]-->
     <title>Order Detals</title>
     <style type="text/css">
-        body {
-            -webkit-text-size-adjust: 100% !important;
-            -ms-text-size-adjust: 100% !important;
-            -webkit-font-smoothing: antialiased !important;
-        }
-
-        img {
-            border: 0 !important;
-            outline: none !important;
-        }
-
-        p {
-            Margin: 0px !important;
-            padding: 0px !important;
-        }
-
-        table {
-            border-collapse: collapse;
-            mso-table-lspace: 0px;
-            mso-table-rspace: 0px;
-        }
-
-        td {
-            border-collapse: collapse;
-            mso-line-height-rule: exactly;
-        }
-
-        a {
-            border-collapse: collapse;
-            mso-line-height-rule: exactly;
-        }
-
-        span {
-            border-collapse: collapse;
-            mso-line-height-rule: exactly;
-        }
-
-        .ExternalClass * {
-            line-height: 100%;
-        }
-
-        span.MsoHyperlink {
-            mso-style-priority: 99;
-            color: inherit;
-        }
-
-        span.MsoHyperlinkFollowed {
-            mso-style-priority: 99;
-            color: inherit;
-        }
-
-        media and screen {
-            td
-
-        {
-            font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
-        }
-
-        a {
-            font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
-        }
+    body {
+      -webkit-text-size-adjust: 100% !important;
+      -ms-text-size-adjust: 100% !important;
+      -webkit-font-smoothing: antialiased !important;
+      }
+      img {
+      border: 0 !important;
+      outline: none !important;
+      }
+      p {
+      Margin: 0px !important;
+      padding: 0px !important;
+      }
+      table {
+      border-collapse: collapse;
+      mso-table-lspace: 0px;
+      mso-table-rspace: 0px;
+      }
+      td {
+      border-collapse: collapse;
+      mso-line-height-rule: exactly;
+      }
+      a {
+      border-collapse: collapse;
+      mso-line-height-rule: exactly;
+      }
+      span {
+      border-collapse: collapse;
+      mso-line-height-rule: exactly;
+      }
+      .ExternalClass * {
+      line-height: 100%;
+      }
+      span.MsoHyperlink {
+      mso-style-priority: 99;
+      color: inherit;
+      }
+      span.MsoHyperlinkFollowed {
+      mso-style-priority: 99;
+      color: inherit;
+      }
+        @@media and screen{
+            td{
+                font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+            }
+            a{
+                font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+            }
         }
     </style>
 </head>
@@ -89,8 +76,6 @@
             <!-- ========== HEADER -end ========== -->
             <!-- ========== CONTENT -start ========== -->
             <tr>
-                <!--                 <td style="padding-top: 24px;" align="center"><img src="https://i.imgur.com/GuOnyQf.png" alt="Your order has shipped" width="279" height="89"></td>
-                -->
                 <td style="padding-top: 24px;" align="center"><h1>TEAM SiX</h1></td>
             </tr>
             <tr>
@@ -98,8 +83,8 @@
                     <table style="width: 100%; margin: 0 auto; font-family: Arial, sans-serif;" width="100%" cellspacing="0" cellpadding="0" align="center">
                         <tbody>
                             <tr>
-
-                                <td style="padding: 15px 0px 30px 10px; border-bottom: 1px solid #d7d7d7;" align="center" valign="top"><span style="display: block; text-align: center; font-family: Arial, sans-serif; font-size: 14px; font-weight: 600; color: #6f6f6f; padding: 20px 0 5px;">ORDER ID</span> <span style="display: block; width: 210px; text-align: center; font-family: Arial, sans-serif; font-size: 32px; font-size: 32px !important; font-weight: bold; color: #323232; padding: 9px 0px; border: 5px solid #00b1bb;">#@Model.OrderId</span></td>
+                                <td style="padding: 15px 10px 30px 0px; border-bottom: 1px solid #d7d7d7;" align="left" valign="top" width="310"><span style="display: block; font-family: Arial, sans-serif; font-size: 18px; font-size: 18px !important; font-weight: 600; color: #323232;">Hello @Model.Name,<br>You have new order !</span> <span style="display: block; font-family: Arial, sans-serif; font-size: 14px; font-size: 14px !important; font-weight: 300; color: #323232; padding: 0;">We thought you'd like to know that your Joybird furniture is on its way!</span></td>
+                                <td style="padding: 15px 0px 30px 10px; border-bottom: 1px solid #d7d7d7;" align="center" valign="top"><span style="display: block; text-align: center; font-family: Arial, sans-serif; font-size: 14px; font-weight: 600; color: #6f6f6f; padding: 20px 0 5px;">Order ID:</span> <span style="display: block; width: 210px; text-align: center; font-family: Arial, sans-serif; font-size: 32px; font-size: 32px !important; font-weight: bold; color: #323232; padding: 9px 0px; border: 5px solid #00b1bb;">#@Model.OrderId</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -107,7 +92,7 @@
             </tr>
 
             <tr>
-                <td style="text-align: center;"><span style="display: block; font-family: Arial, sans-serif; font-size: 26px; font-size: 26px !important; color: #323232; text-align: center; padding: 30px 0 14px;">ORDER DETAILS</span> <span style="display: inline-block; width: 70px; height: 1px; background: #d7d7d7; font-family: Arial, sans-serif; font-size: 1px; color: #323232; text-align: center; line-height: 1px; vertical-align: top;">&nbsp;</span></td>
+                <td style="text-align: center;"><span style="display: block; font-family: Arial, sans-serif; font-size: 26px; font-size: 26px !important; color: #323232; text-align: center; padding: 30px 0 14px;">Shipment Details</span> <span style="display: inline-block; width: 70px; height: 1px; background: #d7d7d7; font-family: Arial, sans-serif; font-size: 1px; color: #323232; text-align: center; line-height: 1px; vertical-align: top;">&nbsp;</span></td>
             </tr>
 
             @if (list != null)
@@ -119,8 +104,11 @@
                             <table width="560" cellpadding="0" cellspacing="0" align="center" style="width:560px; margin:0 auto; font-family:Open Sans, Arial, Helvetica, sans-serif;">
                                 <tbody>
                                     <tr>
-                                        @*<td align="left" style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:left; font-weight:400; padding:12px 0;">(@i) @item.Name</td>*@
-                                        @{ var price = item.Product.ProductPrice + item.Material.Price;}
+                                        @{ var price = (item.Product.ProductPrice + item.Material.Price)*item.Quantity;
+                                            var total = list.Sum(o=>(o.Product.ProductPrice + o.Material.Price) * o.Quantity);
+                                            }
+
+                                        <td></td>
                                         <td align="right" width="190" style="padding:12px 0;"><span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:18px; line-height:22px; color:#323232; font-weight:bold;">@price.Value.ToString("0,0") VNĐ</span></td>
                                     </tr>
                                     <tr>
@@ -151,18 +139,20 @@
                     </tr>
                 }
             }
+
             <tr>
                 <td style="padding: 10px 0 0;">
                     <table style="width: 560px; margin: 0 auto;" width="560px" cellspacing="0" cellpadding="0" align="center">
                         <tbody>
                             <tr>
                                 <td style="padding: 0 50px 20px 20px; font-family: Arial, sans-serif; font-size: 14px; font-size: 14px !important; color: #6f6f6f; line-height: 21px;">
-                                    <div style="font-family: Arial, sans-serif; font-size: 16px; font-size: 16px !important; color: #323232; font-weight: 600; padding-bottom: 4px; margin: 0;">SHIPPING ADDRESS</div><br>
+                                    <div style="font-family: Arial, sans-serif; font-size: 16px; font-size: 16px !important; color: #323232; font-weight: 600; padding-bottom: 4px; margin: 0;">Shipping Address</div>
+                                    @(Model.Name != null ? Model.Name : string.Empty)<br>
+                                    @(Model.Phone != null ? Model.Phone : string.Empty)<br>
+                                    @(Model.Address != null ? Model.Address : string.Empty)<br><br>
 
-                                    <div style="font-family: Arial, sans-serif; font-size: 16px; font-size: 16px !important; color: #323232; padding-bottom: 4px; margin: 0;">  @(Model.Name != null ? Model.Name : string.Empty)</div><br>
-                                    <div style="font-family: Arial, sans-serif; font-size: 16px; font-size: 16px !important; color: #323232; padding-bottom: 4px; margin: 0;"> @(Model.Phone != null ? Model.Phone : string.Empty)</div><br>
-                                    <div style="font-family: Arial, sans-serif; font-size: 16px; font-size: 16px !important; color: #323232; padding-bottom: 4px; margin: 0;"> @(Model.Address != null ? Model.Address : string.Empty)</div><br><br><br><br>
-                                    <br>
+                                    <div style="font-family: Arial, sans-serif; font-size: 16px; font-size: 16px !important; color: #323232; font-weight: 600; padding-bottom: 4px; margin: 0;">Payment Info</div>**** **** ****
+                                    @Model.CreditCard.Substring(12,4)<br>
                                 </td>
                                 <td style="vertical-align: top;" width="280">
                                     <table style="border:5px solid #00b1bb;" width="100%" cellspacing="0" cellpadding="0" align="center">
@@ -172,12 +162,12 @@
                                                     <table width="100%" cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                             <tr>
-                                                                <!--    <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:left; padding:0 0 10px;">Số lượng sản phẩm:  </td> -->
-                                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:right; padding:0 0 10px;"></td>
+                                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:left; padding:0 0 10px;">Items </td>
+                                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:right; padding:0 0 10px;">@Model.Total.ToString("0,0") VNĐ</td>
                                                             </tr>
                                                             <tr>
-                                                                <!-- <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:left; padding:0 0 10px;">Ship</td>
-                                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:right; padding:0 0 10px;">Liên hệ</td> -->
+                                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:left; padding:0 0 10px;">Shipping</td>
+                                                                <td style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:16px; color:#323232; text-align:right; padding:0 0 10px;">Free</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -188,27 +178,21 @@
                                                     <table width="100%" cellspacing="0" cellpadding="0">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="font-family: Arial, sans-serif; font-size: 18px; font-size: 18px !important; color: #323232; text-align: left; padding: 15px 0; font-weight: 600; border-top: 1px solid #d7d7d7; border-bottom: 1px solid #d7d7d7;">TOTAL</td>
+                                                                <td style="font-family: Arial, sans-serif; font-size: 18px; font-size: 18px !important; color: #323232; text-align: left; padding: 15px 0; font-weight: 600; border-top: 1px solid #d7d7d7; border-bottom: 1px solid #d7d7d7;">Order Total:</td>
                                                                 <td style="font-family: Arial, sans-serif; font-size: 18px; font-size: 18px !important; color: #323232; text-align: right; padding: 15px 0; font-weight: 600; border-top: 1px solid #d7d7d7; border-bottom: 1px solid #d7d7d7;">@Model.Total.ToString("0,0") .VND</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </td>
                                             </tr>
-                                            <!--  -->
-                                            <!--  -->
+                                           
                                         </tbody>
                                     </table>
                                 </td>
                             </tr>
-                            <br />
-                            <br />
-                            <br />
                             <!--  -->
                             <tr>
-                                <td style="font-family: Arial, sans-serif; font-size: 13px; font-size: 13px !important; color: #6f6f6f; font-weight: 100; padding-top: 7px;" colspan="2" align="center">
-                                    Thank you for your order, we will contact you !
-                                </td>
+                                <td style="font-family: Arial, sans-serif; font-size: 13px; font-size: 13px !important; color: #6f6f6f; font-weight: 100; padding-top: 7px;" colspan="2" align="center">*Please note dates provided are an estimate and may vary up to 7 business days.</td>
                             </tr>
                             <!--  -->
                         </tbody>
@@ -216,15 +200,13 @@
                 </td>
             </tr>
 
-            <!--  -->
-            <!--  -->
             <!--=== FOOTER SECTION === -->
             <tr>
                 <td style="padding: 70px 20px 20px;" valign="top">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
                         <tbody>
                             <tr>
-                                <td style="font-family: Arial, sans-serif; font-size: 14px; font-size: 14px !important; line-height: 20px; color: #386f7c; font-weight: 600;" align="center" valign="top">Kết nối với chúng tôi</td>
+                                <td style="font-family: Arial, sans-serif; font-size: 14px; font-size: 14px !important; line-height: 20px; color: #386f7c; font-weight: 600;" align="center" valign="top">CONNECT.LIKE.SHARE</td>
                             </tr>
                             <tr>
                                 <td height="25">&nbsp;</td>
@@ -235,19 +217,31 @@
                                         <tbody>
                                             <tr>
                                                 <td align="center" valign="top" width="58">
-                                                    <a style="text-decoration: none; color: #000000;" href="" target="_blank"> <img style="display: block; border: none; font-family: Arial, sans-serif; font-size: 14px; line-height: 19px; color: #000000; font-weight: 600; text-decoration: none;" src="http://wac.659b.edgecastcdn.net/00659B/Joybird/2015/December/After_Christmas_Sale_Starts/ico-gray-facebook.png" alt="Facebook" width="58" height="58"> </a>
+                                                    <a style="text-decoration: none; color: #000000;" href="https://www.facebook.com/wearejoybird" target="_blank">
+                                                        <img style="display: block; border: none; font-family: Arial, sans-serif; font-size: 14px; line-height: 19px; color: #000000; font-weight: 600; text-decoration: none;" src="http://wac.659b.edgecastcdn.net/00659B/Joybird/2015/December/After_Christmas_Sale_Starts/ico-gray-facebook.png"
+                                                             alt="Facebook" width="58" height="58">
+                                                    </a>
                                                 </td>
                                                 <td width="14">&nbsp;</td>
                                                 <td align="center" valign="top" width="58">
-                                                    <a style="text-decoration: none; color: #000000;" href="" target="_blank"> <img style="display: block; border: none; font-family: Arial, sans-serif; font-size: 14px; line-height: 19px; color: #000000; font-weight: 600; text-decoration: none;" src="http://wac.659b.edgecastcdn.net/00659B/Joybird/2015/December/After_Christmas_Sale_Starts/ico-gray-instagram.png" alt="Instagram" width="58" height="58"> </a>
+                                                    <a style="text-decoration: none; color: #000000;" href="https://www.instagram.com/wearejoybird/" target="_blank">
+                                                        <img style="display: block; border: none; font-family: Arial, sans-serif; font-size: 14px; line-height: 19px; color: #000000; font-weight: 600; text-decoration: none;" src="http://wac.659b.edgecastcdn.net/00659B/Joybird/2015/December/After_Christmas_Sale_Starts/ico-gray-instagram.png"
+                                                             alt="Instagram" width="58" height="58">
+                                                    </a>
                                                 </td>
                                                 <td width="14">&nbsp;</td>
                                                 <td align="center" valign="top" width="58">
-                                                    <a style="text-decoration: none; color: #000000;" href="" target="_blank"> <img style="display: block; border: none; font-family: Arial, sans-serif; font-size: 14px; line-height: 19px; color: #000000; font-weight: 600; text-decoration: none;" src="http://wac.659b.edgecastcdn.net/00659B/Joybird/2015/December/After_Christmas_Sale_Starts/ico-gray-twitter.png" alt="Twitter" width="58" height="58"> </a>
+                                                    <a style="text-decoration: none; color: #000000;" href="https://twitter.com/wearejoybird" target="_blank">
+                                                        <img style="display: block; border: none; font-family: Arial, sans-serif; font-size: 14px; line-height: 19px; color: #000000; font-weight: 600; text-decoration: none;" src="http://wac.659b.edgecastcdn.net/00659B/Joybird/2015/December/After_Christmas_Sale_Starts/ico-gray-twitter.png"
+                                                             alt="Twitter" width="58" height="58">
+                                                    </a>
                                                 </td>
                                                 <td width="14">&nbsp;</td>
                                                 <td align="center" valign="top" width="58">
-                                                    <a style="text-decoration: none; color: #000000;" href="" target="_blank"> <img style="display: block; border: none; font-family: Arial, sans-serif; font-size: 14px; line-height: 19px; color: #000000; font-weight: 600; text-decoration: none;" src="http://wac.659b.edgecastcdn.net/00659B/Joybird/2015/December/After_Christmas_Sale_Starts/ico-gray-pinterest.png" alt="Pinterest" width="58" height="58"> </a>
+                                                    <a style="text-decoration: none; color: #000000;" href="https://www.pinterest.com/joybird/" target="_blank">
+                                                        <img style="display: block; border: none; font-family: Arial, sans-serif; font-size: 14px; line-height: 19px; color: #000000; font-weight: 600; text-decoration: none;" src="http://wac.659b.edgecastcdn.net/00659B/Joybird/2015/December/After_Christmas_Sale_Starts/ico-gray-pinterest.png"
+                                                             alt="Pinterest" width="58" height="58">
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -272,8 +266,8 @@
                             <tbody>
                                 <tr>
                                     <td align="center" valign="top" style="color:#606060; font-family:Helvetica, Arial, sans-serif; font-size:11px; line-height:150%; padding-right:20px; padding-bottom:5px; padding-left:20px; text-align:center;">
-                                       MAIL AUTOMATIC ! NOT REPLY <a href="mailto:" target="_blank" style="color:#404040 !important;"></a>
-                                        <br>
+                                        This email was sent to <a href="mailto:" target="_blank" style="color:#404040 !important;">#</a>
+                                        <br> Joybird | 6055 E. Washington Blvd. #490 | Commerce, CA 90040 | United States
                                         <br>
                                         <br>
                                     </td>
@@ -286,4 +280,3 @@
         </table>
     </center>
 </body>
-</html>
