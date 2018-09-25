@@ -4,6 +4,7 @@ using Helpers;
 using Services;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -202,9 +203,19 @@ namespace WEB.Controllers
                                         var addressDetails = _addressRepository.Find(a => a.AddressId == orderSession.AddressId);
                                         MailOrder model = new MailOrder(cart, transac.OrderId, user.Email, addressDetails.AddressDetails, user.Customer.CustomerName, card.CreditNumber,transac.FolderImage, amount.Value,transac.PhoneNumber);
                                         var body = ViewToString.RenderRazorViewToString(this, "MailOrder", model);
+                                        var bodyAdmin = ViewToString.RenderRazorViewToString(this, "MailBackAdmin", model);
+                                        string mailAdmin = ConfigurationManager.AppSettings["mailadmin"];
                                         Task.Factory.StartNew((() =>
                                         {
+                                            SendEmail.Send(mailAdmin, bodyAdmin, "New order notification!");
+
+ 
+                                        }));
+                                        Task.Factory.StartNew((() =>
+                                        {
+
                                             SendEmail.Send(user.Email, body, "Your order information!");
+
                                         }));
                                         return Json(new { status = true, message }, JsonRequestBehavior.AllowGet);
                                     }

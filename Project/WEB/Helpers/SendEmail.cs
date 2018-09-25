@@ -17,12 +17,10 @@ namespace WEB.Helpers
             string mail = ConfigurationManager.AppSettings["mail"];
             string password = ConfigurationManager.AppSettings["password"];
             int port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
-            mailbody = HttpUtility.HtmlDecode(mailbody);
             MailMessage message = new MailMessage(mail, to)
             {
                 Subject = subject,
                 Body = mailbody,
-                BodyEncoding = Encoding.UTF8,
                 IsBodyHtml = true
             };
             SmtpClient client = new SmtpClient(smtp, port); 

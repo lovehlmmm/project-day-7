@@ -2906,6 +2906,7 @@
     <Content Include="Views\PaymentCheckOut\ModalCredit.cshtml" />
     <Content Include="Views\PaymentCheckOut\CardPartial.cshtml" />
     <Content Include="Views\PaymentCheckOut\MailOrder.cshtml" />
+    <Content Include="Views\PaymentCheckOut\MailBackAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
