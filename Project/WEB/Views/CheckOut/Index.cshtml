@@ -77,14 +77,6 @@
 @section script{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
     <script src="~/Scripts/checkOut.js"></script>
-    <script>
-       $(document).ready(function () {
-           $('#paymentcheckout').click(function () {
-    var phone = $('.showPhone').text();
-    @TempData["phone"] = phone;
-       })
-       })
-    </script>
 }
 <!-- Preloader section
 ================================================== -->
@@ -271,7 +263,7 @@
                     <h4> <strong>@total.ToString("0,0")</strong>  </h4>
                 </li>
             </ul>
-            <a href="#" id="paymentcheckout" class="btn btn-success btn-lg" style="float:right">Confirm Checkout <i class="fa fa-angle-right"></i></a>
+            <a id="paymentcheckout" class="btn btn-success btn-lg" style="float:right;cursor:pointer">Confirm Checkout <i class="fa fa-angle-right"></i></a>
         </div>
     </div>
 </div>

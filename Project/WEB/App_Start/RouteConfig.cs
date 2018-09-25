@@ -28,6 +28,11 @@ namespace WEB
                 defaults: new { controller = "LoginUser", action = "Logout", id = UrlParameter.Optional }
             );
             routes.MapRoute(
+                name: "OrderDetails",
+                url: "order/{id}",
+                defaults: new { controller = "OrderDetails", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
                 name: "Info",
                 url: "info",
                 defaults: new { controller = "UserInfo", action = "Index", id = UrlParameter.Optional }

@@ -156,7 +156,10 @@ function AddCreditCard(data) {
         if (result.status) {
             $('#modaladdcredit').modal('hide');
             GetCredit(result.card);
-
+            $form.find('.subscribe').html('Add Credit Card').prop('disabled', true);
+            $('input[name=cardNumber]').val("");
+            $('input[name=cardCVC]').val("");
+            $('input[name=cardExpiry').val(""); 
         } else {
             swal("Error", result.message, "error");
         }
@@ -175,7 +178,7 @@ function GetCredit(data) {
         $('#showCredit').click(function () {
             GetModalCredit();
         });
-        clickCheckOut()
+        clickCheckOut();
         $('.creditDetails').text(data.CreditNumber);
         $('.creditDetails').data('id', data.CreditCardId);
         $('.creditEx').text(data.Expire);
@@ -221,7 +224,7 @@ function ConfirmPayment(id) {
             swal("OK! Payment success  !", {
                 icon: "success"
             });
-
+            window.location.replace("/order/" + result.OrderId);
         } else {
             $('#loading').hide();
             swal("Error", result.message, "error");

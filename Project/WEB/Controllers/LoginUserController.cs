@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using  System.Web.Routing;
+using System.Web.Routing;
 using System.Web.Mvc;
 using Constants;
 using Helpers;
@@ -39,21 +39,22 @@ namespace WEB.Controllers
                 if (checkUser != null)
                 {
                     if (!checkUser.Role.Equals(UserRole.Customer)) return Json(new { status = false });
-                    if (checkUser.Status==Status.Inactive)
+                    if (checkUser.Status == Status.Inactive)
                     {
                         message = "Account is not verify email!";
                     }
-                    else {
+                    else
+                    {
                         UserLoginCookie loginCookie = new UserLoginCookie();
                         loginCookie.Username = checkUser.Username;
                         loginCookie.CustomerName = checkUser.Customer.CustomerName;
-                        var cookie = CookieHelper.Create(AppSettingConstant.LoginCookieCustomer,Server.UrlEncode(JsonConvert.SerializeObject(loginCookie, Formatting.Indented)),DateTime.Now.AddDays(1));
+                        var cookie = CookieHelper.Create(AppSettingConstant.LoginCookieCustomer, Server.UrlEncode(JsonConvert.SerializeObject(loginCookie, Formatting.Indented)), DateTime.Now.AddDays(1));
                         Response.Cookies.Add(cookie);
-                        UserSession userSession = new UserSession(checkUser.Username,checkUser.Role);
-                        SessionHelper.SetSession(userSession,AppSettingConstant.LoginSessionCustomer);
+                        UserSession userSession = new UserSession(checkUser.Username, checkUser.Role);
+                        SessionHelper.SetSession(userSession, AppSettingConstant.LoginSessionCustomer);
                         status = true;
                     }
-                    
+
                 }
                 else
                 {
@@ -64,7 +65,7 @@ namespace WEB.Controllers
             {
                 Console.WriteLine(e);
             }
-            return Json(new { status = status,message,url = url}, JsonRequestBehavior.AllowGet);
+            return Json(new { status = status, message, url = url }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ConfirmSuccess()
@@ -81,23 +82,13 @@ namespace WEB.Controllers
             {
                 Console.WriteLine(e);
             }
-            
+
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Logout()
         {
-            try
-                {
-                    var checkSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer);
-                    if (checkSession != null)
-                    {
-                        SessionHelper.Delete(AppSettingConstant.LoginSessionCustomer);
-                    }
-                }
-                catch (Exception)
-                {
-                }
-                return RedirectToAction("index", "home");
+            Session.RemoveAll();
+            return RedirectToAction("index", "home");
         }
 
     }

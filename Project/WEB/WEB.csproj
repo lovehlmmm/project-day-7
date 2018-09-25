@@ -2400,6 +2400,7 @@
     <Content Include="Assets\js\jquery-1.9.1.min.js" />
     <Content Include="Assets\js\jquery.backstretch.min.js" />
     <Content Include="Assets\js\jquery.gritter.min.js" />
+    <Content Include="Assets\js\jquery2.js" />
     <Content Include="Assets\js\jquery.js" />
     <Content Include="Assets\js\jquery.parallax.js" />
     <Content Include="Assets\js\jquery.sticky.js" />
@@ -2862,6 +2863,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy1.pubxml" />
+    <None Include="Properties\PublishProfiles\photoprinting - Web Deploy2.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\cart.js" />
     <Content Include="Scripts\checkOut.js" />

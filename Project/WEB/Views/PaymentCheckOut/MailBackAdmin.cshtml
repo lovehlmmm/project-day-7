@@ -110,7 +110,7 @@
                                         <td align="right" width="190" style="padding:12px 0;"><span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:18px; line-height:22px; color:#323232; font-weight:bold;">@price.Value.ToString("0,0") VNĐ</span></td>
                                     </tr>
                                     <tr>
-                                        <td align="left" valign="top" style="padding:0 0 12px;"><img src="~/Images/Upload/@Model.Folder/@item.ImageTitle" alt="Product Image" style="display:block; width:280px; height:170px;"></td>
+                                        <td align="left" valign="top" style="padding:0 0 12px;"><img src="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)/Images/Upload/@Model.Folder/@item.ImageTitle" alt="Product Image" style="display:block; width:280px; height:170px;"></td>
                                         <td width="190" align="right" valign="top" style="padding:12px 0; line-height:24px;">
                                             <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold; text-align:right; color:#6f6f6f;">Size :</span> <span style="font-family:Open Sans, Arial, Helvetica, sans-serif; font-size:14px; font-weight:100; color:#323232;"> @item.Product.ProductSize</span><br>
 

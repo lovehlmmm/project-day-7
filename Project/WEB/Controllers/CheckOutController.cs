@@ -68,7 +68,7 @@ namespace WEB.Controllers
             return PartialView("~/Views/CheckOut/ModalAddAddressPartial.cshtml");
 
         }
-
+        [AllowAnonymous]
         public JsonResult Confirm(long addressId, string phone)
         {
             if (addressId == 0 | phone == null)
