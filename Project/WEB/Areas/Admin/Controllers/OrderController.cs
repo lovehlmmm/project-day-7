@@ -37,12 +37,13 @@ namespace WEB.Areas.Admin.Controllers
                 {
                     o.OrderId,
                     o.Customer.CustomerName,
-                    Total = (o.OrderDetails?.Sum(od =>  od?.Quantity * od?.Product.ProductPrice)),
+                    Total = (o.OrderDetails?.Sum(od =>  od?.Quantity * (od?.Product.ProductPrice+od?.Material.Price))),
                     o.Status,
                     o.PhoneNumber,
                     o.Address?.AddressDetails,
                     o.CreatedAt,
-                    o.ModifiedAt
+                    o.ModifiedAt,
+                    o.FolderImage
                 }).ToList();
                 return Json(new { status = true, data = list2, totalPage = totalPage }, JsonRequestBehavior.AllowGet);
             }

@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public interface IBankService
+    public interface IOrderService
     {
-        BankCreditCard CheckCard(string number, string expire, string cvc);
-        bool Transaction(string number,decimal amount);
+        bool TransactionPayment(Order order, IEnumerable<OrderDetail> orderDetails, BankCreditCard bankCreditCard);
     }
 }

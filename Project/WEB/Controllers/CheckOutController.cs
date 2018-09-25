@@ -21,7 +21,7 @@ namespace WEB.Controllers
         private readonly IBaseService<User> _userRepository;
 
 
-        public CheckOutController(IBaseService<Product> productRepository, IBaseService<Material> materialRepository , IBaseService<Address> addressRepository, IBaseService<User> userRepository)
+        public CheckOutController(IBaseService<Product> productRepository, IBaseService<Material> materialRepository, IBaseService<Address> addressRepository, IBaseService<User> userRepository)
         {
             _productRepository = productRepository;
             _materialRepository = materialRepository;
@@ -32,20 +32,20 @@ namespace WEB.Controllers
         public ActionResult Index()
         {
             UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
-           
-            if (userSession!=null)
+
+            if (userSession != null)
             {
                 var user = _userRepository.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username));
-                if (user!=null)
+                if (user != null)
                 {
                     var cart = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;
                     ViewBag.Cart = cart;
                     ViewBag.User = user;
                     return View();
                 }
-               
+
             }
-                 return Redirect("/home");
+            return Redirect("/home");
         }
 
         public ActionResult GetModalAddress()
@@ -71,7 +71,7 @@ namespace WEB.Controllers
 
         public JsonResult Confirm(long addressId, string phone)
         {
-            if (addressId==0|phone==null)
+            if (addressId == 0 | phone == null)
             {
                 return Json(new { status = false }, JsonRequestBehavior.AllowGet);
             }
@@ -82,53 +82,24 @@ namespace WEB.Controllers
                 if (user != null)
                 {
                     var address = _addressRepository.Find(a => a.AddressId.Equals(addressId));
-                    if (address!=null)
+                    if (address != null)
                     {
                         CheckOut checkOut = new CheckOut();
                         checkOut.Address = address;
                         checkOut.PhoneNumber = phone;
                         TempData["checkout"] = checkOut;
+                        Order order = new Order();
+                        order.AddressId = address.AddressId;
+                        order.PhoneNumber = phone;
+                        SessionHelper.SetSession(order, AppSettingConstant.CheckOutSession);
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
                 }
 
             }
-            return Json(new { status=false},JsonRequestBehavior.AllowGet);
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
-        //public JsonResult Confirm()
-        //{
-        //    try
-        //    {
-        //        var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer);
-        //        if (userSession == null)
-        //        {
-        //            return Json(new { status = false });
-        //        }
-        //        var cartSession = SessionHelper.GetSession(AppSettingConstant.CartSession);
-        //        if (cartSession != null)
-        //        {
-        //            var user = userSession as UserSession;
-        //            String path = Server.MapPath(string.Format("~/Images/Upload/{0}/{1}", user.Username, DateTime.Now.ToString())); //Path
 
-        //            //Check if directory exist
-        //            if (!System.IO.Directory.Exists(path))
-        //            {
-        //                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
-        //            }
-        //            foreach (var item in cartSession as List<CartItem>)
-        //            {
-        //                string imgPath = Path.Combine(path, item.ImageTitle);
-        //                byte[] imageBytes = Convert.FromBase64String(item.Image);
-        //                System.IO.File.WriteAllBytes(imgPath, imageBytes);
-        //            }
-        //        }
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //    }
-        //    return Json(new { status = false });
-        //}
         //public ActionResult ConfirmTest()
         //{
         //    try
@@ -180,7 +151,7 @@ namespace WEB.Controllers
                     obj.CreatedAt = DateTime.Now;
                     obj.Status = Status.Active;
                     var result = await _addressRepository.AddAsync(obj);
-                    if (result!=null)
+                    if (result != null)
                     {
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
@@ -199,10 +170,10 @@ namespace WEB.Controllers
                     var user = _userRepository.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username));
                     if (user != null)
                     {
-                        var address = user.Customer.Addresses.SingleOrDefault(a => a.CustomerId == user.CustomerId & a.AddressId==id);
+                        var address = user.Customer.Addresses.SingleOrDefault(a => a.CustomerId == user.CustomerId & a.AddressId == id);
                         if (address != null)
                         {
-                            return Json(new { status = true, address=new {address.AddressDetails,address.AddressId}}, JsonRequestBehavior.AllowGet);
+                            return Json(new { status = true, address = new { address.AddressDetails, address.AddressId } }, JsonRequestBehavior.AllowGet);
                         }
                     }
 

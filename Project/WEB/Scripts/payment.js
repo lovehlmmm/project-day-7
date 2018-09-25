@@ -156,7 +156,7 @@ function AddCreditCard(data) {
         if (result.status) {
             $('#modaladdcredit').modal('hide');
             GetCredit(result.card);
-            
+
         } else {
             swal("Error", result.message, "error");
         }
@@ -175,6 +175,7 @@ function GetCredit(data) {
         $('#showCredit').click(function () {
             GetModalCredit();
         });
+        clickCheckOut()
         $('.creditDetails').text(data.CreditNumber);
         $('.creditDetails').data('id', data.CreditCardId);
         $('.creditEx').text(data.Expire);
@@ -183,19 +184,48 @@ function GetCredit(data) {
     });
 }
 
-$('#checkout').click(function () {
-    swal({
-        title: "Are you sure?",
-        text: "Make sure your shipping address and payment method are secure.!",
-        icon: "success",
-        buttons: true,
-        dangerMode: true,
+function clickCheckOut() {
+    $('#checkout').click(function () {
+        var id = $('.creditDetails').data('id');
+        swal({
+            title: "Are you sure?",
+            text: "Make sure your shipping address and payment method are secure.!",
+            icon: "success",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willCheckout) => {
+                if (willCheckout) {
+                    $('#loading').show();
+                    ConfirmPayment(id);
+                }
+            });
     })
-        .then((willCheckout) => {
-            if (willCheckout) {
-                swal("OK! Checkout success  !", {
-                    icon: "success",
-                });
-            } 
-        });
-})
+
+}
+
+
+function ConfirmPayment(id) {
+    var data = new FormData();
+    data.append('id', id);
+    $.ajax({
+        url: '/PaymentCheckOut/Payment',
+        type: 'POST',
+        async: false,
+        data: data,
+        processData: false,
+        contentType: false
+    }).success(function (result) {
+        if (result.status) {
+            $('#loading').hide();
+            swal("OK! Payment success  !", {
+                icon: "success"
+            });
+
+        } else {
+            $('#loading').hide();
+            swal("Error", result.message, "error");
+        }
+    }).error(function (xhr, status) {
+    });
+}

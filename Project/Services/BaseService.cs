@@ -72,5 +72,10 @@ namespace Services
         {
             return _baseRepository.FindAll(match);
         }
+
+        public IEnumerable<TObject> AddAll(IEnumerable<TObject> tlist)
+        {
+            return _baseRepository.AddAll(tlist);
+        }
     }
 }

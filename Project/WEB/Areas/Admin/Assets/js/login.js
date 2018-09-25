@@ -17,6 +17,7 @@ $("#login_form").submit(function () {
                 $('#loading').hide();
                 window.location = data.url;
             } else {
+                $('#loading').hide();
                 swal({
                     type: 'error',
                     title: 'Login Fail',

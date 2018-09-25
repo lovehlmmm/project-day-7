@@ -61,7 +61,7 @@
                                             var result = new
                                             {
 
-                                                OrderDetails = order.OrderDetails.Select(od => new { od.Product.ProductName, od.OrderDetailsId, od.Quantity, od.Product.ProductPrice, od.Image, Total = od.Quantity * od.Product.ProductPrice }).ToList()
+                                                OrderDetails = order.OrderDetails.Select(od => new { od.Product.ProductName, od.OrderDetailsId, od.Quantity, od.Product.ProductPrice, od.Image, Total = od.Quantity * (od.Product.ProductPrice+od.Material.Price) }).ToList()
                                             };
                                             foreach (var item in result.OrderDetails)
                                             {

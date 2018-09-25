@@ -96,6 +96,7 @@ function sizeRow(data) {
     html += '<td>' + data.CustomerName + '</td>';
     html += '<td>' + data.PhoneNumber + '</td>';
     html += '<td>' + data.AddressDetails + '</td>';
+    html += '<td>' + data.FolderImage + '</td>';    
     html += '<td>' + data.Total + '</td>';
     html += '<td>' + data.Status + '</td>';
     html += '<td>' + created + '</td>';

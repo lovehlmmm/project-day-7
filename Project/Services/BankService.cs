@@ -13,10 +13,10 @@ namespace Services
         {
             _bankContext = new BankContext();
         }
-        public bool CheckCard(string number, string expire, string cvc)
+        public BankCreditCard CheckCard(string number, string expire, string cvc)
         {
             var check=_bankContext.BankCreditCards.SingleOrDefault(c => c.CVC.Equals(cvc) & c.Expire.Equals(expire) & c.CreditNumber.Equals(number));
-            return check != null;
+            return check;
         }
 
         public bool Transaction(string number,decimal amount)

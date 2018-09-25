@@ -20,5 +20,6 @@ namespace Services
         ICollection<TObject> GetAll(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match);
         TObject Find(Expression<Func<TObject, bool>> match);
         ICollection<TObject> FindAll(Expression<Func<TObject, bool>> match);
+        IEnumerable<TObject> AddAll(IEnumerable<TObject> tlist);
     }
 }
