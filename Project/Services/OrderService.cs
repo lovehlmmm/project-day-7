@@ -13,7 +13,7 @@ namespace Services
         public OrderService()
         {
         }
-        public bool TransactionPayment(Order order, IEnumerable<OrderDetail> orderDetails, BankCreditCard bankCreditCard)
+        public Order TransactionPayment(Order order, IEnumerable<OrderDetail> orderDetails, BankCreditCard bankCreditCard)
         {
             try
             {
@@ -24,11 +24,12 @@ namespace Services
                     {
                         try
                         {
+                            Order orderAdded;
                             bankContext.Entry(bankCreditCard).State = System.Data.Entity.EntityState.Modified;
                             bankContext.SaveChanges();
                             using (var pOPContext = new POPContext())
                             {
-                                pOPContext.Orders.Add(order);
+                                orderAdded =pOPContext.Orders.Add(order);
                                 pOPContext.SaveChanges();
                                 foreach (var item in orderDetails)
                                 {
@@ -40,7 +41,7 @@ namespace Services
                                 pOPContext.SaveChanges();
                             }
                             transaction.Commit();
-                            return true;
+                            return orderAdded;
                         }
                         catch (Exception)
                         {
@@ -53,7 +54,7 @@ namespace Services
             {
 
             }
-            return false;
+            return null;
         }
     }
 }

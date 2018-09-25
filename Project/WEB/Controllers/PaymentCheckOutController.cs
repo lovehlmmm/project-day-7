@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using WEB.Helpers;
 using WEB.Models;
 
 namespace WEB.Controllers
@@ -195,8 +197,15 @@ namespace WEB.Controllers
                                     orderSession.CustomerId = user.CustomerId;
                                     orderSession.FolderImage = extenPath;
                                     var transac = _orderServiceTrans.TransactionPayment(orderSession, orderDetails, bankCredit);
-                                    if (transac)
+                                    if (transac!=null)
                                     {
+                                        var addressDetails = _addressRepository.Find(a => a.AddressId == orderSession.AddressId);
+                                        MailOrder model = new MailOrder(cart, transac.OrderId, user.Email, addressDetails.AddressDetails, user.Customer.CustomerName, card.CreditNumber,transac.FolderImage, amount.Value,transac.PhoneNumber);
+                                        var body = ViewToString.RenderRazorViewToString(this, "MailOrder", model);
+                                        Task.Factory.StartNew((() =>
+                                        {
+                                            SendEmail.Send(user.Email, body, "Your order information!");
+                                        }));
                                         return Json(new { status = true, message }, JsonRequestBehavior.AllowGet);
                                     }
                                     else
@@ -216,5 +225,6 @@ namespace WEB.Controllers
 
             return Json(new { status = false, message }, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

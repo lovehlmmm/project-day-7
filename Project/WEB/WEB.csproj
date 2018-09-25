@@ -229,6 +229,7 @@
     <Compile Include="Helpers\ViewToString.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CheckOut.cs" />
+    <Compile Include="Models\MailOrder.cs" />
     <Compile Include="Models\UserEmailConfirm.cs" />
     <Compile Include="Models\UserLoginCookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2903,8 +2904,8 @@
     <Content Include="Views\CheckOut\ModalAddAddressPartial.cshtml" />
     <Content Include="Views\PaymentCheckOut\Index.cshtml" />
     <Content Include="Views\PaymentCheckOut\ModalCredit.cshtml" />
-    <Content Include="Views\PaymentCheckOut\ModalAddCredit.cshtml" />
     <Content Include="Views\PaymentCheckOut\CardPartial.cshtml" />
+    <Content Include="Views\PaymentCheckOut\MailOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

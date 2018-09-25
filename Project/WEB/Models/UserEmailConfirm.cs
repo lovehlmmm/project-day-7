@@ -18,4 +18,4 @@ namespace WEB.Models
         public string Username { get; set; }
 
     }
-}
+}   

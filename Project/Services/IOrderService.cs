@@ -9,6 +9,6 @@ namespace Services
 {
     public interface IOrderService
     {
-        bool TransactionPayment(Order order, IEnumerable<OrderDetail> orderDetails, BankCreditCard bankCreditCard);
+        Order TransactionPayment(Order order, IEnumerable<OrderDetail> orderDetails, BankCreditCard bankCreditCard);
     }
 }
