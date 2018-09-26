@@ -29,7 +29,7 @@ namespace WEB
             );
             routes.MapRoute(
                 name: "OrderDetails",
-                url: "order/{id}",
+                url: "details/{id}",
                 defaults: new { controller = "OrderDetails", action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(
