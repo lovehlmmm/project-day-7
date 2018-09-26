@@ -226,7 +226,7 @@ function ConfirmPayment(id) {
             swal("OK! Payment success  !", {
                 icon: "success"
             });
-            window.location.replace("/order/" + result.OrderId);
+            window.location.replace("/details/" + result.OrderId);
         } else {
             $('#loading').hide();
             swal("Error", result.message, "error");
