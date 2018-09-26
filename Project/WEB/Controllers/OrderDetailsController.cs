@@ -17,25 +17,26 @@ namespace WEB.Controllers
             _userService = userService;
         }
         // GET: OrderDetails
-        public ActionResult Index(long id)
+        public ActionResult Index(long? id)
         {
-            UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
 
-            if (userSession != null)
-            {
-                var user = _userService.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username)) as User;
-                if (user != null)
+                UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+
+                if (userSession != null)
                 {
-                    var order = user.Customer.Orders.SingleOrDefault(o => o.OrderId == id);
-                    if (order != null)
+                    var user = _userService.Find(u => u.Status.Equals(Status.Active) && u.Username.Equals(userSession.Username)) as User;
+                    if (user != null)
                     {
-                        ViewBag.Order = order;
-                        return View();
+                        var order = user.Customer.Orders.SingleOrDefault(o => o.OrderId == id);
+                        if (order != null)
+                        {
+                            ViewBag.Order = order;
+                            return View();
+                        }
+
                     }
 
                 }
-
-            }
             return Redirect("/login");
         }
     }
