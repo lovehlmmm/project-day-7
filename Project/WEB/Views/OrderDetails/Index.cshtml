@@ -1,7 +1,12 @@
-﻿
+﻿@using Entities
+@using Constants
+
 @{
     ViewBag.Title = "Order Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var showItem = ViewBag.Order as Order;
+    decimal total = 0;
+
 }
 
 @section css{
@@ -41,190 +46,200 @@
             margin-bottom: 30px;
         }
     </style>
-    }
-    <!-- Preloader section
-    ================================================== -->
-    <div class="preloader">
-        <div class="sk-spinner sk-spinner-pulse"> </div>
-    </div>
-    <!-- Navigation section
-    ================================================== -->
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
+}
+<!-- Preloader section
+================================================== -->
+<div class="preloader">
+    <div class="sk-spinner sk-spinner-pulse"> </div>
+</div>
+<!-- Navigation section
+================================================== -->
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
 
-            <div class="navbar-header">
-                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon icon-bar"> </span>
-                    <span class="icon icon-bar"> </span>
-                    <span class="icon icon-bar"> </span>
-                </button>
-                <a href="#" class="navbar-brand"> TEAM SiX</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li> <a href="#home" class="smoothScroll"> HOME</a> </li>
-                    <li> <a href="#service" class="smoothScroll"> SERVICES</a> </li>
-                    <li> <a href="#about" class="smoothScroll"> ABOUT</a> </li>
-                    <li> <a href="#team" class="smoothScroll"> TEAM</a> </li>
-
-                </ul>
-            </div>
-
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon icon-bar"> </span>
+                <span class="icon icon-bar"> </span>
+                <span class="icon icon-bar"> </span>
+            </button>
+            <a href="#" class="navbar-brand"> TEAM SiX</a>
         </div>
-    </div>
-    <!-- Home section
-    ================================================== -->
-    <div class="breadcrumbs margin-bottom-30">
-        <div class="container">
-            <h1 class="pull-left"> #OrderID</h1>
-            <ul class="pull-right breadcrumb">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a href="/home" class="smoothScroll"> HOME</a> </li>
+                <li> <a href="/upload" class="smoothScroll"> UPLOAD</a> </li>
+                <li> <a href="/info" class="smoothScroll"> ACCOUNT</a> </li>
 
-                <li> <a href="/"> Home</a> </li>
-                <li class="active"> #OrderID</li>
             </ul>
         </div>
+
     </div>
+</div>
+<!-- Home section
+================================================== -->
+<div class="breadcrumbs margin-bottom-30">
+    <div class="container">
+        <h1 class="pull-left"> #@showItem.OrderId</h1>
+        <ul class="pull-right breadcrumb">
 
-    <div id="content">
-        <div class="container">
+            <li> <a href="/"> Home</a> </li>
+            <li class="active">#@showItem.OrderId</li>
+        </ul>
+    </div>
+</div>
 
-            <div class="row">
-                <!-- *** LEFT COLUMN ***
-                _________________________________________________________ -->
-                <div class="col-md-9 clearfix" id="customer-order">
+<div id="content">
+    <div class="container">
 
-                    <p class="lead"> Order #1735 was placed on <strong> 22/06/2013</strong> and is currently <strong> Being prepared</strong> .</p>
-                    <p class="lead text-muted"> If you have any questions, please feel free to <a href="contact.html"> contact us</a>, our customer service center is working for you 24/7.</p>
+        <div class="row">
+            <!-- *** LEFT COLUMN ***
+            _________________________________________________________ -->
+            <div class="col-md-9 clearfix" id="customer-order">
 
-                    <div class="box">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2"> Product</th>
-                                        <th> Quantity</th>
-                                        <th> Unit price</th>
-                                        <th> Discount</th>
-                                        <th> Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <a href="#">
-                                                <img src="img/detailsquare.jpg" alt="White Blouse Armani">
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="#"> White Blouse Armani</a>
-                                        </td>
-                                        <td> 2</td>
-                                        <td> $123.00</td>
-                                        <td> $0.00</td>
-                                        <td> $246.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="#">
-                                                <img src="img/basketsquare.jpg" alt="Black Blouse Armani">
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="#"> Black Blouse Armani</a>
-                                        </td>
-                                        <td> 1</td>
-                                        <td> $200.00</td>
-                                        <td> $0.00</td>
-                                        <td> $200.00</td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="5" class="text-right"> Order subtotal</th>
-                                        <th> $446.00</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="5" class="text-right"> Shipping and handling</th>
-                                        <th> $10.00</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="5" class="text-right"> Tax</th>
-                                        <th> $0.00</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="5" class="text-right"> Total</th>
-                                        <th> $456.00</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                <p class="lead"> Order #@showItem.OrderId was placed on <strong>@showItem.CreatedAt.Value.ToShortDateString()</strong> and is currently <strong class="label label-info">@showItem.Status</strong> .</p>
+                <p class="lead text-muted"> If you have any questions, please feel free to <a href="contact.html"> contact us</a>, our customer service center is working for you 24/7.</p>
+                @if (showItem.Status.Equals(OrderStatus.Pending))
+                {
+                <button  class="btn btn-danger">
+                    Cancel Order
+                </button>
+                }
 
-                        </div>
-                        <!-- /.table-responsive -->
-                        <div class="row addresses">
-                            <div class="col-sm-6">
-                                <h3 class="text-uppercase"> Invoice address</h3>
-                                <p>
-                                    John Brown
-                                    <br> 13/25 New Avenue
-                                    <br> New Heaven
-                                    <br> 45Y 73J
-                                    <br> England
-                                    <br> Great Britain
-                                </p>
-                            </div>
-                            <div class="col-sm-6">
-                                <h3 class="text-uppercase"> Shipping address</h3>
-                                <p>
-                                    John Brown
-                                    <br> 13/25 New Avenue
-                                    <br> New Heaven
-                                    <br> 45Y 73J
-                                    <br> England
-                                    <br> Great Britain
-                                </p>
-                            </div>
-                        </div>
-                        <!-- /.addresses -->
-                    </div>
-                    <!-- /.box -->
-                </div>
-                <!-- /.col-md-9 -->
-                <!-- *** LEFT COLUMN END *** -->
-                <!-- *** RIGHT COLUMN ***
-                _________________________________________________________ -->
-                <div class="col-md-3">
-                    <!-- *** CUSTOMER MENU ***
-                    _________________________________________________________ -->
-                    <div class="panel panel-default sidebar-menu">
+                <div class="box">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    @if (!showItem.Status.Equals(OrderStatus.Received))
+                                    {
+                                        <th> Image</th>
+                                    }
+                                    <th> Size</th>
+                                    <th> Material</th>
+                                    <th> Option</th>
+                                    <th> Quantity</th>
+                                    <th> Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (showItem != null)
+                                {
+                                    foreach (var item in showItem.OrderDetails)
+                                    {
 
-                        <div class="panel-heading">
-                            <h3 class="panel-title"> Customer section</h3>
-                        </div>
 
-                        <div class="panel-body">
+                                        <tr>
+                                            @if (!showItem.Status.Equals(OrderStatus.Received))
+                                            {
+                                                <td style="width: 225px">
+                                                    <img src="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)/Images/Upload/@showItem.FolderImage/@item.Image" class="img-responsive" width="40%" alt="">
+                                                </td>
+                                            }
+                                            <td> @item.Product.ProductSize </td>
+                                            <td> @item.Material.Details</td>
+                                            <td>
+                                                @{List<string> options = new List<string> { "Delete Background", "Increase Quality", "Blur The Background" };
+                                                    for (int i = 1; i < options.Count + 1; i++)
+                                                    {
+                                                        if (i == item.Option)
+                                                        {
 
-                            <ul class="nav nav-pills nav-stacked">
-                                <li class="active">
-                                    <a href="customer-orders.html"> <i class="fa fa-list"> </i> My orders</a>
-                                </li>
+                                                            <span>@options[i - 1]</span>
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+                                            <td>@item.Quantity</td>
+                                            @{ var subTotal = (item.Quantity * (item.Product.ProductPrice + item.Material.Price));
+                                                total = showItem.OrderDetails.Sum(c => c.Quantity * (c.Product.ProductPrice + c.Material.Price)).Value;
+                                            }
+                                            <td>@(subTotal != null ? subTotal.Value.ToString("0,0") : string.Empty) VND </td>
 
-                                <li>
-                                    <a href="myorder.html"> <i class="fa fa-user"> </i> My account</a>
-                                </li>
-                                <li>
-                                    <a href="index.html"> <i class="fa fa-sign-out"> </i> Logout</a>
-                                </li>
-                            </ul>
-                        </div>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5" class="text-right"> Order subtotal</th>
+                                    <th>@total.ToString("0,0") VNĐ </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" class="text-right"> Shipping and handling</th>
+                                    <th> 0 VNĐ</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" class="text-right"> Total</th>
+                                    <th> @total.ToString("0,0") VNĐ</th>
+                                </tr>
+                            </tfoot>
+                        </table>
 
                     </div>
-                    <!-- /.col-md-3 -->
-                    <!-- *** CUSTOMER MENU END *** -->
+                    <!-- /.table-responsive -->
+                    <div class="row addresses">
+
+                        <div class="col-sm-6">
+                            <h3 class="text-uppercase"> Shipping address</h3>
+                            <p>
+                                @showItem.Customer.CustomerName
+                                <br> @showItem.Address.AddressDetails
+                                <br> @showItem.PhoneNumber
+
+                            </p>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <h3 class="text-uppercase"> Payment</h3>
+                            <p>
+                                **** **** ****@showItem.CreditCard.CreditNumber.Substring(12, 4)
+                                <br>
+
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.addresses -->
                 </div>
-                <!-- *** RIGHT COLUMN END *** -->
+                <!-- /.box -->
             </div>
-            <!-- /.row -->
+            <!-- /.col-md-9 -->
+            <!-- *** LEFT COLUMN END *** -->
+            <!-- *** RIGHT COLUMN ***
+            _________________________________________________________ -->
+            <div class="col-md-3">
+                <!-- *** CUSTOMER MENU ***
+                _________________________________________________________ -->
+                <div class="panel panel-default sidebar-menu">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> Customer section</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="/history"> <i class="fa fa-list"> </i> My orders</a>
+                            </li>
+
+                            <li>
+                                <a href="/info"> <i class="fa fa-user"> </i> My account</a>
+                            </li>
+                            <li>
+                                <a href="/logout"> <i class="fa fa-sign-out"> </i> Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /.col-md-3 -->
+                <!-- *** CUSTOMER MENU END *** -->
+            </div>
+            <!-- *** RIGHT COLUMN END *** -->
         </div>
-        <!-- /.container -->
+        <!-- /.row -->
     </div>
+    <!-- /.container -->
+</div>
 <hr />

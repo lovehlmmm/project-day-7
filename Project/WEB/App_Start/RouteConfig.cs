@@ -43,6 +43,11 @@ namespace WEB
                 defaults: new { controller = "Active", action = "Index"}
             );
             routes.MapRoute(
+               name: "History",
+               url: "history",
+               defaults: new { controller = "UserOrdersHistory", action = "Index" }
+           );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

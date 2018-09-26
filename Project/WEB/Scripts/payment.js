@@ -10,6 +10,10 @@ $('#showCredit').click(function () {
 
 
 $('.showAddCredit').click(function () {
+    $form.find('.subscribe').html('Add Credit Card').prop('disabled', true);
+    $('input[name=cardNumber]').val("");
+    $('input[name=cardCVC]').val("");
+    $('input[name=cardExpiry').val(""); 
     $('#modaladdcredit').modal();
 });
 
@@ -156,10 +160,8 @@ function AddCreditCard(data) {
         if (result.status) {
             $('#modaladdcredit').modal('hide');
             GetCredit(result.card);
-            $form.find('.subscribe').html('Add Credit Card').prop('disabled', true);
-            $('input[name=cardNumber]').val("");
-            $('input[name=cardCVC]').val("");
-            $('input[name=cardExpiry').val(""); 
+            
+            
         } else {
             swal("Error", result.message, "error");
         }

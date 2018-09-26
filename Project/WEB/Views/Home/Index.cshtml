@@ -35,12 +35,12 @@
                 <li><a href="#about" class="smoothScroll">ABOUT</a></li>
                 <li><a href="#team" class="smoothScroll">TEAM</a></li>
                 @{
-                    if (SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer)!=null)
+                    if (SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) != null)
                     {
                         UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
-                <li>
-                    <i class="fa fa-user"><a class="smoothScroll" role="button" href="/info">&nbsp;&nbsp;@userSession.Username</a></i>
-                 </li> 
+                        <li>
+                            <i class="fa fa-user"><a class="smoothScroll" role="button" style="text-transform:uppercase" href="/info">&nbsp;&nbsp;@userSession.Username</a></i>
+                        </li>
                     }
                     else
                     {
@@ -100,9 +100,9 @@
                 <div style="background-color:#d5c1ff;border-radius: 25px;padding: 20px; width: auto;height: auto;  ">
                     <h1 class="font-weight-big wow bounceIn" data-wow-delay="0.9s" style="text-transform: uppercase;">Online Order For Didgital Photo Printing</h1>
 
-                </div>                
+                </div>
                 @*<h4 class="font-weight-normal font-color-gray wow fadeInUp" style="background-color:#d5c1ff;border-radius: 1px; width: auto;height: auto;"  data-wow-delay="1s">Just drag and drop your photos here and you can upload and print them .</h4>*@
-                <a href="/upload" class="btn btn-outline-secondary section-btn smoothScroll wow fadeInUp"  style="background-color:#73678c" data-wow-delay="1.3s">START UPLOADING</a>
+                <a href="/upload" class="btn btn-outline-secondary section-btn smoothScroll wow fadeInUp" style="background-color:#73678c" data-wow-delay="1.3s">START UPLOADING</a>
             </div>
 
         </div>
@@ -135,16 +135,16 @@
                 <div class="tile-title">Standard Prints</div>
                 <ul class="tiles-links" style="list-style:none;">
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">12x8" (30x20cm)</a>
+                        <a class="color-01a" href="">12x8" (30x20cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-10x8-details">10x8" (25x20cm)</a>
+                        <a class="color-01a" href="">10x8" (25x20cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-8x6-details">8x6" (20x15cm)</a>
+                        <a class="color-01a" href="">8x6" (20x15cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">View All</a>
+                        <a class="color-01a" href="">View All</a>
                     </li>
                 </ul>
             </div>
@@ -160,10 +160,10 @@
                 <ul class="tiles-links" style="list-style:none;">
 
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-8x6-details">8x6" (20x15cm)</a>
+                        <a class="color-01a" href="">8x6" (20x15cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">View All</a>
+                        <a class="color-01a" href="">View All</a>
                     </li>
                 </ul>
             </div>
@@ -179,10 +179,10 @@
                 <div class="tile-title">Large  Prints</div>
                 <ul class="tiles-links" style="list-style:none;">
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">12x8" (30x20cm)</a>
+                        <a class="color-01a" href="">12x8" (30x20cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-10x8-details">10x8" (25x20cm)</a>
+                        <a class="color-01a" href="">10x8" (25x20cm)</a>
                     </li>
 
                 </ul>
@@ -199,16 +199,16 @@
                 <div class="tile-title">Poster Prints</div>
                 <ul class="tiles-links" style="list-style:none;">
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">12x8" (30x20cm)</a>
+                        <a class="color-01a" href="">12x8" (30x20cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-10x8-details">10x8" (25x20cm)</a>
+                        <a class="color-01a" href="">10x8" (25x20cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-8x6-details">8x6" (20x15cm)</a>
+                        <a class="color-01a" href="">8x6" (20x15cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">View All</a>
+                        <a class="color-01a" href="">View All</a>
                     </li>
                 </ul>
             </div>
@@ -226,13 +226,13 @@
                 <div class="tile-title">Collage Prints</div>
                 <ul class="tiles-links" style="list-style:none;">
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">12x8" (30x20cm)</a>
+                        <a class="color-01a" href="">12x8" (30x20cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-10x8-details">10x8" (25x20cm)</a>
+                        <a class="color-01a" href="">10x8" (25x20cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-8x6-details">8x6" (20x15cm)</a>
+                        <a class="color-01a" href="">8x6" (20x15cm)</a>
                     </li>
 
                 </ul>
@@ -248,7 +248,7 @@
                 <div class="tile-title">Wallet  Prints</div>
                 <ul class="tiles-links" style="list-style:none;">
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">12x8" (30x20cm)</a>
+                        <a class="color-01a" href="">12x8" (30x20cm)</a>
                     </li>
 
                 </ul>
@@ -264,11 +264,11 @@
                 <div class="tile-title">Framed  Prints</div>
                 <ul class="tiles-links" style="list-style:none;">
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">12x8" (30x20cm)</a>
+                        <a class="color-01a" href="">12x8" (30x20cm)</a>
                     </li>
 
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">View All</a>
+                        <a class="color-01a" href="">View All</a>
                     </li>
                 </ul>
             </div>
@@ -284,10 +284,10 @@
                 <div class="tile-title">More from Home Décor</div>
                 <ul class="tiles-links" style="list-style:none;margin:0px;">
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-12x8-details">12x8" (30x20cm)</a>
+                        <a class="color-01a" href="">12x8" (30x20cm)</a>
                     </li>
                     <li>
-                        <a class="color-01a" href="https://www.snapfish.co.uk/photo-printing/collage-print-10x8-details">10x8" (25x20cm)</a>
+                        <a class="color-01a" href="">10x8" (25x20cm)</a>
                     </li>
 
                 </ul>
@@ -332,13 +332,13 @@
             <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 wow bounceIn">
                 <div class="section-title">
                     <h1>Team Member</h1>
-                    <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet.</p>
+                    <p>TEAM SiX . FPT Apteach.</p>
                 </div>
             </div>
 
             <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
                 <div class="team-wrapper">
-                    <img src="~/Assets/images/team_1.jpg" class="img-responsive" alt="about">
+                    <img src="~/Assets/images/team1.jpg" class="img-responsive" alt="about">
                     <div class="team-wrapper-social">
                         <ul class="social-icon">
                             <li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.9s"></a></li>
@@ -349,13 +349,13 @@
                     </div>
                 </div>
                 <div class="team-description">
-                    <h3>Johnathan Doe</h3>
-                    <h5>Designer</h5>
+                    <h3>Tuấn</h3>
+                    <h5>Font-End</h5>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="1.3s">
                 <div class="team-wrapper">
-                    <img src="~/Assets/images/team_2.jpg" class="img-responsive" alt="about">
+                    <img src="~/Assets/images/team1.jpg" class="img-responsive" alt="about">
                     <div class="team-wrapper-social">
                         <ul class="social-icon">
                             <li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.9s"></a></li>
@@ -366,13 +366,13 @@
                     </div>
                 </div>
                 <div class="team-description">
-                    <h3>Jenny L Martian</h3>
-                    <h5>UX Designer</h5>
+                    <h3>Dương</h3>
+                    <h5>Full Stack</h5>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="1.6s">
                 <div class="team-wrapper">
-                    <img src="~/Assets/images/team_3.jpg" class="img-responsive" alt="about">
+                    <img src="~/Assets/images/team1.jpg" class="img-responsive" alt="about">
                     <div class="team-wrapper-social">
                         <ul class="social-icon">
                             <li><a href="#" class="fa fa-facebook wow fadeIn" data-wow-delay="0.9s"></a></li>
@@ -383,8 +383,8 @@
                     </div>
                 </div>
                 <div class="team-description">
-                    <h3>James David Doe</h3>
-                    <h5>Creative Director</h5>
+                    <h3>3 Mem Còn Lại</h3>
+                    <h5>Tester</h5>
                 </div>
             </div>
 
@@ -403,8 +403,8 @@
             ================================================== -->
             <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 wow bounceIn text-center">
                 <div class="section-title">
-                    <h1>Lastest Work</h1>
-                    <p>Lorem ipsum dolor sit amet, maecenas eget vestibulum justo imperdiet.</p>
+                    <h1>Demo</h1>
+                    <p>TEAM SiX . FPT Apteach.</p>
                 </div>
             </div>
 

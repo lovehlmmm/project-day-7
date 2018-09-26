@@ -22,8 +22,8 @@ $(document).ready(function() {
     jQuery(document).ready(function() {
     $('#home').backstretch([
        "../Assets/images/bgxx.jpg", 
-       "../Assets/images/bgxx.jpg",
-        ],  {duration: 2000, fade: 750});
+       "../Assets/images/bg2.jpg",
+        ],  {duration: 5000, fade: 750});
     });
   })
 
