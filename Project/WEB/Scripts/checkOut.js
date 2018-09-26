@@ -32,7 +32,6 @@ function CheckOut(data) {
     $.ajax({
         url: '/CheckOut/Confirm',
         type: 'POST',
-        async: false,
         data: data,
         processData: false,
         contentType: false

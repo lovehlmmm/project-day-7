@@ -208,16 +208,11 @@ namespace WEB.Controllers
                                         Task.Factory.StartNew((() =>
                                         {
                                             SendEmail.Send(mailAdmin, bodyAdmin, "New order notification!");
-
- 
-                                        }));
-                                        Task.Factory.StartNew((() =>
-                                        {
-
                                             SendEmail.Send(user.Email, body, "Your order information!");
-
                                         }));
-                                        return Json(new { status = true, message }, JsonRequestBehavior.AllowGet);
+                                        SessionHelper.Delete(AppSettingConstant.CartSession);
+                                        TempData["Success"] = "Order Success";
+                                        return Json(new { status = true, message,transac.OrderId}, JsonRequestBehavior.AllowGet);
                                     }
                                     else
                                     {
