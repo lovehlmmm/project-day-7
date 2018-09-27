@@ -47,6 +47,10 @@
         }
     </style>
 }
+
+@section script  {
+    <script src="~/Scripts/cancelorder.js"></script>
+}
 <!-- Preloader section
 ================================================== -->
 <div class="preloader">
@@ -63,7 +67,7 @@
                 <span class="icon icon-bar"> </span>
                 <span class="icon icon-bar"> </span>
             </button>
-            <a href="#" class="navbar-brand"> TEAM SiX</a>
+            <a href="#" class="navbar-brand">Photo Printing</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -80,11 +84,11 @@
 ================================================== -->
 <div class="breadcrumbs margin-bottom-30">
     <div class="container">
-        <h1 class="pull-left"> #@showItem.OrderId</h1>
+        <h1 class="pull-left">My Order : #@showItem.OrderId</h1>
         <ul class="pull-right breadcrumb">
 
             <li> <a href="/"> Home</a> </li>
-            <li class="active">#@showItem.OrderId</li>
+            <li class="active">@showItem.OrderId</li>
         </ul>
     </div>
 </div>
@@ -97,21 +101,85 @@
             _________________________________________________________ -->
             <div class="col-md-9 clearfix" id="customer-order">
 
-                <p class="lead"> Order #@showItem.OrderId was placed on <strong>@showItem.CreatedAt.Value.ToShortDateString()</strong> and is currently <strong class="label label-info">@showItem.Status</strong> .</p>
-                <p class="lead text-muted"> If you have any questions, please feel free to <a href="contact.html"> contact us</a>, our customer service center is working for you 24/7.</p>
+                <p class="lead">
+                    Order #@showItem.OrderId was placed on <strong>@showItem.CreatedAt.Value.ToShortDateString()</strong> and is currently
+
+                    @if (showItem.Status.Equals(OrderStatus.Pending))
+                    {<strong class="label label-info">@showItem.Status</strong>
+                }
+                else if (showItem.Status.Equals(OrderStatus.Cancelled))
+
+                {
+                    <strong class="label label-danger">@showItem.Status</strong>
+
+                }
+                else if (showItem.Status.Equals(OrderStatus.Processing))
+
+                {
+                    <strong class="label label-warning">@showItem.Status</strong>
+
+                }
+                else if (showItem.Status.Equals(OrderStatus.Confirmed))
+
+                {
+                    <strong class="label label-primary">@showItem.Status</strong>
+
+                }
+                else if (showItem.Status.Equals(OrderStatus.Received))
+
+                {
+                    <strong class="label label-success">@showItem.Status</strong>
+
+                }
+
+                </p>
+
+
                 @if (showItem.Status.Equals(OrderStatus.Pending))
                 {
-                <button  class="btn btn-danger">
-                    Cancel Order
-                </button>
+
+                    <p class="lead text-muted">
+                        You can choose to cancel your order within <strong> 24 hours.</strong> After 24 hours the order will be put into processing
+                    </p>
+                    <button class="btn btn-danger" name="" id="btnCancel" data-id="@showItem.OrderId">
+                        Cancel Order
+                    </button>
                 }
+                else if (showItem.Status.Equals(OrderStatus.Processing))
+                {
+                    <p class="lead text-muted">
+                        The order is being processed
+                    </p>
+                }
+                else if (showItem.Status.Equals(OrderStatus.Cancelled))
+                {
+                    <p class="lead text-muted">
+                        Order canceled.
+                    </p>
+                }
+                else if (showItem.Status.Equals(OrderStatus.Confirmed))
+                {
+                    <p class="lead text-muted">
+                        The order has been approved. Please wait for us to print and deliver to you.
+                    </p>
+                }
+                else if (showItem.Status.Equals(OrderStatus.Received))
+                {
+                    <p class="lead text-muted">
+                        Order completed. Thank you for using our service
+                    </p>
+                }
+
+
+
+
 
                 <div class="box">
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    @if (!showItem.Status.Equals(OrderStatus.Received))
+                                    @if (!showItem.Status.Equals(OrderStatus.Received) & !showItem.Status.Equals(OrderStatus.Cancelled))
                                     {
                                         <th> Image</th>
                                     }
@@ -130,7 +198,7 @@
 
 
                                         <tr>
-                                            @if (!showItem.Status.Equals(OrderStatus.Received))
+                                            @if (!showItem.Status.Equals(OrderStatus.Received) & !showItem.Status.Equals(OrderStatus.Cancelled))
                                             {
                                                 <td style="width: 225px">
                                                     <img src="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)/Images/Upload/@showItem.FolderImage/@item.Image" class="img-responsive" width="40%" alt="">

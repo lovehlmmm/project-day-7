@@ -2866,6 +2866,7 @@
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy1.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy2.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\cancelorder.js" />
     <Content Include="Scripts\cart.js" />
     <Content Include="Scripts\checkOut.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

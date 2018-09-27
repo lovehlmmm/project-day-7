@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "User Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var showItem = ViewBag.Orders as List<Order> ; 
+    var showItem = ViewBag.Orders as List<Order> ;
 
+ 
     decimal total = 0;
 }
 
@@ -78,7 +79,7 @@
                 <span class="icon icon-bar"></span>
                 <span class="icon icon-bar"></span>
             </button>
-            <a href="#" class="navbar-brand">TEAM SiX</a>
+            <a href="#" class="navbar-brand">Photo Printing</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -141,10 +142,40 @@
                                         <td>@item.CreatedAt.Value.ToShortDateString() </td>
                                         <td>@total.ToString("0,0") VNĐ</td>
                                         <td>
-                                            <span class="label label-info">@item.Status</span>
+                                            @if (item.Status.Equals(OrderStatus.Pending))
+                                            {
+                                                <span class="label label-info">@item.Status</span>
+                                            }
+                                            else if (item.Status.Equals(OrderStatus.Cancelled))
+
+                                            {
+                                                <span class="label label-danger">@item.Status</span>
+
+                                            }
+                                            else if (item.Status.Equals(OrderStatus.Processing))
+
+                                            {
+                                                <span class="label label-warning">@item.Status</span>
+
+                                            }
+                                            else if (item.Status.Equals(OrderStatus.Confirmed))
+
+                                            {
+                                                <span class="label label-primary">@item.Status</span>
+
+                                            }
+                                            else if (item.Status.Equals(OrderStatus.Received))
+
+                                            {
+                                                <span class="label label-success">@item.Status</span>
+
+                                            }
+
+
+
                                         </td>
                                         <td>
-                                            <a href="/order/@item.OrderId" class="btn btn-template-main btn-sm">View</a>
+                                            <a href="/details/@item.OrderId" class="btn btn-template-main btn-sm">View</a>
                                         </td>
                                     </tr>
                                 }

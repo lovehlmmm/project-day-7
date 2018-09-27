@@ -31,11 +31,11 @@
                                 <td data-th="Product">
                                     <div class="row">
                                         <div class="col-sm-6 hidden-xs"><img src="data:@item.ImageType;base64,@item.Image" alt="..." class="img-responsive" /></div>
-                
+
                                     </div>
                                 </td>
                                 <td>
-                                    <select class="form-control btn-danger productitem" name="productitem">
+                                    <select class="form-control btn-info productitem" name="productitem">
                                         @if (ViewBag.Products != null)
                                         {
                                             <option value="0">Select...</option>
@@ -61,7 +61,7 @@
 
                                 <td>
 
-                                    <select class="form-control btn-success optionsitem" name="optionsitem">
+                                    <select class="form-control btn-info optionsitem" name="optionsitem">
                                         <option value="0">Select...</option>
                                         @{ List<string> options = new List<string> { "Delete Background", "Increase Quality", "Blur The Background" };
                                             for (int i = 1; i < options.Count + 1; i++)
@@ -82,7 +82,7 @@
                                 @{ var subTotal = (item.Quantity * (item.Product.ProductPrice + item.Material.Price));}
                                 <td data-th="Subtotal" class="text-center">@(subTotal != null ? subTotal.Value.ToString("0,0") : string.Empty) VND</td>
                                 <td class="actions" data-th="">
-                                    <button data-id="@item.Id" class="btn btn-info btn-sm updateitem"><i class="fa fa-refresh"></i></button>
+                                    <button data-id="@item.Id" class="btn btn-light btn-sm updateitem"><i class="fa fa-refresh"></i></button>
                                     <button data-id="@item.Id" class="btn btn-danger btn-sm deleteitem"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
@@ -106,15 +106,17 @@
                     </tr>
                 </tfoot>
             </table>
+            <hr />
         }
         else
         {
             <h2 style="text-align:center">Cart have not item</h2>
+            <hr />
         }
     }
     else
     {
         <h2 style="text-align:center">Cart have not item</h2>
+        <hr />
     }
 </div>
-<hr />

@@ -213,6 +213,7 @@ function clickCheckOut() {
 function ConfirmPayment(id) {
     var data = new FormData();
     data.append('id', id);
+    $('#loading').show();
     $.ajax({
         url: '/PaymentCheckOut/Payment',
         type: 'POST',

@@ -15,7 +15,7 @@ namespace WEB.Controllers
             _userService = userService;
         }
         // GET: UserOrdersHistory
-        public ActionResult Index()
+        public ActionResult Index(long? id)
         {
 
             UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
@@ -30,6 +30,16 @@ namespace WEB.Controllers
                     {
                         ViewBag.Orders = orders;
                         return View();
+                    }
+                    if (user!=null)
+                    {
+
+                        var order = user.Customer.Orders.SingleOrDefault(o => o.OrderId == id);
+                        if (order != null)
+                        {
+                            ViewBag.Order = order;
+                            return View();
+                        }
                     }
 
                 }
