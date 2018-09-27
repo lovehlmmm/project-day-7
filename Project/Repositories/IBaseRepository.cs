@@ -29,5 +29,7 @@ namespace Repositories
         Task<int> DeleteAsync(TObject t);
         int Count();
         Task<int> CountAsync(Expression<Func<TObject, bool>> match);
+        Task<IList<TObject>> UpdateAllAsync(IEnumerable<TObject> updated, string property);
+        IList<TObject> UpdateAll(IEnumerable<TObject> updated, string property);
     }
 }

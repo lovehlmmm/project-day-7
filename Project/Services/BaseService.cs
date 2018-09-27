@@ -77,5 +77,14 @@ namespace Services
         {
             return _baseRepository.AddAll(tlist);
         }
+        public async Task<IList<TObject>> UpdateAllAsync(IEnumerable<TObject> updated, string property)
+        {
+            return await _baseRepository.UpdateAllAsync(updated, property);
+        }
+
+        public IList<TObject> UpdateAll(IEnumerable<TObject> updated, string property)
+        {
+            return _baseRepository.UpdateAll(updated, property);
+        }
     }
 }
