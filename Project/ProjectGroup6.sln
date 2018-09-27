@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "Constants\Cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{1FB78601-83C1-4CA5-B327-4E19F5929594}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{434FED39-4EC1-4797-BB2D-246432B3D4FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{1FB78601-83C1-4CA5-B327-4E19F5929594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FB78601-83C1-4CA5-B327-4E19F5929594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FB78601-83C1-4CA5-B327-4E19F5929594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{434FED39-4EC1-4797-BB2D-246432B3D4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{434FED39-4EC1-4797-BB2D-246432B3D4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{434FED39-4EC1-4797-BB2D-246432B3D4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{434FED39-4EC1-4797-BB2D-246432B3D4FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

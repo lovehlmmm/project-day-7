@@ -21,5 +21,7 @@ namespace Services
         TObject Find(Expression<Func<TObject, bool>> match);
         ICollection<TObject> FindAll(Expression<Func<TObject, bool>> match);
         IEnumerable<TObject> AddAll(IEnumerable<TObject> tlist);
+        Task<IList<TObject>> UpdateAllAsync(IEnumerable<TObject> updated, string property);
+        IList<TObject> UpdateAll(IEnumerable<TObject> updated, string property);
     }
 }

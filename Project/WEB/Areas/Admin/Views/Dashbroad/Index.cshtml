@@ -1,24 +1,9 @@
 ﻿@using Entities
+@using WEB.Areas.Admin.Models
+@model ViewModelDashboard
 @{
     ViewBag.Title = "Home";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    var orders = ViewBag.Orders as List<Order>;
-    float orderCount = 0;
-    float previousOrder = 0;
-    var dateNow = DateTime.Now;
-    if (orders.Count>0)
-    {
-        var orderMonth = orders.Where(o => o.ModifiedAt.Value.Month.Equals(dateNow.Month) & o.ModifiedAt.Value.Year.Equals(dateNow.Year)).ToList();
-        var orderPrevious = orders.Where(o => o.ModifiedAt.Value.Month.Equals(dateNow.AddMonths(-1).Month) & o.ModifiedAt.Value.Year.Equals(dateNow.AddMonths(-1).Year)).ToList();
-        if (orderMonth.Count>0)
-        {
-            orderCount = orderMonth.Count;
-        }
-        if (orderPrevious.Count>0)
-        {
-            previousOrder = (orderCount - orderPrevious.Count) / orderPrevious.Count * 100;
-        }
-    }
 }
 
 <div class="row">
@@ -44,8 +29,15 @@
         <div class="card-box tilebox-one">
             <i class="icon-layers float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Orders</h6>
-            <h2 class="m-b-20" data-plugin="counterup">@orderCount</h2>
-            <span class="label label-success"> @previousOrder % </span> <span class="text-muted">From previous period</span>
+            <h2 class="m-b-20" data-plugin="counterup">@Model.OrderCount</h2>
+            @{
+                float percentOrder = 0;
+                if (Model.OrderCount > 0 & Model.PreviousOrder > 0)
+                {
+                    percentOrder = (Model.OrderCount - Model.PreviousOrder) / Model.PreviousOrder * 100;
+                }
+            }
+            <span class="label label-success"> @percentOrder% </span> <span class="text-muted">From previous period</span>
         </div>
     </div>
 
@@ -53,8 +45,14 @@
         <div class="card-box tilebox-one">
             <i class="icon-paypal float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Revenue</h6>
-            <h2 class="m-b-20">$<span data-plugin="counterup">46,782</span></h2>
-            <span class="label label-danger"> -29% </span> <span class="text-muted">From previous period</span>
+            @{ float percentTotal = 0;
+                if (Model.Total > 0 & Model.TotalPrevious > 0)
+                {
+                    percentTotal = float.Parse(((Model.Total - Model.TotalPrevious) / Model.TotalPrevious * 100).ToString());
+                }
+            }
+            <h2 class="m-b-20">$<span data-plugin="counterup">@Model.Total.ToString("0,0")</span></h2>
+            <span class="label label-danger"> @percentTotal% </span> <span class="text-muted">From previous period</span>
         </div>
     </div>
 
@@ -254,55 +252,32 @@
     <div class="col-xs-12 col-lg-12 col-xl-5">
         <div class="card-box">
 
-            <h4 class="header-title m-t-0 m-b-30">Top Contracts</h4>
+            <h4 class="header-title m-t-0 m-b-30">Order Pending</h4>
 
             <div class="table-responsive">
                 <table class="table table-bordered mb-0">
                     <thead>
                         <tr>
-                            <th>Company</th>
+                            <th>Customer Name</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th class="text-muted">Apple Technology</th>
-                            <td>20/02/2014</td>
-                            <td>19/02/2020</td>
-                            <td><span class="label label-success">Paid</span></td>
-                        </tr>
-                        <tr>
-                            <th class="text-muted">Envato Pty Ltd.</th>
-                            <td>20/02/2014</td>
-                            <td>19/02/2020</td>
-                            <td><span class="label label-danger">Unpaid</span></td>
-                        </tr>
-                        <tr>
-                            <th class="text-muted">Dribbble LLC.</th>
-                            <td>20/02/2014</td>
-                            <td>19/02/2020</td>
-                            <td><span class="label label-success">Paid</span></td>
-                        </tr>
-                        <tr>
-                            <th class="text-muted">Adobe Family</th>
-                            <td>20/02/2014</td>
-                            <td>19/02/2020</td>
-                            <td><span class="label label-success">Paid</span></td>
-                        </tr>
-                        <tr>
-                            <th class="text-muted">Apple Technology</th>
-                            <td>20/02/2014</td>
-                            <td>19/02/2020</td>
-                            <td><span class="label label-danger">Unpaid</span></td>
-                        </tr>
-                        <tr>
-                            <th class="text-muted">Envato Pty Ltd.</th>
-                            <td>20/02/2014</td>
-                            <td>19/02/2020</td>
-                            <td><span class="label label-success">Paid</span></td>
-                        </tr>
+                        @if (Model.OrderPending.Count > 0)
+                        {
+                            foreach (var item in Model.OrderPending)
+                            {
+                                <tr>
+                                    <th class="text-muted">@item.Customer.CustomerName</th>
+                                    <td>20/02/2014</td>
+                                    <td>19/02/2020</td>
+                                    <td><span class="label label-success">@item.Status</span></td>
+                                </tr>
+                            }
+                        }
+
                     </tbody>
                 </table>
             </div>
@@ -313,4 +288,4 @@
 
 
 </div>
-<!-- end row --> 
+<!-- end row -->

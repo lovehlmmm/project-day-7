@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Entities;
+using Helpers;
 using X.PagedList;
 
 namespace Repositories
@@ -229,6 +230,40 @@ namespace Repositories
         public async Task<int> CountAsync(Expression<Func<TObject, bool>> match)
         {
             return await _context.Set<TObject>().Where(match).CountAsync();
+        }
+        public async Task<IList<TObject>> UpdateAllAsync(IEnumerable<TObject> updated, string property)
+        {
+            if (updated == null)
+                return null;
+            IList<TObject> list = null;
+            foreach (var item in updated)
+            {
+                TObject existing = await _context.Set<TObject>().FindAsync(item.GetPropValue(property));
+                if (existing != null)
+                {
+                    _context.Entry(existing).CurrentValues.SetValues(item);
+                    list.Add(item);
+                }
+                await _context.SaveChangesAsync();
+            }
+            return list;
+        }
+        public IList<TObject> UpdateAll(IEnumerable<TObject> updated, string property)
+        {
+            if (updated == null)
+                return null;
+            IList<TObject> list = null;
+            foreach (var item in updated)
+            {
+                TObject existing = _context.Set<TObject>().Find(item.GetPropValue(property));
+                if (existing != null)
+                {
+                    _context.Entry(existing).CurrentValues.SetValues(item);
+                    list.Add(item);
+                }
+               _context.SaveChanges();
+            }
+            return list;
         }
     }
 }
