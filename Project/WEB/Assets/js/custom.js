@@ -113,7 +113,7 @@ function previewImages() {
             div1.style = "position:relative;display: inline-block";
 
             $(div1).addClass("form-group text-center");
-            $(div1).append('<a href="#" class="btn btn-danger close" onClick="removeDiv()" >x</a>');
+            $(div1).append('<a href="#" class="btn btn-danger close" onClick="removeDiv(this)" >x</a>');
             var image = new Image();
             image.height = 150;
             image.width = 200;
@@ -139,8 +139,9 @@ function previewImages() {
 
 }
 
-function removeDiv() {
-    $(this).parent("div.form-group text-center").remove();
+function removeDiv(e) {
+    $(e).closest("div").remove();
+
  
       //$(this).parent('div.form-group text-center').remove();
 }
