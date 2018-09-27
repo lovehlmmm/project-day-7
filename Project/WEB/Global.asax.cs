@@ -14,7 +14,7 @@ namespace WEB
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
-        protected void Application_Start(object sender, EventArgs e)
+        protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
