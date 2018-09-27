@@ -15,8 +15,7 @@ namespace WEB.App_Start
        public void Configuration(IAppBuilder app)
         {
             GlobalConfiguration.Configuration.UseSqlServerStorage("HangfireConnectionStringServer");
-            ChangeOrderStatusJob job = new ChangeOrderStatusJob();
-           RecurringJob.AddOrUpdate(() => job.Execute(),Cron.Minutely);
+            RecurringJob.AddOrUpdate(() => ChangeOrderStatusJob.Execute(),Cron.Hourly);
             app.UseHangfireDashboard();
             app.UseHangfireServer();
         }
