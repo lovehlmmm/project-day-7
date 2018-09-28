@@ -171,9 +171,7 @@ namespace WEB.Controllers
                     if (creditCard!=null)
                     {
                         var card = JsonConvert.DeserializeObject<CreditCard>(creditCard);
-                        var checkExist = _creditcardService.Find(c => c.CreditNumber==card.CreditNumber.Trim() & c.Status!=Status.Deleted);
-                        if (checkExist==null)
-                        {
+
                             card.CreatedAt = DateTime.Now;
                             card.Status = Status.Active;
                             card.Expire = card.Expire.Remove(3, 2);
@@ -183,11 +181,6 @@ namespace WEB.Controllers
                             {
                                 return Json(new { status = true,card = new { added.CreditNumber,added.CreditCardId,added.Expire}}, JsonRequestBehavior.AllowGet);
                             }
-                        }
-                        else
-                        {
-                            message = "Credit Card already exist";
-                        }
                         
                     }
                     

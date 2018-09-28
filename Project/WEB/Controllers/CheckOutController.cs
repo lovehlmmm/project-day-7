@@ -4,9 +4,7 @@ using Helpers;
 using Services;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WEB.Models;
 
@@ -71,10 +69,13 @@ namespace WEB.Controllers
         [AllowAnonymous]
         public JsonResult Confirm(long addressId, string phone)
         {
-            if (addressId == 0 | phone == null)
-            {
-                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
-            }
+            if (phone == "" & addressId == 0)
+                return Json(new { status = false, message = "Please enter your information!" }, JsonRequestBehavior.AllowGet);
+            else if (addressId == 0)
+                return Json(new { status = false, message = "Please enter your address!" }, JsonRequestBehavior.AllowGet);
+            else if (phone == "")
+                return Json(new { status = false, message = "Please enter your phone!" }, JsonRequestBehavior.AllowGet);
+
             UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
             if (userSession != null)
             {

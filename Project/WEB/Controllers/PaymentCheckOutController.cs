@@ -88,7 +88,7 @@ namespace WEB.Controllers
                         var credit = user.Customer.CreditCards.SingleOrDefault(a => a.CustomerId == user.CustomerId & a.CreditCardId == id & a.Status.Equals(Status.Active));
                         if (credit != null)
                         {
-                            return Json(new { status = true, credit = new { credit.CreditNumber, credit.CreditCardId, credit.Expire } }, JsonRequestBehavior.AllowGet);
+                            return Json(new { status = true, credit = new { CreditNumber = credit.CreditNumber.Substring(12,4), credit.CreditCardId, credit.Expire } }, JsonRequestBehavior.AllowGet);
                         }
                     }
 

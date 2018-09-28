@@ -21,7 +21,7 @@ $('#addphone').click(function () {
 $(document).ready(function () {
     $('#paymentcheckout').click(function () {
         var addressId = $('.addressDetails').data('id');
-        var phone = $('.showPhone').text();
+        var phone = $('.showPhone').text().trim();
         var data = new FormData();
         data.append("addressId", addressId);
         data.append("phone", phone);
@@ -38,6 +38,8 @@ function CheckOut(data) {
     }).success(function (result) {
         if (result.status) {
             window.location.replace('/paymentcheckout');
+        } else {
+            swal("Warning", result.message, "warning");
         }
     }).error(function (xhr, status) {
     });

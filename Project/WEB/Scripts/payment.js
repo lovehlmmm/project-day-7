@@ -40,7 +40,7 @@ function GetModalCredit() {
                 async: false,
                 success: function (data) {
                     if (data.status === true) {
-                        $('.creditDetails').text(data.credit.CreditNumber);
+                        $('.creditDetails').text('**** **** ****' + data.credit.CreditNumber);
                         $('.creditEx').text(data.credit.Expire);
                         $('.creditDetails').data('id', data.credit.CreditCardId);
                         $('#modalCredit').modal('hide');

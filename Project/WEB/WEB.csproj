@@ -295,7 +295,6 @@
     <Content Include="Areas\Admin\Assets\images\gallery\9.jpg" />
     <Content Include="Areas\Admin\Assets\images\users\avatar-3.jpg" />
     <Content Include="Areas\Admin\Assets\js\bootstrap.min.js" />
-    <Content Include="Areas\Admin\Assets\js\dashboard.js" />
     <Content Include="Areas\Admin\Assets\js\detect.js" />
     <Content Include="Areas\Admin\Assets\js\fastclick.js" />
     <Content Include="Areas\Admin\Assets\js\jquery.app.js" />
@@ -2522,7 +2521,6 @@
     <Content Include="Areas\Admin\Assets\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="Areas\Admin\Assets\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Areas\Admin\Assets\fonts\weathericons-regular-webfont.woff2" />
-    <Content Include="Areas\Admin\Assets\js\Uplon - Responsive Admin Dashboard Template.pdf" />
     <Content Include="Areas\Admin\Assets\plugins\bootstrap-select\js\.jshintrc" />
     <Content Include="Areas\Admin\Assets\plugins\chartist\dist\chartist.min.js.map" />
     <Content Include="Areas\Admin\Assets\plugins\chartist\dist\css\chartist.css.map" />
@@ -2886,6 +2884,7 @@
     <Content Include="Assets\vendor\bootstrap\css\bootstrap.css.map" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Areas\Admin\Views\Material\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\OrderPartialView.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy1.pubxml" />

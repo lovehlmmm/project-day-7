@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -31,9 +32,26 @@ namespace WEB.Areas.Admin.Controllers
             {
                 var pageNumber = int.Parse(Request.QueryString["pageNumber"]);
                 var pageSize = int.Parse(Request.QueryString["pageSize"]);
+                var filter = Request.QueryString["filter"];
+                long search=0;
+                long.TryParse(Request.QueryString["search"],out search);
+                Expression<Func<Order, bool>> expression;
+                if (filter=="")
+                {
+                    expression = (o) => o.Status != Status.Deleted;
+                }
+                else
+                {
+                    expression = (o) => o.Status == filter;
+                }
                 var list = await _orderService.GetAllAsync(pageNumber, pageSize, o => o.CreatedAt,
-                    o => o.Status != Status.Deleted);
-                var total = await _orderService.CountAsync(size => size.Status != Status.Deleted);
+                    expression);
+                if (search > 0)
+                {
+                    expression = expression.And(o => o.OrderId == search);
+                    list = _orderService.FindAll(expression);
+                }
+                var total = list.Count();
                 var totalPage = (int)Math.Ceiling((double)(total / pageSize)) + 1;
                 var list2 = list.Select(o => new
                 {

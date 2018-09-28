@@ -40,11 +40,14 @@
     <!-- Modernizr js -->
     <script src="~/Areas/Admin/Assets/js/modernizr.min.js"></script>
 
-    <!-- DataTables -->
+    @*<!-- DataTables -->
     <link href="~/Areas/Admin/Assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Areas/Admin/Assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <!-- Responsive datatable examples -->
-    <link href="~/Areas/Admin/Assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Areas/Admin/Assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />*@
+
+     @RenderSection("css", false)
+
     <style>
         #loading {
             background-color: gray;
@@ -59,14 +62,14 @@
             text-align: center;
         }
 
-        #loading img {
-            margin: auto;
-            display: block;
-            top: calc(50% - 100px);
-            left: calc(50% - 10px);
-            position: absolute;
-            z-index: 999999;
-        }
+            #loading img {
+                margin: auto;
+                display: block;
+                top: calc(50% - 100px);
+                left: calc(50% - 10px);
+                position: absolute;
+                z-index: 999999;
+            }
     </style>
 
 </head>
@@ -288,21 +291,21 @@
     <!-- Counter Up  -->
     <script src="~/Areas/Admin/Assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/counterup/jquery.counterup.min.js"></script>
-    <!-- Required datatable js -->
-    <script src="~/Areas/Admin/Assets/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <!-- Buttons examples -->
-    <script src="~/Areas/Admin/Assets/plugins/datatables/dataTables.buttons.min.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/jszip.min.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/pdfmake.min.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/vfs_fonts.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.html5.min.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.print.min.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.colVis.min.js"></script><!-- Responsive examples -->
-    <script src="~/Areas/Admin/Assets/plugins/datatables/dataTables.responsive.min.js"></script>
-    <script src="~/Areas/Admin/Assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    @*<!-- Required datatable js -->
+        <script src="~/Areas/Admin/Assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/Areas/Admin/Assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- Buttons examples -->
+        <script src="~/Areas/Admin/Assets/plugins/datatables/dataTables.buttons.min.js"></script>
+        <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
+        <script src="~/Areas/Admin/Assets/plugins/datatables/jszip.min.js"></script>
+        <script src="~/Areas/Admin/Assets/plugins/datatables/pdfmake.min.js"></script>
+        <script src="~/Areas/Admin/Assets/plugins/datatables/vfs_fonts.js"></script>
+        <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.html5.min.js"></script>
+        <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.print.min.js"></script>
+        <script src="~/Areas/Admin/Assets/plugins/datatables/buttons.colVis.min.js"></script><!-- Responsive examples -->
+        <script src="~/Areas/Admin/Assets/plugins/datatables/dataTables.responsive.min.js"></script>
+        <script src="~/Areas/Admin/Assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>*@
     <!-- App js -->
     <script src="~/Areas/Admin/Assets/js/jquery.core.js"></script>
     <script src="~/Areas/Admin/Assets/js/jquery.app.js"></script>
@@ -315,6 +318,10 @@
     <script src="~/Areas/Admin/Assets/js/sweetalert.min.js"></script>
     <script src="~/Areas/Admin/Assets/js/pagination.js"></script>
     <script src="~/Areas/Admin/Assets/js/logout.js"></script>
+
+
+     
+
     @RenderSection("script", false)
 
 </body>

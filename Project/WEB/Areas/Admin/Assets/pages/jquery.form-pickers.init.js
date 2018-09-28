@@ -92,8 +92,8 @@ $(document).ready(function () {
     });
     $('.input-limit-datepicker').daterangepicker({
         format: 'MM/DD/YYYY',
-        minDate: '06/01/2015',
-        maxDate: '06/30/2016',
+        minDate: '01/01/2018',
+        maxDate: '12/31/2019',
         buttonClasses: ['btn', 'btn-sm'],
         applyClass: 'btn-custom',
         cancelClass: 'btn-secondary',
@@ -108,8 +108,8 @@ $(document).ready(function () {
         format: 'MM/DD/YYYY',
         startDate: moment().subtract(29, 'days'),
         endDate: moment(),
-        minDate: '01/01/2012',
-        maxDate: '12/31/2016',
+        minDate: '01/01/2018',
+        maxDate: '12/31/2019',
         dateLimit: {
             days: 60
         },
