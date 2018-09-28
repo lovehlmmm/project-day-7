@@ -19,7 +19,7 @@ namespace WEB.ScheduledTasks
             IBaseRepository<Order> _orderService = new BaseRepositoryEF<Order>();
             System.Diagnostics.Debug.WriteLine("Late job!");
             DateTime oldestDate = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0, 0));
-            var orders = await _orderService.FindAllAsync(o => o.Status == OrderStatus.Pending & o.CreatedAt >= oldestDate);
+            var orders = await _orderService.FindAllAsync(o => o.Status == OrderStatus.Pending & o.CreatedAt < oldestDate);
             if (orders.Count() > 0)
             {
                 foreach (var item in orders)

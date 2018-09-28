@@ -295,6 +295,7 @@
     <Content Include="Areas\Admin\Assets\images\gallery\9.jpg" />
     <Content Include="Areas\Admin\Assets\images\users\avatar-3.jpg" />
     <Content Include="Areas\Admin\Assets\js\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Assets\js\dashboard.js" />
     <Content Include="Areas\Admin\Assets\js\detect.js" />
     <Content Include="Areas\Admin\Assets\js\fastclick.js" />
     <Content Include="Areas\Admin\Assets\js\jquery.app.js" />
@@ -2435,6 +2436,7 @@
     <Content Include="Assets\js\smoothscroll.js" />
     <Content Include="Assets\js\webscript.js" />
     <Content Include="Assets\js\wow.min.js" />
+    <Content Include="Assets\Scripts\DatetimeExtension.js" />
     <Content Include="Assets\Scripts\Pure.Uploader.js" />
     <Content Include="Assets\vendor\animate\animate.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.css" />
@@ -2899,6 +2901,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\order-details.js" />
     <Content Include="Scripts\payment.js" />
     <Content Include="Scripts\register.js" />
     <Content Include="Scripts\updateUserInfo.js" />

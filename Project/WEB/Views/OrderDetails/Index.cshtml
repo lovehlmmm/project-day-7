@@ -50,6 +50,7 @@
 
 @section script  {
     <script src="~/Scripts/cancelorder.js"></script>
+    <script src="~/Scripts/order-details.js"></script>
 }
 <!-- Preloader section
 ================================================== -->
@@ -84,7 +85,7 @@
 ================================================== -->
 <div class="breadcrumbs margin-bottom-30">
     <div class="container">
-        <h1 class="pull-left">My Order : #@showItem.OrderId</h1>
+        <h1 class="pull-left">@(TempData["Success"]!=null? TempData["Success"]:string.Format("My Order: #{0}",showItem.OrderId))</h1>
         <ul class="pull-right breadcrumb">
 
             <li> <a href="/"> Home</a> </li>
@@ -100,12 +101,12 @@
             <!-- *** LEFT COLUMN ***
             _________________________________________________________ -->
             <div class="col-md-9 clearfix" id="customer-order">
-
                 <p class="lead">
-                    Order #@showItem.OrderId was placed on <strong>@showItem.CreatedAt.Value.ToShortDateString()</strong> and is currently
+                    Order #@showItem.OrderId was placed on <strong id="order-date" data-id="@showItem.CreatedAt.Value.ToString()">@showItem.CreatedAt.Value.ToString("dd/MM/yyyy")</strong> and is currently
 
                     @if (showItem.Status.Equals(OrderStatus.Pending))
-                    {<strong class="label label-info">@showItem.Status</strong>
+                    {<strong class="label label-info">@showItem.Status</strong><br />
+                     <span>Remaining time: <span id="clock"></span></span> 
                 }
                 else if (showItem.Status.Equals(OrderStatus.Cancelled))
 

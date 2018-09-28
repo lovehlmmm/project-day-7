@@ -114,3 +114,14 @@ function sizeRow(data) {
 function DetailsData(data) {
 
 }
+function ChangeStatus(id) {
+    var mode=$(this).data('mode');
+    $.ajax({
+        url: '/Order/ChangeStatus?id=' + id+'&mode='+mode,
+        type: 'GET',
+        success: function (response) {
+            $('#body-modal-order-details').html(response);
+            $('#modal-order-details').modal();
+        }
+    });
+}
