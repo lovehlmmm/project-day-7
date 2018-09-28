@@ -27,7 +27,7 @@ namespace WEB.Areas.Admin.Controllers
             var month = DateTime.Now.Month;
             var year = DateTime.Now.Year;
             var today = DateTime.Now.Date;
-            var privious = DateTime.Now.AddDays(-1);
+            var privious = DateTime.Now.AddDays(-1).Date;
             var orderPrevious = _orderService.FindAll(o=>o.CreatedAt.Value.Month.Equals(previousMonth) & o.CreatedAt.Value.Year.Equals(previousYear)).ToList();
             var orderMonth = _orderService.FindAll(o => o.CreatedAt.Value.Month.Equals(month) & o.CreatedAt.Value.Year.Equals(year) & o.Status == OrderStatus.Received).ToList();
             var orderPending = _orderService.FindAll(o => o.Status == OrderStatus.Pending).ToList();

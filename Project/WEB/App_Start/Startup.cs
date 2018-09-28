@@ -16,8 +16,6 @@ namespace WEB.App_Start
         {
             GlobalConfiguration.Configuration.UseSqlServerStorage("HangfireConnectionStringServer");
             RecurringJob.AddOrUpdate(() => JobSchedule.ChangeOrderStatusJob(), Cron.Hourly);
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
         }
     }
 }
