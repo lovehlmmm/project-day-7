@@ -70,8 +70,8 @@
                                                     <td>@item.ProductName</td>
                                                     <td>@item.Quantity</td>
                                                     <td>@item.Image</td>
-                                                    <td>$ @item.ProductPrice.ToString("0,0")</td>
-                                                    <td>$ @(item.Total.HasValue?item.Total.Value.ToString("0,0"):string.Empty)</td>
+                                                    <td>@item.ProductPrice.ToString("0,0") VNĐ</td>
+                                                    <td>@(item.Total.HasValue?item.Total.Value.ToString("0,0"):string.Empty) VNĐ</td>
                                                 </tr>
                                             }
 
@@ -87,7 +87,7 @@
                     <div class="col-6">
                     </div>
                     <div class="col-6 ">
-                        <h3 class="text-right">$ @(order.OrderDetails.Sum(o => o.Quantity * o.Product.ProductPrice).HasValue?order.OrderDetails.Sum(o => o.Quantity * o.Product.ProductPrice).Value.ToString("0,0"):string.Empty)</h3>
+                        <h3 class="text-right">@(order.OrderDetails.Sum(o => o.Quantity *( o.Product.ProductPrice+o.Material.Price)).HasValue?order.OrderDetails.Sum(o => o.Quantity * (o.Product.ProductPrice + o.Material.Price)).Value.ToString("0,0"):string.Empty) VNĐ</h3>
                     </div>
                 </div>
                 <hr>

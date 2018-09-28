@@ -256,7 +256,7 @@
     <Compile Include="Models\UserEmailConfirm.cs" />
     <Compile Include="Models\UserLoginCookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScheduledTasks\ChangeOrderStatusJob.cs" />
+    <Compile Include="ScheduledTasks\JobSchedule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Assets\css\bootstrap.min.css" />
@@ -295,6 +295,7 @@
     <Content Include="Areas\Admin\Assets\images\gallery\9.jpg" />
     <Content Include="Areas\Admin\Assets\images\users\avatar-3.jpg" />
     <Content Include="Areas\Admin\Assets\js\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Assets\js\dashboard.js" />
     <Content Include="Areas\Admin\Assets\js\detect.js" />
     <Content Include="Areas\Admin\Assets\js\fastclick.js" />
     <Content Include="Areas\Admin\Assets\js\jquery.app.js" />
@@ -2425,7 +2426,6 @@
     <Content Include="Assets\js\jquery-1.9.1.min.js" />
     <Content Include="Assets\js\jquery.backstretch.min.js" />
     <Content Include="Assets\js\jquery.gritter.min.js" />
-    <Content Include="Assets\js\jquery2.js" />
     <Content Include="Assets\js\jquery.js" />
     <Content Include="Assets\js\jquery.parallax.js" />
     <Content Include="Assets\js\jquery.sticky.js" />
@@ -2435,6 +2435,7 @@
     <Content Include="Assets\js\smoothscroll.js" />
     <Content Include="Assets\js\webscript.js" />
     <Content Include="Assets\js\wow.min.js" />
+    <Content Include="Assets\Scripts\DatetimeExtension.js" />
     <Content Include="Assets\Scripts\Pure.Uploader.js" />
     <Content Include="Assets\vendor\animate\animate.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.css" />
@@ -2899,10 +2900,13 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\order-details.js" />
     <Content Include="Scripts\payment.js" />
     <Content Include="Scripts\register.js" />
     <Content Include="Scripts\updateUserInfo.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -2981,10 +2985,6 @@
     <ProjectReference Include="..\Helpers\Helpers.csproj">
       <Project>{1fb78601-83c1-4ca5-b327-4e19f5929594}</Project>
       <Name>Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Library\Library.csproj">
-      <Project>{434fed39-4ec1-4797-bb2d-246432b3d4fd}</Project>
-      <Name>Library</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repositories\Repositories.csproj">
       <Project>{18d27a7b-0421-4d2d-8bf8-a8e9d2ecb6d2}</Project>

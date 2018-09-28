@@ -114,3 +114,42 @@ function sizeRow(data) {
 function DetailsData(data) {
 
 }
+function ChangeStatus(id, mode) {
+    switch (mode) {
+        case 'Confirmed':
+            var result = AjaxChange(id, mode, 'Confirm Success');
+            break;
+        default:
+    }
+   
+}
+function AjaxChange(id, mode, message = '', text = '') {
+    var result = false;
+    swal({
+        title: "Are you sure?",
+        text: text,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: '/Order/ChangeStatus?id=' + id + '&mode=' + mode,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.status) {
+                            swal(message, {
+                                icon: "success",
+                            });
+                            //$(btn).closest('tr').remove();
+                        }
+                    }
+                });
+                
+            } else {
+                swal("Your imaginary file is safe!");
+            }
+        });
+    
+}
