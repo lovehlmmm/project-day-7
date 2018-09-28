@@ -23,7 +23,7 @@
                 foreach (var item in user.Customer.CreditCards.Where(c => c.Status.Equals(Status.Active)))
                 {
                     <tr>
-                        <td>@item.CreditNumber</td>
+                        <td>**** **** ****@item.CreditNumber.Substring(12,4)</td>
                         <td>@item.Expire</td>
                         <td>@item.CVC</td>
                         <td>
