@@ -1,5 +1,6 @@
 ﻿@using Entities
 @using WEB.Areas.Admin.Models
+@using Constants
 @model ViewModelDashboard
 @{
     ViewBag.Title = "Home";
@@ -86,18 +87,18 @@
 
                     <h4 class="header-title m-t-0 m-b-30">Order Pending</h4>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered mb-0">
+                    <div class="table-responsive nicescroll" style="height: 320px;overflow: hidden">
+                        <table class="table table-bordered mb-0 " >
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
                                     <th>Customer Name</th>
-                                    <th>Start Date</th>
+                                    <th>Order At</th>
                                     <th>Status</th>
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="nicescroll" >
                                 @if (Model.OrderPending.Count > 0)
                                 {
                                     foreach (var item in Model.OrderPending)
@@ -105,12 +106,12 @@
                                         <tr>
                                             <td>@item.OrderId</td>
                                             <th class="text-muted">@item.Customer.CustomerName</th>
-                                            <td>@item.CreatedAt</td>
+                                            <td>@item.CreatedAt.Value.ToString("dd/MM/yyyy HH:mm:ss")</td>
 
                                             <td><span class="label label-success">@item.Status</span></td>
                                             <td style="text-align:center">
                                                 <button class="btn waves-effect waves-light btn-info vieworder" onclick="GetDataEdit(@item.OrderId)" style="font-size:15px; width: 45px;"><i class="fa fa-info"></i>&nbsp; </button>
-                                                <button class="btn waves-effect waves-light btn-success confirm" style="font-size:14px;"><i class="fa fa-check"></i>&nbsp; </button>
+                                                <button class="btn waves-effect waves-light btn-success confirm" data-mode="" onclick="ChangeStatus(@item.OrderId,'@OrderStatus.Confirmed')" style="font-size:14px;"><i class="fa fa-check"></i>&nbsp; </button>
                                                 <button class="btn waves-effect waves-light btn-danger disabled" style="font-size:14px;"><i class="fa fa-remove"></i>&nbsp; </button>
                                             </td>
 

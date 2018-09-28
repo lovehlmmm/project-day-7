@@ -11,10 +11,10 @@ using System.Web.Hosting;
 namespace WEB.ScheduledTasks
 {
 
-    public class ChangeOrderStatusJob
+    public class JobSchedule
     {
 
-        public static async System.Threading.Tasks.Task Execute()
+        public static async System.Threading.Tasks.Task ChangeOrderStatusJob()
         {
             IBaseRepository<Order> _orderService = new BaseRepositoryEF<Order>();
             System.Diagnostics.Debug.WriteLine("Late job!");

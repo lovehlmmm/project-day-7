@@ -32,7 +32,7 @@ namespace WEB.Areas.Admin.Controllers
             ViewModelDashboard viewModel = new ViewModelDashboard()
             {
                 OrderCount = orderMonth.Count,
-                OrderPending = orderPending,
+                OrderPending = orderPending.OrderByDescending(o=>o.CreatedAt).ToList(),
                 PreviousOrder = orderPrevious.Count,
                 Total = orderMonth.Sum(o => o.OrderDetails.Sum(od => od.Quantity * (od.Product.ProductPrice + od.Material.Price.Value))).Value,
                 TotalPrevious  = orderPrevious.Sum(o => o.OrderDetails.Sum(od => od.Quantity * (od.Product.ProductPrice + od.Material.Price.Value))).Value
