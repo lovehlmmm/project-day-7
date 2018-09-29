@@ -38,9 +38,12 @@
                     if (SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) != null)
                     {
                         UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
+
                         <li>
                             <i class="fa fa-user"><a class="smoothScroll" role="button" style="text-transform:uppercase" href="/info">&nbsp;&nbsp;@userSession.Username</a></i>
                         </li>
+                        Html.RenderAction("GetNotification", "Home");
+
                     }
                     else
                     {

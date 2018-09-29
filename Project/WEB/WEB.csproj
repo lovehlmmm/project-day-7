@@ -2885,6 +2885,7 @@
     <Content Include="Assets\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Areas\Admin\Views\Material\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\OrderPartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\MailReceivedOrder.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy1.pubxml" />
@@ -2938,6 +2939,7 @@
     <Content Include="Views\PaymentCheckOut\CardPartial.cshtml" />
     <Content Include="Views\PaymentCheckOut\MailOrder.cshtml" />
     <Content Include="Views\PaymentCheckOut\MailBackAdmin.cshtml" />
+    <Content Include="Views\Shared\_Notification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
