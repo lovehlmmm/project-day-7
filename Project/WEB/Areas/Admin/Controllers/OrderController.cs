@@ -11,6 +11,7 @@ using Constants;
 using Entities;
 using Helpers;
 using Services;
+using WEB.Hubs;
 
 namespace WEB.Areas.Admin.Controllers
 {
@@ -119,6 +120,8 @@ namespace WEB.Areas.Admin.Controllers
                     if (check!=null)
                     {
                         var updated = await _orderService.UpdateAsync(check, check.OrderId);
+                        NotificationHub hub = new NotificationHub();
+                        hub.SendNotification("test9");
                         if (updated!=null)
                         {
                             return Json(new { status = true, message }, JsonRequestBehavior.AllowGet);

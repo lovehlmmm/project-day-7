@@ -259,9 +259,11 @@
     <Compile Include="Helpers\SendEmail.cs" />
     <Compile Include="Helpers\Validate.cs" />
     <Compile Include="Helpers\ViewToString.cs" />
+    <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CheckOut.cs" />
     <Compile Include="Models\MailOrder.cs" />
+    <Compile Include="Models\UserConnection.cs" />
     <Compile Include="Models\UserEmailConfirm.cs" />
     <Compile Include="Models\UserLoginCookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2472,6 +2474,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -2907,6 +2910,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.3.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.3.0.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\order-details.js" />

@@ -46,57 +46,71 @@ namespace WEB.Hubs
         //}
         public override Task OnConnected()
         {
-            var username = "";
-            var cookie = Context.Request.Cookies[AppSettingConstant.LoginCookieCustomer];
-            if (cookie!=null)
+            try
             {
-                var cook = JsonConvert.DeserializeObject<UserLoginCookie>(Uri.UnescapeDataString(cookie.Value));
-                username = cook.Username;
-            }
-            string connectionId = Context.ConnectionId;
-            var user = Users.GetOrAdd(username, _ => new UserConnection
-            {
-                UserName = username ,
-                ConnectionIds = new HashSet<string>()
-            });
-
-            lock (user.ConnectionIds)
-            {
-                user.ConnectionIds.Add(connectionId);
-                if (user.ConnectionIds.Count == 1)
+                var username = "";
+                var cookie = Context.Request.Cookies[AppSettingConstant.LoginCookieCustomer];
+                if (cookie != null)
                 {
-                    Clients.Others.userConnected(username);
+                    var cook = JsonConvert.DeserializeObject<UserLoginCookie>(Uri.UnescapeDataString(cookie.Value));
+                    username = cook.Username;
+                }
+                string connectionId = Context.ConnectionId;
+                var user = Users.GetOrAdd(username, _ => new UserConnection
+                {
+                    UserName = username,
+                    ConnectionIds = new HashSet<string>()
+                });
+
+                lock (user.ConnectionIds)
+                {
+                    user.ConnectionIds.Add(connectionId);
+                    if (user.ConnectionIds.Count == 1)
+                    {
+                        Clients.Others.userConnected(username);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+
+            } 
             return base.OnConnected();
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            var username = "";
-            var cookie = Context.Request.Cookies[AppSettingConstant.LoginCookieCustomer];
-            if (cookie != null)
+            try
             {
-                var cook = JsonConvert.DeserializeObject<UserLoginCookie>(Uri.UnescapeDataString(cookie.Value));
-                username = cook.Username;
-            }
-            string connectionId = Context.ConnectionId;
-
-            UserConnection user;
-            Users.TryGetValue(username, out user);
-
-            if (user != null)
-            {
-                lock (user.ConnectionIds)
+                var username = "";
+                var cookie = Context.Request.Cookies[AppSettingConstant.LoginCookieCustomer];
+                if (cookie != null)
                 {
-                    user.ConnectionIds.RemoveWhere(cid => cid.Equals(connectionId));
-                    if (!user.ConnectionIds.Any())
+                    var cook = JsonConvert.DeserializeObject<UserLoginCookie>(Uri.UnescapeDataString(cookie.Value));
+                    username = cook.Username;
+                }
+                string connectionId = Context.ConnectionId;
+
+                UserConnection user;
+                Users.TryGetValue(username, out user);
+
+                if (user != null)
+                {
+                    lock (user.ConnectionIds)
                     {
-                        UserConnection removedUser;
-                        Users.TryRemove(username, out removedUser);
-                        Clients.Others.userDisconnected(username);
+                        user.ConnectionIds.RemoveWhere(cid => cid.Equals(connectionId));
+                        if (!user.ConnectionIds.Any())
+                        {
+                            UserConnection removedUser;
+                            Users.TryRemove(username, out removedUser);
+                            Clients.Others.userDisconnected(username);
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+
             }
             return base.OnDisconnected(stopCalled);
         }
