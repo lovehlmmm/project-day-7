@@ -14,5 +14,9 @@ namespace WEB.Controllers
 
             return View();
         }
+        public ActionResult GetNotification()
+        {
+            return PartialView("~/Views/Shared/_Notification.cshtml");
+         }
     }
 }
