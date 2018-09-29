@@ -768,11 +768,14 @@ footer {
     }
 
 
+
+
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     background-color: #17A2B8;
 }
 
-.dropdown-menu {
+#showmenu {
     top: 60px;
     right: 0px;
     left: unset;
@@ -782,7 +785,7 @@ footer {
     padding: 0px;
 }
 
-    .dropdown-menu:before {
+    #showmenu:before {
         content: "";
         position: absolute;
         top: -20px;
@@ -800,7 +803,7 @@ footer {
     background-color: #eee;
 }
 
-@media (max-width: 640px) {
+@@media (max-width: 640px) {
     .dropdown-menu {
         top: 50px;
         left: -16px;
@@ -819,4 +822,3 @@ footer {
         font-size: 13px;
     }
 }
-
