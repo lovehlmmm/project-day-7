@@ -6,6 +6,9 @@
     $('input[name=search-bar]').on('input', function () {
         GetData();
     });
+    $('.applyBtn').click(function () {
+        GetData();
+    })
 });
 
 $('#btnOpenModalAdd').click(function () {
@@ -15,9 +18,10 @@ function GetData() {
     var paginationPage = parseInt($('.cdp').attr('actpage'), 10);
     var filter = $('select[name=filter_order]').val().trim();
     var search = $('input[name=search-bar]').val();
+    var filterDate = $('#filter-date').text();
     $('#loading').show();
     $.ajax({
-        url: '/Order/GetList?pageNumber=' + paginationPage + '&pageSize=10&filter=' + filter + '&search=' + search,
+        url: '/Order/GetList?pageNumber=' + paginationPage + '&pageSize=10&filter=' + filter + '&search=' + search + '&date=' + filterDate,
         type: 'GET',
         dataType: 'json',
         success: function (data) {

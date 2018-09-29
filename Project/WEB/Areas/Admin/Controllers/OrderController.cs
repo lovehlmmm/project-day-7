@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -33,9 +35,12 @@ namespace WEB.Areas.Admin.Controllers
                 var pageNumber = int.Parse(Request.QueryString["pageNumber"]);
                 var pageSize = int.Parse(Request.QueryString["pageSize"]);
                 var filter = Request.QueryString["filter"];
+                var filterDate = Request.QueryString["date"];
                 long search=0;
                 long.TryParse(Request.QueryString["search"],out search);
+               
                 Expression<Func<Order, bool>> expression;
+
                 if (filter=="")
                 {
                     expression = (o) => o.Status != Status.Deleted;
@@ -43,6 +48,13 @@ namespace WEB.Areas.Admin.Controllers
                 else
                 {
                     expression = (o) => o.Status == filter;
+                }
+                if (filterDate.Trim() != "")
+                {
+                    string[] date = Regex.Split(filterDate, "-");
+                    DateTime from = Convert.ToDateTime(date[0]).Date;
+                    DateTime to = Convert.ToDateTime(date[1]).Date;
+                    expression =  expression.And(o => DbFunctions.TruncateTime(o.CreatedAt) >= from & DbFunctions.TruncateTime(o.CreatedAt) <= to);
                 }
                 var list = await _orderService.GetAllAsync(pageNumber, pageSize, o => o.CreatedAt,
                     expression);
