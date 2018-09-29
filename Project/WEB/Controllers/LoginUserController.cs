@@ -52,6 +52,7 @@ namespace WEB.Controllers
                         Response.Cookies.Add(cookie);
                         UserSession userSession = new UserSession(checkUser.Username, checkUser.Role);
                         SessionHelper.SetSession(userSession, AppSettingConstant.LoginSessionCustomer);
+                        SessionHelper.SetSession(userSession.Username, AppSettingConstant.NotifiSession);
                         status = true;
                     }
 
