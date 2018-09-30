@@ -18,11 +18,12 @@ namespace WEB.Controllers
     {
         private readonly IBaseService<Product> _productRepository;
         private readonly IBaseService<Material> _materialRepository;
-
-        public UploadController(IBaseService<Product> productRepository, IBaseService<Material> materialRepository)
+        private readonly IUserService _userService;
+        public UploadController(IBaseService<Product> productRepository, IBaseService<Material> materialRepository, IUserService userService)
         {
             _productRepository = productRepository;
             _materialRepository = materialRepository;
+            _userService = userService;
         }
         // GET: Upload
         public ActionResult Index()
@@ -32,6 +33,11 @@ namespace WEB.Controllers
             {
 
                 return RedirectToAction("Index","LoginUser",new {url = Request.Url.ToString()});
+            }
+            var user = _userService.Find(u => u.Username == userSession.Username & u.Status == Status.Active & u.Role == UserRole.Customer);
+            if (user==null)
+            {
+                return RedirectToAction("Index", "LoginUser", new { url = Request.Url.ToString() });
             }
             var product = _productRepository.FindAll(p => p.Status.Equals(Status.Active));
             var materials = _materialRepository.FindAll(m => m.Status == Status.Active);
