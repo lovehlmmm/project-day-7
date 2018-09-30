@@ -3091,6 +3091,7 @@
     <Content Include="Scripts\Plugin\Lobibox\sounds\sound4.ogg" />
     <Content Include="Scripts\Plugin\Lobibox\sounds\sound5.ogg" />
     <Content Include="Scripts\Plugin\Lobibox\sounds\sound6.ogg" />
+    <Content Include="Views\RegisterUser\ConfirmEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
