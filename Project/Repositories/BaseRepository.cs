@@ -47,18 +47,27 @@ namespace Repositories
         /// </summary>
         /// <remarks>Synchronous</remarks>
         /// <returns>An ICollection of every object in the database</returns>
-        public ICollection<TObject> GetAll(int num,int page,Func<TObject,object> orderBy, Expression<Func<TObject, bool>> match)
+        public ICollection<TObject> GetAll(int num,int page, Func<TObject,object> orderBy, Expression<Func<TObject, bool>> match, Func<TObject,object> orderByDescending=null)
         {
-            return _context.Set<TObject>().Where(match).AsEnumerable().OrderBy(orderBy).ToPagedList(num, page).ToList();
+            if (orderByDescending!=null)
+            {
+                return _context.Set<TObject>().Where(match).AsQueryable().OrderByDescending(orderByDescending).ToPagedList(num, page).ToList();
+            }
+            return _context.Set<TObject>().Where(match).AsQueryable().OrderBy(orderBy).ToPagedList(num, page).ToList();
         }
         /// <summary>
         /// Gets a collection of all objects in the database
         /// </summary>
         /// <remarks>Asynchronous</remarks>
         /// <returns>An ICollection of every object in the database</returns>
-        public async Task<IEnumerable<TObject>> GetAllAsync(int num,int page, Func<TObject,object> orderBy, Expression<Func<TObject, bool>> match)
+        public async Task<IEnumerable<TObject>> GetAllAsync(int num,int page, Func<TObject,object> orderBy, Expression<Func<TObject, bool>> match, Func<TObject, object> orderByDescending = null)
         {
-            return await _context.Set<TObject>().Where(match).AsEnumerable().OrderBy(orderBy).ToPagedList(num, page).ToListAsync();
+            if (orderByDescending != null)
+            {
+                return await _context.Set<TObject>().Where(match).AsQueryable().OrderByDescending(orderByDescending).ToPagedList(num, page).ToListAsync();
+            }
+
+            return await _context.Set<TObject>().Where(match).AsQueryable().OrderBy(orderBy).ToPagedList(num, page).ToListAsync();
         }
         /// <summary>
         /// Returns a single object which matches the provided expression

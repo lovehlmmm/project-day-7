@@ -1,10 +1,29 @@
-﻿    
+﻿@using Constants
 @{
     ViewBag.Title = "User Management";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@section css{
+    <link href="~/Areas/Admin/Assets/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+
+    <link href="~/Areas/Admin/Assets/plugins/mjolnic-bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+    <link href="~/Areas/Admin/Assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
+    <link href="~/Areas/Admin/Assets/plugins/clockpicker/bootstrap-clockpicker.min.css" rel="stylesheet">
+
+    <link href="~/Areas/Admin/Assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+}
 @section script
 {
+    <script src="~/Areas/Admin/Assets/plugins/moment/moment.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/mjolnic-bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/clockpicker/bootstrap-clockpicker.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <script src="~/Areas/Admin/Assets/pages/jquery.form-pickers.init.js"></script>
     <script src="~/Areas/Admin/Assets/js/user.js"></script>
 }
 <!-- Title Row -->
@@ -20,13 +39,33 @@
 <!-- end row -->
 <div class="row">
     <div class="col-12">
-      
         <div class="card-box">
             <div class="row m-t-50">
                 <div class="col-12 m-t-20">
-                    <div class="" style="float:right">
-                        <div id="datatable_filter" class="dataTables_filter">
-                            <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="datatable"></label>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4">
+                            <select name="filter_user" aria-controls="datatable" class="form-control form-control-sm" style="width:50%;">
+                                <option value="">Select...</option>
+                                <option value="@Status.Active">@Status.Active</option>
+                                <option value="@Status.Inactive">@Status.Inactive</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-4  ">
+                            <div class="form-group">
+                                <div id="reportrange" class="form-control">
+                                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                    <span id="filter-date"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div id="datatable_filter" class="dataTables_filter">
+                                <input style="width:50%;position:relative" type="text" placeholder="Search..." class=" pull-right form-control" name="search-bar">
+                                <i class="fa fa-search pull-right" style="position: absolute;right: 25px;top: 13px;">
+
+                                </i>
+
+                            </div>
                         </div>
                     </div>
                     <!-- End -->

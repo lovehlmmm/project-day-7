@@ -9,45 +9,7 @@
 @section script{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
     <script src="~/Scripts/login.js"></script>
-    <script src="~/Scripts/jquery.signalR-2.3.0.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script src="~/Scripts/bootstrap-notify.js"></script>
-    <script>
-        $(document).ready(function () {
-
-            function setTotalNotification(totalNotif) {
-                console.log(totalNotif);
-                $.notify({
-                    title: '<strong>Heads up!</strong>',
-                    message: 'OKOKOKOKOKOKOKOK'
-                }, {
-                        type: 'success'
-                    });
-            }
-
-            var hub = $.connection.notificationHub;
-
-            //Server Sent Event
-            hub.client.broadcaastNotif = function (totalNotif) {
-                setTotalNotification(totalNotif)
-            };
-
-
-            //$.connection.hub.start().done(function () { });
-
-            $.connection.hub.start()
-                .done(function () {
-                    console.log("Hub Connected!");
-
-                    //Client Call to Server
-                    hub.server.getNotification();
-
-                })
-                .fail(function () {
-                    console.log("Could not Connect!");
-                });
-        });
-    </script>
+    
 }
 <!-- Preloader section
 ================================================== -->

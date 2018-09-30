@@ -9,6 +9,7 @@ using WEB.Models;
 using Constants;
 using Helpers;
 using Newtonsoft.Json;
+using Entities;
 
 namespace WEB.Hubs
 {
@@ -114,7 +115,7 @@ namespace WEB.Hubs
             }
             return base.OnDisconnected(stopCalled);
         }
-        public void SendNotification(string SentTo)
+        public void SendNotification(string SentTo,Notification notification)
         {
             try
             {
@@ -126,7 +127,7 @@ namespace WEB.Hubs
                 {
                     var cid = receiver.ConnectionIds.Last();
                     var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-                    context.Clients.Client(cid).broadcaastNotif(12345);
+                    context.Clients.Client(cid).broadcaastNotif(notification);
                 }
             }
             catch (Exception ex)

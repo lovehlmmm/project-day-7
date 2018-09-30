@@ -11,6 +11,9 @@ using Constants;
 using Entities;
 using Helpers;
 using Services;
+using WEB.Areas.Admin.Helpers;
+using WEB.Areas.Admin.Models;
+using WEB.Helpers;
 using WEB.Hubs;
 
 namespace WEB.Areas.Admin.Controllers
@@ -19,10 +22,13 @@ namespace WEB.Areas.Admin.Controllers
     public class OrderController : Controller
     {
         private IBaseService<Order> _orderService;
-
-        public OrderController(IBaseService<Order> orderService)
+        private IBaseService<Notification> _notiService;
+        private IBaseService<User> _userService;
+        public OrderController(IBaseService<Order> orderService, IBaseService<User> userService, IBaseService<Notification> notiService)
         {
+            _notiService = notiService;
             _orderService = orderService;
+            _userService = userService;
         }
         // GET: Admin/Order
         public ActionResult Index()
@@ -37,12 +43,12 @@ namespace WEB.Areas.Admin.Controllers
                 var pageSize = int.Parse(Request.QueryString["pageSize"]);
                 var filter = Request.QueryString["filter"];
                 var filterDate = Request.QueryString["date"];
-                long search=0;
-                long.TryParse(Request.QueryString["search"],out search);
-               
+                long search = 0;
+                long.TryParse(Request.QueryString["search"], out search);
+
                 Expression<Func<Order, bool>> expression;
 
-                if (filter=="")
+                if (filter == "")
                 {
                     expression = (o) => o.Status != Status.Deleted;
                 }
@@ -55,10 +61,10 @@ namespace WEB.Areas.Admin.Controllers
                     string[] date = Regex.Split(filterDate, "-");
                     DateTime from = Convert.ToDateTime(date[0]).Date;
                     DateTime to = Convert.ToDateTime(date[1]).Date;
-                    expression =  expression.And(o => DbFunctions.TruncateTime(o.CreatedAt) >= from & DbFunctions.TruncateTime(o.CreatedAt) <= to);
+                    expression = expression.And(o => DbFunctions.TruncateTime(o.CreatedAt) >= from & DbFunctions.TruncateTime(o.CreatedAt) <= to);
                 }
                 var list = await _orderService.GetAllAsync(pageNumber, pageSize, o => o.CreatedAt,
-                    expression);
+                    expression, o => o.CreatedAt);
                 if (search > 0)
                 {
                     expression = expression.And(o => o.OrderId == search);
@@ -66,11 +72,11 @@ namespace WEB.Areas.Admin.Controllers
                 }
                 var total = list.Count();
                 var totalPage = (int)Math.Ceiling((double)(total / pageSize)) + 1;
-                var list2 = list.Select(o => new
+                var list2 = list.OrderBy(o => GetStatusOrder(o.Status)).Select(o => new
                 {
                     o.OrderId,
                     o.Customer.CustomerName,
-                    Total = (o.OrderDetails?.Sum(od =>  od?.Quantity * (od?.Product.ProductPrice+od?.Material.Price))),
+                    Total = (o.OrderDetails?.Sum(od => od?.Quantity * (od?.Product.ProductPrice + od?.Material.Price))),
                     o.Status,
                     o.PhoneNumber,
                     o.Address?.AddressDetails,
@@ -78,7 +84,7 @@ namespace WEB.Areas.Admin.Controllers
                     o.ModifiedAt,
                     o.FolderImage
                 }).ToList();
-                return Json(new { status = true, data = list2, totalPage = totalPage }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, data = list2,  totalPage }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -86,47 +92,111 @@ namespace WEB.Areas.Admin.Controllers
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
-        public  ActionResult Get(long id)
+        public ActionResult Get(long id)
         {
             try
             {
-                Order order =  _orderService.Find(o => o.OrderId == id && o.Status != Status.Deleted);
-                if (order!=null)
+                Order order = _orderService.Find(o => o.OrderId == id && o.Status != Status.Deleted);
+                if (order != null)
                 {
-                    
+
                     ViewBag.Data = order;
                 }
-             
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            return  PartialView("~/Areas/Admin/Views/Order/OrderDetailsPartial.cshtml");
+            return PartialView("~/Areas/Admin/Views/Order/OrderDetailsPartial.cshtml");
         }
-        public async Task<JsonResult> ChangeStatus(string mode, long id)
+        private int GetStatusOrder(string status)
+        {
+            int result = 0;
+            switch (status)
+            {
+                case OrderStatus.Pending:
+                    result= 1;
+                    break;
+                case OrderStatus.Processing:
+                    result = 2;
+                    break;
+                case OrderStatus.Confirmed:
+                    result= 3;
+                    break;
+                case OrderStatus.Canceled:
+                    result = 5;
+                    break;
+                case OrderStatus.Received:
+                    result= 4;
+                    break;
+            }
+            return result;
+        }
+        public async Task<JsonResult> ChangeStatus(string mode, long id,string reason = null)
         {
             var message = "";
-            if (mode==null|id<1)
+            if (mode == null | id < 1)
             {
                 return Json(new { status = false, message }, JsonRequestBehavior.AllowGet);
             }
             try
             {
                 Order order = _orderService.Find(o => o.OrderId == id && o.Status != Status.Deleted);
-                if (order!=null)
+                if (order != null)
                 {
                     var check = GetOrderChange(mode, order);
-                    if (check!=null)
+                    if (check != null)
                     {
+                        check.ModifiedAt = DateTime.Now;
                         var updated = await _orderService.UpdateAsync(check, check.OrderId);
-                        NotificationHub hub = new NotificationHub();
-                        hub.SendNotification("test9");
-                        if (updated!=null)
+                        
+                        if (updated != null)
                         {
+                            var user = await _userService.FindAsync(u => u.CustomerId == updated.CustomerId);
+                            if (updated.Status == OrderStatus.Received)
+                            {
+                                var body = ViewToStringAdmin.RenderViewToString("Order", "MailReceivedOrder","admin", updated,this.Request.RequestContext);
+                                await Task.Factory.StartNew((() =>
+                                 {
+                                     SendEmail.Send(user.Email, body, "Thanks for using our service");
+                                 }));
+                            }
+                            if (updated.Status==OrderStatus.Canceled)
+                            {
+                                MailCancelModel model = new MailCancelModel()
+                                {
+                                    Order = updated,
+                                    Reason = reason
+                                };
+                                var body = ViewToStringAdmin.RenderViewToString("Order", "MailCancelOrder", "admin", model, this.Request.RequestContext);
+                                await Task.Factory.StartNew((() =>
+                                {
+                                    SendEmail.Send(user.Email, body, "Your order has been canceled");
+                                }));
+                            }
+                            NotificationHub hub = new NotificationHub();
+                            var noti = GetNotifi(mode, updated, reason);
+                                Notification notification = new Notification()
+                            {
+                                IsRead = false,
+                                SendTo = user.Username,
+                                IsReminder = false,
+                                CreatedAt = DateTime.Now,
+                                Status = Status.Active,
+                                NotificationType = NotificationType.Success,
+                                Details = noti.Details,
+                                Title = noti.Title      
+                            };
+                            
+                            var notiAdd = await _notiService.AddAsync(notification);
+                            if (notiAdd!=null)
+                            {
+                                hub.SendNotification(user.Username,notiAdd);
+                            }
                             return Json(new { status = true, message }, JsonRequestBehavior.AllowGet);
                         }
-                       
+
                     }
                 }
             }
@@ -136,19 +206,49 @@ namespace WEB.Areas.Admin.Controllers
             }
             return Json(new { status = false, message }, JsonRequestBehavior.AllowGet);
         }
-
-        private Order GetOrderChange(string mode,Order order)
+        private Notifi GetNotifi(string mode,Order order,string reason=null)
         {
-            if (order == null|mode==null)
+            Notifi notifi = null;
+            switch (mode)
+            {
+                case OrderStatus.Confirmed:
+                    notifi = new Notifi()
+                    {
+                        Title = "The order has been confirmed",
+                        Details = string.Format("The order #{0} has been confirmed, we will contact you", order.OrderId)
+                    };
+                    break;
+                case OrderStatus.Canceled:
+                    notifi = new Notifi()
+                    {
+                        Title = "The order was canceled",
+                        Details = string.Format("The order {0} was canceled due to: {1}",order.OrderId,reason)
+                    };
+                    break;
+                case OrderStatus.Received:
+                    notifi = new Notifi()
+                    {
+                        Title = "Thank you!!",
+                        Details = string.Format("Thanks for using our service")
+                    };
+                    break;
+
+            }
+            return notifi;
+        }
+
+        private Order GetOrderChange(string mode, Order order)
+        {
+            if (order == null | mode == null)
                 return null;
-            if (mode==OrderStatus.Confirmed & order.Status==OrderStatus.Pending)
+            if (mode == OrderStatus.Confirmed & order.Status == OrderStatus.Pending)
             {
                 order.Status = OrderStatus.Confirmed;
                 return order;
             }
-            if (mode == OrderStatus.Cancelled & order.Status == OrderStatus.Pending)
+            if (mode == OrderStatus.Canceled & order.Status == OrderStatus.Pending)
             {
-                order.Status = OrderStatus.Cancelled;
+                order.Status = OrderStatus.Canceled;
                 return order;
             }
             if (mode == OrderStatus.Received & order.Status == OrderStatus.Confirmed)
@@ -156,12 +256,18 @@ namespace WEB.Areas.Admin.Controllers
                 order.Status = OrderStatus.Received;
                 return order;
             }
-            if (mode == Status.Deleted & (order.Status == OrderStatus.Cancelled | order.Status == OrderStatus.Received))
+            if (mode == Status.Deleted & (order.Status == OrderStatus.Canceled | order.Status == OrderStatus.Received))
             {
                 order.Status = Status.Deleted;
                 return order;
             }
-            return null; 
+            return null;
+        }
+        private class Notifi
+        {
+            public string Title { get; set; }
+            public string Details { get; set; }
         }
     }
+
 }

@@ -9,7 +9,7 @@ namespace Services
 {
     public interface IBaseService<TObject> where TObject:class
     {
-        Task<IEnumerable<TObject>> GetAllAsync(int num,int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match);
+        Task<IEnumerable<TObject>> GetAllAsync(int num,int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match, Func<TObject, object> orderByDescending = null);
         Task<TObject> FindAsync(Expression<Func<TObject, bool>> match);
         Task<IEnumerable<TObject>> FindAllAsync(Expression<Func<TObject, bool>> match); 
         Task<TObject> AddAsync(TObject t);
@@ -17,7 +17,7 @@ namespace Services
         Task<bool> DeleteAsync(TObject t,string property);
         Task<TObject> GetAsync(object key);
         Task<int> CountAsync(Expression<Func<TObject, bool>> match);
-        ICollection<TObject> GetAll(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match);
+        ICollection<TObject> GetAll(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match, Func<TObject, object> orderByDescending = null);
         TObject Find(Expression<Func<TObject, bool>> match);
         ICollection<TObject> FindAll(Expression<Func<TObject, bool>> match);
         IEnumerable<TObject> AddAll(IEnumerable<TObject> tlist);

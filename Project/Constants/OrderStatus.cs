@@ -11,7 +11,7 @@ namespace Constants
         public const string Pending = "Pending";
         public const string Confirmed = "Confirmed";
         public const string Processing = "Processing";
-        public const string Cancelled = "Cancelled";
+        public const string Canceled = "Canceled";
         public const string Received = "Received";
     }
 }

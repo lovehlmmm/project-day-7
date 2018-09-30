@@ -41,6 +41,9 @@ namespace WEB.Controllers
                     if (!checkUser.Role.Equals(UserRole.Customer)) return Json(new { status = false });
                     if (checkUser.Status == Status.Inactive)
                     {
+                        message = "Account locked";
+                    }else if (checkUser.ActiveMail != null && checkUser.Status == Status.Inactive)
+                    {
                         message = "Account is not verify email!";
                     }
                     else
@@ -89,6 +92,12 @@ namespace WEB.Controllers
         public ActionResult Logout()
         {
             Session.RemoveAll();
+            if (Request.Cookies[AppSettingConstant.LoginCookieCustomer] != null)
+            {
+                var c = new HttpCookie(AppSettingConstant.LoginCookieCustomer);
+                c.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(c);
+            }
             return RedirectToAction("index", "home");
         }
 

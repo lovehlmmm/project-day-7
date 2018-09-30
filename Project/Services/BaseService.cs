@@ -17,9 +17,9 @@ namespace Services
         {
             _baseRepository = baseRepository;
         }
-        public async Task<IEnumerable<TObject>> GetAllAsync(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match)
+        public async Task<IEnumerable<TObject>> GetAllAsync(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match, Func<TObject, object> orderByDescending = null)
         {
-            return await _baseRepository.GetAllAsync(num, page, orderBy, match);
+            return await _baseRepository.GetAllAsync(num, page, orderBy, match,orderByDescending);
         }
 
         public async Task<TObject> FindAsync(Expression<Func<TObject, bool>> match)
@@ -58,9 +58,9 @@ namespace Services
             return await _baseRepository.CountAsync(match);
 ;        }
 
-        public ICollection<TObject> GetAll(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match)
+        public ICollection<TObject> GetAll(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match, Func<TObject, object> orderByDescending = null)
         {
-            return _baseRepository.GetAll(num, page, orderBy, match);
+            return _baseRepository.GetAll(num, page, orderBy, match,orderByDescending);
         }
 
         public TObject Find(Expression<Func<TObject, bool>> match)
