@@ -44,15 +44,17 @@
     <link href='https://fonts.googleapis.com/css?family=Oxygen:400,700' rel='stylesheet' type='text/css'>
 
     <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
+    <link href="~/Scripts/Plugin/Lobibox/dist/css/lobibox.min.css" rel="stylesheet" />
 
     @RenderSection("css", false)
 
-  
+
 
     <style type="text/css">
         .float-right {
             float: right !important
         }
+
         input[type="file"] {
             display: inline-block;
         }
@@ -61,8 +63,8 @@
 </head>
 <body id="" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
     <div id="loading" style="display:none">
-        <img src="~/Assets/images/icons/Spinner-0.5s-75px.gif" alt="Loading..."  />
-     </div>
+        <img src="~/Assets/images/icons/Spinner-0.5s-75px.gif" alt="Loading..." />
+    </div>
 
     @RenderBody()
 
@@ -103,6 +105,53 @@
     <script src="~/Assets/js/custom.js"></script>
     <script src="~/Areas/Admin/Assets/js/sweetalert.min.js"></script>
     <script src="~/Assets/Scripts/DatetimeExtension.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.3.0.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/bootstrap-notify.js"></script>
+    <script src="~/Scripts/Plugin/Lobibox/dist/js/lobibox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            String.prototype.format = function () {
+                a = this;
+                for (k in arguments) {
+                    a = a.replace("{" + k + "}", arguments[k])
+                }
+                return a
+            }
+            function setTotalNotification(noti) {
+                Lobibox.notify('success', {
+                    img: '',
+                    title: noti.Title,
+                    size: 'large',
+                    msg: noti.Details,
+                    sound: 'sound2.mp3'
+                });
+
+            }
+
+            var hub = $.connection.notificationHub;
+
+            //Server Sent Event
+            hub.client.broadcaastNotif = function (noti) {
+                setTotalNotification(noti)
+            };
+
+
+            //$.connection.hub.start().done(function () { });
+
+            $.connection.hub.start()
+                .done(function () {
+                    console.log("Hub Connected!");
+
+                    //Client Call to Server
+                    hub.server.getNotification();
+
+                })
+                .fail(function () {
+                    console.log("Could not Connect!");
+                });
+        });
+    </script>
     @RenderSection("script", false)
 </body>
 </html>

@@ -1,11 +1,30 @@
 ﻿
 $(document).ready(function () {
     GetData();
+    $('select[name=filter_user]').change(function () {
+        $('.cdp').attr('actpage', '1');
+        GetData();
+    });
+    $('input[name=search-bar]').keyup(function (e) {
+        if (e.keyCode === 13) {
+            $('.cdp').attr('actpage', '1');
+            GetData();
+        }
+    });
+    $('.applyBtn').click(function () {
+        $('.cdp').attr('actpage', '1');
+        GetData();
+    });
+
 });
 function GetData() {
     var paginationPage = parseInt($('.cdp').attr('actpage'), 10);
+    var filter = $('select[name=filter_user]').val().trim();
+    var search = $('input[name=search-bar]').val();
+    var filterDate = $('#filter-date').text();
+    $('#loading').show();
     $.ajax({
-        url: '/User/GetList?pageNumber=' + paginationPage + '&pageSize=10',
+        url: '/User/GetList?pageNumber=' + paginationPage + '&pageSize=10&filter=' + filter + '&search=' + search + '&date=' + filterDate,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -17,7 +36,8 @@ function GetData() {
                 $('#user-data').html(html);
                 var html1 = paging(data.totalPage, paginationPage);
                 $('.content_detail__pagination').html(html1);
-
+                $('#loading').hide();
+                ChangeStatus();
             }
         }
     });
@@ -65,11 +85,11 @@ function sizeRow(data) {
     html += '<td>' + data.Username + '</td>';
     html += '<td>' + data.CustomerName + '</td>';
     html += '<td>' + data.Role + '</td>';
-    html += '<td><select class="form-control" id = "user-status" >';
-    html += data.Status === 'active' ? '<option selected value="active">Active</option><option>Inactive</option>' : '<option value="inactive">Active</option><option  selected>Inactive</option>'
+    html += '<td><select data-id="' + data.Username + '" class="form-control status" id = "user-status" >';
+    html += data.Status === 'active' ? '<option selected value="active">Active</option><option>Inactive</option>' : '<option value="inactive">Active</option><option  selected>Inactive</option>';
     html += '</select></td>';
     html += '<td>' + created + '</td>';
-    html +='<td>'+modified+'</td>'
+    html += '<td>' + modified + '</td>'
     html += '<td style="text-align:center">' +
         '<a href = "#" id = "edit-user" class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
         '<i class="ion-information-circled"></i>' +
@@ -78,4 +98,38 @@ function sizeRow(data) {
         '</td>';
     html += '</tr>';
     return html;
+}
+function ChangeStatus() {
+    $('.status').each(function () {
+        //Store old value
+        $(this).data('lastValue', $(this).val());
+        
+    });
+    $(".status").change(function () {
+        var lastRole = $(this).data('lastValue');
+        var newRole = $(this).val();
+        var username = $(this).data('id');
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '/User/ChangeStatus?username=' + username + '&mode=' + 1,
+                        type: 'GET',
+                        success: function (response) {
+                            if (response.status) {
+                                swal("Good job!", response.message, "success");
+                                $(this).data('lastValue', newRole);
+                            }
+                        }
+                    });    
+                } else {
+                    $(this).val(lastRole);  
+                }
+            });
+    });
 }

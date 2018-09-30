@@ -108,7 +108,7 @@
                     {<strong class="label label-info">@showItem.Status</strong><br />
                      <span>Remaining time: <span id="clock"></span></span> 
                 }
-                else if (showItem.Status.Equals(OrderStatus.Cancelled))
+                else if (showItem.Status.Equals(OrderStatus.Canceled))
 
                 {
                     <strong class="label label-danger">@showItem.Status</strong>
@@ -152,7 +152,7 @@
                         The order is being processed
                     </p>
                 }
-                else if (showItem.Status.Equals(OrderStatus.Cancelled))
+                else if (showItem.Status.Equals(OrderStatus.Canceled))
                 {
                     <p class="lead text-muted">
                         Order canceled.
@@ -180,7 +180,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    @if (!showItem.Status.Equals(OrderStatus.Received) & !showItem.Status.Equals(OrderStatus.Cancelled))
+                                    @if (!showItem.Status.Equals(OrderStatus.Received) & !showItem.Status.Equals(OrderStatus.Canceled))
                                     {
                                         <th> Image</th>
                                     }
@@ -199,7 +199,7 @@
 
 
                                         <tr>
-                                            @if (!showItem.Status.Equals(OrderStatus.Received) & !showItem.Status.Equals(OrderStatus.Cancelled))
+                                            @if (!showItem.Status.Equals(OrderStatus.Received) & !showItem.Status.Equals(OrderStatus.Canceled))
                                             {
                                                 <td style="width: 225px">
                                                     <img src="@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)/Images/Upload/@showItem.FolderImage/@item.Image" class="img-responsive" width="40%" alt="">

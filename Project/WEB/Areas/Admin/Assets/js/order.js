@@ -1,4 +1,10 @@
-﻿$(document).ready(function () {
+﻿
+const Canceled = "Canceled"
+const Confirmed = "Confirmed"
+const Pending = "Pending"
+const Received = "Received"
+const Processing = "Processing"
+$(document).ready(function () {
     GetData();
     $('select[name=filter_order]').change(function () {
         GetData();
@@ -8,7 +14,7 @@
     });
     $('.applyBtn').click(function () {
         GetData();
-    })
+    });
 });
 
 $('#btnOpenModalAdd').click(function () {
@@ -40,7 +46,7 @@ function GetData() {
 }
 
 function GetDataEdit(id) {
-    
+
     $.ajax({
         url: '/Order/Get/' + id,
         type: 'GET',
@@ -94,24 +100,35 @@ function sizeRow(data) {
     data.ModifiedAt != null
         ? modified = new Date(parseInt(data.ModifiedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : modified = '';
-        var html = '';
-        html += '<tr>'
-        html += '<td>' + data.OrderId + '</td>';
-        html += '<td>' + data.CustomerName + '</td>';
-        html += '<td>' + data.PhoneNumber + '</td>';
-        html += '<td>' + data.AddressDetails + '</td>';
-        html += '<td>' + data.FolderImage + '</td>';    
-        html += '<td>' + data.Total + '</td>';
-        html += '<td>' + data.Status + '</td>';
-        html += '<td>' + created + '</td>';
-        html += '<td>' + modified + '</td>';
-        html += '<td style="text-align:center">' +
-            '<button id="option_order" class="btn waves-effect waves-light btn-success" style="padding:5px"> <i class="fa fa-check"></i> </button>' +
-            '<a href = "#" id = "edit-user" onclick="GetDataEdit(' + data.OrderId + ')" class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
-            '<i class="ion-information-circled"></i>' +
-            '</a>' +
-            '<button id="delete_user" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>' +
-        
+    var mode = "";
+    switch (data.Status) {
+
+        case Pending:
+            mode = Confirmed;
+            break;
+        case Confirmed:
+            mode = Received;
+            break;
+    }
+    var html = '';
+    html += '<tr>'
+    html += '<td>' + data.OrderId + '</td>';
+    html += '<td>' + data.CustomerName + '</td>';
+    html += '<td>' + data.PhoneNumber + '</td>';
+    html += '<td>' + data.AddressDetails + '</td>';
+    html += '<td>' + data.FolderImage + '</td>';
+    html += '<td>' + data.Total + '</td>';
+    html += '<td>' + data.Status + '</td>';
+    html += '<td>' + created + '</td>';
+    html += '<td>' + modified + '</td>';
+    html += '<td style="text-align:center">';
+    if (data.Status !== Received & data.Status !== Canceled) {
+        html += '<button id="option_order" class="btn waves-effect waves-light btn-success"  onclick="ChangeStatusOrder(' + data.OrderId + ',' + mode + ',this)" style="padding:5px"> <i class="fa fa-check"></i> </button>';
+    }
+    html += '<a href = "#" id = "edit-user" onclick="GetDataEdit(' + data.OrderId + ')" class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
+        '<i class="ion-information-circled"></i>' +
+        '</a>' +
+        '<button id="delete_user" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>' +
         '</td>';
     html += '</tr>';
     return html;
@@ -120,17 +137,67 @@ function sizeRow(data) {
 function DetailsData(data) {
 
 }
-function ChangeStatus(id, mode) {
+function ChangeStatus(id, mode, e) {
+    var result;
     switch (mode) {
         case 'Confirmed':
-            var result = AjaxChange(id, mode, 'Confirm Success');
+            result = AjaxChangeConfirm(id, mode, 'Confirm Success', '', e);
+            break;
+        case 'Canceled':
+            result = AjaxChangeCancel(id, mode, 'Cancel Success', '', e);
             break;
         default:
     }
-   
+
 }
-function AjaxChange(id, mode, message = '', text = '') {
-    var result = false;
+function ChangeStatusOrder(id, mode, e) {
+    switch (mode) {
+        case Confirmed:
+            AjaxChangeConfirm(id, mode, 'Confirm Success', 'Confirm order');
+            break;
+        case Received:
+            AjaxChangeConfirm(id, mode, 'Received Success', 'Receive');
+            break;
+    }
+}
+function AjaxChangeCancel(id, mode, message = '', text = '', e = null) {
+    swal({
+        title: "Are you sure?",
+        text: text,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Write the reason:", {
+                    content: "input"
+                })
+                    .then((value) => {
+                        $.ajax({
+                            url: '/Order/ChangeStatus?id=' + id + '&mode=' + mode + '&reason=' + value,
+                            type: 'GET',
+                            success: function (response) {
+                                if (response.status) {
+                                    swal(message, {
+                                        icon: "success",
+                                    });
+                                    if (e != null) {
+                                        $(e).closest('tr').remove();
+                                    }
+
+                                }
+                            }
+                        });
+                    });
+
+
+            } else {
+                swal("Your imaginary file is safe!");
+            }
+        });
+}
+function AjaxChangeConfirm(id, mode, message = '', text = '', e = null) {
     swal({
         title: "Are you sure?",
         text: text,
@@ -147,15 +214,17 @@ function AjaxChange(id, mode, message = '', text = '') {
                         if (response.status) {
                             swal(message, {
                                 icon: "success",
+                                text: message
                             });
-                            //$(btn).closest('tr').remove();
+                            if (e !== null) {
+                                $(e).closest('tr').remove();
+                            }
+
                         }
                     }
                 });
-                
-            } else {
-                swal("Your imaginary file is safe!");
+
             }
         });
-    
+
 }

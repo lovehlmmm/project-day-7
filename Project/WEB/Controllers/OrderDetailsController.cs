@@ -54,7 +54,7 @@ namespace WEB.Controllers
                     var order = user.Customer.Orders.SingleOrDefault(o => o.OrderId == id & o.Status==OrderStatus.Pending);
                     if (order != null)
                     {
-                        order.Status = OrderStatus.Cancelled;
+                        order.Status = OrderStatus.Canceled;
                         var result = await _orderService.UpdateAsync(order,order.OrderId);
                         if (result!=null)
                         {

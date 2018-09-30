@@ -13,8 +13,8 @@ namespace Repositories
     {
         TObject Get(long id);
         Task<TObject> GetAsync(object key);
-        ICollection<TObject> GetAll(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match);
-        Task<IEnumerable<TObject>> GetAllAsync(int num,int page,Func<TObject,object> orderBy, Expression<Func<TObject, bool>> match);
+        ICollection<TObject> GetAll(int num, int page, Func<TObject, object> orderBy, Expression<Func<TObject, bool>> match, Func<TObject, object> orderByDescending = null);
+        Task<IEnumerable<TObject>> GetAllAsync(int num,int page,Func<TObject,object> orderBy, Expression<Func<TObject, bool>> match, Func<TObject, object> orderByDescending = null);
         TObject Find(Expression<Func<TObject, bool>> match);
         Task<TObject> FindAsync(Expression<Func<TObject, bool>> match);
         ICollection<TObject> FindAll(Expression<Func<TObject, bool>> match);

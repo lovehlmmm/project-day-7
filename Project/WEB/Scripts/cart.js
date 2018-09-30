@@ -10,10 +10,12 @@ $(document).ready(function () {
         if (list.length === 0) {
             swal("Warning", "Please choose your images", "error");
             return;
-        }
+        }   
         if (product === '0') {
             swal("Warning", "Please choose size", "error");
             return;
+
+         
         }
         if (material === '0') {
             swal("Warning", "Please choose material", "error");

@@ -111,8 +111,8 @@
                                             <td><span class="label label-success">@item.Status</span></td>
                                             <td style="text-align:center">
                                                 <button class="btn waves-effect waves-light btn-info vieworder" onclick="GetDataEdit(@item.OrderId)" style="font-size:15px; width: 45px;"><i class="fa fa-info"></i>&nbsp; </button>
-                                                <button class="btn waves-effect waves-light btn-success confirm" data-mode="" onclick="ChangeStatus(@item.OrderId,'@OrderStatus.Confirmed')" style="font-size:14px;"><i class="fa fa-check"></i>&nbsp; </button>
-                                                <button class="btn waves-effect waves-light btn-danger disabled" style="font-size:14px;"><i class="fa fa-remove"></i>&nbsp; </button>
+                                                <button class="btn waves-effect waves-light btn-success confirm" data-mode="" onclick="ChangeStatus(@item.OrderId,'@OrderStatus.Confirmed',this)" style="font-size:14px;"><i class="fa fa-check"></i>&nbsp; </button>
+                                                <button class="btn waves-effect waves-light btn-danger disabled" onclick="ChangeStatus(@item.OrderId,'@OrderStatus.Canceled',this)" style="font-size:14px;"><i class="fa fa-remove"></i>&nbsp; </button>
                                             </td>
 
                                         </tr>
