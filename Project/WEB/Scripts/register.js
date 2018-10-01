@@ -21,6 +21,7 @@ $.validator.setDefaults({
                 if (data.status === true) {
                     $('#loading').hide();
                     swal("Success", "Register Success", "success");
+                    window.location.replace(data.url)
                 } else {
                     $('#loading').hide();
                     swal({

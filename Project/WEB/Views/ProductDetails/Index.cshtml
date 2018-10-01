@@ -1,0 +1,571 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+
+    <link href="~/Assets/slick/slick-theme.css" rel="stylesheet" />
+
+    <link href="~/Assets/slick/slick.css" rel="stylesheet" />
+    <style>
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .margin-bottom-20 {
+            margin-bottom: 20px;
+        }
+        /*Registration and Login Page v1
+        ------------------------------------*/
+        .reg-page {
+            color: #555;
+            padding: 30px;
+            background: #fefefe;
+            border: solid 1px #eee;
+            box-shadow: 0 0 3px #eee;
+        }
+
+        /*Reg Header*/
+        .reg-header {
+            /* color: #555; */
+            /* text-align: center; */
+            margin-bottom: 35px;
+            border-bottom: solid 1px #eee;
+        }
+
+            .reg-header h2 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+        /*Reg Forms*/
+        .reg-page label {
+            color: #777;
+        }
+        /*Breadcrumbs*/
+        .breadcrumbs {
+            padding: 10px 0 6px;
+            box-shadow: inset 0 0 4px #eee;
+            background: url("https://formden.com/static/assets/img/breadcrumbs.png") repeat;
+        }
+
+            .breadcrumbs h1 {
+                color: #686868;
+                font-size: 26px;
+                margin-top: 12px;
+            }
+
+        .breadcrumb {
+            top: 9px;
+            padding-right: 0;
+            background: none;
+            position: relative;
+        }
+
+            .breadcrumb a {
+                color: #777;
+            }
+
+            .breadcrumb li.active,
+            .breadcrumb li a:hover {
+                color: #72c02c;
+                text-decoration: none;
+            }
+
+        .margin-bottom-30 {
+            margin-bottom: 30px;
+        }
+
+        .has-error input[type="text"], .has-error input[type="email"], .has-error select {
+            border: 1px solid #a94442;
+        }
+
+        /*****************globals*************/
+
+        img {
+            max-width: 100%;
+        }
+
+        .preview {
+            margin-top: 6px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+
+        @@media screen and (max-width: 996px) {
+            .preview {
+                margin-bottom: 20px;
+            }
+        }
+
+        .preview-pic {
+            -webkit-box-flex: 1;
+            -webkit-flex-grow: 1;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+        }
+
+        .preview-thumbnail.nav-tabs {
+            border: none;
+            margin-top: 15px;
+        }
+
+            .preview-thumbnail.nav-tabs li {
+                width: 18%;
+                margin-right: 2.5%;
+            }
+
+                .preview-thumbnail.nav-tabs li img {
+                    max-width: 100%;
+                    display: block;
+                }
+
+                .preview-thumbnail.nav-tabs li a {
+                    padding: 0;
+                    margin: 0;
+                }
+
+                .preview-thumbnail.nav-tabs li:last-of-type {
+                    margin-right: 0;
+                }
+
+        .tab-content {
+            overflow: hidden;
+        }
+
+            .tab-content img {
+                width: 100%;
+                -webkit-animation-name: opacity;
+                animation-name: opacity;
+                -webkit-animation-duration: .3s;
+                animation-duration: .3s;
+            }
+
+        .card {
+            margin-top: 50px;
+            /*  background: #eee;
+        */ padding: 3em;
+            line-height: 1.5em;
+        }
+
+        @@media screen and (min-width: 997px) {
+            .wrapper {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+            }
+        }
+
+        .details {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+
+        .colors {
+            -webkit-box-flex: 1;
+            -webkit-flex-grow: 1;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+        }
+
+        .product-title, .price, .sizes, .colors {
+            text-transform: UPPERCASE;
+            font-weight: bold;
+        }
+
+            .checked, .price span {
+                color: #ff9f1a;
+            }
+
+        .product-title, .rating, .product-description, .price, .vote, .sizes {
+            margin-bottom: 15px;
+        }
+
+        .product-title {
+            margin-top: 0;
+        }
+
+        .size {
+            margin-right: 10px;
+        }
+
+            .size:first-of-type {
+                margin-left: 40px;
+            }
+
+        .color {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            height: 2em;
+            width: 2em;
+            border-radius: 2px;
+        }
+
+            .color:first-of-type {
+                margin-left: 20px;
+            }
+
+        .add-to-cart, .like {
+            padding: 1.2em 1.5em;
+            border: none;
+            text-transform: UPPERCASE;
+            font-weight: bold;
+            color: #fff;
+            -webkit-transition: background .3s ease;
+            transition: background .3s ease;
+        }
+
+            .add-to-cart:hover, .like:hover {
+                background: #b36800;
+                color: #fff;
+            }
+
+        .not-available {
+            text-align: center;
+            line-height: 2em;
+        }
+
+            .not-available:before {
+                font-family: fontawesome;
+                content: "\f00d";
+                color: #fff;
+            }
+
+        .orange {
+            background: #ff9f1a;
+        }
+
+        .green {
+            background: #85ad00;
+        }
+
+        .blue {
+            background: #0076ad;
+        }
+
+        .tooltip-inner {
+            padding: 1.3em;
+        }
+
+        @@-webkit-keyframes opacity {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale(3);
+                transform: scale(3);
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @@keyframes opacity {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale(3);
+                transform: scale(3);
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        /*# sourceMappingURL=style.css.map */
+        * {
+            box-sizing: border-box;
+        }
+
+        .slider {
+            width: 50%;
+            margin: 100px auto;
+        }
+
+        .slick-slide {
+            margin: 0px 20px;
+        }
+
+            .slick-slide img {
+                width: 100%;
+            }
+
+        .slick-prev:before,
+        .slick-next:before {
+            color: black;
+        }
+
+
+        .slick-slide {
+            transition: all ease-in-out .3s;
+            opacity: .2;
+        }
+
+        .slick-active {
+            opacity: .5;
+        }
+
+        .slick-current {
+            opacity: 1;
+        }
+    </style>
+}
+
+
+@section script{
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="~/Assets/slick/slick.js"></script>
+    <script type="text/javascript">
+        $(document).on('ready', function () {
+            $(".vertical-center-4").slick({
+                dots: true,
+                vertical: true,
+                centerMode: true,
+                slidesToShow: 4,
+                slidesToScroll: 2
+            });
+            $(".vertical-center-3").slick({
+                dots: true,
+                vertical: true,
+                centerMode: true,
+                slidesToShow: 3,
+                slidesToScroll: 3
+            });
+            $(".vertical-center-2").slick({
+                dots: true,
+                vertical: true,
+                centerMode: true,
+                slidesToShow: 2,
+                slidesToScroll: 2
+            });
+            $(".vertical-center").slick({
+                dots: true,
+                vertical: true,
+                centerMode: true,
+            });
+            $(".vertical").slick({
+                dots: true,
+                vertical: true,
+                slidesToShow: 3,
+                slidesToScroll: 3
+            });
+            $(".regular").slick({
+                dots: true,
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 3
+            });
+            $(".center").slick({
+                dots: true,
+                infinite: true,
+                centerMode: true,
+                slidesToShow: 5,
+                slidesToScroll: 3
+            });
+            $(".variable").slick({
+                dots: true,
+                infinite: true,
+                variableWidth: true
+            });
+            $(".lazy").slick({
+                lazyLoad: 'ondemand', // ondemand progressive anticipated
+                infinite: true
+            });
+        });
+    </script>
+
+}
+
+<!-- Preloader section ================================================== -->
+<div class="preloader">
+
+    <div class="sk-spinner sk-spinner-pulse"></div>
+
+</div>
+
+ 
+<!-- Navigation section
+================================================== -->
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+            </button>
+            <a href="/home" class="navbar-brand">Photo Printing</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#home" class="smoothScroll">HOME</a></li>
+         
+            </ul>
+        </div>
+
+        </div>
+    </div>
+    <!-- Home section
+    ================================================== -->
+ 
+    <!--=== Content Part ===-->
+    <div class="container">
+        <div class="card">
+            <div class="wrapper row">
+                <div class="col-md-3">
+                    <ul class="preview-thumbnail nav">
+                        <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="" width="150px" height="126px" /></a></li>
+                        <li><a data-target="#pic-2" data-toggle="tab"><img src="" width="150px" height="126px" /></a></li>
+                        <li><a data-target="#pic-3" data-toggle="tab"><img src="" width="150px" height="126px" /></a></li>
+                        <li><a data-target="#pic-4" data-toggle="tab"><img src="" width="150px" height="126px" /></a></li>
+                    </ul>
+                </div>
+
+                <div class="preview col-md-8">
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active" id="pic-1">
+                            <img src="" width="568px" height="568px" />
+                        </div>
+                        <div class="tab-pane" id="pic-2"><img src="" width="568px" height="568px" /></div>
+                        <div class="tab-pane" id="pic-3"><img src="" width="568px" height="568px" /></div>
+                         <div class="tab-pane" id="pic-4"><img src="" width="568px" height="568px" /></div>
+                    </div>
+
+
+                </div>
+                <div class="details col-md-6">
+                    <h3 class="product-title">Collage Square Prints</h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                        <span class="review-no">41 reviews</span>
+                    </div>
+                    <p class="product-description">
+                        Combine your favorite pics in a single print. Add embellishments, text, background colors, patterns, and designs to give your collage even more personality!
+                    </p>
+                    <h4 class="price">current price: <span>$180</span></h4>
+                    <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+
+                    <h5 class="sizes">
+                        sizes: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select class="selectpicker" data-width="70%" data-style="btn-info">
+                            <option>4x4</option>
+                            <option>6x6</option>
+                            <option>9x9</option>
+                        </select>
+
+                    </h5>
+
+                    <h5 class="colors">
+                        Options: &nbsp;
+                        <select class="selectpicker" data-width="70%" data-style="btn-info">
+                            <option>4x4</option>
+                            <option>6x6</option>
+                            <option>9x9</option>
+                        </select>
+                    </h5>
+                    <br>
+                    <div class="action">
+                        <button class="add-to-cart btn btn-success" type="button">MAKE THIS PRODUCT</button>
+                    </div>
+
+                    <div>
+                        <h5>Product Details              </h5>
+
+                        <ul>
+                            <li>Printed on high-quality paper that resists fading up to 70 years</li>
+                            <li>Comes in your choice of matte or gloss finish</li>
+                            <li>Available print sizes include 4x4, 4x6, 5x7, 8x8, and 8x10</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <h2>Related Products</h2>
+
+        <section class="center slider" style="width: 1050px">
+            <div>
+                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/x1x-8x11-book-2-470x470-20171226.jpg.pagespeed.ic.utf5SyAkL2.jpg">
+            </div>
+            <div>
+                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/x1x-halloween-470x470-20180828.jpg.pagespeed.ic.P7T3HyunwO.jpg">
+            </div>
+            <div>
+                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2017/global/470x470/xprints-470x470-20171030.jpg.pagespeed.ic.vQpA1ouwNb.jpg">
+            </div>
+            <div>
+                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12923_CP18_Canvas-Prints_SU_470x470_20180524.jpg.pagespeed.ic.9rVnjGgveB.jpg">
+            </div>
+            <div>
+                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12919_PDP18_Plush-Fleece-Blanket_470x470_20180523.jpg.pagespeed.ic.frA949tPYx.jpg">
+            </div>
+            <div>
+                <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/x1x-mug-11oz-470x470-8222018-No-Burst,P20,2848f52a84-a071-46b5-bd51-8b29a463b5bb,29,P20-,P20Copy.jpg.pagespeed.ic.NByHaDLIRj.jpg">
+            </div>
+            <div>
+                <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2017/global/470x470/xbaby-category-page-photo-panel-design-6-470x470-20170728.jpg.pagespeed.ic.FO0eMNj2ZP.jpg">
+            </div>
+            <div>
+                <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12954_PDP18_Pot-Holder_470x470_20180727.jpg.pagespeed.ic.AHFvE7V-P9.jpg">
+            </div>
+            <div>
+                <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12912_PDP18_wall-clock_470x470_20180522.jpg.pagespeed.ic.u24NpegWwT.jpg">
+            </div>
+        </section>
+    </div>
+<hr />
+
+    <!--/container-->

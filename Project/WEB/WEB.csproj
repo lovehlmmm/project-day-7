@@ -270,6 +270,7 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\PaymentCheckOutController.cs" />
+    <Compile Include="Controllers\ProductDetailsController.cs" />
     <Compile Include="Controllers\RegisterUserController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
@@ -2471,6 +2472,12 @@
     <Content Include="Assets\js\wow.min.js" />
     <Content Include="Assets\Scripts\DatetimeExtension.js" />
     <Content Include="Assets\Scripts\Pure.Uploader.js" />
+    <Content Include="Assets\slick\ajax-loader.gif" />
+    <Content Include="Assets\slick\fonts\slick.svg" />
+    <Content Include="Assets\slick\slick-theme.css" />
+    <Content Include="Assets\slick\slick.css" />
+    <Content Include="Assets\slick\slick.js" />
+    <Content Include="Assets\slick\slick.min.js" />
     <Content Include="Assets\vendor\animate\animate.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap-grid.min.css" />
@@ -2922,6 +2929,14 @@
     <Content Include="Areas\Admin\Views\Material\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\OrderPartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Order\MailCancelOrder.cshtml" />
+    <Content Include="Assets\slick\config.rb" />
+    <Content Include="Assets\slick\fonts\slick.eot" />
+    <Content Include="Assets\slick\fonts\slick.ttf" />
+    <Content Include="Assets\slick\fonts\slick.woff" />
+    <Content Include="Assets\slick\slick-theme.less" />
+    <Content Include="Assets\slick\slick-theme.scss" />
+    <Content Include="Assets\slick\slick.less" />
+    <Content Include="Assets\slick\slick.scss" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy1.pubxml" />
@@ -3114,6 +3129,7 @@
     <Content Include="Scripts\Plugin\Lobibox\sounds\sound5.ogg" />
     <Content Include="Scripts\Plugin\Lobibox\sounds\sound6.ogg" />
     <Content Include="Views\RegisterUser\ConfirmEmail.cshtml" />
+    <Content Include="Views\ProductDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
