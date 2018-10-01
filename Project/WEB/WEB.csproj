@@ -329,6 +329,7 @@
     <Content Include="Areas\Admin\Assets\images\gallery\8.jpg" />
     <Content Include="Areas\Admin\Assets\images\gallery\9.jpg" />
     <Content Include="Areas\Admin\Assets\images\users\avatar-3.jpg" />
+    <Content Include="Areas\Admin\Assets\images\users\avatar-4.jpg" />
     <Content Include="Areas\Admin\Assets\js\bootstrap.min.js" />
     <Content Include="Areas\Admin\Assets\js\detect.js" />
     <Content Include="Areas\Admin\Assets\js\fastclick.js" />
