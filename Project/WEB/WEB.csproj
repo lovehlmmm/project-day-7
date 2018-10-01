@@ -287,6 +287,7 @@
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\CheckOut.cs" />
     <Compile Include="Models\MailOrder.cs" />
+    <Compile Include="Models\ProductDetails.cs" />
     <Compile Include="Models\UserConnection.cs" />
     <Compile Include="Models\UserEmailConfirm.cs" />
     <Compile Include="Models\UserLoginCookie.cs" />
@@ -2987,6 +2988,7 @@
     <Content Include="Scripts\Plugin\Lobibox\js\notifications.js" />
     <Content Include="Scripts\Plugin\Lobibox\lib\jquery.1.11.js" />
     <Content Include="Scripts\Plugin\Lobibox\lib\jquery.1.11.min.js" />
+    <Content Include="Scripts\product-details.js" />
     <Content Include="Scripts\register.js" />
     <Content Include="Scripts\updateUserInfo.js" />
     <Content Include="Web.config">

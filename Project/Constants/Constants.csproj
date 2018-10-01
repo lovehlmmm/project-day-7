@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AppSettingConstant.cs" />
     <Compile Include="Gender.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="NotificationType.cs" />
     <Compile Include="OrderStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

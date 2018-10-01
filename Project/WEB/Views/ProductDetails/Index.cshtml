@@ -1,7 +1,17 @@
-﻿
+﻿@using Entities
+@using Constants
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var showPro = ViewBag.Products as List<Product>;
+    var showMater = ViewBag.Materials as List<Material>;
+    Product firstPro = new Product();
+    if (showPro.Count>0)
+    {
+        firstPro = showPro.First();
+    }
+
 }
 
 @section css{
@@ -419,6 +429,8 @@
         });
     </script>
 
+    <script src="~/Scripts/product-details.js"></script>
+
 }
 
 <!-- Preloader section ================================================== -->
@@ -428,7 +440,7 @@
 
 </div>
 
- 
+
 <!-- Navigation section
 ================================================== -->
 <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -444,128 +456,151 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#home" class="smoothScroll">HOME</a></li>
-         
+
             </ul>
         </div>
 
-        </div>
     </div>
-    <!-- Home section
-    ================================================== -->
- 
-    <!--=== Content Part ===-->
-    <div class="container">
-        <div class="card">
-            <div class="wrapper row">
-                <div class="col-md-3">
-                    <ul class="preview-thumbnail nav">
-                        <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="" width="150px" height="126px" /></a></li>
-                        <li><a data-target="#pic-2" data-toggle="tab"><img src="" width="150px" height="126px" /></a></li>
-                        <li><a data-target="#pic-3" data-toggle="tab"><img src="" width="150px" height="126px" /></a></li>
-                        <li><a data-target="#pic-4" data-toggle="tab"><img src="" width="150px" height="126px" /></a></li>
+</div>
+<!-- Home section
+================================================== -->
+<!--=== Content Part ===-->
+<div class="container">
+    <div class="card">
+        <div class="wrapper row">
+            <div class="col-md-3">
+                <ul class="preview-thumbnail nav">
+                    @{ Material first = new Material(); }
+                    @if (showMater.Count > 0)
+                    {
+                        var i = 2;
+                        first = showMater.First();
+                        showMater.Remove(first);
+                        <li class="active"><a data-target="#pic-1" data-material="@first.Id" ><img src="~/Images/Material/@first.Image" width="150px" height="126px" /></a></li>
+                        foreach (var item in showMater)
+                        {
+
+                            <li class="active"><a data-target="#pic-@i" data-material="@item.Id" ><img src="~/Images/Material/@item.Image" width="150px" height="126px" /></a></li>
+                            i++;
+                        }
+
+                    }
+
+                </ul>
+            </div>
+
+            <div class="preview col-md-8">
+                <div class="preview-pic tab-content">
+                    @{ var j = 2;}
+                    <div class="tab-pane active" id="pic-1">
+                        <img src="~/Images/Material/@first.Image" width="568px" height="568px" />
+                    </div>
+                    @foreach (var item in showMater)
+                    {
+                        <div class="tab-pane" id="pic-@j"><img src="~/Images/Material/@item.Image" width="568px" height="568px" /></div>
+                        j++;
+                    }
+                </div>
+
+
+            </div>
+            <div class="details col-md-6">
+                <h3 class="product-title">Collage Square Prints</h3>
+                <div class="rating">
+                    <div class="stars">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <span class="review-no">41 reviews</span>
+                </div>
+                <p class="product-description">
+                    Combine your favorite pics in a single print. Add embellishments, text, background colors, patterns, and designs to give your collage even more personality!
+                </p>
+                @{ var total = first.Price + firstPro.ProductPrice; }
+                <h4 class="price">current price: <span>@total.Value.ToString("0,0") VNĐ</span></h4>
+                <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+
+                <h5 class="sizes">
+                    sizes: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select id="product" class="selectpicker" data-width="70%" data-style="btn-info">
+                        @foreach (var item in showPro)
+                        {
+                            <option value="@item.ProductId">@item.ProductSize</option>
+
+                        }
+                         
+                    </select>
+
+                </h5>
+
+                <h5 class="colors">
+                    Material: &nbsp;
+                    <select id="material" data-width="70%" class="btn btn-danger" data-style="btn-info">
+                        <option data-target="#pic-1" value="@first.Id" >@first.Details</option>
+                                @{ var t = 2;}
+                        @foreach (var item in showMater)
+                        {
+                            <option data-target="#pic-@t"  value="@item.Id">@item.Details</option>
+                            t++;    
+                        }
+                    </select>
+                </h5>
+            
+                <br>
+                <div class="action">
+                    <button class="add-to-cart btn btn-success" type="button">MAKE THIS PRODUCT</button>
+                </div>
+
+                <div>
+                    <h5>Product Details              </h5>
+
+                    <ul>
+                        <li>Printed on high-quality paper that resists fading up to 70 years</li>
+                        <li>Comes in your choice of matte or gloss finish</li>
+                        <li>Available print sizes include 4x4, 4x6, 5x7, 8x8, and 8x10</li>
                     </ul>
                 </div>
 
-                <div class="preview col-md-8">
-                    <div class="preview-pic tab-content">
-                        <div class="tab-pane active" id="pic-1">
-                            <img src="" width="568px" height="568px" />
-                        </div>
-                        <div class="tab-pane" id="pic-2"><img src="" width="568px" height="568px" /></div>
-                        <div class="tab-pane" id="pic-3"><img src="" width="568px" height="568px" /></div>
-                         <div class="tab-pane" id="pic-4"><img src="" width="568px" height="568px" /></div>
-                    </div>
-
-
-                </div>
-                <div class="details col-md-6">
-                    <h3 class="product-title">Collage Square Prints</h3>
-                    <div class="rating">
-                        <div class="stars">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                        <span class="review-no">41 reviews</span>
-                    </div>
-                    <p class="product-description">
-                        Combine your favorite pics in a single print. Add embellishments, text, background colors, patterns, and designs to give your collage even more personality!
-                    </p>
-                    <h4 class="price">current price: <span>$180</span></h4>
-                    <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-
-                    <h5 class="sizes">
-                        sizes: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <select class="selectpicker" data-width="70%" data-style="btn-info">
-                            <option>4x4</option>
-                            <option>6x6</option>
-                            <option>9x9</option>
-                        </select>
-
-                    </h5>
-
-                    <h5 class="colors">
-                        Options: &nbsp;
-                        <select class="selectpicker" data-width="70%" data-style="btn-info">
-                            <option>4x4</option>
-                            <option>6x6</option>
-                            <option>9x9</option>
-                        </select>
-                    </h5>
-                    <br>
-                    <div class="action">
-                        <button class="add-to-cart btn btn-success" type="button">MAKE THIS PRODUCT</button>
-                    </div>
-
-                    <div>
-                        <h5>Product Details              </h5>
-
-                        <ul>
-                            <li>Printed on high-quality paper that resists fading up to 70 years</li>
-                            <li>Comes in your choice of matte or gloss finish</li>
-                            <li>Available print sizes include 4x4, 4x6, 5x7, 8x8, and 8x10</li>
-                        </ul>
-                    </div>
-
-                </div>
             </div>
         </div>
-
-        <hr>
-        <h2>Related Products</h2>
-
-        <section class="center slider" style="width: 1050px">
-            <div>
-                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/x1x-8x11-book-2-470x470-20171226.jpg.pagespeed.ic.utf5SyAkL2.jpg">
-            </div>
-            <div>
-                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/x1x-halloween-470x470-20180828.jpg.pagespeed.ic.P7T3HyunwO.jpg">
-            </div>
-            <div>
-                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2017/global/470x470/xprints-470x470-20171030.jpg.pagespeed.ic.vQpA1ouwNb.jpg">
-            </div>
-            <div>
-                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12923_CP18_Canvas-Prints_SU_470x470_20180524.jpg.pagespeed.ic.9rVnjGgveB.jpg">
-            </div>
-            <div>
-                <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12919_PDP18_Plush-Fleece-Blanket_470x470_20180523.jpg.pagespeed.ic.frA949tPYx.jpg">
-            </div>
-            <div>
-                <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/x1x-mug-11oz-470x470-8222018-No-Burst,P20,2848f52a84-a071-46b5-bd51-8b29a463b5bb,29,P20-,P20Copy.jpg.pagespeed.ic.NByHaDLIRj.jpg">
-            </div>
-            <div>
-                <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2017/global/470x470/xbaby-category-page-photo-panel-design-6-470x470-20170728.jpg.pagespeed.ic.FO0eMNj2ZP.jpg">
-            </div>
-            <div>
-                <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12954_PDP18_Pot-Holder_470x470_20180727.jpg.pagespeed.ic.AHFvE7V-P9.jpg">
-            </div>
-            <div>
-                <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12912_PDP18_wall-clock_470x470_20180522.jpg.pagespeed.ic.u24NpegWwT.jpg">
-            </div>
-        </section>
     </div>
+
+    <hr>
+    <h2>Related Products</h2>
+
+    <section class="center slider" style="width: 1050px">
+        <div>
+            <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/x1x-8x11-book-2-470x470-20171226.jpg.pagespeed.ic.utf5SyAkL2.jpg">
+        </div>
+        <div>
+            <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/x1x-halloween-470x470-20180828.jpg.pagespeed.ic.P7T3HyunwO.jpg">
+        </div>
+        <div>
+            <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2017/global/470x470/xprints-470x470-20171030.jpg.pagespeed.ic.vQpA1ouwNb.jpg">
+        </div>
+        <div>
+            <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12923_CP18_Canvas-Prints_SU_470x470_20180524.jpg.pagespeed.ic.9rVnjGgveB.jpg">
+        </div>
+        <div>
+            <img src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12919_PDP18_Plush-Fleece-Blanket_470x470_20180523.jpg.pagespeed.ic.frA949tPYx.jpg">
+        </div>
+        <div>
+            <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/x1x-mug-11oz-470x470-8222018-No-Burst,P20,2848f52a84-a071-46b5-bd51-8b29a463b5bb,29,P20-,P20Copy.jpg.pagespeed.ic.NByHaDLIRj.jpg">
+        </div>
+        <div>
+            <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2017/global/470x470/xbaby-category-page-photo-panel-design-6-470x470-20170728.jpg.pagespeed.ic.FO0eMNj2ZP.jpg">
+        </div>
+        <div>
+            <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12954_PDP18_Pot-Holder_470x470_20180727.jpg.pagespeed.ic.AHFvE7V-P9.jpg">
+        </div>
+        <div>
+            <img src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/xUSM-12912_PDP18_wall-clock_470x470_20180522.jpg.pagespeed.ic.u24NpegWwT.jpg">
+        </div>
+    </section>
+</div>
 <hr />
 
-    <!--/container-->
+<!--/container-->
