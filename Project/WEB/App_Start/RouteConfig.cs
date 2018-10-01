@@ -19,7 +19,7 @@ namespace WEB
             );
             routes.MapRoute(
                 name: "Register",
-                url: "register",
+                url: "register/{action}",
                 defaults: new { controller = "RegisterUser", action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(

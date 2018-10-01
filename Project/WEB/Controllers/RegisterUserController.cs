@@ -48,7 +48,7 @@ namespace WEB.Controllers
                     {
                         SendEmail.Send(user.Email, body, "Confirm your email!");
                     }));
-                    return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = true,url= "/register/ConfirmEmail" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception e)
@@ -69,6 +69,10 @@ namespace WEB.Controllers
                 }
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmEmail()
+        {
+            return View();
         }
     }
 }

@@ -28,6 +28,11 @@ namespace Entities
         [StringLength(10)]
         [Column("status")]
         public string Status { get; set; }
+        [Column("group")]
+        public int? Group { get; set; }
+        [StringLength(100)]
+        [Column("image")]
+        public string Image { get; set; }
         [Column("created_at")]
         public DateTime? CreatedAt { get; set; }
         [Column("modified_at")]
