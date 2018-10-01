@@ -10,7 +10,7 @@ namespace Entities
 { 
 
     [Table("Notification")]
-    public class Notification: EntityBase
+    public class Notification: ModelExtension
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -37,12 +37,5 @@ namespace Entities
         [Column("notification_type"),DataType("nvarchar")]
         [StringLength(100)]
         public string NotificationType { get; set; }
-        [StringLength(10)]
-        [Column("status")]
-        public string Status { get; set; }
-        [Column("created_at")]
-        public DateTime? CreatedAt { get; set; }
-        [Column("modified_at")]
-        public DateTime? ModifiedAt { get; set; }
     }
 }

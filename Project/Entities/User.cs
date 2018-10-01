@@ -6,7 +6,7 @@ namespace Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class User:EntityBase
+    public partial class User:ModelExtension
     {
         public User()
         {
@@ -36,12 +36,6 @@ namespace Entities
         [Column("customer_id")]
         public long? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
-        [StringLength(10)]
-        [Column("status")]
-        public string Status { get; set; }
-        [Column("created_at")]
-        public DateTime? CreatedAt { get; set; }
-        [Column("modified_at")]
-        public DateTime? ModifiedAt { get; set; }
+
     }
 }

@@ -6,7 +6,7 @@ namespace Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Order:EntityBase
+    public partial class Order:ModelExtension
     {
         public Order()
         {
@@ -41,12 +41,5 @@ namespace Entities
         public virtual Customer Customer { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        [StringLength(10)]
-        [Column("status")]
-        public string Status { get; set; }
-        [Column("created_at")]
-        public DateTime? CreatedAt { get; set; }
-        [Column("modified_at")]
-        public DateTime? ModifiedAt { get; set; }
     }
 }

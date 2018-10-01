@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -28,12 +29,12 @@ namespace Repositories.SqlServerNotifier
             }
         }
 
-        public static NotifierEntity FromJson(String value)
+        public static NotifierEntity FromJson(string value)
         {
-            if (String.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
                 throw new ArgumentNullException("NotifierEntity Value can not be null!");
 
-            return new JavaScriptSerializer().Deserialize<NotifierEntity>(value);
+            return JsonConvert.DeserializeObject<NotifierEntity>(value);
         }
     }
 }

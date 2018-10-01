@@ -87,10 +87,12 @@ namespace WEB.Areas.Admin.Controllers
                         {
                             case Status.Active:
                                 user.Status = Status.Inactive;
+                                user.ModifiedAt = DateTime.Now;
                                 message = "Inactive account successfully";
                                 break;
                             case Status.Inactive:
                                 user.Status = Status.Active;
+                                user.ModifiedAt = DateTime.Now;
                                 message = "Active account successfully";
                                 break;
                         }
@@ -98,6 +100,7 @@ namespace WEB.Areas.Admin.Controllers
                     else if (mode == 0)
                     {
                         user.Status = Status.Deleted;
+                        user.ModifiedAt = DateTime.Now;
                         message = "Delete Success";
                     }
                     var updated = await _userService.UpdateAsync(user, user.Username);

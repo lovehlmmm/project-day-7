@@ -1,10 +1,11 @@
-﻿ 
+﻿@using Entities
+@{var noti = ViewBag.Notifications as List<Notification>;}
 <li class="nav-item dropdown">
     <a class="nav-link text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-bell" style="margin-top:12px;font-size: 20px;">
             <i class="noti-number">0</i>
         </i>
-       
+
     </a>
     <ul class="dropdown-menu" id="showmenu">
         <li class="head text-light bg-dark">
@@ -15,48 +16,23 @@
                 </div>
             </div>
         </li>
-        <li class="notification-box">
-            <div class="row">
-                <div class="col-lg-3 col-sm-3 col-3 text-center">
-                    <img src="/demo/man-profile.jpg" class="w-50 rounded-circle">
-                </div>
-                <div class="col-lg-8 col-sm-8 col-8">
-                    <strong class="text-info">David John</strong>
-                    <div>
-                        Lorem ipsum dolor sit amet, consectetur
+        @foreach (var item in noti)
+        {
+            <li class="notification-box @(item.IsRead!=true?"bg-gray":string.Empty)">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-3 col-3 text-center">
+                        <img src="/demo/man-profile.jpg" class="w-50 rounded-circle">
                     </div>
-                    <small class="text-warning">27.11.2015, 15:00</small>
-                </div>
-            </div>
-        </li>
-        <li class="notification-box bg-gray">
-            <div class="row">
-                <div class="col-lg-3 col-sm-3 col-3 text-center">
-                    <img src="/demo/man-profile.jpg" class="w-50 rounded-circle">
-                </div>
-                <div class="col-lg-8 col-sm-8 col-8">
-                    <strong class="text-info">David John</strong>
-                    <div>
-                        Lorem ipsum dolor sit amet, consectetur
+                    <div class="col-lg-8 col-sm-8 col-8">
+                        <strong class="text-info">@item.Title</strong>
+                        <div>
+                            @item.Details
+                        </div>
+                        <small class="text-warning">@item.CreatedAt.Value.ToString("dd.mm.yyyy, hh:MM")</small>
                     </div>
-                    <small class="text-warning">27.11.2015, 15:00</small>
                 </div>
-            </div>
-        </li>
-        <li class="notification-box">
-            <div class="row">
-                <div class="col-lg-3 col-sm-3 col-3 text-center">
-                    <img src="/demo/man-profile.jpg" class="w-50 rounded-circle">
-                </div>
-                <div class="col-lg-8 col-sm-8 col-8">
-                    <strong class="text-info">David John</strong>
-                    <div>
-                        Lorem ipsum dolor sit amet, consectetur
-                    </div>
-                    <small class="text-warning">27.11.2015, 15:00</small>
-                </div>
-            </div>
-        </li>
+            </li>
+        }
         <li class="footer bg-dark text-center">
             <a href="" class="text-light">View All</a>
         </li>
