@@ -7,7 +7,7 @@ namespace Entities
     using System.Data.Entity.Spatial;
 
     [Table("CreditCard")]
-    public partial class CreditCard:ModelExtension
+    public partial class CreditCard:EntityBase
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -26,5 +26,12 @@ namespace Entities
         [Column("cvc")]
         public string CVC { get; set; }
         public Customer Customer { get; set; }
+        [StringLength(10)]
+        [Column("status")]
+        public string Status { get; set; }
+        [Column("created_at")]
+        public DateTime? CreatedAt { get; set; }
+        [Column("modified_at")]
+        public DateTime? ModifiedAt { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    public partial class Material : ModelExtension
+    public partial class Material : EntityBase
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,5 +25,12 @@ namespace Entities
         public string Details { get; set; }
         [Column("material_price", TypeName = "money")]
         public decimal? Price { get; set; }
+        [StringLength(10)]
+        [Column("status")]
+        public string Status { get; set; }
+        [Column("created_at")]
+        public DateTime? CreatedAt { get; set; }
+        [Column("modified_at")]
+        public DateTime? ModifiedAt { get; set; }
     }
 }

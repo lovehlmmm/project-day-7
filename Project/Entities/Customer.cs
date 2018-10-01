@@ -6,7 +6,7 @@ namespace Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Customer: ModelExtension
+    public partial class Customer: EntityBase
     {
 
         [Key]
@@ -35,5 +35,12 @@ namespace Entities
         public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<CreditCard> CreditCards { get; set; }
+        [StringLength(10)]
+        [Column("status")]
+        public string Status { get; set; }
+        [Column("created_at")]
+        public DateTime? CreatedAt { get; set; }
+        [Column("modified_at")]
+        public DateTime? ModifiedAt { get; set; }
     }
 }

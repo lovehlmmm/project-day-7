@@ -6,7 +6,7 @@ namespace Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Product: ModelExtension
+    public partial class Product: EntityBase
     {
 
 
@@ -25,6 +25,13 @@ namespace Entities
         public string ProductSize { get; set; }
         [Column("product_price",TypeName = "money")]
         public decimal ProductPrice { get; set; }
+        [StringLength(10)]
+        [Column("status")]
+        public string Status { get; set; }
+        [Column("created_at")]
+        public DateTime? CreatedAt { get; set; }
+        [Column("modified_at")]
+        public DateTime? ModifiedAt { get; set; }
 
     }
 }
