@@ -94,10 +94,10 @@ function pagingChoose(a) {
 function sizeRow(data) {
     var created = '';
     var modified = '';
-    data.CreatedAt != null
+    data.CreatedAt !== null
         ? created = new Date(parseInt(data.CreatedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : created = '';
-    data.ModifiedAt != null
+    data.ModifiedAt !== null
         ? modified = new Date(parseInt(data.ModifiedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : modified = '';
     var mode = "";
@@ -182,7 +182,7 @@ function AjaxChangeCancel(id, mode, message = '', text = '', e = null) {
                                     swal(message, {
                                         icon: "success",
                                     });
-                                    if (e != null) {
+                                    if (e !== null) {
                                         $(e).closest('tr').remove();
                                     }
 

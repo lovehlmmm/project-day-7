@@ -10,46 +10,23 @@ using Constants;
 using Helpers;
 using Newtonsoft.Json;
 using Entities;
-
+using System.Data.SqlClient;
+using Repositories;
+using Services;
+using WEB.Presentation;
 namespace WEB.Hubs
 {
-    public class NotificationHub: Hub
+    public class NotificationHub : Hub,INotificationHub
     {
         private static readonly ConcurrentDictionary<string, UserConnection> Users =
         new ConcurrentDictionary<string, UserConnection>(StringComparer.InvariantCultureIgnoreCase);
-        //public override Task OnReconnected()
-        //{
-        //    string username = "";
-        //    var session = HttpContext.Current.Session[AppSettingConstant.NotifiSession];
-        //    if (session != null)
-        //    {
-        //        username = session as string;
-        //    }
-        //    string connectionId = Context.ConnectionId;
-        //    if (!Users.ContainsKey(username))
-        //    {
-        //        var user = Users.GetOrAdd(username, _ => new UserConnection
-        //        {
-        //            UserName = username,
-        //            ConnectionIds = new HashSet<string>()
-        //        });
-
-        //        lock (user.ConnectionIds)
-        //        {
-        //            user.ConnectionIds.Add(connectionId);
-        //            if (user.ConnectionIds.Count == 1)
-        //            {
-        //                Clients.Others.userConnected(username);
-        //            }
-        //        }
-        //    }
-        //    return base.OnReconnected();
-        //}
+        IBaseRepository<Notification> _notificationService;
         public override Task OnConnected()
         {
             try
             {
                 var username = "";
+               
                 var cookie = Context.Request.Cookies[AppSettingConstant.LoginCookieCustomer];
                 if (cookie != null)
                 {
@@ -75,7 +52,7 @@ namespace WEB.Hubs
             catch (Exception e)
             {
 
-            } 
+            }
             return base.OnConnected();
         }
 
@@ -115,7 +92,7 @@ namespace WEB.Hubs
             }
             return base.OnDisconnected(stopCalled);
         }
-        public void SendNotification(string SentTo,Notification notification)
+        public void SendNotification(string SentTo, Notification notification)
         {
             try
             {
@@ -125,15 +102,21 @@ namespace WEB.Hubs
                 UserConnection receiver;
                 if (Users.TryGetValue(SentTo, out receiver))
                 {
+                    var count = GetNotification(SentTo);
                     var cid = receiver.ConnectionIds.Last();
                     var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-                    context.Clients.Client(cid).broadcaastNotif(notification);
+                    context.Clients.Client(cid).broadcaastNotif(notification,count);
                 }
             }
             catch (Exception ex)
             {
                 ex.ToString();
             }
+        }
+        private int GetNotification(string username)
+        {
+            _notificationService = new BaseRepositoryEF<Notification>();
+            return _notificationService.FindAll(n => n.SendTo == username & n.IsRead == false).ToList().Count;
         }
     }
 }

@@ -118,22 +118,20 @@
                 }
                 return a
             }
-            function setTotalNotification(noti) {
-                Lobibox.notify('success', {
-                    img: '',
+            function setTotalNotification(noti,count) {
+                Lobibox.notify(noti.NotificationType, {
+                    img: '/Areas/Admin/Assets/images/users/avatar-3.jpg',
                     title: noti.Title,
                     size: 'large',
                     msg: noti.Details,
                     sound: 'sound2.mp3'
                 });
-
+                $('.noti-number').text(count);
             }
-
             var hub = $.connection.notificationHub;
-
             //Server Sent Event
-            hub.client.broadcaastNotif = function (noti) {
-                setTotalNotification(noti)
+            hub.client.broadcaastNotif = function (noti,count) {
+                setTotalNotification(noti,count)
             };
 
 
@@ -142,10 +140,7 @@
             $.connection.hub.start()
                 .done(function () {
                     console.log("Hub Connected!");
-
                     //Client Call to Server
-                    hub.server.getNotification();
-
                 })
                 .fail(function () {
                     console.log("Could not Connect!");

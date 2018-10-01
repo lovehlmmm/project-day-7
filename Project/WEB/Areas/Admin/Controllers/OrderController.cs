@@ -24,11 +24,13 @@ namespace WEB.Areas.Admin.Controllers
         private IBaseService<Order> _orderService;
         private IBaseService<Notification> _notiService;
         private IBaseService<User> _userService;
-        public OrderController(IBaseService<Order> orderService, IBaseService<User> userService, IBaseService<Notification> notiService)
+        private INotificationHub _notificationHub;
+        public OrderController(IBaseService<Order> orderService, IBaseService<User> userService, IBaseService<Notification> notiService, INotificationHub notificationHub)
         {
             _notiService = notiService;
             _orderService = orderService;
             _userService = userService;
+            _notificationHub = notificationHub;
         }
         // GET: Admin/Order
         public ActionResult Index()
@@ -184,7 +186,7 @@ namespace WEB.Areas.Admin.Controllers
                                 IsReminder = false,
                                 CreatedAt = DateTime.Now,
                                 Status = Status.Active,
-                                NotificationType = NotificationType.Success,
+                                NotificationType = noti.Type,
                                 Details = noti.Details,
                                 Title = noti.Title      
                             };
@@ -192,7 +194,7 @@ namespace WEB.Areas.Admin.Controllers
                             var notiAdd = await _notiService.AddAsync(notification);
                             if (notiAdd!=null)
                             {
-                                hub.SendNotification(user.Username,notiAdd);
+                               hub.SendNotification(user.Username,notiAdd);
                             }
                             return Json(new { status = true, message }, JsonRequestBehavior.AllowGet);
                         }
@@ -215,21 +217,24 @@ namespace WEB.Areas.Admin.Controllers
                     notifi = new Notifi()
                     {
                         Title = "The order has been confirmed",
-                        Details = string.Format("The order #{0} has been confirmed, we will contact you", order.OrderId)
+                        Details = string.Format("The order #{0} has been confirmed, we will contact you", order.OrderId),
+                        Type = NotificationType.Success
                     };
                     break;
                 case OrderStatus.Canceled:
                     notifi = new Notifi()
                     {
                         Title = "The order was canceled",
-                        Details = string.Format("The order {0} was canceled due to: {1}",order.OrderId,reason)
+                        Details = string.Format("The order {0} was canceled due to: {1}",order.OrderId,reason),
+                        Type = NotificationType.Warning
                     };
                     break;
                 case OrderStatus.Received:
                     notifi = new Notifi()
                     {
                         Title = "Thank you!!",
-                        Details = string.Format("Thanks for using our service")
+                        Details = string.Format("Thanks for using our service"),
+                        Type = NotificationType.Success
                     };
                     break;
 
@@ -267,6 +272,7 @@ namespace WEB.Areas.Admin.Controllers
         {
             public string Title { get; set; }
             public string Details { get; set; }
+            public string Type { get; set; }
         }
     }
 

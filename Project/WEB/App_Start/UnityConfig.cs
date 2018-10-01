@@ -2,6 +2,7 @@ using System;
 using Repositories;
 using Services;
 using Unity;
+using WEB.Hubs;
 
 namespace WEB
 {
@@ -42,6 +43,7 @@ namespace WEB
             container.RegisterType(typeof(IUserService), typeof(UserService));
             container.RegisterType(typeof(IBankService), typeof(BankService));
             container.RegisterType(typeof(IOrderService), typeof(OrderService));
+            container.RegisterType(typeof(INotificationHub), typeof(NotificationHub));
             // NOTE: To load from web.config uncomment the line below.
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();

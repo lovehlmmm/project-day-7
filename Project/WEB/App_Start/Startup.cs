@@ -7,16 +7,19 @@ using System.Linq;
 using System.Web;
 using WEB.ScheduledTasks;
 
+
+
 [assembly: OwinStartupAttribute(typeof(WEB.App_Start.Startup))]
 namespace WEB.App_Start
 {
     public class Startup
     {
-       public void Configuration(IAppBuilder app)
+        public void Configuration(IAppBuilder app)
         {
             GlobalConfiguration.Configuration.UseSqlServerStorage("HangfireConnectionStringServer");
             RecurringJob.AddOrUpdate(() => JobSchedule.ChangeOrderStatusJob(), Cron.Hourly);
             app.MapSignalR();
+            
         }
     }
 }
