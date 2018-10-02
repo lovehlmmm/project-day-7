@@ -41,38 +41,38 @@ namespace WEB.Areas.Admin.Controllers
             double percentOrder = 0;
             if (orderPrevious.Count>0)
             {
-                percentOrder = ((orderMonth.Count - orderPrevious.Count) / orderPrevious.Count) * 100;
+                percentOrder = Math.Round((double)(((double)orderMonth.Count - (double)orderPrevious.Count) / (double)(orderPrevious.Count) * 100),2);
             }
             else
             {
-                percentOrder = (orderMonth.Count - orderPrevious.Count) * 100;
+                percentOrder = (double)(((double)orderMonth.Count - (double)orderPrevious.Count)* 100);
             }
             if (totalPrevious>0)
             {
-                double percent = Decimal.ToInt32((totalMonth - totalPrevious) / totalPrevious);
+                double percent = (Decimal.ToDouble(totalMonth)- Decimal.ToDouble(totalPrevious))/Decimal.ToDouble(totalPrevious);
                 percentTotal = Math.Round(percent,2) * 100;
             }
             else
             {
-                percentTotal = Decimal.ToInt32((totalMonth - totalPrevious)) * 100;
+                percentTotal = Math.Round((Decimal.ToDouble(totalMonth) - Decimal.ToDouble(totalPrevious)) * 100,2);
             }
             if (imageOfDayPrevious>0)
             {
-                percentImageOfDay = (imageOfDay - imageOfDayPrevious) / imageOfDayPrevious * 100;
+                percentImageOfDay = Math.Round(((double)imageOfDay - (double)imageOfDayPrevious) / (double)imageOfDayPrevious * 100,2);
             }
             else
             {
-                percentImageOfDay = (imageOfDay - imageOfDayPrevious)*100;
+                percentImageOfDay = Math.Round(((double)imageOfDay - (double)imageOfDayPrevious) * 100,2);
             }
             //Percent Day
             double percentImageOfMonth = 0;
             if (imageOfMonthPrevious > 0)
             {
-                percentImageOfMonth = (imageOfMonth - imageOfMonthPrevious) / imageOfMonthPrevious * 100;
+                percentImageOfMonth = Math.Round(((double)imageOfMonth - (double)imageOfMonthPrevious) / (double)imageOfMonthPrevious * 100,2);
             }
             else
             {
-               percentImageOfMonth=  (imageOfMonth - imageOfMonthPrevious) * 100;
+               percentImageOfMonth=  Math.Round(((double)imageOfMonth - (double)imageOfMonthPrevious) * 100,2);
             }
 
 

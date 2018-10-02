@@ -14,8 +14,8 @@ namespace WEB.Areas.Admin.Models
         public double PercentTotal { get; set; }
         public decimal TotalPrevious { get; set; }
         public decimal Total { get; set; }
-        public int ImageOfDay  { get; set; }
-        public int ImageOfMonth { get; set; }
+        public float ImageOfDay  { get; set; }
+        public float ImageOfMonth { get; set; }
         public double PercentImageOfDay { get; set; }
         public double PercentImageOfMonth { get; set; }
     }
