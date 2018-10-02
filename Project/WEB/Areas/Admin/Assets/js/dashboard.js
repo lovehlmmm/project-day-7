@@ -11,6 +11,12 @@ $(document).ready(function () {
     $('.pending-table').addClass('loading');
     GetAllNotification();
     takeCount++;
+    $('#refresh-pending').click(function () {
+        page = 5;
+        takeCount = 1;
+        $('.order-pending').html("");
+        GetAllNotification();
+    });
 });
 function GetAllNotification() {
     if (!hasMoreRecords) {
