@@ -55,14 +55,7 @@
             <i class="icon-layers float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Orders</h6>
             <h2 class="m-b-20" data-plugin="counterup">@Model.OrderCount</h2>
-            @{
-                float percentOrder = 0;
-                if (Model.OrderCount > 0 & Model.PreviousOrder > 0)
-                {
-                    percentOrder = (Model.OrderCount - Model.PreviousOrder) / Model.PreviousOrder * 100;
-                }
-            }
-            <span class="label label-success"> @percentOrder% </span> <span class="text-muted">From previous period</span>
+            <span class="label label-success">@Model.PercentOrder %</span> <span class="text-muted">From previous period</span>
         </div>
     </div>
 
@@ -70,14 +63,8 @@
         <div class="card-box tilebox-one">
             <i class="icon-paypal float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Revenue</h6>
-            @{ float percentTotal = 0;
-                if (Model.Total > 0 & Model.TotalPrevious > 0)
-                {
-                    percentTotal = float.Parse(((Model.Total - Model.TotalPrevious) / Model.TotalPrevious * 100).ToString());
-                }
-            }
             <h2 class="m-b-20"><span data-plugin="counterup">@Model.Total.ToString("0,0")</span></h2>
-            <span class="label label-danger"> @percentTotal% </span> <span class="text-muted">From previous period</span>
+            <span class="label label-danger">@Model.PercentTotal % </span><span class="text-muted">From previous period</span>
         </div>
     </div>
 
@@ -108,7 +95,7 @@
                 <div class="card-box">
 
                     <h4 class="header-title m-t-0 m-b-30">Order Pending</h4>
-
+                        <button id="refresh-" type="button" class="btn btn-primary">Refresh</button>
                     <div class="table-responsive nicescroll" id="order-pending" style="height: 320px;overflow: hidden">
                         <table class="table table-bordered mb-0 pending-table">
                             <thead>
