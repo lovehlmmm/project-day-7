@@ -1,0 +1,19 @@
+﻿@using Entities;
+@using Constants
+@model List<Order>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.OrderId</td>
+        <th class="text-muted">@item.Customer.CustomerName</th>
+        <td>@item.CreatedAt.Value.ToString("dd/MM/yyyy HH:mm:ss")</td>
+
+        <td><span class="label label-success">@item.Status</span></td>
+        <td style="text-align:center">
+            <button class="btn waves-effect waves-light btn-info vieworder" onclick="GetDataEdit(@item.OrderId)" style="font-size:15px; width: 45px;"><i class="fa fa-info"></i>&nbsp; </button>
+            <button class="btn waves-effect waves-light btn-success confirm" data-mode="" onclick="ChangeStatus(@item.OrderId,'@OrderStatus.Confirmed',this)" style="font-size:14px;"><i class="fa fa-check"></i>&nbsp; </button>
+            <button class="btn waves-effect waves-light btn-danger disabled" onclick="ChangeStatus(@item.OrderId,'@OrderStatus.Canceled',this)" style="font-size:14px;"><i class="fa fa-remove"></i>&nbsp; </button>
+        </td>
+    </tr>
+}

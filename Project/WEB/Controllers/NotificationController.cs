@@ -21,7 +21,7 @@ namespace WEB.Controllers
             _notificationService = notificationService;
         }
         // GET: Notification
-        public ActionResult GetNotification()
+        public ActionResult GetNotification(int takeCount,int page)
         {
             UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
             if (userSession!=null)
@@ -30,7 +30,8 @@ namespace WEB.Controllers
                 if (user!=null)
                 {
                     var today = DateTime.Now.Date;
-                    var notis = _notificationService.FindAll(n => n.SendTo == user.Username & DbFunctions.TruncateTime(n.CreatedAt)==today).OrderByDescending(n=>n.CreatedAt).Take(4).ToList();
+                    var notis =  _notificationService.GetAll(takeCount, page, n => n.CreatedAt, n => n.SendTo == user.Username, n => n.CreatedAt).ToList();
+                    //var notis = _notificationService.FindAll(n => n.SendTo == user.Username/* & DbFunctions.TruncateTime(n.CreatedAt)==today*/).OrderByDescending(n=>n.CreatedAt)./*Take().*/ToList();
                     ViewBag.Notifications = notis;
                 }
             }

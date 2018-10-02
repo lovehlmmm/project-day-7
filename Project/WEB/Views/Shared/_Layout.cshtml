@@ -120,11 +120,11 @@
             }
             function setTotalNotification(noti,count) {
                 Lobibox.notify(noti.NotificationType, {
-                    img: '/Areas/Admin/Assets/images/users/avatar-3.jpg',
+                    img: '/Areas/Admin/Assets/images/users/avatar-4.jpg',
                     title: noti.Title,
                     size: 'large',
                     msg: noti.Details,
-                    sound: 'sound2.mp3'
+                    sound: '/Scripts/Plugin/Lobibox/dist/sounds/sound2.ogg'
                 });
                 $('.noti-number').text(count);
             }
@@ -134,12 +134,15 @@
                 setTotalNotification(noti,count)
             };
 
-
+            hub.client.broadcaastNotifCount = function (count) {
+                $('.noti-number').text(count);
+            };
             //$.connection.hub.start().done(function () { });
 
             $.connection.hub.start()
                 .done(function () {
                     console.log("Hub Connected!");
+                    hub.server.getCountNotifi();
                     //Client Call to Server
                 })
                 .fail(function () {

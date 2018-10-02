@@ -15,82 +15,9 @@ using Repositories;
 using Services;
 namespace WEB.Hubs
 {
-    public class NotificationHub : Hub,INotificationHub
+    public class NotificationHub : BaseHub,INotificationHub
     {
-        private static readonly ConcurrentDictionary<string, UserConnection> Users =
-        new ConcurrentDictionary<string, UserConnection>(StringComparer.InvariantCultureIgnoreCase);
         IBaseRepository<Notification> _notificationService;
-        public override Task OnConnected()
-        {
-            try
-            {
-                var username = "";
-               
-                var cookie = Context.Request.Cookies[AppSettingConstant.LoginCookieCustomer];
-                if (cookie != null)
-                {
-                    var cook = JsonConvert.DeserializeObject<UserLoginCookie>(Uri.UnescapeDataString(cookie.Value));
-                    username = cook.Username;
-                }
-                string connectionId = Context.ConnectionId;
-                var user = Users.GetOrAdd(username, _ => new UserConnection
-                {
-                    UserName = username,
-                    ConnectionIds = new HashSet<string>()
-                });
-
-                lock (user.ConnectionIds)
-                {
-                    user.ConnectionIds.Add(connectionId);
-                    if (user.ConnectionIds.Count == 1)
-                    {
-                        Clients.Others.userConnected(username);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-
-            }
-            return base.OnConnected();
-        }
-
-        public override Task OnDisconnected(bool stopCalled)
-        {
-            try
-            {
-                var username = "";
-                var cookie = Context.Request.Cookies[AppSettingConstant.LoginCookieCustomer];
-                if (cookie != null)
-                {
-                    var cook = JsonConvert.DeserializeObject<UserLoginCookie>(Uri.UnescapeDataString(cookie.Value));
-                    username = cook.Username;
-                }
-                string connectionId = Context.ConnectionId;
-
-                UserConnection user;
-                Users.TryGetValue(username, out user);
-
-                if (user != null)
-                {
-                    lock (user.ConnectionIds)
-                    {
-                        user.ConnectionIds.RemoveWhere(cid => cid.Equals(connectionId));
-                        if (!user.ConnectionIds.Any())
-                        {
-                            UserConnection removedUser;
-                            Users.TryRemove(username, out removedUser);
-                            Clients.Others.userDisconnected(username);
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-
-            }
-            return base.OnDisconnected(stopCalled);
-        }
         public void SendNotification(string SentTo, Notification notification)
         {
             try
@@ -105,6 +32,34 @@ namespace WEB.Hubs
                     var cid = receiver.ConnectionIds.Last();
                     var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
                     context.Clients.Client(cid).broadcaastNotif(notification,count);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+        }
+        public void GetCountNotifi()
+        {
+            try
+            {
+                //Get TotalNotification
+
+                //Send To
+                var username = "";
+                var cookie = Context.Request.Cookies[AppSettingConstant.LoginCookieCustomer];
+                if (cookie != null)
+                {
+                    var cook = JsonConvert.DeserializeObject<UserLoginCookie>(Uri.UnescapeDataString(cookie.Value));
+                    username = cook.Username;
+                }
+                UserConnection receiver;
+                if (Users.TryGetValue(username, out receiver))
+                {
+                    var count = GetNotification(username);
+                    var cid = receiver.ConnectionIds.Last();
+                    var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+                    context.Clients.Client(cid).broadcaastNotifCount(count);
                 }
             }
             catch (Exception ex)

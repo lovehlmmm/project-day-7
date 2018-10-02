@@ -7,8 +7,30 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section script{
+    <script src="~/Areas/Admin/Assets/js/dashboard.js"></script>
     <script src="~/Areas/Admin/Assets/js/order.js"></script>
+
 }
+@section css{
+    <style>
+        table.loading tbody {
+            position: relative;
+        }
+
+            table.loading tbody:after {
+                position: fixed;
+                bottom: 30px;
+                left: 42%;
+                z-index: 100;
+                background: white;
+                background: hsla( 0, 0%, 100%, 0.9 );
+                padding: 20px;
+                color: #222;
+                font-size: 15px;
+                font-weight: bold;
+            }
+    </style>
+    }
 <div class="row">
     <div class="col-xl-12">
         <div class="page-title-box">
@@ -54,7 +76,7 @@
                     percentTotal = float.Parse(((Model.Total - Model.TotalPrevious) / Model.TotalPrevious * 100).ToString());
                 }
             }
-            <h2 class="m-b-20">$<span data-plugin="counterup">@Model.Total.ToString("0,0")</span></h2>
+            <h2 class="m-b-20"><span data-plugin="counterup">@Model.Total.ToString("0,0")</span></h2>
             <span class="label label-danger"> @percentTotal% </span> <span class="text-muted">From previous period</span>
         </div>
     </div>
@@ -87,8 +109,8 @@
 
                     <h4 class="header-title m-t-0 m-b-30">Order Pending</h4>
 
-                    <div class="table-responsive nicescroll" style="height: 320px;overflow: hidden">
-                        <table class="table table-bordered mb-0 " >
+                    <div class="table-responsive nicescroll" id="order-pending" style="height: 320px;overflow: hidden">
+                        <table class="table table-bordered mb-0 pending-table">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
@@ -98,28 +120,7 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody class="nicescroll" >
-                                @if (Model.OrderPending.Count > 0)
-                                {
-                                    foreach (var item in Model.OrderPending)
-                                    {
-                                        <tr>
-                                            <td>@item.OrderId</td>
-                                            <th class="text-muted">@item.Customer.CustomerName</th>
-                                            <td>@item.CreatedAt.Value.ToString("dd/MM/yyyy HH:mm:ss")</td>
-
-                                            <td><span class="label label-success">@item.Status</span></td>
-                                            <td style="text-align:center">
-                                                <button class="btn waves-effect waves-light btn-info vieworder" onclick="GetDataEdit(@item.OrderId)" style="font-size:15px; width: 45px;"><i class="fa fa-info"></i>&nbsp; </button>
-                                                <button class="btn waves-effect waves-light btn-success confirm" data-mode="" onclick="ChangeStatus(@item.OrderId,'@OrderStatus.Confirmed',this)" style="font-size:14px;"><i class="fa fa-check"></i>&nbsp; </button>
-                                                <button class="btn waves-effect waves-light btn-danger disabled" onclick="ChangeStatus(@item.OrderId,'@OrderStatus.Canceled',this)" style="font-size:14px;"><i class="fa fa-remove"></i>&nbsp; </button>
-                                            </td>
-
-                                        </tr>
-                                    }
-                                }
-
-                            </tbody>
+                            <tbody class="nicescroll order-pending"></tbody>
                         </table>
                     </div>
 

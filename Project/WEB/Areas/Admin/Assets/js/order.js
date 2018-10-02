@@ -184,6 +184,7 @@ function AjaxChangeCancel(id, mode, message = '', text = '', e = null) {
                                     });
                                     if (e !== null) {
                                         $(e).closest('tr').remove();
+
                                     }
 
                                 }

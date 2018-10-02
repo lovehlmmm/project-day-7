@@ -177,7 +177,7 @@ namespace WEB.Areas.Admin.Controllers
                                     SendEmail.Send(user.Email, body, "Your order has been canceled");
                                 }));
                             }
-                            NotificationHub hub = new NotificationHub();
+                            //NotificationHub hub = new NotificationHub();
                             var noti = GetNotifi(mode, updated, reason);
                                 Notification notification = new Notification()
                             {
@@ -194,7 +194,7 @@ namespace WEB.Areas.Admin.Controllers
                             var notiAdd = await _notiService.AddAsync(notification);
                             if (notiAdd!=null)
                             {
-                               hub.SendNotification(user.Username,notiAdd);
+                               _notificationHub.SendNotification(user.Username,notiAdd);
                             }
                             return Json(new { status = true, message }, JsonRequestBehavior.AllowGet);
                         }

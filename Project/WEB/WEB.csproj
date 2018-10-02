@@ -282,6 +282,7 @@
     <Compile Include="Helpers\SendEmail.cs" />
     <Compile Include="Helpers\Validate.cs" />
     <Compile Include="Helpers\ViewToString.cs" />
+    <Compile Include="Hubs\BaseHub.cs" />
     <Compile Include="Hubs\INotificationHub.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Models\CartItem.cs" />
@@ -332,6 +333,7 @@
     <Content Include="Areas\Admin\Assets\images\users\avatar-3.jpg" />
     <Content Include="Areas\Admin\Assets\images\users\avatar-4.jpg" />
     <Content Include="Areas\Admin\Assets\js\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Assets\js\dashboard.js" />
     <Content Include="Areas\Admin\Assets\js\detect.js" />
     <Content Include="Areas\Admin\Assets\js\fastclick.js" />
     <Content Include="Areas\Admin\Assets\js\jquery.app.js" />
@@ -2939,6 +2941,7 @@
     <Content Include="Assets\slick\slick-theme.scss" />
     <Content Include="Assets\slick\slick.less" />
     <Content Include="Assets\slick\slick.scss" />
+    <Content Include="Areas\Admin\Views\Dashbroad\_OrderPending.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy1.pubxml" />
@@ -2955,6 +2958,7 @@
     <Content Include="Scripts\jquery.signalR-2.3.0.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\notification.js" />
     <Content Include="Scripts\order-details.js" />
     <Content Include="Scripts\payment.js" />
     <Content Include="Scripts\Plugin\Lobibox\.gitignore" />

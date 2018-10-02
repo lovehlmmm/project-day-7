@@ -73,5 +73,10 @@ namespace WEB.Areas.Admin.Controllers
 
             return View(viewModel);
         }
+        public ActionResult GetOrderPending(int num,int page)
+        {
+            var orderPending = _orderService.GetAll(num, page, o => o.CreatedAt, o => o.Status == OrderStatus.Pending).ToList();
+            return PartialView("~/Areas/Admin/Views/Dashbroad/_OrderPending.cshtml", orderPending);
+        }
     }
 }
