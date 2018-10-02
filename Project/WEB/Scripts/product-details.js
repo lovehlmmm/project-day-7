@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+    GetMoney();
     $(".preview-thumbnail img").click(function () {
         var data = $(this).closest('a').data('target');
         var material = $(this).closest('a').data('material');
@@ -41,4 +41,8 @@
         }).error(function (xhr, status) {
         });
     }
+   
+})
+$('#makeproduct').click(function () {
+    window.location = ("/upload");
 })

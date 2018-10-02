@@ -26,3 +26,11 @@ function GetAllNotification() {
         }
     });
 }
+
+function GetImage(url) {
+    $('#image-details').attr('src', url);
+    $('#imageModal').show();
+    $('.close').click(function () {
+        $('#imageModal').hide();
+    })
+}

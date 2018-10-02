@@ -28,6 +28,8 @@ namespace WEB.Controllers
         // GET: Upload
         public ActionResult Index()
         {
+            var session = SessionHelper.GetSession(AppSettingConstant.ProductDetailsSession) as ProductDetails;
+
             UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as  UserSession;
             if (userSession==null)
             {
@@ -38,6 +40,10 @@ namespace WEB.Controllers
             if (user==null)
             {
                 return RedirectToAction("Index", "LoginUser", new { url = Request.Url.ToString() });
+            }
+            if (session!=null)
+            {
+                ViewBag.GetOption = session;
             }
             var product = _productRepository.FindAll(p => p.Status.Equals(Status.Active));
             var materials = _materialRepository.FindAll(m => m.Status == Status.Active);

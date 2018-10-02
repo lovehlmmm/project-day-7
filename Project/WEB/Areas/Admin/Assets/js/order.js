@@ -5,6 +5,7 @@ const Pending = "Pending"
 const Received = "Received"
 const Processing = "Processing"
 $(document).ready(function () {
+    
     GetData();
     $('select[name=filter_order]').change(function () {
         GetData();
@@ -12,7 +13,8 @@ $(document).ready(function () {
     $('input[name=search-bar]').on('input', function () {
         GetData();
     });
-    $('.applyBtn').click(function () {
+    $('.queryBtn').click(function () {
+        $('.cdp').attr('actpage', '1');
         GetData();
     });
 });
@@ -229,3 +231,4 @@ function AjaxChangeConfirm(id, mode, message = '', text = '', e = null) {
         });
 
 }
+

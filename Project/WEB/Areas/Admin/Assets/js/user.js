@@ -11,7 +11,7 @@ $(document).ready(function () {
             GetData();
         }
     });
-    $('.applyBtn').click(function () {
+    $('.queryBtn').click(function () {
         $('.cdp').attr('actpage', '1');
         GetData();
     });

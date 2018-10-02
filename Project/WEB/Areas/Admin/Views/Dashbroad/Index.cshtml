@@ -29,8 +29,95 @@
                 font-size: 15px;
                 font-weight: bold;
             }
+        /* The Modal (background) */
+        .modalshow {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1051; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modalshow-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation */
+        .modalshow-content, #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @@-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @@keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #bbb;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        /* 100% Image Width on Smaller Screens */
+        @@media only screen and (max-width: 700px) {
+            .modalshow-content {
+                width: 100%;
+            }
+        }
     </style>
-    }
+}
 <div class="row">
     <div class="col-xl-12">
         <div class="page-title-box">
@@ -95,7 +182,7 @@
                 <div class="card-box">
 
                     <h4 class="header-title m-t-0 m-b-30">Order Pending</h4>
-                        <button id="refresh-" type="button" class="btn btn-primary">Refresh</button>
+                    <button id="refresh-" type="button" class="btn btn-primary">Refresh</button>
                     <div class="table-responsive nicescroll" id="order-pending" style="height: 320px;overflow: hidden">
                         <table class="table table-bordered mb-0 pending-table">
                             <thead>
@@ -295,3 +382,9 @@
 </div>
 <!-- end row -->
 <!-- end row -->
+<!-- The Modal -->
+<div id="imageModal" class="modalshow">
+    <span class="close">&times;</span>
+    <img class="modalshow-content" id="image-details" src="" alt="Image">
+    <div id="caption"></div>
+</div>

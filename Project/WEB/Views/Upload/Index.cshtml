@@ -1,10 +1,11 @@
 ﻿@using Entities
-
+@using WEB.Models
 @{
     var products = ViewBag.Product;
     var materials = ViewBag.Materials; ;
     ViewBag.Title = "Upload Images";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var productdetails = ViewBag.GetOption as ProductDetails;
 }
 @section css{
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
@@ -210,7 +211,7 @@
 
                                         foreach (var item in products as List<Product>)
                                         {
-                                            <option value="@item.ProductId">@item.ProductSize</option>
+                                            <option @(productdetails!=null?(productdetails.Product==item.ProductId?"selected":string.Empty):string.Empty)  value="@item.ProductId">@item.ProductSize</option>
                                         }
                                     }
                                 </select>
@@ -222,7 +223,7 @@
                                     {
                                         foreach (var item in materials as List<Material>)
                                         {
-                                            <option value="@item.Id"> @item.Details</option>
+                                            <option @(productdetails!=null?(productdetails.Material==item.Id?"selected":string.Empty):string.Empty) value="@item.Id"> @item.Details</option>
                                         }
                                     }
                                 </select>

@@ -2931,7 +2931,6 @@
     <Content Include="Assets\vendor\bootstrap\css\bootstrap.css.map" />
     <Content Include="Assets\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Areas\Admin\Views\Material\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\OrderPartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Order\MailCancelOrder.cshtml" />
     <Content Include="Assets\slick\config.rb" />
     <Content Include="Assets\slick\fonts\slick.eot" />

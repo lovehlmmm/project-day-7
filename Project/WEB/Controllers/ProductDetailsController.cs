@@ -37,6 +37,7 @@ namespace WEB.Controllers
         {
             var product = _productRepository.Find(p => p.ProductId == productId & p.Status == Status.Active);
             var material = _materialRepository.Find(m => m.Id == materialId & m.Status == Status.Active);
+
             if (product !=null && material !=null )
             {
                 var total = product.ProductPrice + material.Price;
@@ -46,6 +47,6 @@ namespace WEB.Controllers
 
             return Json(new { status = false },JsonRequestBehavior.AllowGet );
         }
-
+      
     }
 }

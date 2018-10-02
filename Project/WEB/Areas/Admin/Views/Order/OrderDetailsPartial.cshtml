@@ -7,7 +7,13 @@
     th {
         text-align: center;
     }
+ 
+   
 </style>
+
+ 
+ 
+
 <div class="row">
     <div class="col-12">
         <div class="card-box">
@@ -61,7 +67,7 @@
                                             var result = new
                                             {
 
-                                                OrderDetails = order.OrderDetails.Select(od => new { od.Product.ProductName, od.OrderDetailsId, od.Quantity, od.Product.ProductPrice, od.Image, Total = od.Quantity * (od.Product.ProductPrice+od.Material.Price) }).ToList()
+                                                OrderDetails = order.OrderDetails.Select(od => new { od.Product.ProductName, od.OrderDetailsId, od.Quantity, od.Product.ProductPrice, od.Image, Total = od.Quantity * (od.Product.ProductPrice + od.Material.Price) }).ToList()
                                             };
                                             foreach (var item in result.OrderDetails)
                                             {
@@ -69,9 +75,9 @@
                                                     <td>@item.OrderDetailsId</td>
                                                     <td>@item.ProductName</td>
                                                     <td>@item.Quantity</td>
-                                                    <td>@item.Image</td>
+                                                    <td><a href="#" onclick="GetImage('/Images/Upload/@order.FolderImage/@item.Image')">@item.Image</a></td>
                                                     <td>@item.ProductPrice.ToString("0,0") VNĐ</td>
-                                                    <td>@(item.Total.HasValue?item.Total.Value.ToString("0,0"):string.Empty) VNĐ</td>
+                                                    <td>@(item.Total.HasValue ? item.Total.Value.ToString("0,0") : string.Empty) VNĐ</td>
                                                 </tr>
                                             }
 
@@ -87,20 +93,21 @@
                     <div class="col-6">
                     </div>
                     <div class="col-6 ">
-                        <h3 class="text-right">@(order.OrderDetails.Sum(o => o.Quantity *( o.Product.ProductPrice+o.Material.Price)).HasValue?order.OrderDetails.Sum(o => o.Quantity * (o.Product.ProductPrice + o.Material.Price)).Value.ToString("0,0"):string.Empty) VNĐ</h3>
+                        <h3 class="text-right">@(order.OrderDetails.Sum(o => o.Quantity * (o.Product.ProductPrice + o.Material.Price)).HasValue ? order.OrderDetails.Sum(o => o.Quantity * (o.Product.ProductPrice + o.Material.Price)).Value.ToString("0,0") : string.Empty) VNĐ</h3>
                     </div>
                 </div>
                 <hr>
-                <div class="hidden-print">
+                @*<div class="hidden-print">
                     <div class="float-right">
                         <a href="javascript:window.print()" class="btn btn-dark waves-effect waves-light"><i class="fa fa-print"></i></a>
-                        @*<a href="#" class="btn btn-primary waves-effect waves-light">Submit</a>*@
+                        <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a>
                     </div>
                     <div class="clearfix"></div>
-                </div>
+                </div>*@
             </div>
         </div>
 
     </div>
-
 </div>
+
+
