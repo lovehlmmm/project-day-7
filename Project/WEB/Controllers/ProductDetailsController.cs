@@ -16,19 +16,24 @@ namespace WEB.Controllers
         private readonly IBaseService<Product> _productRepository;
         private readonly IBaseService<Material> _materialRepository;
         private readonly IUserService _userService;
+        private readonly IBaseService<Group> _groupRepository;
 
-        public ProductDetailsController(IUserService userService , IBaseService<Product> productRepository, IBaseService<Material> materialRepository)
+        public ProductDetailsController(IUserService userService , IBaseService<Product> productRepository, IBaseService<Material> materialRepository, IBaseService<Group> groupRepository)
         {
             _userService = userService;
             _productRepository = productRepository;
             _materialRepository = materialRepository;
+            _groupRepository = groupRepository;
         }
         // GET: ProductDetails
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
             var product = _productRepository.FindAll(p => p.Status == Status.Active).ToList();
-            var material = _materialRepository.FindAll(m => m.GroupId == 1 & m.Status== Status.Active).ToList();
-
+            var material = _materialRepository.FindAll(m => m.GroupId == id & m.Status== Status.Active).ToList();
+            if (material.Count==0)
+            {
+                return Redirect("/home");
+            }
             ViewBag.Products = product;
             ViewBag.Materials = material;
             return View();
