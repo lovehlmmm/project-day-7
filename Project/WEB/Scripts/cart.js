@@ -176,6 +176,6 @@ function dyn_notice(time, notice) {
                 options.width = PNotify.prototype.options.width;
             }
             notice.update(options);
-        }, 50);
+        }, time/100);
     }, time/2);
 }
