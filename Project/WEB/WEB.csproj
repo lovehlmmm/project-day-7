@@ -221,7 +221,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Assets\js\NotificationAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NotificationAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashbroadController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\MaterialController.cs" />

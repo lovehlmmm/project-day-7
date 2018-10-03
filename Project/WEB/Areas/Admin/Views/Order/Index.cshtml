@@ -29,8 +29,35 @@
     <script src="~/Areas/Admin/Assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 
     <script src="~/Areas/Admin/Assets/pages/jquery.form-pickers.init.js"></script>
-
     <script src="~/Areas/Admin/Assets/js/order.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+        @{
+            try
+            {
+                if (TempData["FilterDate"]!= null & TempData["Filter"]!= null)
+                {
+                <text>
+                    $('select[name=filter_order]').val("@TempData["Filter"]");
+            $('#filter-date').text("@TempData["FilterDate"]");
+            GetData();  
+                </text>
+                }
+                else
+                {
+                    <text>
+            GetData();
+            </text>
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
+        })
+    </script>
     <script src="~/Areas/Admin/Assets/js/OrderDetais.js"></script>
 
 

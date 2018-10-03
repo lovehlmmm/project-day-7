@@ -197,6 +197,7 @@ namespace WEB.Controllers
                                     orderSession.Status = OrderStatus.Pending;
                                     orderSession.CustomerId = user.CustomerId;
                                     orderSession.FolderImage = extenPath;
+                                    orderSession.IsCancel = true;
                                     var transac = _orderServiceTrans.TransactionPayment(orderSession, orderDetails, bankCredit);
                                     if (transac!=null)
                                     {

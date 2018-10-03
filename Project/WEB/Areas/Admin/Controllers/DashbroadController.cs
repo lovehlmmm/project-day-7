@@ -99,5 +99,14 @@ namespace WEB.Areas.Admin.Controllers
             var orderPending = _orderService.GetAll(num, page, o => o.CreatedAt, o => o.Status == OrderStatus.Pending, o => o.CreatedAt).ToList();
             return PartialView("~/Areas/Admin/Views/Dashbroad/_OrderPending.cshtml", orderPending);
         }
+        public ActionResult GetOrderThisMonth()
+        {
+            var today = DateTime.Now;
+            var firstDayOfMonth = new DateTime(today.Year, today.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            TempData["FilterDate"] = string.Format("{0}-{1}", firstDayOfMonth.ToString("MMMM dd,yyyy"), lastDayOfMonth.ToString("MMMM dd,yyyy")); 
+            TempData["Filter"] = OrderStatus.Confirmed;
+            return Redirect("/Admin/Order");
+        }
     }
 }

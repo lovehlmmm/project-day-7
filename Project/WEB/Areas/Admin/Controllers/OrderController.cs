@@ -35,6 +35,8 @@ namespace WEB.Areas.Admin.Controllers
         // GET: Admin/Order
         public ActionResult Index()
         {
+            ViewBag.FilterDate = null;
+            ViewBag.Filter = null;
             return View();
         }
         public async Task<JsonResult> GetList()

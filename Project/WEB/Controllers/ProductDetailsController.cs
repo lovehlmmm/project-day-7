@@ -27,7 +27,7 @@ namespace WEB.Controllers
         public ActionResult Index()
         {
             var product = _productRepository.FindAll(p => p.Status == Status.Active).ToList();
-            var material = _materialRepository.FindAll(m => m.Group == Group.Group1 & m.Status== Status.Active).ToList();
+            var material = _materialRepository.FindAll(m => m.GroupId == 1 & m.Status== Status.Active).ToList();
 
             ViewBag.Products = product;
             ViewBag.Materials = material;

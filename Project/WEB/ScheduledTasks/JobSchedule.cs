@@ -24,7 +24,7 @@ namespace WEB.ScheduledTasks
             {
                 foreach (var item in orders)
                 {
-                    item.Status = OrderStatus.Processing;
+                    item.IsCancel = false;
                     await _orderService.UpdateAsync(item, item.OrderId);
                 }
                 //var result = await _orderService.UpdateAllAsync(orders, "OrderId");

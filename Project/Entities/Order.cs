@@ -19,7 +19,8 @@ namespace Entities
         public long OrderId { get; set; }
         [Column("customer_id")]
         public long? CustomerId { get; set; }
-
+        [Column("is_cancel"),DataType("bit")]
+        public bool IsCancel { get; set; }
         [StringLength(11)]
         [Column("phone_number")]
         public string PhoneNumber { get; set; }

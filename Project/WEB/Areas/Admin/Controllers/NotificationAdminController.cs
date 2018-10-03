@@ -12,7 +12,7 @@ namespace WEB.Areas.Admin.Assets.js
         public JsonResult GetNotification()
         {
             var message = "";
-
+    
             return Json(new { status = false, message }, JsonRequestBehavior.AllowGet);
         }
     }

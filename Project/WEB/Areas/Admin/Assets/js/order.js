@@ -6,7 +6,7 @@ const Received = "Received"
 const Processing = "Processing"
 $(document).ready(function () {
     
-    GetData();
+    //GetData();
     $('select[name=filter_order]').change(function () {
         GetData();
     })

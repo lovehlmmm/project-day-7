@@ -114,12 +114,6 @@
                     <strong class="label label-danger">@showItem.Status</strong>
 
                 }
-                else if (showItem.Status.Equals(OrderStatus.Processing))
-
-                {
-                    <strong class="label label-warning">@showItem.Status</strong>
-
-                }
                 else if (showItem.Status.Equals(OrderStatus.Confirmed))
 
                 {
@@ -136,7 +130,7 @@
                 </p>
 
 
-                @if (showItem.Status.Equals(OrderStatus.Pending))
+                @if (showItem.Status.Equals(OrderStatus.Pending) & showItem.IsCancel==true)
                 {
 
                     <p class="lead text-muted">
@@ -146,12 +140,7 @@
                         Cancel Order
                     </button>
                 }
-                else if (showItem.Status.Equals(OrderStatus.Processing))
-                {
-                    <p class="lead text-muted">
-                        The order is being processed
-                    </p>
-                }
+
                 else if (showItem.Status.Equals(OrderStatus.Canceled))
                 {
                     <p class="lead text-muted">
