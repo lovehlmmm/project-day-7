@@ -1,5 +1,6 @@
 ﻿@using System.Collections
 @using Entities
+@using Constants
 @{
     var order = (Order)ViewBag.Data;
 }
@@ -7,12 +8,60 @@
     th {
         text-align: center;
     }
- 
+    .CanceledColor {
+        background-color: #d9534f;
+    }
+
+    .ConfirmedColor {
+        background-color: #5bc0de;
+    }
+
+    .PendingColor {
+        background-color: #ff5d48;
+    }
+
+    .ReceivedColor {
+        background-color: #5cb85c;
+    }
+
+    .ProcessingColor {
+        background-color: gainsboro;
+    }
+
+    .size {
+        padding: 4px 10px;
+        border-radius: 5px;
+        color: white;
+    }
+
    
 </style>
+@{ 
+    var colorstatus = string.Empty;
+    switch (order.Status)
+    {
+        case OrderStatus.Pending:
+            colorstatus = "PendingColor";
+            break;
 
- 
- 
+        case OrderStatus.Confirmed:
+            colorstatus = "ConfirmedColor";
+            break;
+
+        case OrderStatus.Processing:
+            colorstatus = "ProcessingColor";
+            break;
+
+        case OrderStatus.Received:
+            colorstatus = "ReceivedColor";
+            break;
+
+        case OrderStatus.Canceled:
+            colorstatus = "CanceledColor";
+            break;
+    }
+}
+
 
 <div class="row">
     <div class="col-12">
@@ -31,13 +80,19 @@
                     <div class="col-12">
 
                         <div class="float-left m-t-30">
+
                             <address>
-                                @(order.Address != null ? order.Address.AddressDetails : string.Empty)
+                                <strong>@(order.Customer.CustomerName != null ? order.Customer.CustomerName : string.Empty)</strong><br>
+                                @(order.Address != null ? order.Address.AddressDetails : string.Empty)<br>
+                                
+                                <abbr title="Phone">P:</abbr> &nbsp; @(order.PhoneNumber != null ? order.PhoneNumber : string.Empty)
                             </address>
+ 
+                           
                         </div>
                         <div class="float-right m-t-30">
                             <p><strong>Order Date: </strong>@order.CreatedAt</p>
-                            <p class="m-t-10"><strong>Order Status: </strong> <span class="label label-danger">@order.Status</span></p>
+                            <p class="m-t-10"><strong>Order Status: </strong> <span class="@colorstatus size">@order.Status</span></p>
                             <p class="m-t-10"><strong>Order ID: </strong> #@order.OrderId</p>
                         </div>
                     </div><!-- end col -->

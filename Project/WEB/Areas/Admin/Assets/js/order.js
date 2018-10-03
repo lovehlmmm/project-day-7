@@ -109,13 +109,43 @@ function sizeRow(data) {
         ? modified = new Date(parseInt(data.ModifiedAt.replace("/Date(", "").replace(")/", ""), 10)).toLocaleString()
         : modified = '';
     var mode = "";
+    var classColor = "";
+
+    var texttooltip1 = "";
+    var texttooltip2 = "";
+
     switch (data.Status) {
 
         case Pending:
             mode = Confirmed;
+            classColor = "PendingColor"
+            texttooltip1 = "Comfirm Order"
+            texttooltip2 = "Cancel Order"
             break;
+
         case Confirmed:
             mode = Received;
+            classColor = "ConfirmedColor"
+            texttooltip1 = "Receive Order"
+            texttooltip2 = "Cancel Order"
+
+            break;
+
+        case Processing:
+            classColor = "ProcessingColor"
+            texttooltip2 = "Cancel Order"
+
+            break;
+        case Canceled:
+            classColor = "CanceledColor"
+            texttooltip2 = "Delete Order"
+
+            break;
+
+        case Received:
+            classColor = "ReceivedColor"
+            texttooltip2 = "Delete Order"
+
             break;
     }
     var html = '';
@@ -125,18 +155,18 @@ function sizeRow(data) {
     html += '<td>' + data.PhoneNumber + '</td>';
     html += '<td>' + data.AddressDetails + '</td>';
     html += '<td>' + data.FolderImage + '</td>';
-    html += '<td>' + data.Total + '</td>';
-    html += '<td>' + data.Status + '</td>';
+    html += '<td>' + data.Total +'</td>';
+    html += '<td > <span class="' + classColor  + ' size    "> ' + data.Status + ' </span></td>';
     html += '<td>' + created + '</td>';
     html += '<td>' + modified + '</td>';
     html += '<td style="text-align:center">';
     if (data.Status !== Received & data.Status !== Canceled) {
-        html += '<button id="option_order" class="btn waves-effect waves-light btn-success"  onclick="ChangeStatusOrder(' + data.OrderId + ',' + mode + ',this)" style="padding:5px"> <i class="fa fa-check"></i> </button>';
+        html += '<button id="option_order" class="btn waves-effect waves-light btn-success" data-toggle="tooltip" data-placement="top" title="' +texttooltip1+'" onclick="ChangeStatusOrder(' + data.OrderId + ',' + mode + ',this)" style="padding:5px"> <i class="fa fa-check"></i> </button>';
     }
-    html += '<a href = "#" id = "edit-user" onclick="GetDataEdit(' + data.OrderId + ')" class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
+    html += '<a href = "#" id = "edit-user" onclick="GetDataEdit(' + data.OrderId + ')" data-toggle="tooltip" data-placement="top" title="View Details"  class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
         '<i class="ion-information-circled"></i>' +
         '</a>' +
-        '<button id="delete_user" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>' +
+        '<button id="delete_user" class="btn waves-effect waves-light btn-danger disabled" data-toggle="tooltip" data-placement="top" title="' + texttooltip2 +'"  style="padding:5px"> <i class="fa fa-remove"></i> </button>' +
         '</td>';
     html += '</tr>';
     return html;
@@ -237,4 +267,26 @@ function AjaxChangeConfirm(id, mode, message = '', text = '', e = null) {
         });
 
 }
-
+//var tooltip = new PNotify({
+//    title: "Tooltip",
+//    text: "I'm not in a stack. I'm positioned like a tooltip with JavaScript.",
+//    hide: false,
+//    buttons: {
+//        closer: false,
+//        sticker: false
+//    },
+//    history: {
+//        history: false
+//    },
+//    animate_speed: "fast",
+//    icon: "fa fa-commenting",
+//    // Setting stack to false causes PNotify to ignore this notice when positioning.
+//    stack: false,
+//    auto_display: false
+//});
+//function ToolTipCss(e) {
+//    tooltip.get().css({
+//        'top': $(e).position.top + 12,
+//        'left': $(e).position.left + 12
+//    });
+//}

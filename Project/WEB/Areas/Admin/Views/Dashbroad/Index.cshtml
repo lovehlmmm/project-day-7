@@ -116,13 +116,23 @@
                 width: 100%;
             }
         }
+        #hover {
+            outline: solid 3px #bbb;
+            transition: outline 0.9s linear;
+            margin: 0.5em; /* Increased margin since the outline expands outside the element */
+            margin-bottom : 15px;
+        }
+
+        #hover:hover {
+            outline-width: 10px;
+            border-radius :5px;
+        }
     </style>
 }
 <div class="row">
     <div class="col-xl-12">
         <div class="page-title-box">
             <h4 class="page-title float-left">Dashboard</h4>
-
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="#">Uplon</a></li>
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
@@ -137,8 +147,8 @@
 
 
 <div class="row">
-    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
-        <div class="card-box tilebox-one">
+    <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3" >
+        <div class="card-box tilebox-one" id="hover">
             <i class="icon-layers float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Orders</h6>
             <h2 class="m-b-20" data-plugin="counterup">@Model.OrderCount</h2>
@@ -147,7 +157,7 @@
     </div>
 
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
-        <div class="card-box tilebox-one">
+        <div class="card-box tilebox-one" id="hover">
             <i class="icon-paypal float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Revenue</h6>
             <h2 class="m-b-20"><span data-plugin="counterup">@Model.Total.ToString("0,0")</span></h2>
@@ -156,7 +166,7 @@
     </div>
 
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
-        <div class="card-box tilebox-one">
+        <div class="card-box tilebox-one" id="hover">
             <i class="icon-chart float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Image of day</h6>
             <h2 class="m-b-20"><span data-plugin="counterup">@Model.ImageOfDay</span></h2>
@@ -165,7 +175,7 @@
     </div>
 
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
-        <div class="card-box tilebox-one">
+        <div class="card-box tilebox-one" id="hover">
             <i class="icon-rocket float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Image of month</h6>
             <h2 class="m-b-20" data-plugin="counterup">@Model.ImageOfMonth</h2>

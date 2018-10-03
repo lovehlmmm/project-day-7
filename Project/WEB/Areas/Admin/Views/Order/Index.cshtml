@@ -16,6 +16,36 @@
     <link href="~/Areas/Admin/Assets/plugins/clockpicker/bootstrap-clockpicker.min.css" rel="stylesheet">
 
     <link href="~/Areas/Admin/Assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <style>
+        .CanceledColor {
+            background-color: #d9534f;
+
+        }
+
+        .ConfirmedColor {
+            background-color: #5bc0de;
+        }
+
+        .PendingColor {
+            background-color: #ff5d48;
+        }
+
+        .ReceivedColor {
+            background-color: #5cb85c;
+        }
+
+        .ProcessingColor {
+            background-color: gainsboro;
+        }
+
+        .size{
+            padding : 4px 10px;
+            border-radius : 5px;
+            color : white;
+        }
+
+
+    </style>
 
 }
 
@@ -107,7 +137,7 @@
                             <tbody id="order-data"></tbody>
                         </table>
 
-                        <div class="content_detail__pagination cdp" actpage="1">
+                        <div class="content_detail__pagination cdp"  actpage="1">
 
                         </div>
                     </div>
