@@ -26,9 +26,11 @@ namespace Entities
         [Column("material_price", TypeName = "money")]
         public decimal? Price { get; set; }
         [Column("group")]
-        public int? Group { get; set; }
+        public int? GroupId { get; set; }
         [StringLength(100)]
         [Column("image")]
         public string Image { get; set; }
+        [ForeignKey("GroupId")]
+        public virtual Group Group { get; set; }
     }
 }

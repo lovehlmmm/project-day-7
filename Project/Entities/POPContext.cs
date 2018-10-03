@@ -24,6 +24,7 @@ namespace Entities
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

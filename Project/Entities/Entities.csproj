@@ -61,6 +61,7 @@
     <Compile Include="Customer.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="EntityBase.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="ModelExtension.cs" />
     <Compile Include="Notification.cs" />
