@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="CookieHelper.cs" />
+    <Compile Include="ExchangeTime.cs" />
     <Compile Include="ExpressionRebinder.cs" />
     <Compile Include="HashingData.cs" />
     <Compile Include="LoginAdminRequiredAttribute.cs" />

@@ -26,7 +26,21 @@ $(document).ready(function () {
             swal("Warning", "Please enter a number greater than 0", "error");
             return;
         }
-        $('#loading').show();
+        //$('#loading').show();
+        var ajaxTime = new Date().getTime();
+        var notice = new PNotify({
+            text: "Please Wait",
+            type: 'info',
+            icon: 'fa fa-spinner fa-spin',
+            hide: false,
+            delay:8000,
+            buttons: {
+                closer: false,
+                sticker: false
+            },
+            shadow: false,
+            width: "170px"
+        });
         $.each(list, function (key, val) {
             var cartItem = { Image: $(val).attr('src'),ImageTitle: $(val).attr('title'), Quantity: quantity};
             var formData = new FormData();
@@ -36,9 +50,12 @@ $(document).ready(function () {
             formData.append("option", option);
             AddToCart(formData);
         });
-        $('#loading').hide();
-        swal("Success", "Add Success", "success");
-        GetCartItem();
+        //$('#loading').hide();
+        var totalTime = new Date().getTime() - ajaxTime;
+        dyn_notice(totalTime, notice);
+        GetCartItem(totalTime);
+        //swal("Success", "Add Success", "success");
+        
     });
 });
  
@@ -56,7 +73,7 @@ function AddToCart(data) {
     });
 }
 
-function GetCartItem() {
+function GetCartItem(time) {
     $.ajax({
         url: '/Upload/GetCartUpload',
         contentType: 'application/html;charset=utf-8',
@@ -64,27 +81,29 @@ function GetCartItem() {
         async: false,
         dataType: 'html'
     }).success(function (result) {
-        $('#list-cart').html(result);
-        UpdateItem();
-        $('.deleteitem').click(function () {
-            var deleteId = $(this).data('id');
-            $('#loading').show();
-            $.ajax({
-                url: '/Upload/DeleteItem?id=' + deleteId,
-                type: 'GET',
-                async: false,
-                processData: false,
-                contentType: false
-            }).success(function (result) {
-                if (result.status) {
-                    $('#loading').hide();
-                    GetCartItem();
-                    swal("Success", "Delete item success!", "success");
-                }
-            }).error(function (xhr, status) {
-            });
+        setTimeout(function () {
+            $('#list-cart').html(result);
+            UpdateItem();
+            $('.deleteitem').click(function () {
+                var deleteId = $(this).data('id');
+                $('#loading').show();
+                $.ajax({
+                    url: '/Upload/DeleteItem?id=' + deleteId,
+                    type: 'GET',
+                    async: false,
+                    processData: false,
+                    contentType: false
+                }).success(function (result) {
+                    if (result.status) {
+                        $('#loading').hide();
+                        GetCartItem();
+                        swal("Success", "Delete item success!", "success");
+                    }
+                }).error(function (xhr, status) {
+                });
 
-        })
+            });
+        }, time);
     }).error(function (xhr, status) {
     });
 }
@@ -131,4 +150,32 @@ function UpdateItem() {
         }).error(function (xhr, status) {
         });
     }) 
+}
+function dyn_notice(time, notice) {
+    var percent = 0;
+    setTimeout(function () {
+        notice.update({
+            title: false
+        });
+        var interval = setInterval(function () {
+            percent += 2;
+            var options = {
+                text: percent + "% complete."
+            };
+            if (percent >= 100) {
+                window.clearInterval(interval);
+                options.title = "Done!";
+                options.type = "success";
+                options.hide = true;
+                options.buttons = {
+                    closer: true,
+                    sticker: true
+                };
+                options.icon = 'fa fa-check';
+                options.shadow = true;
+                options.width = PNotify.prototype.options.width;
+            }
+            notice.update(options);
+        }, 50);
+    }, time/2);
 }

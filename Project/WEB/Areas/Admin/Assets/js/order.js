@@ -18,7 +18,13 @@ $(document).ready(function () {
         GetData();
     });
 });
-
+function GetImage(url) {
+    $('#image-details').attr('src', url);
+    $('#imageModal').show();
+    $('.close').click(function () {
+        $('#imageModal').hide();
+    })
+};
 $('#btnOpenModalAdd').click(function () {
     $('#modal-order-details').modal();
 });
@@ -175,7 +181,7 @@ function AjaxChangeCancel(id, mode, message = '', text = '', e = null) {
                 swal("Write the reason:", {
                     content: "input"
                 })
-                    .then((value) => {
+                   .then((value) => {
                         $.ajax({
                             url: '/Order/ChangeStatus?id=' + id + '&mode=' + mode + '&reason=' + value,
                             type: 'GET',

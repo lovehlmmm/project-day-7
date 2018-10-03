@@ -221,6 +221,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Assets\js\NotificationAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashbroadController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\MaterialController.cs" />
@@ -2506,6 +2507,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\pnotify.custom.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2945,6 +2947,7 @@
     <Content Include="Assets\slick\slick.less" />
     <Content Include="Assets\slick\slick.scss" />
     <Content Include="Areas\Admin\Views\Dashbroad\_OrderPending.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_NotificationAdmin.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\photoprinting - Web Deploy1.pubxml" />
@@ -2995,6 +2998,7 @@
     <Content Include="Scripts\Plugin\Lobibox\js\notifications.js" />
     <Content Include="Scripts\Plugin\Lobibox\lib\jquery.1.11.js" />
     <Content Include="Scripts\Plugin\Lobibox\lib\jquery.1.11.min.js" />
+    <Content Include="Scripts\pnotify.custom.min.js" />
     <Content Include="Scripts\product-details.js" />
     <Content Include="Scripts\register.js" />
     <Content Include="Scripts\updateUserInfo.js" />
@@ -3144,6 +3148,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Assets\plugins\jstree\themes\default\" />
+    <Folder Include="Areas\Admin\Views\NotificationAdmin\" />
     <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
