@@ -7,7 +7,7 @@ $("#login_form").submit(function () {
     var user = { username: username, password: password, remember: remember };
     $('#loading').show();
     $.ajax({
-        url: '/Login/CheckLogin',
+        url: '/Admin/Login/CheckLogin',
         type: 'POST',
         dataType: 'json',
         data: { user: JSON.stringify(user) },

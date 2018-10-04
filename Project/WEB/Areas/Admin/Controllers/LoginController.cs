@@ -13,6 +13,7 @@ using WEB.Areas.Admin.Models;
 
 namespace WEB.Areas.Admin.Controllers
 {
+
     public class LoginController : Controller
     {
         private IUserService _userService;
@@ -24,6 +25,30 @@ namespace WEB.Areas.Admin.Controllers
         // GET: Admin/Login
         public ActionResult Index()
         {
+            HashingData hashing = new HashingData();
+            var key = TempData["key"] as string;
+            if (key != null)
+            {
+                try
+                {
+                    var decodeKey = hashing.DecryptString(hashing.Decode(key), AppSettingConstant.PasswordHash);
+                    var when = DateTime.Parse(decodeKey);
+                    if (when < DateTime.UtcNow.AddHours(-24))
+                    {
+                        return Redirect("/home");
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return Redirect("/home");
+                }
+
+            }
+            else
+            {
+                return Redirect("/home");
+            }
             return View();
         }
 

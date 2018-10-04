@@ -92,7 +92,7 @@
             <nav class="navbar-custom">
                 <ul class="list-inline float-right mb-0">
                     <li class="list-inline-item dropdown notification-list">
-                        <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
+                        <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" id="open-notifi" data-toggle="dropdown" href="#" role="button"
                            aria-haspopup="false" aria-expanded="false">
                             <i class="zmdi zmdi-notifications-none noti-icon"></i>
                             <span class="noti-icon-badge"></span>
@@ -103,20 +103,9 @@
                                 <h5><small><span class="label label-danger pull-xs-right">7</span>Notification</small></h5>
                             </div>
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-success"><i class="icon-bubble"></i></div>
-                                <p class="notify-details">Robert S. Taylor commented on Admin<small class="text-muted">1min ago</small></p>
-                            </a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-info"><i class="icon-user"></i></div>
-                                <p class="notify-details">New user registered.<small class="text-muted">1min ago</small></p>
-                            </a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-danger"><i class="icon-like"></i></div>
-                                <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">1min ago</small></p>
-                            </a>
+                            <div id="notifi-content">
+
+                            </div>
                             <!-- All-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
                                 View All
@@ -134,30 +123,9 @@
                             <div class="dropdown-item noti-title bg-success">
                                 <h5><small><span class="label label-danger pull-xs-right">7</span>Messages</small></h5>
                             </div>
-                            <!-- item-->
-                           
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-faded">
-                                    <img src="~/Areas/Admin/Assets/images/users/avatar-3.jpg" alt="img" class="rounded-circle img-fluid">
-                                </div>
-                                <p class="notify-details">
-                                    <b>Carlos Crouch</b>
-                                    <span>New tasks needs to be done</span>
-                                    <small class="text-muted">1min ago</small>
-                                </p>
-                            </a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-faded">
-                                    <img src="~/Areas/Admin/Assets/images/users/avatar-3.jpg" alt="img" class="rounded-circle img-fluid">
-                                </div>
-                                <p class="notify-details">
-                                    <b>Robert Taylor</b>
-                                    <span>New tasks needs to be done</span>
-                                    <small class="text-muted">1min ago</small>
-                                </p>
-                            </a>
+                            <div>
+
+                            </div>
                             <!-- All-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
                                 View All
@@ -200,11 +168,11 @@
                         </button>
                     </li>
                     @*<li class="hidden-mobile app-search">
-                        <form role="search" class="">
-                            <input type="text" placeholder="Search..." class="form-control">
-                            <a href=""><i class="fa fa-search"></i></a>
-                        </form>
-                    </li>*@
+                            <form role="search" class="">
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <a href=""><i class="fa fa-search"></i></a>
+                            </form>
+                        </li>*@
                 </ul>
             </nav>
         </div>
@@ -311,9 +279,28 @@
     <script src="~/Areas/Admin/Assets/js/pagination.js"></script>
     <script src="~/Areas/Admin/Assets/js/logout.js"></script>
     <script src="~/Scripts/pnotify.custom.min.js"></script>
-
-     
-
+    <script>
+        var page = 5;
+        var takeCount = 1;
+        $(document).ready(function () {
+            $('#open-notifi').click(function () {
+                GetAllNotification();
+            })
+        })
+        function GetAllNotification() {
+            if (!hasMoreRecords) {
+                return;
+            }
+            $.ajax({
+                url: '/NotificationAdmin/GetNotification',
+                data: { page: page, takeCount: takeCount },
+                dataType: 'html',
+                success: function (data) {
+                    $('#notifi-content').append(data);
+                }
+            });
+        }
+    </script>
     @RenderSection("script", false)
 
 </body>

@@ -22,9 +22,13 @@ namespace WEB.Controllers
             _userService = userService;
         }
         // GET: LoginUser
-        public ActionResult Index()
+        public ActionResult Index(string key = null)
         {
-
+            if (key!=null)
+            {
+                TempData["key"] = key;
+                return Redirect("/admin");
+            }
             ViewBag.Url = Request.QueryString["url"];
             return View();
         }
