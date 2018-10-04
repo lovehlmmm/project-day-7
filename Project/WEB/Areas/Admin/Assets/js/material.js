@@ -1,11 +1,36 @@
 ﻿$(document).ready(function () {
+    String.prototype.format = function () {
+        a = this;
+        for (k in arguments) {
+            a = a.replace("{" + k + "}", arguments[k])
+        }
+        return a
+    }
     GetData();
+    $('#form_new_update').submit(function () {
+        var name = $('input[name=name]').val();
+        var active = $('input[name=active]:checked').length > 0 ? 'active' : 'inactive';
+        var price = $('input[name=price]').val();
+        var id = $('input[name=id]').val();
+        var material = $('input[name=material]').val();
+        var a = $('#form_new_update').data('type');
+        var groupid = $('#groupselect').val();
+        var size = { Name: name, Price: price, Status: active, Details: material, GroupId: groupid };
+        if ($('#form_new_update').data('type') === '1') {
+            Add(size);
+        } else {
+            Update(size, id);
+        }
+        return false;
+    })
+
 });
 
 $('#btnOpenModalAdd').click(function () {
     ClearForm();
     $('#form_new_update').data('type', '1');
     $('#titleSizeModal').text('New');
+    GetGroup();
     $('#new-modal').modal();
 });
 //$('#form_size').submit(function () {
@@ -31,7 +56,7 @@ function paging(page, index) {
     return html;
 }
 
-$('#form_new_update').validate({
+$('#form_new_update2').validate({
     rules: {
         name: {
             required: true,
@@ -56,13 +81,14 @@ $('#form_new_update').validate({
         var id = $('input[name=id]').val();
         var material = $('input[name=material]').val();
         var a = $('#form_new_update').data('type');
-        var size = { Name: name, Price: price, Status: active, Details: material };
+        var groupid = $('#groupselect').val();
+        var size = { Name: name, Price: price, Status: active, Details: material, GroupId: groupid };
         if ($('#form_new_update').data('type') === '1') {
             Add(size);
         } else {
             Update(size, id);
         }
-        return false; // for demo
+        return false;
     },
     messages: {
         name: {
@@ -106,8 +132,26 @@ function DataToForm(data) {
     $('input[name=price]').val(data.Price);
     $('input[name=material]').val(data.Details);
     $('input[name=id]').val(data.Id);
+    
 }
-
+function GetGroup() {
+    $.ajax({
+        url: '/Material/GetGroup',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            if (response.status) {
+                var groupSelect = '';
+                $.each(response.data, function (index, value) {
+                    groupSelect += '<option value="{0}">{1}</option>'.format(value.Id, value.GroupName);
+                });
+                $('#groupselect').append(groupSelect);
+            } else {
+                alert('fail');
+            }
+        }
+    });
+}
 function GetDataEdit(id) {
     $.ajax({
         url: '/Material/Get/' + id,
@@ -119,6 +163,7 @@ function GetDataEdit(id) {
                 var a = $('#form_new_update').data('type');
                 $('#title').text('Update');
                 DataToForm(response.data);
+                GetGroup();
                 $('#new-modal').modal();
             } else {
                 alert('fail');

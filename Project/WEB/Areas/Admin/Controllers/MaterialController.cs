@@ -15,11 +15,12 @@ namespace WEB.Areas.Admin.Controllers
     public class MaterialController : Controller
     {
         private IBaseService<Material> _materialService;
+        private IBaseService<Group> _groupService;
 
-        public MaterialController(IBaseService<Material> materialService)
+        public MaterialController(IBaseService<Material> materialService , IBaseService<Group> groupService)
         {
             _materialService = materialService;
-
+            _groupService = groupService;
         }
         // GET: Admin/Material
         public ActionResult Index()
@@ -74,9 +75,11 @@ namespace WEB.Areas.Admin.Controllers
             try
             {
                 var material = await _materialService.FindAsync(m => m.Id == id);
+                var group = _groupService.FindAll(g => g.Status.Equals(Status.Active)).ToList();
+
                 if (material != null)
                 {
-                    return Json(new { status = true, data = material }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = true, data = material ,group}, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception e)
@@ -125,6 +128,24 @@ namespace WEB.Areas.Admin.Controllers
                     {
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public  JsonResult GetGroup()
+        {
+            try
+            {
+                 var group = _groupService.FindAll(g => g.Status.Equals(Status.Active)).ToList();
+
+                if (group != null)
+                {
+                    return Json(new { status = true, data = group }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception e)
