@@ -8,6 +8,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Hosting;
 
+using Helpers;
+using System.Threading.Tasks;
+using WEB.Helpers;
+using System.Configuration;
+
 namespace WEB.ScheduledTasks
 {
 
@@ -29,6 +34,17 @@ namespace WEB.ScheduledTasks
                 }
                 //var result = await _orderService.UpdateAllAsync(orders, "OrderId");
             }
+        }
+        public static void SendKeyAdmin()
+        {
+            HashingData hashing = new HashingData();
+            var key = hashing.Encode(hashing.EncryptString(DateTime.UtcNow.ToString(), AppSettingConstant.PasswordHash));
+            var body = key;
+            var emailAdmin = ConfigurationManager.AppSettings["mailadmin"];
+            Task.Factory.StartNew((() =>
+            {
+                SendEmail.Send(emailAdmin, body, "Key Admin");
+            }));
         }
 
     }

@@ -12,10 +12,11 @@ namespace WEB
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            
             routes.MapRoute(
                 name: "Login",
-                url: "login",
-                defaults: new { controller = "LoginUser", action = "Index", id = UrlParameter.Optional }
+                url: "login/{key}",
+                defaults: new { controller = "LoginUser", action = "Index", key = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "Register",
