@@ -1,12 +1,107 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Material Management";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section script{
 
     <script src="~/Areas/Admin/Assets/js/material.js"></script>
 }
+@section css{
+    <style>
+         
+        /* The Modal (background) */
+        .modalshow {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1051; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modalshow-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation */
+        .modalshow-content, #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @@-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @@keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #bbb;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        /* 100% Image Width on Smaller Screens */
+        @@media only screen and (max-width: 700px) {
+            .modalshow-content {
+                width: 100%;
+            }
+        }
+
+        
+    </style>
+}
+
 <!-- Title Row -->
 <div class="row">
     <div class="col-xl-12">
@@ -22,7 +117,7 @@
         <div class="card-box">
             <div class="row m-t-50">
                 <button class="btn btn-primary waves-effect waves-light" id="btnOpenModalAdd" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="zmdi zmdi-plus-circle"></i>&nbsp; New Material</button>
-               
+
                 <div class="col-12 m-t-20">
                     <div class="" style="float:right">
                         <div id="datatable_filter" class="dataTables_filter">
@@ -30,13 +125,15 @@
                         </div>
                     </div>
                     <!-- End -->
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-bordered table-striped">
                         <thead>
-                            <tr>
+                            <tr style="background-color:#2B3D51;color:white;text-align: center">
                                 <th>Id</th>
                                 <th>Material Name</th>
                                 <th>Material</th>
                                 <th>Price</th>
+                                <th>Image</th>
+                                <th>Group</th>
                                 <th>Status</th>
                                 <th>Created</th>
                                 <th>Modified</th>
@@ -89,16 +186,14 @@
 
                         <label class="col-sm-2">Group</label>
                         <div class="col-10">
-                            <select id="groupselect" class="form-control">
-                                <option selected>Choose...</option>
-                            </select>
+                            <select id="groupselect" class="form-control" name="selectgr"></select>
                         </div>
                     </div>
                     <div class="form-group row">
 
                         <label class="col-sm-2">Image</label>
                         <div class="col-10">
-                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                            <input type="file" class="form-control-file img-file">
                         </div>
                     </div>
                     <div class="form-group row">

@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿
+
+$(document).ready(function () {
     String.prototype.format = function () {
         a = this;
         for (k in arguments) {
@@ -6,6 +8,7 @@
         }
         return a
     }
+
     GetData();
     $('#form_new_update').submit(function () {
         var name = $('input[name=name]').val();
@@ -15,11 +18,13 @@
         var material = $('input[name=material]').val();
         var a = $('#form_new_update').data('type');
         var groupid = $('#groupselect').val();
+        var file = $('.img-file').prop('files')[0];
         var size = { Name: name, Price: price, Status: active, Details: material, GroupId: groupid };
+
         if ($('#form_new_update').data('type') === '1') {
-            Add(size);
+            Add(size, file);
         } else {
-            Update(size, id);
+            Update(size, id, file);
         }
         return false;
     })
@@ -61,7 +66,7 @@ $('#form_new_update2').validate({
         name: {
             required: true,
             minlength: 5,
-            maxlength:20
+            maxlength: 20
         },
         material: {
             required: true,
@@ -71,7 +76,7 @@ $('#form_new_update2').validate({
         price: {
             required: true,
             number: true,
-            min:1
+            min: 1
         }
     },
     submitHandler: function (form) { // for demo
@@ -92,36 +97,47 @@ $('#form_new_update2').validate({
     },
     messages: {
         name: {
-            required:"Please enter material name"
+            required: "Please enter material name"
         },
         material: {
             required: "Please enter material"
         }
     }
 });
-function Update(data, id) {
+function Update(data, id, file) {
+    var materials = new FormData();
+    materials.append('materials', JSON.stringify(data));
+    materials.append('id', id);
+    materials.append('materialimg', file);
+
     $.ajax({
         url: '/Material/Update',
         type: 'POST',
-        dataType: 'json',
-        data: { material: data, id: id },
-        success: function (response) {
-            if (response.status) {
-                swal("Success", "You Update success!", "success");
-                $('#new-modal').modal('toggle');
-                GetData();
-            } else {
-                alert('fail');
-            }
+        data: materials,
+        async: false,
+        processData: false,
+        contentType: false
+    }).success(function (result) {
+        if (result.status) {
+            swal("Success", "You Update success!", "success");
+            $('#new-modal').modal('toggle');
+            GetData();
+        } else {
+            alert('fail');
         }
+    }).error(function (xhr, status) {
     });
 }
+
+
+
 function ClearForm() {
     $('input[name=name]').val("");
     $('input[name=material]').val("");
     $('input[name=active]').prop('checked', false);
     $('input[name=price]').val(0);
-}
+
+ }
 function DataToForm(data) {
     var status = true;
     if (data.Status !== 'active') {
@@ -132,7 +148,10 @@ function DataToForm(data) {
     $('input[name=price]').val(data.Price);
     $('input[name=material]').val(data.Details);
     $('input[name=id]').val(data.Id);
-    
+    console.log(data.GroupId);
+    $('#groupselect').val(data.GroupId);
+
+
 }
 function GetGroup() {
     $.ajax({
@@ -141,11 +160,11 @@ function GetGroup() {
         dataType: 'json',
         success: function (response) {
             if (response.status) {
-                var groupSelect = '';
+                var groupSelect = ' <option value="0" selected>Choose...</option>';
                 $.each(response.data, function (index, value) {
                     groupSelect += '<option value="{0}">{1}</option>'.format(value.Id, value.GroupName);
                 });
-                $('#groupselect').append(groupSelect);
+                $('#groupselect').html(groupSelect);
             } else {
                 alert('fail');
             }
@@ -153,6 +172,7 @@ function GetGroup() {
     });
 }
 function GetDataEdit(id) {
+    GetGroup();
     $.ajax({
         url: '/Material/Get/' + id,
         type: 'GET',
@@ -161,9 +181,8 @@ function GetDataEdit(id) {
             if (response.status) {
                 $('#form_new_update').data('type', '2');
                 var a = $('#form_new_update').data('type');
-                $('#title').text('Update');
+                $('#title').text('Update');     
                 DataToForm(response.data);
-                GetGroup();
                 $('#new-modal').modal();
             } else {
                 alert('fail');
@@ -175,7 +194,7 @@ function GetDataEdit(id) {
 function GetData() {
     var paginationPage = parseInt($('.cdp').attr('actpage'), 10);
     $.ajax({
-        url: '/Material/GetList?pageNumber='+paginationPage+'&pageSize=10',
+        url: '/Material/GetList?pageNumber=' + paginationPage + '&pageSize=10',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -185,7 +204,7 @@ function GetData() {
                     html += sizeRow(value);
                 });
                 $('#materialData').html(html);
-                var html1 = paging(data.totalPage,paginationPage);
+                var html1 = paging(data.totalPage, paginationPage);
                 $('.content_detail__pagination').html(html1);
 
             }
@@ -207,23 +226,33 @@ function pagingChoose(a) {
     GetData();
 }
 
-function Add(material) {
+function Add(material, file) {
+var materials = new FormData();
+    materials.append('materials', JSON.stringify(material));
+    materials.append('materialimg', file);
+
     $.ajax({
         url: '/Material/Create',
         type: 'POST',
-        dataType: 'json',
-        data: { material: material },
-        success: function (response) {
-            if (response.status) {
+         data: materials,
+         async: false,
+        processData: false,
+        contentType: false
+    }).success(function (result) {
+       if (result.status) {
                 swal("Success", "You created success!", "success");
                 $('#new-modal').modal('toggle');
                 GetData();
             } else {
                 alert('fail');
             }
-        }
+    }).error(function (xhr, status) {
     });
 }
+
+
+
+
 function sizeRow(data) {
     var created = '';
     var modified = '';
@@ -239,9 +268,11 @@ function sizeRow(data) {
     html += ('<td>' + data.Name + '</td>');
     html += ('<td>' + data.Details + '</td>');
     html += ('<td>' + data.Price + '</td>');
+    html += ('<td>' + data.Image + '</td>');
+    html += ('<td>' + data.Group.GroupName + '</td>');
     html += ('<td>' + data.Status + '</td>');
-    html += ('<td>' +created + '</td>');
-    html += ('<td>' + modified+ '</td>');
+    html += ('<td>' + created + '</td>');
+    html += ('<td>' + modified + '</td>');
     html += ('<td style="text-align:center">');
     html += ('<button id="edit_size" data-id="' +
         data.Id +
