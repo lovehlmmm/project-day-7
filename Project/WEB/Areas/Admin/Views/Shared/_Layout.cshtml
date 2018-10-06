@@ -279,9 +279,11 @@
     <script src="~/Areas/Admin/Assets/js/pagination.js"></script>
     <script src="~/Areas/Admin/Assets/js/logout.js"></script>
     <script src="~/Scripts/pnotify.custom.min.js"></script>
+
+    @RenderSection("script", false)
     <script>
-        var page = 5;
-        var takeCount = 1;
+        var pagen = 5;
+        var takeCountn = 1;
         $(document).ready(function () {
             $('#open-notifi').click(function () {
                 GetAllNotification();
@@ -292,8 +294,8 @@
                 return;
             }
             $.ajax({
-                url: '/NotificationAdmin/GetNotification',
-                data: { page: page, takeCount: takeCount },
+                url: '/Admin/NotificationAdmin/GetNotification',
+                data: { page: pagen, takeCount: takeCountn },
                 dataType: 'html',
                 success: function (data) {
                     $('#notifi-content').append(data);
@@ -301,7 +303,6 @@
             });
         }
     </script>
-    @RenderSection("script", false)
 
 </body>
 </html>
