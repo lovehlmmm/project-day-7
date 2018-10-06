@@ -1,13 +1,13 @@
-﻿using Helpers;
+﻿using Constants;
+using Entities;
+using Helpers;
+using Newtonsoft.Json;
+using Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Constants;
-using Entities;
-using Services;
 
 namespace WEB.Areas.Admin.Controllers
 {
@@ -15,11 +15,12 @@ namespace WEB.Areas.Admin.Controllers
     public class MaterialController : Controller
     {
         private IBaseService<Material> _materialService;
+        private IBaseService<Group> _groupService;
 
-        public MaterialController(IBaseService<Material> materialService)
+        public MaterialController(IBaseService<Material> materialService, IBaseService<Group> groupService)
         {
             _materialService = materialService;
-
+            _groupService = groupService;
         }
         // GET: Admin/Material
         public ActionResult Index()
@@ -48,16 +49,33 @@ namespace WEB.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Create(Material material)
+        public async Task<JsonResult> Create(string materials, HttpPostedFileBase materialimg)
         {
+
             try
             {
-                if (material != null)
+                if (materials != null)
                 {
-                    material.CreatedAt = DateTime.Now;
-                    var result = await _materialService.AddAsync(material);
+                    var checkmaterial = JsonConvert.DeserializeObject<Material>(materials);
+                    checkmaterial.CreatedAt = DateTime.Now;
+                    if (!System.IO.Directory.Exists(Server.MapPath("~/Images/Material")))
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath("~/Images/Material"));
+                    }
+                    if (materialimg != null)
+                    {
+                        string pic = System.IO.Path.GetFileName(materialimg.FileName);
+                        string path = System.IO.Path.Combine(
+                                               Server.MapPath("~/Images/Material"), pic);
+                        // file is uploaded
+                        materialimg.SaveAs(path);
+                        checkmaterial.Image = pic;
+                    }
+                    var result = await _materialService.AddAsync(checkmaterial);
+
                     if (result != null)
                     {
+                        
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
                 }
@@ -74,9 +92,11 @@ namespace WEB.Areas.Admin.Controllers
             try
             {
                 var material = await _materialService.FindAsync(m => m.Id == id);
+                var group = _groupService.FindAll(g => g.Status.Equals(Status.Active)).ToList();
+
                 if (material != null)
                 {
-                    return Json(new { status = true, data = material }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = true, data = material, group }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception e)
@@ -86,16 +106,38 @@ namespace WEB.Areas.Admin.Controllers
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> Update(Material material, int id)
+        public async Task<JsonResult> Update(string materials, int id, HttpPostedFileBase materialimg)
         {
 
             try
             {
+                var material = JsonConvert.DeserializeObject<Material>(materials);
                 var checkMaterial = await _materialService.FindAsync(m => m.Id == id);
                 if (checkMaterial != null & (material.Status.Equals(Status.Inactive) || material.Status.Equals(Status.Active)))
                 {
                     checkMaterial.Name = material.Name;
                     checkMaterial.Price = material.Price;
+                    if (!System.IO.Directory.Exists(Server.MapPath("~/Images/Material")))
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath("~/Images/Material"));
+                    }
+                    if (materialimg != null)
+                    {
+                        string pic = System.IO.Path.GetFileName(materialimg.FileName);
+                        string path = System.IO.Path.Combine(
+                                               Server.MapPath("~/Images/Material"), pic);
+                        // file is uploaded
+                        materialimg.SaveAs(path);
+                        checkMaterial.Image = pic;
+                    }
+                    if (material.GroupId == 0)
+                    {
+                        checkMaterial.GroupId = null;
+                    }
+                    else
+                    {
+                        checkMaterial.GroupId = material.GroupId;
+                    }
                     checkMaterial.ModifiedAt = DateTime.Now;
                     checkMaterial.Status = material.Status;
                     var result = await _materialService.UpdateAsync(checkMaterial, id);
@@ -125,6 +167,24 @@ namespace WEB.Areas.Admin.Controllers
                     {
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetGroup()
+        {
+            try
+            {
+                var group = _groupService.FindAll(g => g.Status.Equals(Status.Active)).ToList();
+
+                if (group != null)
+                {
+                    return Json(new { status = true, data = group }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception e)
