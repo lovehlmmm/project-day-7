@@ -80,7 +80,7 @@ namespace WEB.Areas.Admin.Controllers
                 {
                     o.OrderId,
                     o.Customer.CustomerName,
-                    Total = (o.OrderDetails?.Sum(od => od?.Quantity * (od?.Product.ProductPrice + od?.Material.Price))),
+                    Total = (o.OrderDetails?.Sum(od => od?.Quantity * (od?.Product.ProductPrice + od?.Material.Price))).Value.ToString("0,0 VNĐ"),
                     o.Status,
                     o.PhoneNumber,
                     o.Address?.AddressDetails,
@@ -190,7 +190,8 @@ namespace WEB.Areas.Admin.Controllers
                                 Status = Status.Active,
                                 NotificationType = noti.Type,
                                 Details = noti.Details,
-                                Title = noti.Title      
+                                Title = noti.Title,
+                                SendFrom = UserRole.Admin
                             };
                             
                             var notiAdd = await _notiService.AddAsync(notification);

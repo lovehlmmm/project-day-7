@@ -64,6 +64,7 @@ namespace WEB.Areas.Admin.Controllers
                     if (!checkUser.Role.Equals(UserRole.Admin)) return Json(new { status = false });
                     UserSession userSession = new UserSession(checkUser.Username, checkUser.Role);
                     SessionHelper.SetSession(userSession, AppSettingConstant.LoginSessionAdmin);
+
                     return Json(new { status = true, url = "/admin/home" }, JsonRequestBehavior.AllowGet);
                 }
             }

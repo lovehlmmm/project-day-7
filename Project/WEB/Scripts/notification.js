@@ -13,6 +13,9 @@ $("#showmenu").scroll(function () {
         $('.count-notification-load').text($('.notification-box').length);
     }
 });
+hub.client.broadcaastNotif = function (noti, count) {
+    GetAllNotification();
+};
 function GetAllNotification() {
     if (!hasMoreRecords) {
         return;

@@ -16,6 +16,7 @@ namespace Constants
         public const string CartSession = "cartSession";
         public const string CheckOutSession = "checkOutSession";
         public const string LoginCookieCustomer = "loggedCustomer";
+        public const string LoginCookieAdmin = "loggedAdmin";
         public static List<string> Options = new List<string> { "Delete Background", "Increase Quality", "Blur The Background" };
         public const string KeyEmailSettingSession = "KeyEmailSettingSession";
         public const string NotifiSession= "notifiSession";
