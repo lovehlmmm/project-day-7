@@ -50,6 +50,40 @@ namespace WEB.Hubs
             return base.OnConnected();
         }
 
+        public override Task OnReconnected()
+        {
+            try
+            {
+                var username = "";
+
+                var cookie = Context.Request.Cookies[AppSettingConstant.LoginCookieCustomer];
+                if (cookie != null)
+                {
+                    var cook = JsonConvert.DeserializeObject<UserLoginCookie>(Uri.UnescapeDataString(cookie.Value));
+                    username = cook.Username;
+                }
+                string connectionId = Context.ConnectionId;
+                var user = Users.GetOrAdd(username, _ => new UserConnection
+                {
+                    UserName = username,
+                    ConnectionIds = new HashSet<string>()
+                });
+
+                lock (user.ConnectionIds)
+                {
+                    user.ConnectionIds.Add(connectionId);
+                    if (user.ConnectionIds.Count == 1)
+                    {
+                        Clients.Others.userConnected(username);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            return base.OnReconnected();
+        }
         public override Task OnDisconnected(bool stopCalled)
         {
             try

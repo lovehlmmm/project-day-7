@@ -278,31 +278,65 @@
     <script src="~/Areas/Admin/Assets/js/sweetalert.min.js"></script>
     <script src="~/Areas/Admin/Assets/js/pagination.js"></script>
     <script src="~/Areas/Admin/Assets/js/logout.js"></script>
-    <script src="~/Scripts/pnotify.custom.min.js"></script>
-
-    @RenderSection("script", false)
+<script src="~/Scripts/pnotify.custom.min.js"></script>
     <script>
-        var pagen = 5;
-        var takeCountn = 1;
         $(document).ready(function () {
-            $('#open-notifi').click(function () {
-                GetAllNotification();
-            })
-        })
-        function GetAllNotification() {
-            if (!hasMoreRecords) {
-                return;
-            }
-            $.ajax({
-                url: '/Admin/NotificationAdmin/GetNotification',
-                data: { page: pagen, takeCount: takeCountn },
-                dataType: 'html',
-                success: function (data) {
-                    $('#notifi-content').append(data);
+            String.prototype.format = function () {
+                a = this;
+                for (k in arguments) {
+                    a = a.replace("{" + k + "}", arguments[k])
                 }
-            });
+                return a
+            }
+            function setTotalNotification(noti,count) {
+                Lobibox.notify(noti.NotificationType, {
+                    img: '/Areas/Admin/Assets/images/users/avatar-4.jpg',
+                    title: noti.Title,
+                    size: 'large',
+                    msg: noti.Details,
+                    sound: '/Scripts/Plugin/Lobibox/dist/sounds/sound2.ogg'
+                });
+                $('.noti-number').text(count);
+            }
+            var hub = $.connection.notificationHub;
+            //Server Sent Event
+            hub.client.broadcaastNotif = function (noti,count) {
+                setTotalNotification(noti,count)
+            };
+
+            hub.client.broadcaastNotifCount = function (count) {
+                $('.noti-number').text(count);
+            };
+            //$.connection.hub.start().done(function () { });
+
+            $.connection.hub.start()
+                .done(function () {
+                    console.log("Hub Connected!");
+                    hub.server.getCountNotifi();
+                    //Client Call to Server
+                })
+                .fail(function () {
+                    console.log("Could not Connect!");
+                });
+        $('#open-notifi').click(function(){
+            GetAllNotification1();
+        })
+        })
+        function GetAllNotification1() {
+        var page1 = 5;
+        var takeCount1 = 1;
+    $.ajax({
+        url: '/NotificationAdmin/GetNotification?page='+page1+'&takeCount='+takeCount1,
+        type: "GET",
+        dataType: 'html',
+        success: function (data) {
+            $('#notifi-content').html("");
+            $('#notifi-content').append(data);
         }
+    });
+}
     </script>
+    @RenderSection("script", false)
 
 </body>
 </html>

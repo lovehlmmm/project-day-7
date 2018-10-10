@@ -37,5 +37,11 @@ namespace Entities
         [Column("notification_type"),DataType("nvarchar")]
         [StringLength(100)]
         public string NotificationType { get; set; }
+        [Column("send_from")]
+        [StringLength(50)]
+        public string SendFrom { get; set; }
+        [Column("url")]
+        [StringLength(500)]
+        public string Url { get; set; }
     }
 }

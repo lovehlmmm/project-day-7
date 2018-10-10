@@ -13,6 +13,9 @@ $("#showmenu").scroll(function () {
         $('.count-notification-load').text($('.notification-box').length);
     }
 });
+hub.client.broadcaastNotif = function (noti, count) {
+    GetAllNotification();
+};
 function GetAllNotification() {
     if (!hasMoreRecords) {
         return;
@@ -23,6 +26,9 @@ function GetAllNotification() {
         dataType: 'html',
         success: function (data) {
             $('#showmenu').append(data);
+            $('.notification-box').click(function () {
+                window.location.href = '' + $(this).data('url');
+            });
         }
     });
 }

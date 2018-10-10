@@ -148,7 +148,7 @@
 
 <div class="row">
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
-        <div onclick="window.location='/dashbroad/GetOrderThisMonth'" class="card-box tilebox-one "id="hover">
+        <div onclick="window.location='/dashbroad/GetOrderThisMonth?mode=OrderOfMonth'" class="card-box tilebox-one "id="hover">
             <i class="icon-layers float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Orders</h6>
             <h2 class="m-b-20" data-plugin="counterup">@Model.OrderCount</h2>
@@ -166,7 +166,7 @@
     </div>
 
     <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
-        <div class="card-box tilebox-one" id="hover">
+        <div onclick="window.location='/dashbroad/GetOrderThisMonth?mode=ImageOfDay'" class="card-box tilebox-one" id="hover">
             <i class="icon-chart float-right text-muted"></i>
             <h6 class="text-muted text-uppercase m-b-20">Image of day</h6>
             <h2 class="m-b-20"><span data-plugin="counterup">@Model.ImageOfDay</span></h2>
