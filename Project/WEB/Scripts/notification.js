@@ -32,3 +32,7 @@ function GetAllNotification() {
         }
     });
 }
+
+function  ReadNotification(id) {
+    
+}

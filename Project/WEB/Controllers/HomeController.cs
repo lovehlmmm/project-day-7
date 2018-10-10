@@ -33,6 +33,11 @@ namespace WEB.Controllers
         public ActionResult GetNotification()
         {
             return PartialView("~/Views/Shared/_Notification.cshtml");
-         }
+        }
+
+        public void ReadNotified(long id)
+        {
+
+        }
     }
 }

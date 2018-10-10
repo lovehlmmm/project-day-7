@@ -275,10 +275,12 @@
     <script src="~/Areas/Admin/Assets/plugins/custombox/js/custombox.min.js"></script>
     <script src="~/Areas/Admin/Assets/plugins/custombox/js/legacy.min.js"></script>
     <!-- Modal JS CDN -->
+    <script src="~/Scripts/jquery.signalR-2.3.0.js"></script>
+    <script src="~/signalr/hubs"></script>
     <script src="~/Areas/Admin/Assets/js/sweetalert.min.js"></script>
     <script src="~/Areas/Admin/Assets/js/pagination.js"></script>
     <script src="~/Areas/Admin/Assets/js/logout.js"></script>
-<script src="~/Scripts/pnotify.custom.min.js"></script>
+    <script src="~/Scripts/pnotify.custom.min.js"></script>
     <script>
         $(document).ready(function () {
             String.prototype.format = function () {
@@ -288,7 +290,7 @@
                 }
                 return a
             }
-            function setTotalNotification(noti,count) {
+            function setTotalNotification(noti, count) {
                 Lobibox.notify(noti.NotificationType, {
                     img: '/Areas/Admin/Assets/images/users/avatar-4.jpg',
                     title: noti.Title,
@@ -300,8 +302,8 @@
             }
             var hub = $.connection.notificationHub;
             //Server Sent Event
-            hub.client.broadcaastNotif = function (noti,count) {
-                setTotalNotification(noti,count)
+            hub.client.broadcaastNotif = function (noti, count) {
+                setTotalNotification(noti, count)
             };
 
             hub.client.broadcaastNotifCount = function (count) {
@@ -318,23 +320,23 @@
                 .fail(function () {
                     console.log("Could not Connect!");
                 });
-        $('#open-notifi').click(function(){
-            GetAllNotification1();
-        })
+            $('#open-notifi').click(function () {
+                GetAllNotification1();
+            })
         })
         function GetAllNotification1() {
-        var page1 = 5;
-        var takeCount1 = 1;
-    $.ajax({
-        url: '/NotificationAdmin/GetNotification?page='+page1+'&takeCount='+takeCount1,
-        type: "GET",
-        dataType: 'html',
-        success: function (data) {
-            $('#notifi-content').html("");
-            $('#notifi-content').append(data);
+            var page1 = 5;
+            var takeCount1 = 1;
+            $.ajax({
+                url: '/NotificationAdmin/GetNotification?page=' + page1 + '&takeCount=' + takeCount1,
+                type: "GET",
+                dataType: 'html',
+                success: function (data) {
+                    $('#notifi-content').html("");
+                    $('#notifi-content').append(data);
+                }
+            });
         }
-    });
-}
     </script>
     @RenderSection("script", false)
 
