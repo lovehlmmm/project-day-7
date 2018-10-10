@@ -9,7 +9,7 @@
 }
 @section css{
     <style>
-         
+
         /* The Modal (background) */
         .modalshow {
             display: none; /* Hidden by default */
@@ -97,8 +97,6 @@
                 width: 100%;
             }
         }
-
-        
     </style>
 }
 
@@ -111,12 +109,66 @@
         </div>
     </div>
 </div>
+
+<!-- Group modal -->
+<div class="modal fade" id="modalGroup" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Group Management</h4>
+            </div>
+            <div class="modal-body">
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Add Group modal -->
+<div class="modal fade" id="modalAddGroup" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="margin-top:1px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">New Group</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <form id="form-new-group" data-type="1">
+                        <input type="text" style="width:75%" class="form-control" id="groupname" name="groupname" placeholder="Name Group">
+                        <br />
+                        <input type="text" style="width:35%" class="form-control" id="maxitem" name="maxitem" placeholder="Max Item">
+                        <input type="hidden" style="width:35%" class="form-control" id="maxitem" name="groupid" placeholder="Max Item">
+                        <br />
+                        <div class="checkbox checkbox-primary">
+                            <input id="checkbox21" name="activegr" type="checkbox">
+                            <label for="checkbox21"> Active </label>
+                        </div>
+                        <br />
+                        <button class="btn btn-success btn-lg add-group" type="button" id="newGr">Save</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- end row -->
 <div class="row">
     <div class="col-12">
         <div class="card-box">
             <div class="row m-t-50">
-                <button class="btn btn-primary waves-effect waves-light" id="btnOpenModalAdd" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="zmdi zmdi-plus-circle"></i>&nbsp; New Material</button>
+                <button class="btn btn-primary waves-effect waves-light" id="btnOpenModalAdd" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="zmdi zmdi-plus-circle"></i>&nbsp; New Material</button>&nbsp;&nbsp;
+
+                <button type="button" id="showGroup" class="btn btn-info waves-effect waves-light">Group Management</button>
 
                 <div class="col-12 m-t-20">
                     <div class="" style="float:right">
@@ -151,7 +203,7 @@
     </div>
     <!-- end row -->
 </div>
-<!-- Modal Add -->
+<!-- Modal Add Material -->
 <div class="modal fade bs-example-modal-sm" id="new-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

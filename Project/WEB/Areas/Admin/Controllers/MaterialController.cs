@@ -75,7 +75,7 @@ namespace WEB.Areas.Admin.Controllers
 
                     if (result != null)
                     {
-                        
+
                         return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                     }
                 }
@@ -185,6 +185,114 @@ namespace WEB.Areas.Admin.Controllers
                 if (group != null)
                 {
                     return Json(new { status = true, data = group }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetModalGroup()
+        {
+
+            var group = _groupService.FindAll(g => g.Status.Equals(Status.Active)).ToList();
+            if (group != null)
+            {
+                ViewBag.Group = group;
+            }
+            return PartialView("~/Areas/Admin/Views/Material/ModalGroup.cshtml");
+        }
+
+        public async Task<JsonResult> GetDataGroup(int id)
+        {
+            try
+            {
+                var group = await _groupService.FindAsync(g => g.Id == id);
+
+                if (group != null)
+                {
+                    return Json(new { status = true, data =  group }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public async Task<ActionResult> UpdateGroup(string group , int id)
+        {
+            try
+            {
+                var checkGroup = await _groupService.FindAsync(g => g.Id == id);
+                var groupD = JsonConvert.DeserializeObject<Group>(group);
+                if (checkGroup != null & (groupD.Status.Equals(Status.Inactive) || groupD.Status.Equals(Status.Active)))
+                {     
+                    checkGroup.GroupName = groupD.GroupName;
+                    checkGroup.MaxItem = groupD.MaxItem;
+                    checkGroup.ModifiedAt = DateTime.Now;
+                    checkGroup.Status = groupD.Status;
+                    var result = await _groupService.UpdateAsync(checkGroup, id);
+                    if (result != null)
+                    {
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public async Task<JsonResult> NewGroup(string group)
+        {
+
+            try
+            {
+                if (group != null)
+                {
+                    var groupD = JsonConvert.DeserializeObject<Group>(group);
+                    var checkGroup = new Group();
+                    checkGroup.GroupName = groupD.GroupName;
+                    checkGroup.MaxItem = groupD.MaxItem;
+                    checkGroup.Status = groupD.Status;
+                    checkGroup.CreatedAt = DateTime.Now;
+
+                    var result = await _groupService.AddAsync(checkGroup);
+
+                    if (result != null)
+                    {
+
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+        public async Task<JsonResult> DeleteGroup(int id)
+        {
+            try
+            {
+                var group = await _groupService.FindAsync(g => g.Id == id);
+                if (group != null)
+                {
+                    group.Status = Status.Deleted;
+                    var result = await _groupService.UpdateAsync(group, id);
+                    if (result != null)
+                    {
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    }
                 }
             }
             catch (Exception e)

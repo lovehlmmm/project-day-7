@@ -1,5 +1,6 @@
 ﻿
 
+
 $(document).ready(function () {
     String.prototype.format = function () {
         a = this;
@@ -8,6 +9,36 @@ $(document).ready(function () {
         }
         return a
     }
+
+    $('.add-group').click(function () {
+        var name = $('input[name=groupname]').val();
+        var active = $('input[name=activegr]:checked').length > 0 ? 'active' : 'inactive';
+        var maxitem = parseInt($('input[name=maxitem]').val());
+        var type = parseInt($('#form-new-group').data('type'));
+        var id = $('input[name=groupid]').val();
+        var groupall = { GroupName: name, MaxItem: maxitem, Status: active };
+
+        if (type === 1) {
+            AddGroup(groupall);
+        } else {
+            UpdateGroup(groupall, id);
+        }
+        return false;
+    })
+
+    $('#showGroup').click(function () {
+        GetModalGroup();
+            $('#modalGroup').modal('show');
+            OpenAddGroupModal();
+            OpenEditModal();
+            DeleteGroupClick();
+
+    });
+
+    //$("#modalAddGroup").click(function () {
+    //     $("#modalAddGroup").modal();
+    //});
+
 
     GetData();
     $('#form_new_update').submit(function () {
@@ -30,6 +61,26 @@ $(document).ready(function () {
     })
 
 });
+
+function OpenAddGroupModal() {
+
+    $('#newGroup').click(function () {
+        ClearFormGroup();
+        $('#form-new-group').data('type', '1');
+        $('#modalAddGroup').modal();
+    });
+}
+
+function OpenEditModal() {
+    $('.edit_group').click(function () {
+        $('#form-new-group').data('type', '2');
+        var id = $(this).data('id');
+        GetDataEditGroup(id);
+    });
+}
+
+
+
 
 $('#btnOpenModalAdd').click(function () {
     ClearForm();
@@ -136,8 +187,13 @@ function ClearForm() {
     $('input[name=material]').val("");
     $('input[name=active]').prop('checked', false);
     $('input[name=price]').val(0);
+}
+function ClearFormGroup() {
+    $('input[name=groupname]').val("");
+    $('input[name=activegr]').prop('checked', false);
+    $('input[name=maxitem]').val("");
 
- }
+}
 function DataToForm(data) {
     var status = true;
     if (data.Status !== 'active') {
@@ -153,6 +209,8 @@ function DataToForm(data) {
 
 
 }
+
+
 function GetGroup() {
     $.ajax({
         url: '/Material/GetGroup',
@@ -181,7 +239,7 @@ function GetDataEdit(id) {
             if (response.status) {
                 $('#form_new_update').data('type', '2');
                 var a = $('#form_new_update').data('type');
-                $('#title').text('Update');     
+                $('#title').text('Update');
                 DataToForm(response.data);
                 $('#new-modal').modal();
             } else {
@@ -227,25 +285,25 @@ function pagingChoose(a) {
 }
 
 function Add(material, file) {
-var materials = new FormData();
+    var materials = new FormData();
     materials.append('materials', JSON.stringify(material));
     materials.append('materialimg', file);
 
     $.ajax({
         url: '/Material/Create',
         type: 'POST',
-         data: materials,
-         async: false,
+        data: materials,
+        async: false,
         processData: false,
         contentType: false
     }).success(function (result) {
-       if (result.status) {
-                swal("Success", "You created success!", "success");
-                $('#new-modal').modal('toggle');
-                GetData();
-            } else {
-                alert('fail');
-            }
+        if (result.status) {
+            swal("Success", "You created success!", "success");
+            $('#new-modal').modal('toggle');
+            GetData();
+        } else {
+            alert('fail');
+        }
     }).error(function (xhr, status) {
     });
 }
@@ -318,3 +376,193 @@ function Delete(id) {
         });
 }
 
+function DataToFormGroup(data) {
+    var status = true;
+    if (data.Status !== 'active') {
+        status = false;
+    }
+    $('input[name=groupname]').val(data.GroupName);
+    $('input[name=activegr]').prop('checked', status);
+    $('input[name=maxitem]').val(data.MaxItem);
+    $('input[name=groupid]').val(data.Id);
+}
+
+function GetDataEditGroup(id) {
+    $.ajax({
+        url: '/Material/GetDataGroup/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            if (response.status) {
+                DataToFormGroup(response.data);
+                $('#modalAddGroup').modal();
+            } else {
+                alert('fail');
+            }
+        }
+    });
+}
+
+function UpdateGroup(group, id) {
+    var data = new FormData();
+    data.append('group', JSON.stringify(group));
+    data.append('id', id);
+    $.ajax({
+        url: '/Material/UpdateGroup',
+        type: 'POST',
+        data: data,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            if (result.status) {
+                swal("Success", "You Update success!", "success");
+                GetModalGroup();
+                $('#modalAddGroup').modal('toggle');
+            } else {
+                alert('fail');
+            }
+        }
+    });
+}
+
+
+function AddGroup(group) {
+    var data = new FormData();
+    data.append('group', JSON.stringify(group));
+    $.ajax({
+        url: '/Material/NewGroup',
+        type: 'POST',
+        data: data,
+        async: false,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            if (result.status) {
+                swal("Success", "You created success!", "success");
+                GetModalGroup();
+
+                $('#modalAddGroup').modal('hide');
+            } else {
+                alert('fail');
+            }
+        }
+    });
+}
+
+
+
+function GetModalGroup() {
+    $.ajax({
+        url: '/Material/GetModalGroup',
+        type: 'get',
+        dataType: 'html',
+        async: false,
+        success: function (result) {
+            
+            $('#modalGroup .modal-body').html(result);
+
+            //clickNew();
+        }
+    });
+}
+
+
+function DeleteItemGroup(id) {
+    $.ajax({
+        url: '/Material/DeleteGroup/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            if (response.status) {
+                swal("Poof! Has been deleted!", {
+                    icon: "success",
+                });
+                GetModalGroup();
+             } else {
+                alert('fail');
+            }
+        }
+    });
+}
+function CloseModal(e) {
+    $(e).parents('.modal-close').modal('toggle');
+    //$(e).parents('.modal-close').css('display', "none");
+    //$(e).parents('.modal-close').attr('aria-hidden', true);
+}
+function DeleteGroup(id) {
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will be able to recover at history!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                DeleteItemGroup(id);
+
+            } else {
+                swal("You canceled delete action!");
+            }
+        });
+}
+function DeleteGroupClick() {
+    $('.delete_group').click(function () {
+        var id = $(this).data('id');
+        DeleteGroup(id);
+    })
+}
+
+ 
+//function clickNew() {
+//    $('#newGroup').on('click', function () {
+
+//        var addgroup = $($('#modalGroup').clone());
+//        $(addgroup).attr('id', 'addgroupmodal');
+//        $(addgroup).find('.modal-body').html('');
+//        $(addgroup).css('display', 'none');
+//        console.log($(addgroup).prop('outerHTML'));
+//        $('body').append($(addgroup).prop('outerHTML'));
+//        $('#addgroupmodal').show();
+//    });
+//}
+//function GetModalAddGroup() {
+//    $.ajax({
+//        url: '/Material/GetModalAddGroup',
+//        contentType: 'application/html;charset=utf-8',
+//        type: 'get',
+//        async: false,
+//        dataType: 'html'
+//    }).success(function (result) {
+//        $('#newGroup').hide();
+//        $('#modalGroup h4').text("Add a new group")
+//        $('#modalGroup .modal-body').html(result);
+//        $('#form-new-group').validate({
+//            rules: {
+//                groupname: {
+//                    required: true
+//                }
+//            }, submitHandler: function (form) {
+//                var group = $('input[name=groupname]').val();
+//                var data = new FormData();
+//                data.append('address', address);
+//                $.ajax({
+//                    url: '/CheckOut/AddAddress',
+//                    type: 'POST',
+//                    data: data,
+//                    async: false,
+//                    processData: false,
+//                    contentType: false
+//                }).success(function (result) {
+//                    if (result.status) {
+//                        GetModalGroup();
+//                    }
+//                }).error(function (xhr, status) {
+//                });
+//                return false;  // blocks regular submit since you have ajax
+//            }
+//        })
+//    }).error(function (xhr, status) {
+//    });
+//}

@@ -1,0 +1,40 @@
+﻿@using Entities
+@using Constants
+@{
+    var group = ViewBag.Group as List<Group>;
+}
+<button class="btn btn-primary pull-right" type="button"  id="newGroup">New Group</button>
+ <br />
+<table class="table table table-striped">
+    <thead>
+        <tr>
+            <th>Group Name</th>
+            <th>Max Item</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Modified At</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in group)
+        {
+            <tr>
+                <td>@item.GroupName</td>
+                <td>@item.MaxItem</td>
+                <td>@item.Status</td>
+                <td>@item.CreatedAt</td>
+                <td>@item.ModifiedAt</td>
+                <td style="text-align:center">
+                    <button id="edit_group" data-id="@item.Id"  class="btn waves-effect waves-light btn-warning edit_group" style="padding:5px"> <i class="fa fa-edit"></i></button>
+                    <button id="delete_group" class="btn waves-effect waves-light btn-danger disabled delete_group" style="padding:5px" data-id="@item.Id"><i class="fa fa-remove delete_group"></i> </button>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
