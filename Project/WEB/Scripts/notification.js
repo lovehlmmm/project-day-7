@@ -26,6 +26,9 @@ function GetAllNotification() {
         dataType: 'html',
         success: function (data) {
             $('#showmenu').append(data);
+            $('.notification-box').click(function () {
+                window.location.href = '' + $(this).data('url');
+            });
         }
     });
 }

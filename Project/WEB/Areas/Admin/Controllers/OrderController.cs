@@ -191,7 +191,8 @@ namespace WEB.Areas.Admin.Controllers
                                 NotificationType = noti.Type,
                                 Details = noti.Details,
                                 Title = noti.Title,
-                                SendFrom = UserRole.Admin
+                                SendFrom = UserRole.Admin,
+                                Url = string.Format("details/{0}",updated.OrderId)
                             };
                             
                             var notiAdd = await _notiService.AddAsync(notification);

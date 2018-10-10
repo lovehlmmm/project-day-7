@@ -4,7 +4,7 @@
         
         @foreach (var item in noti)
         {
-            <li class="notification-box @(item.IsRead!=true?"bg-gray":string.Empty)">
+            <li style="cursor:pointer" data-url = "@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)/@item.Url" class="notification-box @(item.IsRead!=true?"bg-gray":string.Empty)">
                 <div class="row">
                     <div class="col-lg-3 col-sm-3 col-3 text-center">
                         <img src="~/Areas/Admin/Assets/images/users/avatar-4.jpg" style="width:100px" class="rounded-circle">
