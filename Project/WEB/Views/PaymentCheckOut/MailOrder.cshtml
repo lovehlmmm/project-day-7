@@ -3,6 +3,7 @@
 @using Entities
 @{ var list = Model.OrderItem as List<CartItem>;}
 @using Constants
+@using Helpers
 
 <html>
 <head>
@@ -152,7 +153,7 @@
                                     @(Model.Address != null ? Model.Address : string.Empty)<br><br>
 
                                     <div style="font-family: Arial, sans-serif; font-size: 16px; font-size: 16px !important; color: #323232; font-weight: 600; padding-bottom: 4px; margin: 0;">Payment Info</div>**** **** ****
-                                    @Model.CreditCard.Substring(12, 4)<br>
+                                    @AESEncrytDecry.DecryptStringAES(Model.CreditCard).Substring(12, 4)<br>
                                 </td>
                                 <td style="vertical-align: top;" width="280">
                                     <table style="border:5px solid #00b1bb;" width="100%" cellspacing="0" cellpadding="0" align="center">

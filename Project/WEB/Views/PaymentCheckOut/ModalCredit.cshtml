@@ -11,7 +11,6 @@
         <tr>
             <th>Credit Number</th>
             <th>Expire</th>
-            <th>CVC</th>
             <th></th>
 
         </tr>
@@ -24,11 +23,10 @@
                 foreach (var item in user.Customer.CreditCards.Where(c => c.Status.Equals(Status.Active)))
                 {
                     <tr>
-                        <td>**** **** ****@AESEncrytDecry.DecryptStringAES(item.CreditNumber).Substring(12,4)</td>
+                        <td>**** **** ****@AESEncrytDecry.DecryptStringAES(item.CreditNumber).Substring(12, 4)</td>
                         <td>@item.Expire</td>
-                        <td>@item.CVC</td>
                         <td>
-                            <input data-id="@item.CreditCardId" type="radio" name="chooseCredit">
+                            <input data-id="@item.CreditCardId" type="radio" name="chooseCredit" class="chooseCredit">
                         </td>
                     </tr>
                 }
