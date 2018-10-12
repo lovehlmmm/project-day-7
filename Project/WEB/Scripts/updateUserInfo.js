@@ -37,8 +37,9 @@
             }
         });
     }
-  });
+});
 
+ 
 
 $(document).ready(function () {
     $('.showcredit').click(function () {
@@ -105,7 +106,8 @@ $(document).ready(function () {
             },
             PhoneNumber: {
                 required: true,
-                minlength: 10
+                minlength: 10,
+                checkPhone: true
             },
             newpassword: {
                 required: false,
@@ -131,6 +133,7 @@ $(document).ready(function () {
                 required: true,
                 cardCVC: true
             }
+
         },
         messages: {
             name: "Please enter your name",
@@ -180,3 +183,13 @@ jQuery.validator.addMethod("cardExpiry", function (value, element) {
 jQuery.validator.addMethod("cardCVC", function (value, element) {
     return this.optional(element) || Stripe.card.validateCVC(value);
 }, "Invalid CVC.");
+
+jQuery.validator.addMethod("checkPhone", function (value, element) {
+    var phoneno = /(09|01[2|6|8|9])+([0-9]{8})\b/g
+    if (value.match(phoneno)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}, "Wrong number of phone !");

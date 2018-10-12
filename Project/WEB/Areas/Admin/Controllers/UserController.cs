@@ -83,7 +83,7 @@ namespace WEB.Areas.Admin.Controllers
                 }
                 var total = _userService.FindAll(expression).Count();
                 var totalPage = (int)Math.Ceiling((double)(total / pageSize)) + 1;
-                return Json(new { status = true, data = list.Select(l=> new { l.Username,l.Customer.CustomerName,l.Role,l.Status,l.CreatedAt,l.ModifiedAt}), totalPage = totalPage }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = true, data = list.Select(l=> new { l.Username,l.Customer.CustomerName,l.Role,l.Status,l.CreatedAt,l.ModifiedAt,l.CustomerId}), totalPage = totalPage }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -158,5 +158,26 @@ namespace WEB.Areas.Admin.Controllers
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
 
+        public async Task<JsonResult> Delete(string username)
+        {
+            try
+            {
+                var user = await _userService.FindAsync(u => u.Username == username);
+                if (user != null)
+                {
+                    user.Status = Status.Deleted;
+                    var result = await _userService.UpdateAsync(user, user.Username);
+                    if (result != null)
+                    {
+                        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
