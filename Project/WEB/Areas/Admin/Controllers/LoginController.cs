@@ -33,23 +33,19 @@ namespace WEB.Areas.Admin.Controllers
                 {
                     var decodeKey = hashing.DecryptString(hashing.Decode(key), AppSettingConstant.PasswordHash);
                     var when = DateTime.Parse(decodeKey);
-                    if (when < DateTime.UtcNow.AddHours(-24))
+                    if (when > DateTime.UtcNow.AddHours(-24))
                     {
-                        return Redirect("/home");
+                        return View();
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
-                    return Redirect("/home");
                 }
+            }
 
-            }
-            else
-            {
-                return Redirect("/home");
-            }
-            return View();
+            return Redirect("/error-404");
+
         }
 
         [HttpPost]
@@ -58,7 +54,7 @@ namespace WEB.Areas.Admin.Controllers
             try
             {
                 LoginUser userLogin = JsonConvert.DeserializeObject<LoginUser>(user);
-                var checkUser = _userService.CheckLogin(userLogin.Username.Trim(), userLogin.Password.Trim(),UserRole.Admin);
+                var checkUser = _userService.CheckLogin(userLogin.Username.Trim(), userLogin.Password.Trim(), UserRole.Admin);
                 if (checkUser != null)
                 {
                     if (!checkUser.Role.Equals(UserRole.Admin)) return Json(new { status = false });
@@ -84,7 +80,7 @@ namespace WEB.Areas.Admin.Controllers
                 if (checkSession != null)
                 {
                     SessionHelper.Delete(AppSettingConstant.LoginSessionAdmin);
-                    return Json(new { status = true, url="/admin" },JsonRequestBehavior.AllowGet);
+                    return Json(new { status = true, url = "/admin" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception)

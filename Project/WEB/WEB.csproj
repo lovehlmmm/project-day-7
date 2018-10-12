@@ -266,6 +266,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CheckOutConfrimController.cs" />
     <Compile Include="Controllers\CheckOutController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginUserController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
@@ -280,6 +281,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ModifiedAppSetting.cs" />
     <Compile Include="Helpers\SendEmail.cs" />
     <Compile Include="Helpers\Validate.cs" />
     <Compile Include="Helpers\ViewToString.cs" />
@@ -3151,6 +3153,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Assets\plugins\jstree\themes\default\" />
+    <Folder Include="Views\Error\" />
     <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,7 @@ using WEB.Areas.Admin.Models;
 using System.Configuration;
 using System.Net.Mail;
 using System.Net;
+using System.Web.Configuration;
 using Newtonsoft.Json;
 
 namespace WEB.Areas.Admin.Controllers
@@ -80,7 +81,7 @@ namespace WEB.Areas.Admin.Controllers
                     {
                         if (session.Equals(key))
                         {
-                            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                            Configuration config = WebConfigurationManager.OpenWebConfiguration("~/WEB/");
                             config.AppSettings.Settings["smtp"].Value = appModel.Stmp;
                             config.AppSettings.Settings["mail"].Value = appModel.Email;
                             config.AppSettings.Settings["password"].Value = appModel.Password;
@@ -88,7 +89,7 @@ namespace WEB.Areas.Admin.Controllers
                             config.Save(ConfigurationSaveMode.Modified, true);
                             ConfigurationManager.RefreshSection(config.AppSettings.SectionInformation.Name);
                             Session.Remove(AppSettingConstant.KeyEmailSettingSession);
-                            return Json(new { status = false, message }, JsonRequestBehavior.AllowGet);
+                            return Json(new { status = true, message }, JsonRequestBehavior.AllowGet);
                         }
                     }
                 }

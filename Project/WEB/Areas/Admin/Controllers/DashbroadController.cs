@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -96,7 +97,9 @@ namespace WEB.Areas.Admin.Controllers
         }
         public ActionResult GetOrderPending(int num, int page)
         {
-            var orderPending = _orderService.GetAll(num, page, o => o.CreatedAt, o => o.Status == OrderStatus.Pending, o => o.CreatedAt).ToList();
+            var today = DateTime.Now.Date;
+            var previousDay = today.AddDays(-30).Date;
+            var orderPending = _orderService.GetAll(num, page, o => o.CreatedAt, o => o.Status == OrderStatus.Pending &(DbFunctions.TruncateTime(o.CreatedAt)<=today & DbFunctions.TruncateTime(o.CreatedAt)>=previousDay) , o => o.CreatedAt).ToList();
             return PartialView("~/Areas/Admin/Views/Dashbroad/_OrderPending.cshtml", orderPending);
         }
         public ActionResult GetOrderThisMonth(string mode)

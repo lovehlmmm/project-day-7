@@ -46,7 +46,8 @@ namespace WEB.Areas.Admin.Controllers
                     Console.WriteLine(e);
                 }
             }
-            throw new HttpException(404, "Item Not Found");
+
+            return Redirect("/error-404");
         }
 
         public async Task<JsonResult> GetList()

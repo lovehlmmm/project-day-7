@@ -1,9 +1,9 @@
-﻿$(document).ready(function () {
-    $('#edit-email').click(function () {
+﻿$(document).ready(function() {
+    $('#edit-email').click(function() {
         $('.code-email').hide();
         $('#modalMail').modal();
     });
-    $("#save-email").click(function () {
+    $("#save-email").click(function() {
         var email = $('input[name=email]').val();
         var password = $('input[name=password]').val();
         var host = $('input[name=host]').val();
@@ -22,13 +22,15 @@
             async: false,
             data: data,
             processData: false,
-            contentType: false
-        }).success(function (result) {
-            if (result.status) {
-                $('#loading').hide();
-                $('.code-email').show();   
+            contentType: false,
+            success: function(result) {
+                if (result.status) {
+                    $('#loading').hide();
+                    $('.code-email').show();
+                } else {
+                    $('#loading').hide();
+                }
             }
-        }).error(function (xhr, status) {
         });
     });
 });

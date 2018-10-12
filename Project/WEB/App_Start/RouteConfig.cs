@@ -54,6 +54,11 @@ namespace WEB
             defaults: new { controller = "ProductDetails", action = "Index" }
         );
             routes.MapRoute(
+                name: "Error",
+                url: "error-404",
+                defaults: new { controller = "Error", action = "NotFound" }
+            );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
