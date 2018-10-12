@@ -105,6 +105,7 @@ namespace WEB.Controllers
                         creditCard.CustomerId = user.CustomerId.Value;
                         creditCard.CreatedAt = DateTime.Now;
                         creditCard.Status = Status.Active;
+                        creditCard.CreditNumber = hashingData.Decode(creditCard.CreditNumber);
                         user.Customer.CreditCards.Add(creditCard);
                     }
                     var result = await _userService.UpdateAsync(user, user.Username);
@@ -120,11 +121,14 @@ namespace WEB.Controllers
         }
         public JsonResult GetCreditCard(long id)
         {
+            
             try
             {
                 var credit = _creditcardService.Find(c => c.CreditCardId == id);
+                
                 if (credit!=null)
                 {
+                    credit.CreditNumber = credit.CreditNumber = AESEncrytDecry.DecryptStringAES(credit.CreditNumber).Substring(12, 4);
                     return Json(new { status = true,data = credit}, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -162,6 +166,7 @@ namespace WEB.Controllers
         public async System.Threading.Tasks.Task<JsonResult> AddCreditCard (string creditCard)
         {
             var message = "";
+            HashingData hashing = new HashingData();
             var userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
             if (userSession != null)
             {
@@ -171,7 +176,7 @@ namespace WEB.Controllers
                     if (creditCard!=null)
                     {
                         var card = JsonConvert.DeserializeObject<CreditCard>(creditCard);
-
+                        card.CreditNumber =hashing.Decode(card.CreditNumber);
                             card.CreatedAt = DateTime.Now;
                             card.Status = Status.Active;
                             card.Expire = card.Expire.Remove(3, 2);

@@ -2517,6 +2517,7 @@
     <Content Include="Images\Material\plastic.jpg" />
     <Content Include="Images\Material\silk.jpg" />
     <Content Include="Images\Material\wood.jpg" />
+    <Content Include="Scripts\aes.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2960,6 +2961,7 @@
     <Content Include="Scripts\cancelorder.js" />
     <Content Include="Scripts\cart.js" />
     <Content Include="Scripts\checkOut.js" />
+    <Content Include="Scripts\Encr.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />

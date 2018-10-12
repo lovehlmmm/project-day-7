@@ -110,6 +110,7 @@
     <script src="~/Scripts/bootstrap-notify.js"></script>
     <script src="~/Scripts/Plugin/Lobibox/dist/js/lobibox.min.js"></script>
     <script src="~/Scripts/pnotify.custom.min.js"></script>
+    <script src="~/Scripts/aes.js"></script>
     <script>
         $(document).ready(function () {
             String.prototype.format = function () {
@@ -119,7 +120,7 @@
                 }
                 return a
             }
-            function setTotalNotification(noti,count) {
+            function setTotalNotification(noti, count) {
                 Lobibox.notify(noti.NotificationType, {
                     img: '/Areas/Admin/Assets/images/users/avatar-4.jpg',
                     title: noti.Title,
@@ -132,8 +133,8 @@
             }
             var hub = $.connection.notificationHub;
             //Server Sent Event
-            hub.client.broadcaastNotif = function (noti,count) {
-                setTotalNotification(noti,count)
+            hub.client.broadcaastNotif = function (noti, count) {
+                setTotalNotification(noti, count)
             };
 
             hub.client.broadcaastNotifCount = function (count) {

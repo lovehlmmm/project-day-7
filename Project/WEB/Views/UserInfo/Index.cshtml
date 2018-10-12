@@ -69,7 +69,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-
+    <script src="~/Scripts/Encr.js"></script>
     <script src="~/Scripts/updateUserInfo.js"></script>
 }
 <!-- Preloader section
@@ -255,7 +255,7 @@
                                                 <button type="button" data-id="@item.CreditCardId" class="close deleteCre" id="deleteCre" aria-hidden="true">×</button>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                                    <input id="" data-id="@item.CreditCardId" value="@item.CreditNumber" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control showcredit" readonly>
+                                                    <input id="" data-id="@item.CreditCardId" value="**** **** ****@AESEncrytDecry.DecryptStringAES(item.CreditNumber).Substring(12,4)" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control showcredit" readonly>
                                                 </div>
                                             </div>
                                         }
@@ -269,36 +269,36 @@
                                     </label>
                                 </div>
                                 <div class="collapse addcredit" id="addcredit">
-                                    <div class="form-group"  >
+                                    <div class="form-group">
                                         <div class="input-group" style="margin-bottom:15px">
                                             <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                             <input id="" maxlength="20" style="width: 97%" type="text" placeholder="Enter Credit Number" name="cardNumber" data-stripe="number" tabindex="7" class="form-control id_creditnumber">
                                         </div>
-                                         <div class="input-group" style="margin-bottom:15px">
+                                        <div class="input-group" style="margin-bottom:15px">
                                             <span class="input-group-addon"><i class="icon-calendar"></i></span>
                                             <input style="width: 50%" type="text" size="2" placeholder="mm/yy" class="form-control id_creditexpire" name="cardExpiry" data-stripe="exp-month" tabindex="8">
                                         </div>
- 
+
                                         <div class="input-group" style="margin-bottom:15px">
                                             <span class="input-group-addon"><i class="icon-key"></i></span>
                                             <input style="width: 50%" id="credit" type="text" size="4" placeholder="cvc code (3-4 digits)" name="cardCVC" class="form-control id_cvc" data-stripe="cvc" tabindex="10">
                                         </div>
- 
+
                                     </div>
-                                    </div>
-                                 </div>
-                             @*<div class="row">
+                                </div>
+                            </div>
+                            @*<div class="row">
                                 <div class="col-md-6">
 
                                 </div>*@
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-success btn-block" id="saveinfo" name="submit" type="submit" tabindex="11">Save and Change!</button>
-                                </div>
-                            </div>
-                            <hr>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-success btn-block" id="saveinfo" name="submit" type="submit" tabindex="11">Save and Change!</button>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
             </form>
 
 

@@ -1,5 +1,6 @@
 ﻿@using Entities
 @using Constants
+@using Helpers
 @{
     var user = ViewBag.User as User;
 }
@@ -23,7 +24,7 @@
                 foreach (var item in user.Customer.CreditCards.Where(c => c.Status.Equals(Status.Active)))
                 {
                     <tr>
-                        <td>**** **** ****@item.CreditNumber.Substring(12,4)</td>
+                        <td>**** **** ****@AESEncrytDecry.DecryptStringAES(item.CreditNumber).Substring(12,4)</td>
                         <td>@item.Expire</td>
                         <td>@item.CVC</td>
                         <td>

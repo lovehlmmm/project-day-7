@@ -1,4 +1,5 @@
 ﻿@using Entities
+@using Helpers
 @{
     var credits = ViewBag.Credits as List<CreditCard>;
 }
@@ -24,7 +25,7 @@
                             <div class="col-xs-4">
                                 <dl class="dl-small">
                                     <dt>Credit Card Number</dt>
-                                    <dd class="creditDetails" data-id="@(showCre.CreditCardId)">**** **** ****@(showCre.CreditNumber != null ? showCre.CreditNumber.Substring(12, 4) : string.Empty)</dd>
+                                    <dd class="creditDetails" data-id="@(showCre.CreditCardId)">**** **** ****@(showCre.CreditNumber != null ? AESEncrytDecry.DecryptStringAES(showCre.CreditNumber).Substring(12, 4) : string.Empty)</dd>
                                 </dl>
                             </div>
                             <div class="col-xs-2">

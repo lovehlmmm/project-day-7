@@ -88,7 +88,8 @@ namespace WEB.Controllers
                         var credit = user.Customer.CreditCards.SingleOrDefault(a => a.CustomerId == user.CustomerId & a.CreditCardId == id & a.Status.Equals(Status.Active));
                         if (credit != null)
                         {
-                            return Json(new { status = true, credit = new { CreditNumber = credit.CreditNumber.Substring(12,4), credit.CreditCardId, credit.Expire } }, JsonRequestBehavior.AllowGet);
+
+                            return Json(new { status = true, credit = new { CreditNumber = AESEncrytDecry.DecryptStringAES(credit.CreditNumber).Substring(12,4), credit.CreditCardId, credit.Expire } }, JsonRequestBehavior.AllowGet);
                         }
                     }
 
@@ -156,7 +157,7 @@ namespace WEB.Controllers
                         var card = user.Customer.CreditCards.FirstOrDefault(c => c.CreditCardId == id & c.Status == Status.Active);
                         if (card != null)
                         {
-                            var bankCredit = _bankService.CheckCard(card.CreditNumber, card.Expire, card.CVC);
+                            var bankCredit = _bankService.CheckCard(AESEncrytDecry.DecryptStringAES(card.CreditNumber), card.Expire, card.CVC);
                             if (bankCredit != null)
                             {
                                 var cart = SessionHelper.GetSession(AppSettingConstant.CartSession) as List<CartItem>;

@@ -15,8 +15,14 @@
         var cvc = $('.id_cvc').val();
         var creditexpire = $('.id_creditexpire').val();
         var creditnumber = $('.id_creditnumber').val();
-        var credit = { CreditNumber: creditnumber, Expire: creditexpire, CVC: cvc };
-        
+        if (creditnumber!=='') {
+            var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+            var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+            var encryptednumber = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(creditnumber), key,
+                { keySize: 128 / 8, iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+            var encryptednumberEncode = b64EncodeUnicode(encryptednumber + '');
+        }
+        var credit = { CreditNumber: encryptednumberEncode, Expire: creditexpire, CVC: cvc };
         var customer = { CustomerName: customerName, Addresses: address, PhoneNumber: phonenumber, Gender: gender, DateOfBirth: dateofbirth}
         var user = { Username: username, Password: password, Customer: customer }
         $('#loading').show();
@@ -48,7 +54,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 if (response.status) {
-                    $('#showCardNum').val(response.data.CreditNumber);
+                    $('#showCardNum').val('**** **** ****'+response.data.CreditNumber);
                     $('#showCardExpire').val(response.data.Expire);
                     $('#showCardCVC').val(response.data.CVC);
                     $('#creditModal').modal();

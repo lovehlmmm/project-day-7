@@ -74,9 +74,16 @@ function payWithStripe(e) {
     Stripe.setPublishableKey(PublishableKey);
 
     /* Create token */
+    
     var expiry = $form.find('[name=cardExpiry]').payment('cardExpiryVal');
+    var number = $form.find('[name=cardNumber]').val().replace(/\s/g, '');
+    var key = CryptoJS.enc.Utf8.parse('8080808080808080');
+    var iv = CryptoJS.enc.Utf8.parse('8080808080808080');
+    var encryptednumber = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(number), key,
+        { keySize: 128 / 8, iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+    var encryptednumberEncode = b64EncodeUnicode(encryptednumber + '');
     var ccData = {
-        CreditNumber: $form.find('[name=cardNumber]').val().replace(/\s/g, ''),
+        CreditNumber: encryptednumberEncode,
         CVC: $form.find('[name=cardCVC]').val(),
         Expire: expiry.month + '/' + expiry.year
     };
@@ -155,18 +162,16 @@ function AddCreditCard(data) {
         async: false,
         data: data,
         processData: false,
-        contentType: false
-    }).success(function (result) {
-        if (result.status) {
-            $('#modaladdcredit').modal('hide');
-            GetCredit(result.card);
-            
-            
-        } else {
-            swal("Error", result.message, "error");
+        contentType: false,
+        success: function (result) {
+            if (result.status) {
+                $('#modaladdcredit').modal('hide');
+                GetCredit(result.card);
+            } else {
+                swal("Error", result.message, "error");
+            }
         }
-    }).error(function (xhr, status) {
-    });
+    })
 }
 function GetCredit(data) {
     $.ajax({

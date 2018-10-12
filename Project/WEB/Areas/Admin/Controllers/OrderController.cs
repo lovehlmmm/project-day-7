@@ -165,7 +165,16 @@ namespace WEB.Areas.Admin.Controllers
                         
                         if (updated != null)
                         {
+                            
                             var user = await _userService.FindAsync(u => u.CustomerId == updated.CustomerId);
+                            if (updated.Status == OrderStatus.Canceled)
+                            {
+                                string path = string.Format("~/WEB/Images/Upload/{0}",updated.FolderImage);
+                                if (System.IO.File.Exists(path))
+                                {
+                                    System.IO.File.Delete(path);
+                                }
+                            }
                             if (updated.Status == OrderStatus.Received)
                             {
                                 var body = ViewToStringAdmin.RenderViewToString("Order", "MailReceivedOrder","admin", updated,this.Request.RequestContext);
