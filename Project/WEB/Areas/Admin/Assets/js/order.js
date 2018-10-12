@@ -19,6 +19,7 @@ $(document).ready(function () {
     });
 });
 function GetImage(url) {
+    console.log(123)
     $('#image-details').attr('src', url);
     $('#imageModal').show();
     $('.close').click(function() {
