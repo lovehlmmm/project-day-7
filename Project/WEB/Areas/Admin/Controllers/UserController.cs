@@ -18,10 +18,13 @@ namespace WEB.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private IBaseService<User> _userService;
+        private IBaseService<CreditCard> _creditcardService;
 
-        public UserController(IBaseService<User> userService)
+
+        public UserController(IBaseService<User> userService, IBaseService<CreditCard> creditcardService)
         {
             _userService = userService;
+            _creditcardService = creditcardService;
         }
         // GET: Admin/User
         public ActionResult Index()
@@ -137,6 +140,22 @@ namespace WEB.Areas.Admin.Controllers
                 message = "Something wrong!!";
             }
             return Json(new { status = true,message}, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCreditCard(long id)
+        {
+            try
+            {
+                var credit = _creditcardService.Find(c => c.CreditCardId == id);
+                if (credit != null)
+                {
+                    return Json(new { status = true, data = credit }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
 
     }
