@@ -82,7 +82,7 @@ namespace WEB.Areas.Admin.Controllers
                     expression = expression.And(o => o.OrderId == search);
                     list = _orderService.FindAll(expression);
                 }
-                var total = list.Count();
+                var total = _orderService.FindAll(expression).Count();
                 var totalPage = (int)Math.Ceiling((double)(total / pageSize)) + 1;
                 var list2 = list.OrderBy(o => GetStatusOrder(o.Status)).Select(o => new
                 {

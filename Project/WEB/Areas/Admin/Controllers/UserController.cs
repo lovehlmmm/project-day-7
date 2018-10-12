@@ -77,7 +77,7 @@ namespace WEB.Areas.Admin.Controllers
                     expression = expression.And(u => u.Username.Contains(search));
                     list = _userService.FindAll(expression);
                 }
-                var total = list.Count();
+                var total = _userService.FindAll(expression).Count();
                 var totalPage = (int)Math.Ceiling((double)(total / pageSize)) + 1;
                 return Json(new { status = true, data = list.Select(l=> new { l.Username,l.Customer.CustomerName,l.Role,l.Status,l.CreatedAt,l.ModifiedAt}), totalPage = totalPage }, JsonRequestBehavior.AllowGet);
             }
