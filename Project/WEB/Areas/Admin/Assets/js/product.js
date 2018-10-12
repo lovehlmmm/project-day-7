@@ -178,8 +178,8 @@ function sizeRow(data) {
     html += ('<button id="edit_size" data-id="' +
         data.ProductId +
         '" onclick="GetDataEdit(' + data.ProductId + ')" class="btn waves-effect waves-light btn-warning" style="padding:5px"> <i class="fa fa-edit"></i></button>');
-    html += ('<button  class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i  data-id = "' + data.ProductId + '" onclick="Delete(' + data.ProductId + ')" class="fa fa-remove delete_size"></i> </button>');
-    html += ('</td></tr >');
+    html += ('<button id="delete_size"  data-id = "' + data.ProductId + '" onclick="Delete(' + data.ProductId + ')"  class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i  class="fa fa-remove"></i> </button>');
+     html += ('</td></tr >');
     return html;
 }
 

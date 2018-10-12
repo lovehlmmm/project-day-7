@@ -125,7 +125,7 @@ namespace WEB.Controllers
                 var credit = _creditcardService.Find(c => c.CreditCardId == id);
                 if (credit!=null)
                 {
-                    return Json(new { status = true,data = credit}, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = true, data = new { CreditNumber = credit.CreditNumber.Substring(12, 4), credit.Expire, credit.CVC } }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception)

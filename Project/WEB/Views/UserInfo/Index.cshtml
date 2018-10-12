@@ -255,7 +255,7 @@
                                                 <button type="button" data-id="@item.CreditCardId" class="close deleteCre" id="deleteCre" aria-hidden="true">×</button>
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                                    <input id="" data-id="@item.CreditCardId" value="@item.CreditNumber" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control showcredit" readonly>
+                                                    <input id="" data-id="@item.CreditCardId" value="**** **** **** @item.CreditNumber.Substring(12,4)" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control showcredit" readonly>
                                                 </div>
                                             </div>
                                         }

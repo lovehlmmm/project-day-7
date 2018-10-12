@@ -48,7 +48,7 @@ $(document).ready(function () {
             type: 'GET',
             success: function (response) {
                 if (response.status) {
-                    $('#showCardNum').val(response.data.CreditNumber);
+                    $('#showCardNum').val('**** **** **** ' + response.data.CreditNumber);
                     $('#showCardExpire').val(response.data.Expire);
                     $('#showCardCVC').val(response.data.CVC);
                     $('#creditModal').modal();
