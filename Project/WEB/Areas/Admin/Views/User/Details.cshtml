@@ -70,14 +70,14 @@
     </div>
 </div>
 <div class="row">
-    <input type="hidden" value="@user.CustomerId.Value" id="id_customer"/>
+    <input type="hidden" value="@user.CustomerId.Value" id="id_customer" />
     <div class="col-lg-3">
         <ul>
             <li class="list-group-item text-muted">Profile</li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Username</strong></span> @user.Username</li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Joined</strong></span> @(user.CreatedAt.HasValue ? user.CreatedAt.Value.ToString("G") : string.Empty)</li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Last online</strong></span> @(user.LastOnline.HasValue ? ExchangeTime.Exchange(user.LastOnline.Value) : "None")</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Last modified</strong></span> @(user.ModifiedAt.HasValue ? user.ModifiedAt.Value.ToString() :"None")</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Last modified</strong></span> @(user.ModifiedAt.HasValue ? user.ModifiedAt.Value.ToString() : "None")</li>
         </ul>
     </div>
     <div class="col-lg-9" id="tabs">
@@ -133,6 +133,41 @@
                                     <input class="form-control" type="datetime-local" value="@(user.Customer.DateOfBirth.HasValue?user.Customer.DateOfBirth.Value.ToString("MM/dd/yyyy"):string.Empty)" id="example-datetime-local-input">
                                 </div>
                             </div>
+                            @{var addresses = @user.Customer.Addresses.Where(a => a.Status.Equals(Status.Active));}
+                            @{if (addresses != null)
+                                {
+
+
+                                    foreach (var item in addresses)
+                                    {
+                                        <div class="form-group row">
+                                            <label class="col-2 col-form-label">Address</label>
+
+                                            <div class="col-10">
+                                                <input class="form-control" type="text" value="@item.AddressDetails" id="">
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                }
+
+                            }
+                            @{var creditcards = @user.Customer.CreditCards.Where(c => c.Status.Equals(Status.Active));}
+                            @{if (creditcards != null)
+                                {
+                                    foreach (var item in creditcards)
+                                    {
+
+                                        <div class="form-group row">
+                                            <label class="col-2 col-form-label">Credit Card</label>
+                                            <div class="col-10">
+                                                <input class="form-control showcredit" type="text" data-id="@item.CreditCardId" value="@item.CreditNumber" id="" readonly>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
                         </div>
 
                         <div class="modal-footer">
@@ -152,7 +187,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box table-responsive">
-                            <h4 class="m-t-0 header-title"><b>List Order</b></h4><br/>
+                            <h4 class="m-t-0 header-title"><b>List Order</b></h4><br />
                             <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4">
@@ -192,18 +227,18 @@
                                     <div class="col-sm-12">
                                         <table class="table table-bordered table-striped">
                                             <thead>
-                                            <tr style="background-color: #2B3D51; color: white; text-align: center">
-                                                <th>Id</th>
-                                                <th>Customer Name</th>
-                                                <th>Phone Number</th>
-                                                <th>Address</th>
-                                                <th>Folder</th>
-                                                <th>Total Amount</th>
-                                                <th>Status</th>
-                                                <th>Order Date</th>
-                                                <th>Modified</th>
-                                                <th>Note</th>
-                                            </tr>
+                                                <tr style="background-color: #2B3D51; color: white; text-align: center">
+                                                    <th>Id</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Address</th>
+                                                    <th>Folder</th>
+                                                    <th>Total Amount</th>
+                                                    <th>Status</th>
+                                                    <th>Order Date</th>
+                                                    <th>Modified</th>
+                                                    <th>Note</th>
+                                                </tr>
                                             </thead>
                                             <tbody id="order-data"></tbody>
                                         </table>
@@ -239,4 +274,49 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="creditModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="margin-bottom-20">
+                    <label class="control-label requiredField">Credit Card Number<span class="asteriskField">*</span></label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        <input id="showCardNum" style="width: 50%" value="" type="text" placeholder="Credit Card" data-stripe="number" tabindex="7" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="margin-bottom-20">
+                    <label class="control-label requiredField">Expire<span class="asteriskField">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                        <input style="width: 20%" type="text" id="showCardExpire" value="" size="2" placeholder="MM/YY" class="form-control" tabindex="8" readonly>
+                    </div>
+                </div>
+                <div class="margin-bottom-10">
+                    <label class="control-label requiredField">CVC<span class="asteriskField">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon-key"></i></span>
+                        <input id="showCardCVC" style="width: 20%" type="text" value="" size="4" placeholder="CVC Code (3-4 digits)" class="form-control" data-stripe="cvc" tabindex="10" readonly>
+                    </div>
+                </div>
+                <div class="margin-bottom-10">
+                    <span class="payment-errors reg_error"></span><br>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
