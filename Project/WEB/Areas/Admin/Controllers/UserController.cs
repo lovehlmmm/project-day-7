@@ -14,6 +14,7 @@ using Services;
 
 namespace WEB.Areas.Admin.Controllers
 {
+    [LoginAdminRequired]
     public class UserController : Controller
     {
         private IBaseService<User> _userService;
@@ -27,9 +28,25 @@ namespace WEB.Areas.Admin.Controllers
         {
             return View();
         }
-        public ActionResult Details()
+        public ActionResult Details(string username)
         {
-            return View();
+            if (username!=null)
+            {
+                try
+                {
+                    var checkUser = _userService.Find(u => u.Username == username.Trim());
+                    if (checkUser!=null)
+                    {
+                        ViewBag.User = checkUser;
+                        return View();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+            throw new HttpException(404, "Item Not Found");
         }
 
         public async Task<JsonResult> GetList()

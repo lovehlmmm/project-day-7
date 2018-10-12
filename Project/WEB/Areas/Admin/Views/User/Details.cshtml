@@ -1,11 +1,65 @@
-﻿
+﻿@using Constants
+@using Entities
+@using Helpers
+
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var user = ViewBag.User as User;
 
 }
+@section script
+{
+    <script src="~/Areas/Admin/Assets/plugins/moment/moment.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/mjolnic-bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/clockpicker/bootstrap-clockpicker.js"></script>
+    <script src="~/Areas/Admin/Assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="~/Areas/Admin/Assets/pages/jquery.form-pickers.init.js"></script>
+    <script src="~/Areas/Admin/Assets/js/order.js"></script>
+    <script src="~/Areas/Admin/Assets/js/userdetails.js"></script>
+}
+@section css{
 
-<!-- Title Row -->
+    <link href="~/Areas/Admin/Assets/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+
+    <link href="~/Areas/Admin/Assets/plugins/mjolnic-bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+    <link href="~/Areas/Admin/Assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
+    <link href="~/Areas/Admin/Assets/plugins/clockpicker/bootstrap-clockpicker.min.css" rel="stylesheet">
+
+    <link href="~/Areas/Admin/Assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <style>
+        .CanceledColor {
+            background-color: #d9534f;
+        }
+
+        .ConfirmedColor {
+            background-color: #5bc0de;
+        }
+
+        .PendingColor {
+            background-color: #ff5d48;
+        }
+
+        .ReceivedColor {
+            background-color: #5cb85c;
+        }
+
+        .ProcessingColor {
+            background-color: gainsboro;
+        }
+
+        .size {
+            padding: 4px 10px;
+            border-radius: 5px;
+            color: white;
+        }
+    </style>
+
+}
 <div class="row">
     <div class="col-xl-12">
         <div class="page-title-box">
@@ -16,80 +70,173 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
-        <div class="card-box">
-            @*<h4 class="header-title m-t-0 m-b-30">Textual inputs</h4>*@
+    <input type="hidden" value="@user.CustomerId.Value" id="id_customer"/>
+    <div class="col-lg-3">
+        <ul>
+            <li class="list-group-item text-muted">Profile</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Username</strong></span> @user.Username</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Joined</strong></span> @(user.CreatedAt.HasValue ? user.CreatedAt.Value.ToString("G") : string.Empty)</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Last online</strong></span> @(user.LastOnline.HasValue ? ExchangeTime.Exchange(user.LastOnline.Value) : "None")</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Last modified</strong></span> @(user.ModifiedAt.HasValue ? user.ModifiedAt.Value.ToString() :"None")</li>
+        </ul>
+    </div>
+    <div class="col-lg-9" id="tabs">
+        <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                <a class="nav-item nav-link" id="nav-orders-tab" data-toggle="tab" href="#nav-orders" role="tab" aria-controls="nav-about" aria-selected="false">Orders</a>
+            </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+                            @*<h4 class="header-title m-t-0 m-b-30">Textual inputs</h4>*@
+                            <div class="form-group row">
+                                <label for="example-email-input" class="col-2 col-form-label">Customer Name</label>
+                                <div class="col-10">
+                                    <input class="form-control" type="text" value="@user.Customer.CustomerName" id="example-email-input">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-email-input" class="col-2 col-form-label">Email</label>
+                                <div class="col-10">
+                                    <input class="form-control" type="email" value="@user.Email" id="example-email-input">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-url-input" class="col-2 col-form-label">Status</label>
+                                <div class="col-10">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-purple dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">----<span class="caret"></span></button>
+                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                            <a class="dropdown-item" href="#">Active</a>
+                                            <a class="dropdown-item" href="#">Not Active</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-tel-input" class="col-2 col-form-label">Phone Number</label>
+                                <div class="col-10">
+                                    <input class="form-control" type="tel" value="@user.Customer.PhoneNumber" id="example-tel-input">
+                                </div>
+                            </div>
 
-            <div class="form-group row">
-                <label for="example-text-input" class="col-2 col-form-label">UserName</label>
-                <div class="col-10">
-                    <input class="form-control" type="text" value="" id="example-text-input">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="example-password-input" class="col-2 col-form-label">Password</label>
-                <div class="col-10">
-                    <input class="form-control" type="password" value="" id="example-password-input" readonly>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="example-email-input" class="col-2 col-form-label">Email</label>
-                <div class="col-10">
-                    <input class="form-control" type="email" value="bootstrap@example.com" id="example-email-input">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="example-text-input" class="col-2 col-form-label">Address</label>
-                <div class="col-10">
-                    <input class="form-control" type="text" ">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="example-text-input" class="col-2 col-form-label">Role</label>
-                <div class="col-10">
-                    <input class="form-control" type="text" value="" id="example-text-input">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="example-url-input" class="col-2 col-form-label">Status</label>
-                <div class="col-10">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-purple dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">----<span class="caret"></span></button>
-                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                            <a class="dropdown-item" href="#">Active</a>
-                            <a class="dropdown-item" href="#">Not Active</a>
+
+                            <div class="form-group row">
+                                <label for="example-datetime-local-input" class="col-2 col-form-label">Date Of Birth</label>
+                                <div class="col-10">
+                                    <input class="form-control" type="datetime-local" value="@(user.Customer.DateOfBirth.HasValue?user.Customer.DateOfBirth.Value.ToString("MM/dd/yyyy"):string.Empty)" id="example-datetime-local-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="example-tel-input" class="col-2 col-form-label">Phone Number</label>
-                <div class="col-10">
-                    <input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input">
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                Et et consectetur ipsum labore excepteur est proident excepteur ad velit occaecat qui minim occaecat veniam. Fugiat veniam incididunt anim aliqua enim pariatur veniam sunt est aute sit dolor anim. Velit non irure adipisicing aliqua ullamco irure incididunt irure non esse consectetur nostrud minim non minim occaecat. Amet duis do nisi duis veniam non est eiusmod tempor incididunt tempor dolor ipsum in qui sit. Exercitation mollit sit culpa nisi culpa non adipisicing reprehenderit do dolore. Duis reprehenderit occaecat anim ullamco ad duis occaecat ex.
+            </div>
+            <div class="tab-pane fade" id="nav-orders" role="tabpanel" aria-labelledby="nav-orders-tab">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box table-responsive">
+                            <h4 class="m-t-0 header-title"><b>List Order</b></h4><br/>
+                            <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-4">
+                                        <select name="filter_order" aria-controls="datatable" class="form-control form-control-sm" style="width: 50%;">
+                                            <option value="">Select...</option>
+                                            <option value="@OrderStatus.Pending">@OrderStatus.Pending</option>
+                                            <option value="@OrderStatus.Canceled">@OrderStatus.Canceled</option>
+                                            <option value="@OrderStatus.Confirmed">@OrderStatus.Confirmed</option>
+                                            <option value="@OrderStatus.Received">@OrderStatus.Received</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3 ">
+                                        <div class="form-group">
+                                            <div id="reportrange" class="form-control">
+                                                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                                <span id="filter-date"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-2  ">
+                                        <div class="range_inputs">
+                                            <button class="queryBtn btn btn-sm btn-custom" type="button">Query</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div id="datatable_filter" class="dataTables_filter">
+                                            <input style="width: 50%; position: relative" type="text" placeholder="Search..." class=" pull-right form-control" name="search-bar">
+                                            <i class="fa fa-search pull-right" style="position: absolute; right: 25px; top: 13px;">
+
+                                            </i>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr style="background-color: #2B3D51; color: white; text-align: center">
+                                                <th>Id</th>
+                                                <th>Customer Name</th>
+                                                <th>Phone Number</th>
+                                                <th>Address</th>
+                                                <th>Folder</th>
+                                                <th>Total Amount</th>
+                                                <th>Status</th>
+                                                <th>Order Date</th>
+                                                <th>Modified</th>
+                                                <th>Note</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="order-data"></tbody>
+                                        </table>
+
+                                        <div class="content_detail__pagination cdp" actpage="1">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
-            <div class="form-group row">
-                <label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
-                <div class="col-10">
-                    <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="example-date-input" class="col-2 col-form-label">Date</label>
-                <div class="col-10">
-                    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-                </div>
-            </div>
-
         </div>
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
     </div>
 </div>
+<div class="modal fade bs-example-modal-lg" id="modal-order-details" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 850px;text-align:center;margin-left:-150px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myLargeModalLabel">Order Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div id="body-modal-order-details" class="modal-body">
+
+                <!-- end row -->
+
+            </div> <!-- content -->
+        </div>
+    </div>
 </div>
 

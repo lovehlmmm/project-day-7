@@ -1,37 +1,45 @@
 ﻿
-
-
 $(document).ready(function () {
     String.prototype.format = function () {
         a = this;
         for (k in arguments) {
-            a = a.replace("{" + k + "}", arguments[k])
+            a = a.replace("{" + k + "}", arguments[k]);
         }
-        return a
+        return a;
     }
+    $('#form-new-group').validate({
+        rules: {
+            groupname: {
+                required: true
+            },
+            maxitem: {
+                required: true,
+                number: true,
+                min: 1
+            }
+        },
+        submitHandler: function (form) {
+            var name = $('input[name=groupname]').val();
+            var active = $('input[name=activegr]:checked').length > 0 ? 'active' : 'inactive';
+            var maxitem = parseInt($('input[name=maxitem]').val());
+            var type = parseInt($('#form-new-group').data('type'));
+            var id = $('input[name=groupid]').val();
+            var groupall = { GroupName: name, MaxItem: maxitem, Status: active };
 
-    $('.add-group').click(function () {
-        var name = $('input[name=groupname]').val();
-        var active = $('input[name=activegr]:checked').length > 0 ? 'active' : 'inactive';
-        var maxitem = parseInt($('input[name=maxitem]').val());
-        var type = parseInt($('#form-new-group').data('type'));
-        var id = $('input[name=groupid]').val();
-        var groupall = { GroupName: name, MaxItem: maxitem, Status: active };
-
-        if (type === 1) {
-            AddGroup(groupall);
-        } else {
-            UpdateGroup(groupall, id);
+            if (type === 1) {
+                AddGroup(groupall);
+            } else {
+                UpdateGroup(groupall, id);
+            }
+            return false;
         }
-        return false;
     })
-
     $('#showGroup').click(function () {
         GetModalGroup();
-            $('#modalGroup').modal('show');
-            OpenAddGroupModal();
-            OpenEditModal();
-            DeleteGroupClick();
+        $('#modalGroup').modal('show');
+        OpenAddGroupModal();
+        OpenEditModal();
+        DeleteGroupClick();
 
     });
 
@@ -41,24 +49,48 @@ $(document).ready(function () {
 
 
     GetData();
-    $('#form_new_update').submit(function () {
-        var name = $('input[name=name]').val();
-        var active = $('input[name=active]:checked').length > 0 ? 'active' : 'inactive';
-        var price = $('input[name=price]').val();
-        var id = $('input[name=id]').val();
-        var material = $('input[name=material]').val();
-        var a = $('#form_new_update').data('type');
-        var groupid = $('#groupselect').val();
-        var file = $('.img-file').prop('files')[0];
-        var size = { Name: name, Price: price, Status: active, Details: material, GroupId: groupid };
+    //validate form create and update material
+    $('#form_new_update').validate({
+        rules: {
+            name: {
+                required: true
+            },
+            price: {
+                number: true,
+                min: 0
+            },
+            material: {
+                required: true
+            }
+        },
+        messages: {
+            name: {
+                required: "Please enter material name"
+            },
+            material: {
+                required: "Please enter material"
+            }
+        },
+        submitHandler: function (form) {
+            var name = $('input[name=name]').val();
+            var active = $('input[name=active]:checked').length > 0 ? 'active' : 'inactive';
+            var price = $('input[name=price]').val();
+            var id = $('input[name=id]').val();
+            var material = $('input[name=material]').val();
+            var a = $('#form_new_update').data('type');
+            var groupid = $('#groupselect').val();
+            var file = $('.img-file').prop('files')[0];
+            var size = { Name: name, Price: price, Status: active, Details: material, GroupId: groupid };
 
-        if ($('#form_new_update').data('type') === '1') {
-            Add(size, file);
-        } else {
-            Update(size, id, file);
+            if ($('#form_new_update').data('type') === '1') {
+                Add(size, file);
+            } else {
+                Update(size, id, file);
+            }
+            return false;
         }
-        return false;
-    })
+    });
+
 
 });
 
@@ -89,15 +121,7 @@ $('#btnOpenModalAdd').click(function () {
     GetGroup();
     $('#new-modal').modal();
 });
-//$('#form_size').submit(function () {
-//    var size_name = $('input[name=size_name]').val();
-//    var size_active = $('input[name=size_active]:checked').length > 0 ? 'active' : 'inactive';
-//    var size = $('input[name=size]').val();
-//    var size_price = $('input[name=size_pricse]').val();
-//    var size = { SizeName: size_name, SizeDetails: size, SizePrice: size_price, Status: size_active }
 
-//    return false;
-//});
 
 function paging(page, index) {
     if (index === 'undefined') {
@@ -112,49 +136,7 @@ function paging(page, index) {
     return html;
 }
 
-$('#form_new_update2').validate({
-    rules: {
-        name: {
-            required: true,
-            minlength: 5,
-            maxlength: 20
-        },
-        material: {
-            required: true,
-            minlength: 5,
-            maxlength: 20
-        },
-        price: {
-            required: true,
-            number: true,
-            min: 1
-        }
-    },
-    submitHandler: function (form) { // for demo
-        var name = $('input[name=name]').val();
-        var active = $('input[name=active]:checked').length > 0 ? 'active' : 'inactive';
-        var price = $('input[name=price]').val();
-        var id = $('input[name=id]').val();
-        var material = $('input[name=material]').val();
-        var a = $('#form_new_update').data('type');
-        var groupid = $('#groupselect').val();
-        var size = { Name: name, Price: price, Status: active, Details: material, GroupId: groupid };
-        if ($('#form_new_update').data('type') === '1') {
-            Add(size);
-        } else {
-            Update(size, id);
-        }
-        return false;
-    },
-    messages: {
-        name: {
-            required: "Please enter material name"
-        },
-        material: {
-            required: "Please enter material"
-        }
-    }
-});
+
 function Update(data, id, file) {
     var materials = new FormData();
     materials.append('materials', JSON.stringify(data));
@@ -459,9 +441,11 @@ function GetModalGroup() {
         dataType: 'html',
         async: false,
         success: function (result) {
-            
-            $('#modalGroup .modal-body').html(result);
 
+            $('#modalGroup .modal-body').html(result);
+            OpenAddGroupModal();
+            OpenEditModal();
+            DeleteGroupClick();
             //clickNew();
         }
     });
@@ -479,7 +463,7 @@ function DeleteItemGroup(id) {
                     icon: "success",
                 });
                 GetModalGroup();
-             } else {
+            } else {
                 alert('fail');
             }
         }
@@ -513,56 +497,3 @@ function DeleteGroupClick() {
         DeleteGroup(id);
     })
 }
-
- 
-//function clickNew() {
-//    $('#newGroup').on('click', function () {
-
-//        var addgroup = $($('#modalGroup').clone());
-//        $(addgroup).attr('id', 'addgroupmodal');
-//        $(addgroup).find('.modal-body').html('');
-//        $(addgroup).css('display', 'none');
-//        console.log($(addgroup).prop('outerHTML'));
-//        $('body').append($(addgroup).prop('outerHTML'));
-//        $('#addgroupmodal').show();
-//    });
-//}
-//function GetModalAddGroup() {
-//    $.ajax({
-//        url: '/Material/GetModalAddGroup',
-//        contentType: 'application/html;charset=utf-8',
-//        type: 'get',
-//        async: false,
-//        dataType: 'html'
-//    }).success(function (result) {
-//        $('#newGroup').hide();
-//        $('#modalGroup h4').text("Add a new group")
-//        $('#modalGroup .modal-body').html(result);
-//        $('#form-new-group').validate({
-//            rules: {
-//                groupname: {
-//                    required: true
-//                }
-//            }, submitHandler: function (form) {
-//                var group = $('input[name=groupname]').val();
-//                var data = new FormData();
-//                data.append('address', address);
-//                $.ajax({
-//                    url: '/CheckOut/AddAddress',
-//                    type: 'POST',
-//                    data: data,
-//                    async: false,
-//                    processData: false,
-//                    contentType: false
-//                }).success(function (result) {
-//                    if (result.status) {
-//                        GetModalGroup();
-//                    }
-//                }).error(function (xhr, status) {
-//                });
-//                return false;  // blocks regular submit since you have ajax
-//            }
-//        })
-//    }).error(function (xhr, status) {
-//    });
-//}

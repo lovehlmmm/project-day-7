@@ -47,6 +47,9 @@ namespace WEB.Areas.Admin.Controllers
                 var pageSize = int.Parse(Request.QueryString["pageSize"]);
                 var filter = Request.QueryString["filter"];
                 var filterDate = Request.QueryString["date"];
+                long customerid = 0;
+                var filterCustomer = Request.QueryString["customer"];
+                long.TryParse(filterCustomer,out customerid);
                 long search = 0;
                 long.TryParse(Request.QueryString["search"], out search);
 
@@ -66,6 +69,11 @@ namespace WEB.Areas.Admin.Controllers
                     DateTime from = Convert.ToDateTime(date[0]).Date;
                     DateTime to = Convert.ToDateTime(date[1]).Date;
                     expression = expression.And(o => DbFunctions.TruncateTime(o.CreatedAt) >= from & DbFunctions.TruncateTime(o.CreatedAt) <= to);
+                }
+
+                if (customerid!=0)
+                {
+                    expression = expression.And(o => o.CustomerId.Value == customerid);
                 }
                 var list = await _orderService.GetAllAsync(pageNumber, pageSize, o => o.CreatedAt,
                     expression, o => o.CreatedAt);
