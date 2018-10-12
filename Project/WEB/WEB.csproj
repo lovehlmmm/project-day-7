@@ -2441,6 +2441,7 @@
     <Content Include="Assets\images\blog-wrapper.jpg" />
     <Content Include="Assets\images\comment1.jpg" />
     <Content Include="Assets\images\comment2.jpg" />
+    <Content Include="Assets\images\empty_cart_retina.png" />
     <Content Include="Assets\images\home-bg-slider-img1.jpg" />
     <Content Include="Assets\images\home-bg-slider-img2.jpg" />
     <Content Include="Assets\images\icons\favicon.ico" />
