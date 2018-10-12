@@ -21,9 +21,9 @@ $(document).ready(function () {
 function GetImage(url) {
     $('#image-details').attr('src', url);
     $('#imageModal').show();
-    $('.close').click(function () {
+    $('.close').click(function() {
         $('#imageModal').hide();
-    })
+    });
 };
 $('#btnOpenModalAdd').click(function () {
     $('#modal-order-details').modal();
@@ -33,9 +33,10 @@ function GetData() {
     var filter = $('select[name=filter_order]').val().trim();
     var search = $('input[name=search-bar]').val();
     var filterDate = $('#filter-date').text();
+    var customer = $('#id_customer').val();
     $('#loading').show();
     $.ajax({
-        url: '/Order/GetList?pageNumber=' + paginationPage + '&pageSize=10&filter=' + filter + '&search=' + search + '&date=' + filterDate,
+        url: '/Order/GetList?pageNumber=' + paginationPage + '&pageSize=10&filter=' + filter + '&search=' + search + '&date=' + filterDate + '&customer=' + customer ,
         type: 'GET',
         dataType: 'json',
         success: function (data) {

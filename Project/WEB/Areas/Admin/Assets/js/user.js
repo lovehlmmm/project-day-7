@@ -17,6 +17,7 @@ $(document).ready(function () {
     });
 
 });
+
 function GetData() {
     var paginationPage = parseInt($('.cdp').attr('actpage'), 10);
     var filter = $('select[name=filter_user]').val().trim();
@@ -91,7 +92,7 @@ function sizeRow(data) {
     html += '<td>' + created + '</td>';
     html += '<td>' + modified + '</td>'
     html += '<td style="text-align:center">' +
-        '<a href = "#" id = "edit-user" class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
+        '<a href = "user/details?username='+data.Username+'" id = "user-info" class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
         '<i class="ion-information-circled"></i>' +
         '</a>' +
         '<button id="delete_user" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>' +

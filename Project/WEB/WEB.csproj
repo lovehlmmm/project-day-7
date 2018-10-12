@@ -357,6 +357,7 @@
     <Content Include="Areas\Admin\Assets\js\setting.js" />
     <Content Include="Areas\Admin\Assets\js\sweetalert.min.js" />
     <Content Include="Areas\Admin\Assets\js\user.js" />
+    <Content Include="Areas\Admin\Assets\js\userdetails.js" />
     <Content Include="Areas\Admin\Assets\js\waves.js" />
     <Content Include="Areas\Admin\Assets\pages\chartjs.init.js" />
     <Content Include="Areas\Admin\Assets\pages\jquery.autocomplete.init.js" />

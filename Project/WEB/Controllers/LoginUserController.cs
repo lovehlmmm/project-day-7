@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Routing;
 using System.Web.Mvc;
@@ -33,7 +34,7 @@ namespace WEB.Controllers
             return View();
         }
 
-        public JsonResult CheckLogin(LoginUser loginUser, string url)
+        public async Task<JsonResult> CheckLogin(LoginUser loginUser, string url)
         {
             var message = "";
             var status = false;
@@ -60,9 +61,10 @@ namespace WEB.Controllers
                         UserSession userSession = new UserSession(checkUser.Username, checkUser.Role);
                         SessionHelper.SetSession(userSession, AppSettingConstant.LoginSessionCustomer);
                         SessionHelper.SetSession(userSession.Username, AppSettingConstant.NotifiSession);
+                        checkUser.LastOnline = DateTime.Now;
+                        await _userService.UpdateAsync(checkUser, checkUser.Username);
                         status = true;
                     }
-
                 }
                 else
                 {

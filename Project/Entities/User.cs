@@ -32,7 +32,8 @@ namespace Entities
         [Column("active_mail", TypeName = "varchar")]
         [StringLength(100)]
         public string ActiveMail { get; set; }
-
+        [Column("last_online")]
+        public DateTime? LastOnline { get; set; }      
         [Column("customer_id")]
         public long? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
