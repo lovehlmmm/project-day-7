@@ -1,0 +1,202 @@
+﻿@using Constants
+@using Helpers
+@using WEB.Models
+@using Entities
+@{ 
+    var grouphoto = ViewBag.GroupPhoto as List<Group>;
+}
+<!-- Service section
+================================================== -->
+<section id="service" class="parallax-section">
+    <div class="container">
+        <div class="row">
+            <!-- Section title
+           ================================================== -->
+            <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 wow bounceIn text-center">
+                <div class="section-title" style="margin-top: -45px;">
+                    <h1>Photo Print types</h1>
+                    <p>
+                        Choose a variety of sizes and materials for your prints
+                        .
+                    </p>
+                </div>
+            </div>
+            @foreach (var item in grouphoto)
+            {
+                <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                    <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                       data-image="/Images/Group/@item.Image"
+                       data-target="#image-gallery">
+                        <img class="img-thumbnail"
+                             src="/Images/Group/@item.Image"
+                             alt="Another alt text">
+                    </a>
+                    <div class="tile-title">@item.GroupName</div>
+                    <ul class="tiles-links" style="list-style:none;">
+                        <li>
+                            <a class="color-01a" href="/products?id=@item.Id">3x4" (7.62x10.16cm)</a>
+                        </li>
+                        <li>
+                            <a class="color-01a" href="/products?id=@item.Id">4x6" (10.16x15.24cm)</a>
+                        </li>
+                        <li>
+                            <a class="color-01a" href="/products?id=@item.Id">6x9" (15.24x22.86cm)</a>
+                        </li>
+                        <li>
+                            <a class="color-01a" href="/products?id=@item.Id">View All</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                   data-image="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xsquare-prints-470x470-uk-20180718.jpg.pagespeed.ic.uxV6J2DQN-.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                   data-target="#image-gallery">
+                    <img class="img-thumbnail"
+                         src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xsquare-prints-470x470-uk-20180718.jpg.pagespeed.ic.uxV6J2DQN-.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                         alt="Another alt text">
+                </a>
+                <div class="tile-title">New Products Prints</div>
+                <ul class="tiles-links" style="list-style:none;">
+
+                    <li>
+                        <a class="color-01a" href="/products?id=2">8x6" (20x15cm)</a>
+                    </li>
+
+                    <li>
+                        <a class="color-01a" href="/products?id=2">View All</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                   data-image="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xFramed-prints-470x470-uk-20180709.jpg.pagespeed.ic.5T0DI0LXra.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                   data-target="#image-gallery">
+                    <img class="img-thumbnail"
+                         src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xFramed-prints-470x470-uk-20180709.jpg.pagespeed.ic.5T0DI0LXra.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                         alt="Another alt text">
+                </a>
+                <div class="tile-title">Hots Products Prints</div>
+                <ul class="tiles-links" style="list-style:none;">
+                    <li>
+                        <a class="color-01a" href="/products">12x8" (30x20cm)</a>
+                    </li>
+                    <li>
+                        <a class="color-01a" href="/products">10x8" (25x20cm)</a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
+                   data-image="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xMore-470x470-uk-20180709.jpg.pagespeed.ic.KLZvu_aShm.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                   data-target="#image-gallery">
+                    <img class="img-thumbnail"
+                         src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xMore-470x470-uk-20180709.jpg.pagespeed.ic.KLZvu_aShm.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                         alt="Another alt text">
+                </a>
+                <div class="tile-title">Poster Prints</div>
+                <ul class="tiles-links" style="list-style:none;">
+                    <li>
+                        <a class="color-01a" href="/products">12x8" (30x20cm)</a>
+                    </li>
+                    <li>
+                        <a class="color-01a" href="/products">10x8" (25x20cm)</a>
+                    </li>
+                    <li>
+                        <a class="color-01a" href="/products">8x6" (20x15cm)</a>
+                    </li>
+                    <li>
+                        <a class="color-01a" href="/products">View All</a>
+                    </li>
+                </ul>
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
+                   data-image=https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xlarge-prints-470x470-uk-20180709.jpg.pagespeed.ic.GzqlTFDKw6.jpg?auto =compress&cs =tinysrgb&dpr =2&h =750&w =1260"
+                   data-target="#image-gallery">
+                    <img class="img-thumbnail"
+                         src="https://prd-static-default-1.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xlarge-prints-470x470-uk-20180709.jpg.pagespeed.ic.GzqlTFDKw6.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                         alt="Another alt text">
+                </a>
+                <div class="tile-title">Collage Prints</div>
+                <ul class="tiles-links" style="list-style:none;">
+                    <li>
+                        <a class="color-01a" href="/products">12x8" (30x20cm)</a>
+                    </li>
+                    <li>
+                        <a class="color-01a" href="/products">10x8" (25x20cm)</a>
+                    </li>
+                    <li>
+                        <a class="color-01a" href="/products">8x6" (20x15cm)</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
+                   data-image="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xcollage-prints-470x470-uk-20180709.jpg.pagespeed.ic.ZNzheQFk9_.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                   data-target="#image-gallery">
+                    <img class="img-thumbnail"
+                         src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xcollage-prints-470x470-uk-20180709.jpg.pagespeed.ic.ZNzheQFk9_.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                         alt="Another alt text">
+                </a>
+                <div class="tile-title">Wallet  Prints</div>
+                <ul class="tiles-links" style="list-style:none;">
+                    <li>
+                        <a class="color-01a" href="/products">12x8" (30x20cm)</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
+                   data-image="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xposter-prints-470x470-uk-20180708.jpg.pagespeed.ic.b4T5LlWZLS.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                   data-target="#image-gallery">
+                    <img class="img-thumbnail"
+                         src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xposter-prints-470x470-uk-20180708.jpg.pagespeed.ic.b4T5LlWZLS.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                         alt="Another alt text">
+                </a>
+                <div class="tile-title">Framed  Prints</div>
+                <ul class="tiles-links" style="list-style:none;">
+                    <li>
+                        <a class="color-01a" href="/products">12x8" (30x20cm)</a>
+                    </li>
+
+                    <li>
+                        <a class="color-01a" href="/products">View All</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="Im so nice"
+                   data-image="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xwallet-prints-470x470-uk-20180708.jpg.pagespeed.ic.G2E4kYRbKZ.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                   data-target="#image-gallery">
+                    <img class="img-thumbnail"
+                         src="https://prd-static-default-2.sf-cdn.com/resources/images/store/2018/global/470x470/EMEA/UK/prints/xwallet-prints-470x470-uk-20180708.jpg.pagespeed.ic.G2E4kYRbKZ.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                         alt="Another alt text">
+                </a>
+                <div class="tile-title">More from Home Décor</div>
+                <ul class="tiles-links" style="list-style:none;margin:0px;">
+                    <li>
+                        <a class="color-01a" href="/products">12x8" (30x20cm)</a>
+                    </li>
+                    <li>
+                        <a class="color-01a" href="/products">10x8" (25x20cm)</a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+

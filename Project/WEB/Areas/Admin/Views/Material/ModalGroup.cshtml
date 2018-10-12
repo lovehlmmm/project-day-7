@@ -11,8 +11,8 @@
             <th>Group Name</th>
             <th>Max Item</th>
             <th>Status</th>
-            <th>Created At</th>
-            <th>Modified At</th>
+            <th>Image</th>
+            <th>Display</th>
             <th></th>
 
         </tr>
@@ -26,8 +26,8 @@
                 <td>@item.GroupName</td>
                 <td>@item.MaxItem</td>
                 <td>@item.Status</td>
-                <td>@item.CreatedAt</td>
-                <td>@item.ModifiedAt</td>
+                <td><a href="#" onclick="GetImage('/Images/Group/@item.Image')">@item.Image</a></td>
+                <td>@item.Display</td>
                 <td style="text-align:center">
                     <button id="edit_group" data-id="@item.Id"  class="btn waves-effect waves-light btn-warning edit_group" style="padding:5px"> <i class="fa fa-edit"></i></button>
                     <button id="delete_group" class="btn waves-effect waves-light btn-danger disabled delete_group" style="padding:5px" data-id="@item.Id"><i class="fa fa-remove delete_group"></i> </button>

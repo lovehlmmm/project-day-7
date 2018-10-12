@@ -224,7 +224,7 @@ namespace WEB.Areas.Admin.Controllers
         }
 
 
-        public async Task<ActionResult> UpdateGroup(string group , int id)
+        public async Task<ActionResult> UpdateGroup(string group , int id , HttpPostedFileBase groupimg)
         {
             try
             {
@@ -234,6 +234,22 @@ namespace WEB.Areas.Admin.Controllers
                 {     
                     checkGroup.GroupName = groupD.GroupName;
                     checkGroup.MaxItem = groupD.MaxItem;
+                    if (!System.IO.Directory.Exists(Server.MapPath("~/Images/Group")))
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath("~/Images/Group"));
+                    }
+                    if (groupimg != null)
+                    {
+                        string pic = System.IO.Path.GetFileName(groupimg.FileName);
+                        string path = System.IO.Path.Combine(
+                                               Server.MapPath("~/Images/Group"), pic);
+                        // file is uploaded
+                        groupimg.SaveAs(path);
+                        checkGroup.Image = pic;
+                    }
+
+                    checkGroup.Display = groupD.Display;
+
                     checkGroup.ModifiedAt = DateTime.Now;
                     checkGroup.Status = groupD.Status;
                     var result = await _groupService.UpdateAsync(checkGroup, id);
@@ -251,7 +267,7 @@ namespace WEB.Areas.Admin.Controllers
 
         }
 
-        public async Task<JsonResult> NewGroup(string group)
+        public async Task<JsonResult> NewGroup(string group , HttpPostedFileBase groupimg)
         {
 
             try
@@ -262,6 +278,21 @@ namespace WEB.Areas.Admin.Controllers
                     var checkGroup = new Group();
                     checkGroup.GroupName = groupD.GroupName;
                     checkGroup.MaxItem = groupD.MaxItem;
+                    if (!System.IO.Directory.Exists(Server.MapPath("~/Images/Group")))
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath("~/Images/Group"));
+                    }
+                    if (groupimg != null)
+                    {
+                        string pic = System.IO.Path.GetFileName(groupimg.FileName);
+                        string path = System.IO.Path.Combine(
+                                               Server.MapPath("~/Images/Group"), pic);
+                        // file is uploaded
+                        groupimg.SaveAs(path);
+                        checkGroup.Image = pic;
+                    }
+                    checkGroup.Display = groupD.Display;
+
                     checkGroup.Status = groupD.Status;
                     checkGroup.CreatedAt = DateTime.Now;
 

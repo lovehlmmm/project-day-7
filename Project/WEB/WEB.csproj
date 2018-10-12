@@ -3148,6 +3148,7 @@
     <Content Include="Scripts\Plugin\Lobibox\sounds\sound6.ogg" />
     <Content Include="Views\RegisterUser\ConfirmEmail.cshtml" />
     <Content Include="Views\ProductDetails\Index.cshtml" />
+    <Content Include="Views\Home\groupphoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

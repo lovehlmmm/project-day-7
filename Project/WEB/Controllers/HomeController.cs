@@ -1,4 +1,5 @@
 ﻿using Constants;
+using Entities;
 using Helpers;
 using Services;
 using System;
@@ -12,10 +13,14 @@ namespace WEB.Controllers
     public class HomeController : Controller
     {
         private readonly IUserService _userService;
-        public HomeController(IUserService userService)
+        private readonly IBaseService<Group> _groupService;
+
+        public HomeController(IUserService userService , IBaseService<Group> groupService)
+
         {
             _userService = userService;
-        }
+            _groupService = groupService;
+    }
         public ActionResult Index()
         {
             UserSession userSession = SessionHelper.GetSession(AppSettingConstant.LoginSessionCustomer) as UserSession;
@@ -38,6 +43,12 @@ namespace WEB.Controllers
         public void ReadNotified(long id)
         {
 
+        }
+        public ActionResult GetGroupPhoto()
+        {
+            var groupphoto = _groupService.FindAll(g => g.Display == true & g.Status == Status.Active).ToList();
+            ViewBag.GroupPhoto = groupphoto;
+             return PartialView("~/Views/Home/groupphoto.cshtml");
         }
     }
 }

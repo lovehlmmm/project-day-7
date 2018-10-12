@@ -19,6 +19,10 @@ namespace Entities
         public string GroupName { get; set; }
         [Column("max_item")]
         public int MaxItem { get; set; }
-
+        [StringLength(100)]
+        [Column("image")]
+        public string Image { get; set; }
+        [Column("display")]
+        public bool? Display { get; set; }
     }
 }

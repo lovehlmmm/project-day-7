@@ -407,12 +407,12 @@
     <script>
         $(document).ready(function () {
             String.prototype.format = function () {
-                a = this;
-                for (k in arguments) {
-                    a = a.replace("{" + k + "}", arguments[k])
-                }
-                return a
-            }
+        var a = this;
+        for (var k in arguments) {
+            a = a.replace(new RegExp("\\{" + k + "\\}", 'g'), arguments[k]);
+        }
+        return a
+    }
             function setTotalNotification(noti, count) {
                 Lobibox.notify(noti.NotificationType, {
                     img: '/Areas/Admin/Assets/images/users/avatar-4.jpg',

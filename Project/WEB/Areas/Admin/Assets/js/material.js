@@ -24,12 +24,15 @@ $(document).ready(function () {
             var maxitem = parseInt($('input[name=maxitem]').val());
             var type = parseInt($('#form-new-group').data('type'));
             var id = $('input[name=groupid]').val();
-            var groupall = { GroupName: name, MaxItem: maxitem, Status: active };
+            var file2 = $('.img-filegr').prop('files')[0];
+            var display = $('input[name=display]:checked').length > 0 ? true : false;
+
+            var groupall = { GroupName: name, MaxItem: maxitem, Status: active, Display: display };
 
             if (type === 1) {
-                AddGroup(groupall);
+                AddGroup(groupall,file2);
             } else {
-                UpdateGroup(groupall, id);
+                UpdateGroup(groupall, id,file2);
             }
             return false;
         }
@@ -105,6 +108,7 @@ function OpenAddGroupModal() {
 
 function OpenEditModal() {
     $('.edit_group').click(function () {
+        ClearFormGroup();
         $('#form-new-group').data('type', '2');
         var id = $(this).data('id');
         GetDataEditGroup(id);
@@ -174,7 +178,8 @@ function ClearFormGroup() {
     $('input[name=groupname]').val("");
     $('input[name=activegr]').prop('checked', false);
     $('input[name=maxitem]').val("");
-
+    $(".img-filegr").val('');
+    $('input[name=display]').prop('checked', false);
 }
 function DataToForm(data) {
     var status = true;
@@ -308,7 +313,7 @@ function sizeRow(data) {
     html += ('<td>' + data.Name + '</td>');
     html += ('<td>' + data.Details + '</td>');
     html += ('<td>' + data.Price + '</td>');
-    html += ('<td>' + data.Image + '</td>');
+    html += ('<td><a href="#" onclick="GetImage('+'\'/Images/Material/'+data.Image+'\')">'+data.Image+'</a></td>');
     html += ('<td>' + data.Group.GroupName + '</td>');
     html += ('<td>' + data.Status + '</td>');
     html += ('<td>' + created + '</td>');
@@ -363,10 +368,16 @@ function DataToFormGroup(data) {
     if (data.Status !== 'active') {
         status = false;
     }
+    var display = true;
+    if (data.Display !== true) {
+        display = false;
+    }
     $('input[name=groupname]').val(data.GroupName);
     $('input[name=activegr]').prop('checked', status);
     $('input[name=maxitem]').val(data.MaxItem);
     $('input[name=groupid]').val(data.Id);
+    $('input[name=display]').prop('checked', display);
+
 }
 
 function GetDataEditGroup(id) {
@@ -374,6 +385,7 @@ function GetDataEditGroup(id) {
         url: '/Material/GetDataGroup/' + id,
         type: 'GET',
         dataType: 'json',
+        async: false,
         success: function (response) {
             if (response.status) {
                 DataToFormGroup(response.data);
@@ -385,10 +397,11 @@ function GetDataEditGroup(id) {
     });
 }
 
-function UpdateGroup(group, id) {
+function UpdateGroup(group, id,file2) {
     var data = new FormData();
     data.append('group', JSON.stringify(group));
     data.append('id', id);
+    data.append('groupimg', file2);
     $.ajax({
         url: '/Material/UpdateGroup',
         type: 'POST',
@@ -409,9 +422,11 @@ function UpdateGroup(group, id) {
 }
 
 
-function AddGroup(group) {
+function AddGroup(group ,file2) {
     var data = new FormData();
     data.append('group', JSON.stringify(group));
+    data.append('groupimg', file2);
+
     $.ajax({
         url: '/Material/NewGroup',
         type: 'POST',
@@ -497,3 +512,12 @@ function DeleteGroupClick() {
         DeleteGroup(id);
     })
 }
+
+function GetImage(url) {
+    console.log(123)
+    $('#image-details').attr('src', url);
+    $('#imageModal').show();
+    $('.close').click(function () {
+        $('#imageModal').hide();
+    });
+};
