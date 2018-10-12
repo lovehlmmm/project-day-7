@@ -2433,6 +2433,7 @@
     <Content Include="Assets\images\ajax-loader.gif" />
     <Content Include="Assets\images\bg11.jpg" />
     <Content Include="Assets\images\bg2.jpg" />
+    <Content Include="Assets\images\bgnew.png" />
     <Content Include="Assets\images\bgxx.jpg" />
     <Content Include="Assets\images\blog-author.jpg" />
     <Content Include="Assets\images\blog-thumb1.jpg" />

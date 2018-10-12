@@ -95,7 +95,7 @@ function sizeRow(data) {
         '<a href = "user/details?username='+data.Username+'" id = "user-info" class="btn waves-effect waves-light btn-warning" style = "padding:5px" >' +
         '<i class="ion-information-circled"></i>' +
         '</a>' +
-        '<button id="delete_user" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>' +
+        '<button id="delete_user"  data-id = "' + data.Username + '" onclick="Delete(\'' + data.Username + '\')" class="btn waves-effect waves-light btn-danger disabled" style="padding:5px"> <i class="fa fa-remove"></i> </button>' +
         '</td>';
     html += '</tr>';
     return html;
@@ -133,4 +133,39 @@ function ChangeStatus() {
                 }
             });
     });
+}
+
+function DeleteItem(id) {
+    $.ajax({
+        url: '/User/Delete?username=' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            if (response.status) {
+                swal("Poof! Has been deleted!", {
+                    icon: "success",
+                });
+                GetData();
+            } else {
+                alert('fail');
+            }
+        }
+    });
+}
+
+function Delete(id) {
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will be able to recover at history!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                DeleteItem(id);
+            } else {
+                swal("You canceled delete action!");
+            }
+        });
 }

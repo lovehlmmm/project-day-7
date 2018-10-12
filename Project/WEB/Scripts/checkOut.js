@@ -15,7 +15,16 @@ $('#saveChooseAddress').click(function () {
 
 $('#addphone').click(function () {
     var addphone = $('input[name=txtaddphone]').val();
-    $('.showPhone').text(addphone);
+    var phoneno = /(09|01[2|6|8|9])+([0-9]{8})\b/g
+    if (addphone.match(phoneno)) {
+        $('.showPhone').text(addphone);
+        return true;
+    }
+    else {
+        swal("Error", "Wrong number of phone!", "error");
+        return false;
+    }
+   
 
 });
 $(document).ready(function () {
