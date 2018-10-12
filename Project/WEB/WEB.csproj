@@ -281,7 +281,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ModifiedAppSetting.cs" />
     <Compile Include="Helpers\SendEmail.cs" />
     <Compile Include="Helpers\Validate.cs" />
     <Compile Include="Helpers\ViewToString.cs" />
