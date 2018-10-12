@@ -16,7 +16,7 @@ namespace Entities
         
         [Column("customer_id")]
         public long CustomerId { get; set; }
-        [StringLength(20)]
+        [StringLength(100)]
         [Column("credit_number")]
         public string CreditNumber { get; set; }
         [StringLength(5)]
