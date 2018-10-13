@@ -161,7 +161,6 @@ namespace WEB.Controllers
                 throw;
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
-
         }
         public async System.Threading.Tasks.Task<JsonResult> AddCreditCard (string creditCard)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
@@ -75,8 +76,8 @@ namespace WEB.Areas.Admin.Controllers
                 {
                     expression = expression.And(o => o.CustomerId.Value == customerid);
                 }
-                var list = await _orderService.GetAllAsync(pageNumber, pageSize, o => o.CreatedAt,
-                    expression, o => o.CreatedAt);
+                var list = await _orderService.GetAllAsync(pageNumber, pageSize, o => GetStatusOrder(o.Status),
+                    expression);
                 if (search > 0)
                 {
                     expression = expression.And(o => o.OrderId == search);
@@ -84,7 +85,7 @@ namespace WEB.Areas.Admin.Controllers
                 }
                 var total = _orderService.FindAll(expression).Count();
                 var totalPage = (int)Math.Ceiling((double)(total / pageSize)) + 1;
-                var list2 = list.OrderBy(o => GetStatusOrder(o.Status)).Select(o => new
+                var list2 = list.OrderByDescending(o=>o.CreatedAt).OrderBy(o => GetStatusOrder(o.Status)).Select(o => new
                 {
                     o.OrderId,
                     o.Customer.CustomerName,
@@ -130,17 +131,14 @@ namespace WEB.Areas.Admin.Controllers
                 case OrderStatus.Pending:
                     result= 1;
                     break;
-                case OrderStatus.Processing:
-                    result = 2;
-                    break;
                 case OrderStatus.Confirmed:
-                    result= 3;
+                    result= 2;
                     break;
                 case OrderStatus.Canceled:
-                    result = 5;
+                    result = 4;
                     break;
                 case OrderStatus.Received:
-                    result= 4;
+                    result= 3;
                     break;
             }
             return result;
@@ -167,12 +165,13 @@ namespace WEB.Areas.Admin.Controllers
                         {
                             
                             var user = await _userService.FindAsync(u => u.CustomerId == updated.CustomerId);
-                            if (updated.Status == OrderStatus.Canceled)
+                            if (updated.Status == OrderStatus.Canceled|updated.Status==OrderStatus.Received)
                             {
-                                string path = string.Format("~/WEB/Images/Upload/{0}",updated.FolderImage);
-                                if (System.IO.File.Exists(path))
+                                string path = string.Format("~/Images/Upload/{0}", updated.FolderImage);
+                                var fullPath = Server.MapPath(path);
+                                if (System.IO.Directory.Exists(fullPath))
                                 {
-                                    System.IO.File.Delete(path);
+                                    System.IO.Directory.Delete(fullPath,true);
                                 }
                             }
                             if (updated.Status == OrderStatus.Received)
