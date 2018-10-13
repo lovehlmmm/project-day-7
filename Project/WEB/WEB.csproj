@@ -2477,6 +2477,7 @@
     <Content Include="Assets\js\nivo-lightbox.min.js" />
     <Content Include="Assets\js\owl.carousel.min.js" />
     <Content Include="Assets\js\smoothscroll.js" />
+    <Content Include="Assets\js\sweetalert.min.js" />
     <Content Include="Assets\js\webscript.js" />
     <Content Include="Assets\js\wow.min.js" />
     <Content Include="Assets\Scripts\DatetimeExtension.js" />

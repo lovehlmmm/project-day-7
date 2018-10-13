@@ -57,7 +57,7 @@ $(document).ready(function () {
                 if (response.status) {
                     $('#showCardNum').val('**** **** ****'+response.data.CreditNumber);
                     $('#showCardExpire').val(response.data.Expire);
-                    $('#showCardCVC').val(response.data.CVC);
+                    //$('#showCardCVC').val(response.data.CVC);
                     $('#creditModal').modal();
                 } else {
                     alert('faill');

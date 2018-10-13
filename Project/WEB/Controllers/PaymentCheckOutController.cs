@@ -24,9 +24,11 @@ namespace WEB.Controllers
         private readonly IBaseService<OrderDetail> _orderDetailsService;
         private readonly IBaseService<Order> _orderService;
         private readonly IOrderService _orderServiceTrans;
+        private readonly IBaseService<CreditCard> _creditcardService;
 
-        public PaymentCheckOutController(IOrderService orderServiceTrans, IBaseService<Product> productRepository, IBaseService<Address> addressRepository, IBaseService<User> userRepository, IBankService bankService, IBaseService<Order> orderService, IBaseService<OrderDetail> orderDetailsService)
+        public PaymentCheckOutController(IOrderService orderServiceTrans, IBaseService<Product> productRepository, IBaseService<Address> addressRepository, IBaseService<User> userRepository, IBankService bankService, IBaseService<Order> orderService, IBaseService<OrderDetail> orderDetailsService , IBaseService<CreditCard> creditcardService)
         {
+            _creditcardService = creditcardService;
             _productRepository = productRepository;
             _addressRepository = addressRepository;
             _userRepository = userRepository;
@@ -232,6 +234,18 @@ namespace WEB.Controllers
             }
 
             return Json(new { status = false, message }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckCVC(string cvc , int id)
+        {
+            var checkcvc = _creditcardService.Find(c => c.CreditCardId == id && c.CVC == cvc.Trim());
+            if (checkcvc != null)
+            {
+
+                return Json(new { status = true  }, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
 
     }

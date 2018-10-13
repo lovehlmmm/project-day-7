@@ -28,11 +28,13 @@ function GetModalCredit() {
     }).success(function (result) {
         $('#modalCredit .modal-body').html(result);
         $('#modalCredit').modal();
+         CheckCVC(); 
         $('#saveChooseCredit').click(function () {
             var checkId = $('input[name=chooseCredit]:checked').data('id');
             if (checkId === undefined) {
                 return;
             }
+            
             $.ajax({
                 url: '/PaymentCheckOut/GetCredit?id=' + checkId,
                 type: 'GET',
@@ -186,7 +188,7 @@ function GetCredit(data) {
             GetModalCredit();
         });
         clickCheckOut();
-        $('.creditDetails').text(data.CreditNumber);
+        $('.creditDetails').text('**** **** **** ' + data.CreditNumber);
         $('.creditDetails').data('id', data.CreditCardId);
         $('.creditEx').text(data.Expire);
     }).error(function (xhr, status) {
@@ -239,4 +241,10 @@ function ConfirmPayment(id) {
         }
     }).error(function (xhr, status) {
     });
+}
+
+function CheckCVC() {
+    $('.chooseCredit').click(function () {
+        $('.modalcvc').modal();
+    })
 }

@@ -128,6 +128,7 @@ namespace WEB.Controllers
                 
                 if (credit!=null)
                 {
+                    credit.CVC = null;
                     credit.CreditNumber = credit.CreditNumber = AESEncrytDecry.DecryptStringAES(credit.CreditNumber).Substring(12, 4);
                     return Json(new { status = true,data = credit}, JsonRequestBehavior.AllowGet);
                 }
@@ -183,7 +184,7 @@ namespace WEB.Controllers
                             var added = await _creditcardService.AddAsync(card);
                             if (added != null)
                             {
-                                return Json(new { status = true,card = new { added.CreditNumber,added.CreditCardId,added.Expire}}, JsonRequestBehavior.AllowGet);
+                                return Json(new { status = true,card = new { CreditNumber = AESEncrytDecry.DecryptStringAES(added.CreditNumber).Substring(12,4),added.CreditCardId,added.Expire}}, JsonRequestBehavior.AllowGet);
                             }
                         
                     }
