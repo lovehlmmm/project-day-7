@@ -28,13 +28,11 @@ function GetModalCredit() {
     }).success(function (result) {
         $('#modalCredit .modal-body').html(result);
         $('#modalCredit').modal();
-         CheckCVC(); 
         $('#saveChooseCredit').click(function () {
             var checkId = $('input[name=chooseCredit]:checked').data('id');
             if (checkId === undefined) {
                 return;
             }
-            
             $.ajax({
                 url: '/PaymentCheckOut/GetCredit?id=' + checkId,
                 type: 'GET',
@@ -216,7 +214,6 @@ function clickCheckOut() {
 
 }
 
-
 function ConfirmPayment(id) {
     var data = new FormData();
     data.append('id', id);
@@ -243,8 +240,3 @@ function ConfirmPayment(id) {
     });
 }
 
-function CheckCVC() {
-    $('.chooseCredit').click(function () {
-        $('.modalcvc').modal();
-    })
-}

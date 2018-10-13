@@ -236,17 +236,17 @@ namespace WEB.Controllers
             return Json(new { status = false, message }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult CheckCVC(string cvc , int id)
-        {
-            var checkcvc = _creditcardService.Find(c => c.CreditCardId == id && c.CVC == cvc.Trim());
-            if (checkcvc != null)
-            {
+        //public JsonResult CheckCVC(string cvc , int id)
+        //{
+        //    var checkcvc = _creditcardService.Find(c => c.CreditCardId == id && c.CVC == cvc.Trim());
+        //    if (checkcvc != null)
+        //    {
 
-                return Json(new { status = true  }, JsonRequestBehavior.AllowGet);
+        //        return Json(new { status = true  }, JsonRequestBehavior.AllowGet);
 
-            }
-            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
-        }
+        //    }
+        //    return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        //}
 
     }
 }
