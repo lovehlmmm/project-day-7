@@ -55,9 +55,16 @@ namespace WEB.Controllers
                     if (order != null)
                     {
                         order.Status = OrderStatus.Canceled;
+
                         var result = await _orderService.UpdateAsync(order,order.OrderId);
                         if (result!=null)
                         {
+                            string path = string.Format("~/Images/Upload/{0}", result.FolderImage);
+                            var fullPath = Server.MapPath(path);
+                            if (System.IO.Directory.Exists(fullPath))
+                            {
+                                System.IO.Directory.Delete(fullPath, true);
+                            }
                             return Json(new { status = true, url = "/details/" + order.OrderId },JsonRequestBehavior.AllowGet);
 
                         }

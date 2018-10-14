@@ -162,7 +162,7 @@
                                         <div class="form-group row">
                                             <label class="col-2 col-form-label">Credit Card</label>
                                             <div class="col-10">
-                                                <input class="form-control showcredit" type="text" data-id="@item.CreditCardId" value="**** **** **** @item.CreditNumber.Substring(12,4).ToString()" id="" readonly>
+                                                <input class="form-control showcredit" type="text" data-id="@item.CreditCardId" value="**** **** **** @AESEncrytDecry.DecryptStringAES(item.CreditNumber).Substring(12,4).ToString()" id="" readonly>
                                             </div>
                                         </div>
                                     }
@@ -299,13 +299,13 @@
                         <input style="width: 20%" type="text" id="showCardExpire" value="" size="2" placeholder="MM/YY" class="form-control" tabindex="8" readonly>
                     </div>
                 </div>
-                <div class="margin-bottom-10">
+                @*<div class="margin-bottom-10">
                     <label class="control-label requiredField">CVC<span class="asteriskField">*</span></label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="icon-key"></i></span>
                         <input id="showCardCVC" style="width: 20%" type="text" value="" size="4" placeholder="CVC Code (3-4 digits)" class="form-control" data-stripe="cvc" tabindex="10" readonly>
                     </div>
-                </div>
+                </div>*@
                 <div class="margin-bottom-10">
                     <span class="payment-errors reg_error"></span><br>
                 </div>
